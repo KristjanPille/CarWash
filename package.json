@@ -1,0 +1,15 @@
+{
+  "name": "icd0009-2019s",
+  "version": "0.0.1",
+  "description": "JS Basic HomeWork",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.cs.ttu.ee/krpill/icd0009-2019s.git"
+  },
+  "author": "Kristjan",
+  "license": "ISC"
+}

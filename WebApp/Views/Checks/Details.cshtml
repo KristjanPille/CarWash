@@ -1,0 +1,60 @@
+@model Domain.Check
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Check</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Person)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Person.personID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Wash)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Wash.washID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.dateTimeCheck)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.dateTimeCheck)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.amountExcludeVat)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.amountExcludeVat)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.amountWithVat)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.amountWithVat)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.vat)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.vat)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.comment)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.comment)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.checkID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

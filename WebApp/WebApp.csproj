@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <UserSecretsId>aspnet-WebApp-D0B32472-596F-42D7-BCE1-C14DBD86E142</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1" />
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Domain\Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Campaign\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Campaign\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Campaign\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Campaign\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Campaign\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Check\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Check\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Check\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Check\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Check\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\ModelMark\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\ModelMark\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\ModelMark\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\ModelMark\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\ModelMark\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PaymentMethod\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PaymentMethod\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PaymentMethod\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PaymentMethod\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PaymentMethod\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Service\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Service\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Service\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Service\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Service\Index.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Migrations" />
+    </ItemGroup>
+
+</Project>

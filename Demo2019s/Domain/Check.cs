@@ -4,18 +4,18 @@ namespace Domain
 {
     public class Check
     {
-        public int checkID { get; set; }
+        public int CheckId { get; set; }
         
-        public int personID { get; set; }
-        public Person Person { get; set; }
+        public int PersonId { get; set; }
+        public Person? Person { get; set; }
 
-        public int washID { get; set; }
-        public Wash Wash { get; set; }
+        public int WashId { get; set; }
+        public Wash? Wash { get; set; }
         
-        public DateTime dateTimeCheck { get; set; }
-        public int amountExcludeVat { get; set; }
-        public int amountWithVat { get; set; }
-        public int vat { get; set; }
-        public string comment { get; set; }
+        public DateTime DateTimeCheck { get; set; }
+        public int AmountExcludeVat { get; set; }
+        public int AmountWithVat { get; set; }
+        public int Vat { get; set; }
+        public string Comment { get; set; }  = default!;
     }
 }

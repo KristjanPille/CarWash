@@ -4,8 +4,8 @@ namespace Domain
 {
     public class PersonType
     {
-        public int personTypeID { get; set; }
+        public int PersonTypeId { get; set; }
         [MaxLength(64)]
-        public string name { get; set; }
+        public string Name { get; set; } = default!;
     }
 }

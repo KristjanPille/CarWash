@@ -1,19 +1,21 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using DAL.Base;
 
 namespace Domain
 {
-    public class Person
+    public class Person: DomainEntityMetadata
     {
-        public int personID { get; set; }
+        public int PersonId { get; set; }
         [MaxLength(64)]
-        public string name { get; set; }
+        [MinLength(1)]
+        public string Name { get; set; } = default!;
         
-        public int personTypeID { get; set; }
-        public PersonType PersonType { get; set; }
+        public int PersonTypeId { get; set; }
+        public PersonType? PersonType { get; set; }
 
         [MaxLength(64)]
-        public string email { get; set; }
-        public int phoneNr { get; set; }
+        public string Email { get; set; } = default!;
+        public int PhoneNr { get; set; }
     }
 }

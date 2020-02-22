@@ -2,9 +2,9 @@
 {
     public class ModelMark
     {
-        public int ModelMarkID { get; set; }
-        
-        public string mark { get; set; }
-        public string model { get; set; }
+        public int ModelMarkId { get; set; }
+
+        public string Mark { get; set; } = default!;
+        public string Model { get; set; } = default!;
     }
 }

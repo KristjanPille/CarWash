@@ -5,11 +5,11 @@ namespace Domain
 {
     public class Service
     {
-        public int serviceID { get; set; }
+        public int ServiceId { get; set; }
         [MaxLength(64)]
-        public string nameOfService { get; set; }
+        public string NameOfService { get; set; } = default!;
         
-        public int campaignID { get; set; }
+        public int CampaignId { get; set; }
         public ICollection<Campaign>? Campaign { get; set; }
     }
 }

@@ -4,17 +4,17 @@ namespace Domain
 {
     public class Wash
     {
-        public int washID { get; set; }
+        public int WashId { get; set; }
         
-        public int checkID { get; set; }
+        public int CheckId { get; set; }
         public ICollection<Check>? Check { get; set; }
         
-        public int washTypeID { get; set; }
-        public WashType washType { get; set; }
+        public int WashTypeId { get; set; }
+        public WashType? WashType { get; set; }
         
-        public int orderID { get; set; }
-        public Order order { get; set; }
+        public int OrderId { get; set; }
+        public Order? Order { get; set; }
         //nameOfWashType implies to exterior or interior wash
-        public string nameOfWashType { get; set; }
+        public string NameOfWashType { get; set; } = default!;
     }
 }

@@ -2,11 +2,11 @@
 {
     public class Campaign
     {
-        public int campaignID { get; set; }
+        public int CampaignId { get; set; }
         
-        public int serviceID { get; set; }
-        public Service Service { get; set; }
+        public int ServiceId { get; set; }
+        public Service? Service { get; set; }
         
-        public string nameOfCampaign { get; set; }
+        public string NameOfCampaign { get; set; } = default!;
     }
 }

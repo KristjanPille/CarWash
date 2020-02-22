@@ -2,7 +2,7 @@
 {
     public class PaymentMethod
     {
-        public int paymentMethodID { get; set; }
-        public int paymentMethodName { get; set; }
+        public int PaymentMethodId { get; set; }
+        public int PaymentMethodName { get; set; }
     }
 }

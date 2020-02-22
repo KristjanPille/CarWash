@@ -10,6 +10,29 @@
         "runtime": {
           "lib/netstandard2.1/System.ComponentModel.Annotations.dll": {}
         }
+      },
+      "Contracts.DAL.Base/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "compile": {
+          "bin/placeholder/Contracts.DAL.Base.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Contracts.DAL.Base.dll": {}
+        }
+      },
+      "DAL.Base/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Contracts.DAL.Base": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DAL.Base.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DAL.Base.dll": {}
+        }
       }
     }
   },
@@ -102,10 +125,21 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Contracts.DAL.Base/1.0.0": {
+      "type": "project",
+      "path": "../Contracts.DAL.Base/Contracts.DAL.Base.csproj",
+      "msbuildProject": "../Contracts.DAL.Base/Contracts.DAL.Base.csproj"
+    },
+    "DAL.Base/1.0.0": {
+      "type": "project",
+      "path": "../DAL.Base/DAL.Base.csproj",
+      "msbuildProject": "../DAL.Base/DAL.Base.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.1": [
+      "DAL.Base >= 1.0.0",
       "System.ComponentModel.Annotations >= 4.7.0"
     ]
   },
@@ -136,7 +170,11 @@
       },
       "frameworks": {
         "netstandard2.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj": {
+              "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -168,7 +206,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
       }
     }
   }

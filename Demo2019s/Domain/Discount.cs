@@ -2,12 +2,12 @@
 {
     public class Discount
     {
-        public int discountID { get; set; }
+        public int DiscountId { get; set; }
         
-        public int checkID { get; set; }
-        public Check Check { get; set; }
+        public int CheckId { get; set; }
+        public Check? Check { get; set; }
         
-        public int washID { get; set; }
-        public Wash Wash { get; set; }
+        public int WashId { get; set; }
+        public Wash? Wash { get; set; }
     }
 }

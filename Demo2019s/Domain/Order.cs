@@ -7,12 +7,12 @@ namespace Domain
     public class Order
     {
         [Key]
-        public int oderID { get; set; }
-        public DateTime dateAndTime { get; set; }
+        public int OderId { get; set; }
+        public DateTime DateAndTime { get; set; }
         
-        public int washID { get; set; }
+        public int WashId { get; set; }
         public ICollection<Wash>? Wash { get; set; }
         
-        public string comment { get; set; }
+        public string Comment { get; set; } = default!;
     }
 }

@@ -2,10 +2,10 @@
 {
     public class WashType
     {
-        public int washTypeID { get; set; }
+        public int WashTypeId { get; set; }
         
-        public int washID { get; set; }
+        public int WashId { get; set; }
 
-        public string nameOfWash { get; set; }
+        public string NameOfWash { get; set; } = default!;
     }
 }

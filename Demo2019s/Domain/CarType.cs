@@ -4,8 +4,7 @@ namespace Domain
 {
     public class CarType
     {
-        public int carTypeID { get; set; }
-        [MaxLength(64)]
-        public string name { get; set; }
+        public int CarTypeId { get; set; }
+        [MaxLength(64)] public string Name { get; set; } = default!;
     }
 }

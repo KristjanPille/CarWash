@@ -2895,6 +2895,7 @@
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
           "DAL.Base": "1.0.0",
+          "Microsoft.Extensions.Identity.Stores": "3.1.1",
           "System.ComponentModel.Annotations": "4.7.0"
         },
         "compile": {
@@ -2902,6 +2903,16 @@
         },
         "runtime": {
           "bin/placeholder/Domain.dll": {}
+        }
+      },
+      "Extensions/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "compile": {
+          "bin/placeholder/Extensions.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Extensions.dll": {}
         }
       }
     }
@@ -9001,12 +9012,18 @@
       "type": "project",
       "path": "../Domain/Domain.csproj",
       "msbuildProject": "../Domain/Domain.csproj"
+    },
+    "Extensions/1.0.0": {
+      "type": "project",
+      "path": "../Extensions/Extensions.csproj",
+      "msbuildProject": "../Extensions/Extensions.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "DAL.App.EF >= 1.0.0",
       "Domain >= 1.0.0",
+      "Extensions >= 1.0.0",
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 3.1.1",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 3.1.1",
       "Microsoft.AspNetCore.Identity.UI >= 3.1.1",
@@ -9051,6 +9068,9 @@
             },
             "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Domain.csproj": {
               "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Domain.csproj"
+            },
+            "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Extensions\\Extensions.csproj": {
+              "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Extensions\\Extensions.csproj"
             }
           }
         }

@@ -1,0 +1,53 @@
+@model IEnumerable<Domain.Wash>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WashTypeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NameOfWashType)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CheckId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WashTypeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order.Comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameOfWashType)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.WashId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.WashId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.WashId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

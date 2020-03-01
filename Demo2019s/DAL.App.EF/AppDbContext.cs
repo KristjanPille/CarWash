@@ -1,10 +1,12 @@
 ﻿using System;
 using Domain;
+using Domain.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.App.EF
 {
-    public class AppDbContext: DbContext
+    public class AppDbContext: IdentityDbContext<AppUser, AppRole, string>
     {
         public DbSet<Campaign> Campaigns { get; set; } = default!;
         public DbSet<Car> Cars { get; set; } = default!;

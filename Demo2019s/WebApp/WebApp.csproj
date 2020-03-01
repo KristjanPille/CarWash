@@ -21,6 +21,7 @@
     <ItemGroup>
       <ProjectReference Include="..\DAL.App.EF\DAL.App.EF.csproj" />
       <ProjectReference Include="..\Domain\Domain.csproj" />
+      <ProjectReference Include="..\Extensions\Extensions.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -124,6 +125,7 @@
       <_ContentIncludedByDefault Remove="Views\Services\Details.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Services\Edit.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Services\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Identity\Pages\_ViewStart.cshtml" />
     </ItemGroup>
 
     <ItemGroup>

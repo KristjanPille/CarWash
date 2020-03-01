@@ -8,6 +8,6 @@ namespace DAL.Base
         public string? CreatedBy { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string? DeletedBy { get; set; }
-        public DateTime DeletedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
     }
 }

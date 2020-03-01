@@ -26,6 +26,7 @@
         "dependencies": {
           "DAL.App.EF": "1.0.0",
           "Domain": "1.0.0",
+          "Extensions": "1.0.0",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "3.1.1",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.1",
           "Microsoft.AspNetCore.Identity.UI": "3.1.1",
@@ -2469,6 +2470,14 @@
           "System.Xml.XmlDocument": "4.3.0"
         }
       },
+      "Contracts.DAL.Base/1.0.0": {
+        "runtime": {
+          "Contracts.DAL.Base.dll": {}
+        },
+        "compile": {
+          "Contracts.DAL.Base.dll": {}
+        }
+      },
       "DAL.App.EF/1.0.0": {
         "dependencies": {
           "Domain": "1.0.0",
@@ -2483,8 +2492,21 @@
           "DAL.App.EF.dll": {}
         }
       },
+      "DAL.Base/1.0.0": {
+        "dependencies": {
+          "Contracts.DAL.Base": "1.0.0"
+        },
+        "runtime": {
+          "DAL.Base.dll": {}
+        },
+        "compile": {
+          "DAL.Base.dll": {}
+        }
+      },
       "Domain/1.0.0": {
         "dependencies": {
+          "DAL.Base": "1.0.0",
+          "Microsoft.Extensions.Identity.Stores": "3.1.1",
           "System.ComponentModel.Annotations": "4.7.0"
         },
         "runtime": {
@@ -2492,6 +2514,14 @@
         },
         "compile": {
           "Domain.dll": {}
+        }
+      },
+      "Extensions/1.0.0": {
+        "runtime": {
+          "Extensions.dll": {}
+        },
+        "compile": {
+          "Extensions.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/3.1.0.0": {
@@ -5263,12 +5293,27 @@
       "path": "system.xml.xmlserializer/4.3.0",
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
     },
+    "Contracts.DAL.Base/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "DAL.App.EF/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
+    "DAL.Base/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Extensions/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

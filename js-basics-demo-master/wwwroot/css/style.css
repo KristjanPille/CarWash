@@ -1,0 +1,36 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+.icon-block {
+  padding: 0 8px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}
+body {
+  font-family: "Arial", sans-serif;
+}
+section {
+  text-align: center;
+}
+.game--container {
+   display: grid;
+    grid-template-columns: repeat(6, auto);
+    width: 442px;
+    margin: 69px auto;
+}
+.cell {
+  font-family: "Permanent Marker", cursive;
+  width: 70px;
+  height: 70px;
+  box-shadow: 0 0 0 1px #333333;
+  border: 1px solid #333333;
+  cursor: pointer;
+  line-height: 60px;
+  font-size: 60px;
+}

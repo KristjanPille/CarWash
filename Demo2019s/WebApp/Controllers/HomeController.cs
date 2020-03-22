@@ -2,9 +2,9 @@
  using Microsoft.AspNetCore.Authorization;
  using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using WebApp.Models;
+ using WebApp.ViewModels;
 
-namespace WebApp.Controllers
+ namespace WebApp.Controllers
 {
     [Authorize]
     public class HomeController : Controller

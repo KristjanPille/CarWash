@@ -6,9 +6,24 @@
     <e p="C:\Users\krist\.Rider2019.3\system\extResources" t="IncludeRecursive" />
     <e p="C:\Users\krist\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_DistributedHomeWork.1277058304.00" t="ExcludeRecursive" />
     <e p="C:\Users\krist\icd0009-2019s\Demo2019s" t="IncludeFlat">
+      <e p="Contracts.DAL.App" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Contracts.DAL.App.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.1" t="Include">
+              <e p="Contracts.DAL.App.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Repositories" t="Include">
+          <e p="ICampaignRepository.cs" t="Include" />
+        </e>
+      </e>
       <e p="Contracts.DAL.Base" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="Contracts.DAL.Base.csproj" t="IncludeRecursive" />
+        <e p="IDomainBaseEntity.cs" t="Include" />
         <e p="IDomainEntity.cs" t="Include" />
         <e p="IDomainEntityMetaData.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
@@ -18,14 +33,15 @@
             </e>
           </e>
         </e>
+        <e p="Repositories" t="Include">
+          <e p="IBaseRepository.cs" t="Include" />
+        </e>
       </e>
       <e p="DAL.App.EF" t="IncludeRecursive">
         <e p="AppDbContext.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="DAL.App.EF.csproj" t="IncludeRecursive" />
         <e p="Migrations" t="Include">
-          <e p="20200228095828_InitialDbCreation.cs" t="Include" />
-          <e p="20200228095828_InitialDbCreation.Designer.cs" t="Include" />
           <e p="AppDbContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -35,10 +51,14 @@
             </e>
           </e>
         </e>
+        <e p="Repositories" t="Include">
+          <e p="CampaignRepository.cs" t="Include" />
+        </e>
       </e>
       <e p="DAL.Base" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="DAL.Base.csproj" t="IncludeRecursive" />
+        <e p="DomainBaseEntity.cs" t="Include" />
         <e p="DomainEntity.cs" t="Include" />
         <e p="DomainEntityMetaData.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
@@ -47,6 +67,20 @@
               <e p="DAL.Base.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
+        </e>
+      </e>
+      <e p="DAL.Base.EF" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="DAL.Base.EF.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.1" t="Include">
+              <e p="DAL.Base.EF.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Repositories" t="Include">
+          <e p="BaseRepository.cs" t="Include" />
         </e>
       </e>
       <e p="Directory.Build.props" t="Include" />
@@ -99,6 +133,38 @@
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
         <e p="Areas" t="Include">
+          <e p="Admin" t="Include">
+            <e p="Controllers" t="Include" />
+            <e p="viewmodels" t="Include" />
+            <e p="Views" t="Include">
+              <e p="_ViewImports.cshtml" t="Include" />
+              <e p="_ViewStart.cshtml" t="Include" />
+              <e p="Home" t="Include">
+                <e p="Index.cshtml" t="Include" />
+              </e>
+              <e p="Shared" t="Include">
+                <e p="_Layout.cshtml" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="Client" t="Include">
+            <e p="Controllers" t="Include">
+              <e p="HomeController.cs" t="Include" />
+            </e>
+            <e p="viewmodels" t="Include">
+              <e p="PersonCreateEditViewModel.cs" t="Include" />
+            </e>
+            <e p="Views" t="Include">
+              <e p="_ViewImports.cshtml" t="Include" />
+              <e p="_ViewStart.cshtml" t="Include" />
+              <e p="Home" t="Include">
+                <e p="Index.cshtml" t="Include" />
+              </e>
+              <e p="Shared" t="Include">
+                <e p="_Layout.cshtml" t="Include" />
+              </e>
+            </e>
+          </e>
           <e p="Identity" t="Include">
             <e p="IdentityHostingStartup.cs" t="Include" />
             <e p="Pages" t="Include">
@@ -199,10 +265,6 @@
           <e p="WashsController.cs" t="Include" />
           <e p="WashTypesController.cs" t="Include" />
         </e>
-        <e p="Migrations" t="Include" />
-        <e p="Models" t="Include">
-          <e p="ErrorViewModel.cs" t="Include" />
-        </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
@@ -217,10 +279,17 @@
         </e>
         <e p="ScaffoldingReadMe.txt" t="Include" />
         <e p="Startup.cs" t="Include" />
+        <e p="viewmodels" t="Include">
+          <e p="CampaignCreateEditViewModel.cs" t="Include" />
+          <e p="CarCreateEditViewModel.cs" t="Include" />
+          <e p="ErrorViewModel.cs" t="Include" />
+        </e>
         <e p="Views" t="Include">
           <e p="_ViewImports.cshtml" t="Include" />
           <e p="_ViewStart.cshtml" t="Include" />
           <e p="Campaigns" t="Include">
+            <e p="_CreateEdit.cshtml" t="Include" />
+            <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
@@ -228,6 +297,8 @@
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="Cars" t="Include">
+            <e p="_CreateEdit.cshtml" t="Include" />
+            <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
@@ -235,6 +306,8 @@
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="CarTypes" t="Include">
+            <e p="_CreateEdit.cshtml" t="Include" />
+            <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
@@ -242,6 +315,8 @@
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="Checks" t="Include">
+            <e p="_CreateEdit.cshtml" t="Include" />
+            <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
@@ -249,6 +324,8 @@
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="Discounts" t="Include">
+            <e p="_CreateEdit.cshtml" t="Include" />
+            <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
@@ -260,6 +337,8 @@
             <e p="Privacy.cshtml" t="Include" />
           </e>
           <e p="IsInWashs" t="Include">
+            <e p="_CreateEdit.cshtml" t="Include" />
+            <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
@@ -267,6 +346,8 @@
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="ModelMarks" t="Include">
+            <e p="_CreateEdit.cshtml" t="Include" />
+            <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
@@ -274,6 +355,8 @@
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="Orders" t="Include">
+            <e p="_CreateEdit.cshtml" t="Include" />
+            <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
@@ -281,6 +364,8 @@
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="PaymentMethods" t="Include">
+            <e p="_CreateEdit.cshtml" t="Include" />
+            <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
@@ -288,6 +373,8 @@
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="Payments" t="Include">
+            <e p="_CreateEdit.cshtml" t="Include" />
+            <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
@@ -295,6 +382,8 @@
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="Persons" t="Include">
+            <e p="_CreateEdit.cshtml" t="Include" />
+            <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
@@ -302,6 +391,8 @@
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="PersonTypes" t="Include">
+            <e p="_CreateEdit.cshtml" t="Include" />
+            <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
@@ -309,6 +400,8 @@
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="Services" t="Include">
+            <e p="_CreateEdit.cshtml" t="Include" />
+            <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
@@ -322,6 +415,8 @@
             <e p="Error.cshtml" t="Include" />
           </e>
           <e p="Washs" t="Include">
+            <e p="_CreateEdit.cshtml" t="Include" />
+            <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
@@ -329,6 +424,8 @@
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="WashTypes" t="Include">
+            <e p="_CreateEdit.cshtml" t="Include" />
+            <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />

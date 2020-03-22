@@ -7,22 +7,7 @@
 <h1>Details</h1>
 
 <div>
-    <h4>WashType</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.WashId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.WashId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NameOfWash)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NameOfWash)
-        </dd>
-    </dl>
+    <partial name="_DetailsDelete" model="@Model"/>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.WashTypeId">Edit</a> |

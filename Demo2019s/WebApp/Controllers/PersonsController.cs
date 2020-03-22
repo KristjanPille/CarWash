@@ -59,7 +59,9 @@ namespace WebApp.Controllers
         public IActionResult Create()
         {
             ViewData["AppUserId"] = new SelectList(_context.Set<AppUser>(), "Id", "Id");
-            ViewData["PersonTypeId"] = new SelectList(_context.Set<PersonType>(), "PersonTypeId", "Name");
+            ViewData["PersonTypeId"] = new SelectList(
+                _context.Set<PersonType>(),
+                "PersonTypeId", "Name");
             return View();
         }
 

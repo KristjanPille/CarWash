@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
@@ -48,8 +49,12 @@ namespace WebApp.Controllers
         // GET: Campaigns/Create
         public IActionResult Create()
         {
-            ViewData["ServiceId"] = new SelectList(_context.Set<Service>(), "ServiceId", "NameOfService");
-            return View();
+            
+            var vm = new CampaignCreateEditViewModel();
+            vm.ServiceSelectList = new SelectList(
+                _context.Set<Service>(),
+                nameof(Service.ServiceId), nameof(Service.NameOfService));
+            return View(vm);
         }
 
         // POST: Campaigns/Create
@@ -57,16 +62,16 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CampaignId,ServiceId,NameOfCampaign")] Campaign campaign)
+        public async Task<IActionResult> Create(CampaignCreateEditViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(campaign);
+                _context.Add(vm.Campaign);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ServiceId"] = new SelectList(_context.Set<Service>(), "ServiceId", "NameOfService", campaign.ServiceId);
-            return View(campaign);
+            ViewData["ServiceId"] = new SelectList(_context.Set<Service>(), "ServiceId", "NameOfService", vm.Campaign.ServiceId);
+            return View(vm);
         }
 
         // GET: Campaigns/Edit/5

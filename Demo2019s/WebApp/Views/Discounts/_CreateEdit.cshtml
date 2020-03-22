@@ -1,0 +1,12 @@
+﻿@model Domain.Discount
+
+<div asp-validation-summary="All" class="text-danger"></div>
+<div class="form-group">
+    <label asp-for="CheckId" class="control-label"></label>
+    <select asp-for="CheckId" class ="form-control" asp-items="ViewBag.CheckId"></select>
+</div>
+<div class="form-group">
+    <label asp-for="WashId" class="control-label"></label>
+    <select asp-for="WashId" class ="form-control" asp-items="ViewBag.WashId"></select>
+</div>
+

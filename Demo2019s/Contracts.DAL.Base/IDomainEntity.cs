@@ -1,9 +1,15 @@
 ﻿using System;
 
-namespace DAL.Contracts.Base
+namespace Contracts.DAL.Base
 {
-    public interface IDomainEntity
+    public interface IDomainEntity : IDomainEntity<Guid>
     {
-        public int Id { get; set; }
+        
+    }
+    
+    public interface IDomainEntity<TKey> :IDomainBaseEntity<TKey>, IDomainEntityMetadata
+    where TKey: struct, IComparable
+    {
+        
     }
 }

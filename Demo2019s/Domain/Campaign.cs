@@ -1,6 +1,9 @@
-﻿namespace Domain
+﻿using Contracts.DAL.Base;
+using DAL.Base;
+
+namespace Domain
 {
-    public class Campaign
+    public class Campaign : DomainEntity
     {
         public int CampaignId { get; set; }
         

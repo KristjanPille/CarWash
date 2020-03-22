@@ -1,0 +1,18 @@
+﻿@model Domain.Order
+
+<div asp-validation-summary="All" class="text-danger"></div>
+<div class="form-group">
+    <label asp-for="DateAndTime" class="control-label"></label>
+    <input asp-for="DateAndTime" class="form-control" />
+    <span asp-validation-for="DateAndTime" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="WashId" class="control-label"></label>
+    <input asp-for="WashId" class="form-control" />
+    <span asp-validation-for="WashId" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="Comment" class="control-label"></label>
+    <input asp-for="Comment" class="form-control" />
+    <span asp-validation-for="Comment" class="text-danger"></span>
+</div>

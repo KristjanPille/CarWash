@@ -235,7 +235,8 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
-          "Contracts.DAL.Base": "1.0.0"
+          "Contracts.DAL.Base": "1.0.0",
+          "System.ComponentModel.Annotations": "4.7.0"
         },
         "compile": {
           "bin/placeholder/DAL.Base.dll": {}

@@ -11,18 +11,9 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <input type="hidden" asp-for="WashTypeId" />
-            <div class="form-group">
-                <label asp-for="WashId" class="control-label"></label>
-                <input asp-for="WashId" class="form-control" />
-                <span asp-validation-for="WashId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NameOfWash" class="control-label"></label>
-                <input asp-for="NameOfWash" class="form-control" />
-                <span asp-validation-for="NameOfWash" class="text-danger"></span>
-            </div>
+            <partial name="_CreateEdit" model="@Model"/>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

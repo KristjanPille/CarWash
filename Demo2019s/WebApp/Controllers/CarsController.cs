@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
@@ -49,9 +50,15 @@ namespace WebApp.Controllers
         // GET: Cars/Create
         public IActionResult Create()
         {
-            ViewData["CarTypeId"] = new SelectList(_context.Set<CarType>(), "CarTypeId", "Name");
-            ViewData["PersonId"] = new SelectList(_context.Set<Person>(), "Id", "AppUserId");
-            return View();
+            var vm = new CarCreateEditViewModel();
+            vm.CarTypeSelectList = new SelectList?(
+                _context.Set<CarType>(),
+                nameof(CarType.CarTypeId), nameof(CarType.Name));
+            vm.PersonSelectList = new SelectList?(
+                _context.Set<Person>(),
+                nameof(Person.Id), nameof(Person.AppUserId)
+            );
+            return View(vm);
         }
 
         // POST: Cars/Create
@@ -59,17 +66,17 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CarId,CarTypeId,PersonId,LicenceNr")] Car car)
+        public async Task<IActionResult> Create(CarCreateEditViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(car);
+                _context.Add(vm.Car);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CarTypeId"] = new SelectList(_context.Set<CarType>(), "CarTypeId", "Name", car.CarTypeId);
-            ViewData["PersonId"] = new SelectList(_context.Set<Person>(), "Id", "AppUserId", car.PersonId);
-            return View(car);
+            ViewData["CarTypeId"] = new SelectList(_context.Set<CarType>(), "CarTypeId", "Name", vm.Car.CarTypeId);
+            ViewData["PersonId"] = new SelectList(_context.Set<Person>(), "Id", "AppUserId", vm.Car.PersonId);
+            return View(vm);
         }
 
         // GET: Cars/Edit/5

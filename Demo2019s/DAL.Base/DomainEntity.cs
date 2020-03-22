@@ -1,10 +1,14 @@
 ﻿using System;
-using DAL.Contracts.Base;
+using Contracts.DAL.Base;
 
 namespace DAL.Base
 {
-    public abstract class DomainEntity : IDomainEntity
+    public class DomainEntity : IDomainEntity
     {
-        public int Id { get; set; }
+        public virtual Guid Id { get; set; }
+        public virtual string? CreatedBy { get; set; }
+        public virtual DateTime CreatedAt { get; set; }
+        public virtual string? ChangedBy { get; set; }
+        public virtual DateTime ChangedAt { get; set; }
     }
 }

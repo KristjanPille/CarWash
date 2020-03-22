@@ -494,7 +494,11 @@ function AIvsAI(){
         let bar = '' + foo;
         var theDiv = document.getElementById(bar);
         theDiv.innerHTML = "X";
-    
+
+        currentPlayer = "O"
+        statusDisplay.innerHTML = currentPlayerTurn();
+
+        setTimeout(function(){
         let computerList2 = [];
         for (var i = 0; i < 30; i++) {
             if(gameState[i] == ""){
@@ -508,8 +512,11 @@ function AIvsAI(){
         var theDiv2 = document.getElementById(bar);
         theDiv2.innerHTML = "O";
         dropFazeCount();
+        }, 1000)
         setTimeout(function(){
             AIvsAI();
+            currentPlayer = "X"
+            statusDisplay.innerHTML = currentPlayerTurn();
         }, 1000)
     }
     if(dropFaze == false){

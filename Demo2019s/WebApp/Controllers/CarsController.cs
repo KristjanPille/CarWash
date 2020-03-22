@@ -51,12 +51,12 @@ namespace WebApp.Controllers
         public IActionResult Create()
         {
             var vm = new CarCreateEditViewModel();
-            vm.CarTypeSelectList = new SelectList?(
+            vm.CarTypeSelectList = new SelectList(
                 _context.Set<CarType>(),
                 nameof(CarType.CarTypeId), nameof(CarType.Name));
-            vm.PersonSelectList = new SelectList?(
+            vm.PersonSelectList = new SelectList(
                 _context.Set<Person>(),
-                nameof(Person.Id), nameof(Person.AppUserId)
+                nameof(Person.PersonId), nameof(Person.AppUserId)
             );
             return View(vm);
         }

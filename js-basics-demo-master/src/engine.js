@@ -120,7 +120,7 @@ function handleCellClick(clickedCellEvent) {
                 }
             }
             else if(currentPlayer == "X" && gameState[clickedCellIndex] !== "" && playerOneTake == 0){
-                if(gameState[clickedCellIndex] == "O"){
+                if(gameState[clickedCellIndex] == "O" || gameState[clickedCellIndex] == ""){
                     return;
                 }
                 else{
@@ -130,7 +130,7 @@ function handleCellClick(clickedCellEvent) {
                 }
             }
             else if(currentPlayer == "O" && gameState[clickedCellIndex] !== "" && playerTwoTake == 0){
-                if(gameState[clickedCellIndex] == "X"){
+                if(gameState[clickedCellIndex] == "X" || gameState[clickedCellIndex] == ""){
                     return;
                 }
                 else{
@@ -173,80 +173,90 @@ function checkForThree(clickedCellEvent){
     const clickedCellIndex = parseInt(clickedCell.getAttribute('id'));
 
     if(currentPlayer == "X"){
+        currentPlayer = "X";
         currentindex = lastIndexOne;
     }
     if(currentPlayer == "O"){
+        currentPlayer = "O";
         currentindex = lastIndexTwo;
     }
+        console.log(gameState);
         if(gameState[clickedCellIndex+1] == "X" && gameState[clickedCellIndex-1] == "X" && currentPlayer == "X" && currentindex !== clickedCellIndex){
-            if(![8, 20, 32, 44].includes((clickedCellIndex+1) + (clickedCellIndex-1))) {
+            if(![10, 12, 22, 24, 34, 36, 46, 48].includes((clickedCellIndex+1) + (clickedCellIndex-1))) {
+                console.log("1");
                 playerOneTake = 1;
                 lastIndexOne = clickedCellIndex;
             }
         }
-        if(gameState[clickedCellIndex+1] == "X" && gameState[clickedCellIndex+2] == "X" && currentPlayer == "X" && currentindex !== clickedCellIndex){
+       else if(gameState[clickedCellIndex+1] == "X" && gameState[clickedCellIndex+2] == "X" && currentPlayer == "X" && currentindex !== clickedCellIndex){
             if(![11, 23, 35, 47].includes((clickedCellIndex+1) + (clickedCellIndex+2))) {
+                console.log("2");
                 playerOneTake = 1;
                 lastIndexOne = clickedCellIndex;
             }
         }
-        if(gameState[clickedCellIndex-1] == "X" && gameState[clickedCellIndex-2] == "X" && currentPlayer == "X" && currentindex !== clickedCellIndex){
+        else if(gameState[clickedCellIndex-1] == "X" && gameState[clickedCellIndex-2] == "X" && currentPlayer == "X" && currentindex !== clickedCellIndex){
             if(![11, 23, 35, 47].includes((clickedCellIndex-1) + (clickedCellIndex-2))) {
+                console.log("3");
                 playerOneTake = 1;
                 lastIndexOne = clickedCellIndex;
             }
         }
-        if(gameState[clickedCellIndex+1] == "O" && gameState[clickedCellIndex-1] == "O"  && currentPlayer == "O" && currentindex !== clickedCellIndex){
-            if(![10, 22, 34, 46].includes((clickedCellIndex+1) + (clickedCellIndex-1))) {
+        else if(gameState[clickedCellIndex+1] == "O" && gameState[clickedCellIndex-1] == "O"  && currentPlayer == "O" && currentindex !== clickedCellIndex){
+            if(![10, 11, 24, 36, 48].includes((clickedCellIndex+1) + (clickedCellIndex-1))) {
+                console.log("4");
                 playerTwoTake = 1;
                 lastIndexTwo = clickedCellIndex;
             }
         }
-        if(gameState[clickedCellIndex+1] == "O" && gameState[clickedCellIndex+2] == "O" && currentPlayer == "O" && currentindex !== clickedCellIndex){
+        else if(gameState[clickedCellIndex+1] == "O" && gameState[clickedCellIndex+2] == "O" && currentPlayer == "O" && currentindex !== clickedCellIndex){
             if(![11, 23, 35, 47].includes((clickedCellIndex+1) + (clickedCellIndex+2))) {
+                console.log("5");
                 playerTwoTake = 1;
                 lastIndexTwo = clickedCellIndex;
             }
         }
-        if(gameState[clickedCellIndex-1] == "O" && gameState[clickedCellIndex-2] == "O"  && currentPlayer == "O" && currentindex !== clickedCellIndex){
+        else if(gameState[clickedCellIndex-1] == "O" && gameState[clickedCellIndex-2] == "O"  && currentPlayer == "O" && currentindex !== clickedCellIndex){
             if(![11, 23, 35, 47].includes((clickedCellIndex-1) + (clickedCellIndex-2))) {
+                console.log("6");
                 playerTwoTake = 1;
                 lastIndexTwo = clickedCellIndex;
             }
         }
 
-        if(gameState[clickedCellIndex+6] == "X" && gameState[clickedCellIndex-6] == "X" && currentPlayer == "X" && currentindex !== clickedCellIndex){
+        else if(gameState[clickedCellIndex+6] == "X" && gameState[clickedCellIndex-6] == "X" && currentPlayer == "X" && currentindex !== clickedCellIndex){
             playerOneTake = 1;
             lastIndexOne = clickedCellIndex;
         }
-        if(gameState[clickedCellIndex+12] == "X" && gameState[clickedCellIndex+6] == "X" && currentPlayer == "X" && currentindex !== clickedCellIndex){
+        else if(gameState[clickedCellIndex+12] == "X" && gameState[clickedCellIndex+6] == "X" && currentPlayer == "X" && currentindex !== clickedCellIndex){
             playerOneTake = 1;
             lastIndexOne = clickedCellIndex;
         }
-        if(gameState[clickedCellIndex-12] == "X" && gameState[clickedCellIndex-6] == "X" && currentPlayer == "X" && currentindex !== clickedCellIndex){
+        else if(gameState[clickedCellIndex-12] == "X" && gameState[clickedCellIndex-6] == "X" && currentPlayer == "X" && currentindex !== clickedCellIndex){
             playerOneTake = 1;
             lastIndexOne = clickedCellIndex;
         }
 
-        if(gameState[clickedCellIndex+6] == "O" && gameState[clickedCellIndex-6] == "O" && currentPlayer == "O" && currentindex !== clickedCellIndex){
-            playerOneTake = 1;
-            lastIndexOne = clickedCellIndex;
+        else if(gameState[clickedCellIndex+6] == "O" && gameState[clickedCellIndex-6] == "O" && currentPlayer == "O" && currentindex !== clickedCellIndex){
+            playerTwoTake = 1;
+            lastIndexTwo = clickedCellIndex;
         }
-        if(gameState[clickedCellIndex+12] == "O" && gameState[clickedCellIndex+6] == "O" && currentPlayer == "O" && currentindex !== clickedCellIndex){
-            playerOneTake = 1;
-            lastIndexOne = clickedCellIndex;
+        else if(gameState[clickedCellIndex+12] == "O" && gameState[clickedCellIndex+6] == "O" && currentPlayer == "O" && currentindex !== clickedCellIndex){
+            playerTwoTake = 1;
+            lastIndexTwo = clickedCellIndex;
         }
-        if(gameState[clickedCellIndex-12] == "O" && gameState[clickedCellIndex-6] == "O" && currentPlayer == "O" && currentindex !== clickedCellIndex){
-            playerOneTake = 1;
-            lastIndexOne = clickedCellIndex;
+        else if(gameState[clickedCellIndex-12] == "O" && gameState[clickedCellIndex-6] == "O" && currentPlayer == "O" && currentindex !== clickedCellIndex){
+            playerTwoTake = 1;
+            lastIndexTwo = clickedCellIndex;
         }
         gameState[clickedCellIndex] = currentPlayer;
         clickedCell.innerHTML = currentPlayer;
+        console.log(currentPlayer);
 
-    if(gameState[clickedCellIndex] = "O"){
+    if(gameState[clickedCellIndex] == "O"){
         lastIndexTwo = clickedCellIndex;
     }
-    if(gameState[clickedCellIndex] = "X"){
+    if(gameState[clickedCellIndex] == "X"){
         lastIndexOne = clickedCellIndex;
     }
 
@@ -432,12 +442,12 @@ function getAmount(){
     if(countPlayerOne <= 2){
         currentPlayer = "X";
         winner = "Player Two"
-        return "Player Two";
+        return "Two";
     }
-    if(countPlayerTwo <= 2){
+    else if(countPlayerTwo <= 2){
         currentPlayer = "O";
         winner = "Player One"
-        return "Player One";
+        return "One";
     }
     else{
         return "";

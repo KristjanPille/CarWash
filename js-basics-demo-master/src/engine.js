@@ -14,7 +14,7 @@ let changePlayerLoc = "";
 let playerturn = 0;
 
 const winningMessage = () => `Player ${winner} has won!`;
-const currentPlayerTurn = () => `It's ${currentPlayer}'s turn`;
+const currentPlayerTurn = () => `${currentPlayer}'s turn`;
 const playerTakes = () => `Player one´s takes: ${playerOneTake} | Player two´s takes: ${playerTwoTake}`;
 
 const statusDisplay = document.querySelector('.game--status');
@@ -28,19 +28,25 @@ function handleCellClick(clickedCellEvent) {
             return;
         }
         if(gameState[clickedCellIndex+1] == currentPlayer && gameState[clickedCellIndex-1] == currentPlayer){
+            if(![10, 12, 22, 24, 34, 36, 46, 48].includes((clickedCellIndex+1) + (clickedCellIndex-1))) {
             document.getElementById('alrt').innerHTML='<p>You Cannot place symbol here, only two in row is allowed in drop Faze</p>'; 
             setTimeout(function() {document.getElementById('alrt').innerHTML='';},6000);
             return
         }
+        }
         if(gameState[clickedCellIndex+1] == currentPlayer && gameState[clickedCellIndex+2] == currentPlayer){
+            if(![11, 23, 35, 47].includes((clickedCellIndex+1) + (clickedCellIndex+2))) {
             document.getElementById('alrt').innerHTML='<b>You Cannot place symbol here, only two in row is allowed in drop Faze</b>'; 
             setTimeout(function() {document.getElementById('alrt').innerHTML='';},6000);
             return
         }
+        }
         if(gameState[clickedCellIndex-1] == currentPlayer && gameState[clickedCellIndex-2] == currentPlayer){
+            if(![11, 23, 35, 47].includes((clickedCellIndex-1) + (clickedCellIndex-2))) {
             document.getElementById('alrt').innerHTML='<b>You Cannot place symbol here, only two in row is allowed in drop Faze</b>'; 
             setTimeout(function() {document.getElementById('alrt').innerHTML='';},6000);
             return
+        }
         }
         if(gameState[clickedCellIndex+6] == currentPlayer && gameState[clickedCellIndex-6] == currentPlayer){
             document.getElementById('alrt').innerHTML='<p>You Cannot place symbol here, only two in row is allowed in drop Faze</p>'; 
@@ -251,7 +257,6 @@ function checkForThree(clickedCellEvent){
         }
         gameState[clickedCellIndex] = currentPlayer;
         clickedCell.innerHTML = currentPlayer;
-        console.log(currentPlayer);
 
     if(gameState[clickedCellIndex] == "O"){
         lastIndexTwo = clickedCellIndex;
@@ -429,22 +434,29 @@ function NewSpot(clickedCell, clickedCellIndex){
     handleResultValidation();
 }
 function getAmount(){
+    console.log(gameState);
     let countPlayerOne = 0;
     let countPlayerTwo = 0;
     for (var i = 0; i < 30; i++) {
         if(gameState[i] == "X"){
+            console.log("Player x lose")
             countPlayerOne++;
         }
         else if(gameState[i] == "O"){
             countPlayerTwo++;
+            console.log("Player y lose")
         }
     }
     if(countPlayerOne <= 2){
+        console.log(countPlayerOne)
+        console.log("ESIMENE")
         currentPlayer = "X";
         winner = "Player Two"
         return "Two";
     }
     else if(countPlayerTwo <= 2){
+        console.log(countPlayerTwo)
+        console.log("TEINE")
         currentPlayer = "O";
         winner = "Player One"
         return "One";

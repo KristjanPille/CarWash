@@ -12,8 +12,9 @@ let dropFaze = true;
 let currentPlayer = "X";
 let changePlayerLoc = "";
 let playerturn = 0;
+let computerVsComputer = false;
 
-const winningMessage = () => `Player ${winner} has won!`;
+const winningMessage = () => `${winner} has won!`;
 const currentPlayerTurn = () => `${currentPlayer}'s turn`;
 const playerTakes = () => `Player one´s takes: ${playerOneTake} | Player two´s takes: ${playerTwoTake}`;
 
@@ -23,7 +24,7 @@ const takesDisplay = document.querySelector('.takes');
 function handleCellClick(clickedCellEvent) {
     const clickedCell = clickedCellEvent.target;
     const clickedCellIndex = parseInt(clickedCell.getAttribute('id'));
-    if(dropFaze == true){
+    if(dropFaze == true && computerVsComputer == false){
         if (gameState[clickedCellIndex] !== "" || !gameActive) {
             return;
         }
@@ -146,7 +147,7 @@ function handleCellClick(clickedCellEvent) {
                 }
             }
         }
-        else{
+        else if (computer == true){
             if(gameState[clickedCellIndex] !== "" && playerOneTake == 0){
                 if(gameState[clickedCellIndex] == "O"){
                     return;
@@ -411,6 +412,19 @@ function computerVsHuman() {
     computer = true;
 }
 
+function AI() {
+    gameActive = true;
+    currentPlayer = "X";
+    gameState = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
+    statusDisplay.innerHTML = currentPlayerTurn();
+    document.querySelectorAll('.cell')
+               .forEach(cell => cell.innerHTML = "");
+    dropFaze = true;
+    playerturn = 0;
+    computerVsComputer = true;
+    AIvsAI();
+}
+
 function dropFazeCount(){
     let count = 0;
     for (var i = 0; i <= 30; i++) {
@@ -466,7 +480,226 @@ function getAmount(){
     }
 }
 
+function AIvsAI(){
+    if(dropFaze == true){
+        let computerList = [];
+        for (var i = 0; i < 30; i++) {
+            if(gameState[i] == ""){
+                computerList.push(i);
+            }
+        }
+        const randomSpot = computerList[Math.floor(Math.random() * computerList.length)];
+        gameState[randomSpot] = "X";
+        let foo = randomSpot;
+        let bar = '' + foo;
+        var theDiv = document.getElementById(bar);
+        theDiv.innerHTML = "X";
+    
+        let computerList2 = [];
+        for (var i = 0; i < 30; i++) {
+            if(gameState[i] == ""){
+                computerList2.push(i);
+            }
+        }
+        const randomSpot2 = computerList2[Math.floor(Math.random() * computerList2.length)];
+        gameState[randomSpot2] = "O";
+        foo = randomSpot2;
+        bar = '' + foo;
+        var theDiv2 = document.getElementById(bar);
+        theDiv2.innerHTML = "O";
+        dropFazeCount();
+        setTimeout(function(){
+            AIvsAI();
+        }, 1000)
+    }
+    if(dropFaze == false){
+        let computerList = [];
+        let computerList2 = [];
+        let enemeyList = [];
+        for (var i = 0; i < 30; i++) {
+            if(gameState[i] == "X"){
+                computerList.push(i);
+            }
+            if(gameState[i] == ""){
+                computerList2.push(i);
+            }
+            if(gameState[i] == "O"){
+                enemeyList.push(i)
+            }
+        }
+        const randomSpot = computerList[Math.floor(Math.random() * computerList.length)];
+        gameState[randomSpot] = "";
+        let foo = randomSpot;
+        let bar = '' + foo;
+        var theDiv = document.getElementById(bar);
+        theDiv.innerHTML = "";
+
+        const randomSpot2 = computerList2[Math.floor(Math.random() * computerList2.length)];
+        gameState[randomSpot2] = "X";
+        foo = randomSpot2;
+        bar = '' + foo;
+        var theDiv2 = document.getElementById(bar);
+        theDiv2.innerHTML = "X";
+
+        if(gameState[randomSpot2+1] == "X" && gameState[randomSpot2-1] == "X"){
+            if(![10, 22, 34, 46].includes((randomSpot2+1) + (randomSpot2-1))) {
+                console.log(randomSpot2)
+                const enemySpotEliminate = enemeyList[Math.floor(Math.random() * enemeyList.length)];
+                gameState[enemySpotEliminate] = "";
+                let enemy = enemySpotEliminate;
+                let enemyBar = '' + enemy;
+                var theDiv = document.getElementById(enemyBar);
+                theDiv.innerHTML = "";
+            }
+        }
+        else if(gameState[randomSpot2+1] == "X" && gameState[randomSpot2+2] == "X"){
+            if(![11, 23, 35, 47].includes((randomSpot2+1) + (randomSpot2+2))) {
+                console.log(randomSpot2)
+                const enemySpotEliminate = enemeyList[Math.floor(Math.random() * enemeyList.length)];
+                gameState[enemySpotEliminate] = "";
+                let enemy = enemySpotEliminate;
+                let enemyBar = '' + enemy;
+                var theDiv = document.getElementById(enemyBar);
+                theDiv.innerHTML = "";
+            }
+        }
+        else if(gameState[randomSpot2-1] == "X" && gameState[randomSpot2-2] == "X"){
+            if(![11, 23, 35, 47].includes((i-1) + (i-2))) {
+                console.log(randomSpot2)
+                const enemySpotEliminate = enemeyList[Math.floor(Math.random() * enemeyList.length)];
+                gameState[enemySpotEliminate] = "";
+                let enemy = enemySpotEliminate;
+                let enemyBar = '' + enemy;
+                var theDiv = document.getElementById(enemyBar);
+                theDiv.innerHTML = "";
+            }
+        }
+        else if(gameState[randomSpot2+6] == "X" && gameState[randomSpot2-6] == "X"){
+            console.log(i)
+            const enemySpotEliminate = enemeyList[Math.floor(Math.random() * enemeyList.length)];
+            gameState[enemySpotEliminate] = "";
+            let enemy = enemySpotEliminate;
+            let enemyBar = '' + enemy;
+            var theDiv = document.getElementById(enemyBar);
+            theDiv.innerHTML = "";
+        }
+        else if(gameState[randomSpot2+12] == "X" && gameState[randomSpot2+6] == "X"){
+            console.log(i)
+            const enemySpotEliminate = enemeyList[Math.floor(Math.random() * enemeyList.length)];
+            gameState[enemySpotEliminate] = "";
+            let enemy = enemySpotEliminate;
+            let enemyBar = '' + enemy;
+            var theDiv = document.getElementById(enemyBar);
+            theDiv.innerHTML = "";
+        }
+        else if(gameState[randomSpot2-12] == "X" && gameState[randomSpot2-6] == "X"){
+            console.log(i)
+            const enemySpotEliminate = enemeyList[Math.floor(Math.random() * enemeyList.length)];
+            gameState[enemySpotEliminate] = "";
+            let enemy = enemySpotEliminate;
+            let enemyBar = '' + enemy;
+            var theDiv = document.getElementById(enemyBar);
+            theDiv.innerHTML = "";
+        }
+        handleResultValidation();
+
+        //Second AI Move
+        computerList2 = [];
+        for (var i = 0; i < 30; i++) {
+            if(gameState[i] == "O"){
+                computerList2.push(i);
+            }
+        }
+        const randomSpot3 = computerList2[Math.floor(Math.random() * computerList2.length)];
+        gameState[randomSpot3] = "";
+        foo = randomSpot3;
+        bar = '' + foo;
+        var theDiv2 = document.getElementById(bar);
+        theDiv2.innerHTML = "";
+    
+        let computerList3 = [];
+        for (var i = 0; i < 30; i++) {
+            if(gameState[i] == ""){
+                computerList3.push(i);
+            }
+        }
+        const randomSpot4 = computerList3[Math.floor(Math.random() * computerList3.length)];
+        gameState[randomSpot4] = "O";
+        foo = randomSpot4;
+        bar = '' + foo;
+        var theDiv3 = document.getElementById(bar);
+        theDiv3.innerHTML = "O";
+
+
+        if(gameState[randomSpot4+1] == "O" && gameState[randomSpot4-1] == "O"){
+            if(![10, 22, 34, 46].includes((randomSpot4+1) + (randomSpot4-1))) {
+                console.log(randomSpot4)
+                const enemySpotEliminate = enemeyList[Math.floor(Math.random() * enemeyList.length)];
+                gameState[enemySpotEliminate] = "";
+                let enemy = enemySpotEliminate;
+                let enemyBar = '' + enemy;
+                var theDiv = document.getElementById(enemyBar);
+                theDiv.innerHTML = "";
+            }
+        }
+        else if(gameState[randomSpot4+1] == "O" && gameState[randomSpot4+2] == "O"){
+            if(![11, 23, 35, 47].includes((randomSpot4+1) + (randomSpot4+2))) {
+                console.log(randomSpot4)
+                const enemySpotEliminate = enemeyList[Math.floor(Math.random() * enemeyList.length)];
+                gameState[enemySpotEliminate] = "";
+                let enemy = enemySpotEliminate;
+                let enemyBar = '' + enemy;
+                var theDiv = document.getElementById(enemyBar);
+                theDiv.innerHTML = "";
+            }
+        }
+        else if(gameState[randomSpot4-1] == "O" && gameState[randomSpot4-2] == "O"){
+            if(![11, 23, 35, 47].includes((i-1) + (i-2))) {
+                console.log(randomSpot4)
+                const enemySpotEliminate = enemeyList[Math.floor(Math.random() * enemeyList.length)];
+                gameState[enemySpotEliminate] = "";
+                let enemy = enemySpotEliminate;
+                let enemyBar = '' + enemy;
+                var theDiv = document.getElementById(enemyBar);
+                theDiv.innerHTML = "";
+            }
+        }
+        else if(gameState[randomSpot4+6] == "O" && gameState[randomSpot4-6] == "O"){
+            console.log(i)
+            const enemySpotEliminate = enemeyList[Math.floor(Math.random() * enemeyList.length)];
+            gameState[enemySpotEliminate] = "";
+            let enemy = enemySpotEliminate;
+            let enemyBar = '' + enemy;
+            var theDiv = document.getElementById(enemyBar);
+            theDiv.innerHTML = "";
+        }
+        else if(gameState[randomSpot4+12] == "O" && gameState[randomSpot4+6] == "O"){
+            console.log(i)
+            const enemySpotEliminate = enemeyList[Math.floor(Math.random() * enemeyList.length)];
+            gameState[enemySpotEliminate] = "";
+            let enemy = enemySpotEliminate;
+            let enemyBar = '' + enemy;
+            var theDiv = document.getElementById(enemyBar);
+            theDiv.innerHTML = "";
+        }
+        else if(gameState[randomSpot4-12] == "O" && gameState[randomSpot4-6] == "O"){
+            console.log(i)
+            const enemySpotEliminate = enemeyList[Math.floor(Math.random() * enemeyList.length)];
+            gameState[enemySpotEliminate] = "";
+            let enemy = enemySpotEliminate;
+            let enemyBar = '' + enemy;
+            var theDiv = document.getElementById(enemyBar);
+            theDiv.innerHTML = "";
+        }
+        handleResultValidation();
+        setTimeout(function(){
+            AIvsAI();
+        }, 1000)
+    }
+}
+
 export { winner };
 export { handleCellClick };
 export { handleRestartGame};
 export { computerVsHuman };
+export { AI };

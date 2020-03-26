@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
@@ -50,10 +51,17 @@ namespace WebApp.Controllers
         // GET: IsInWashs/Create
         public IActionResult Create()
         {
-            ViewData["CarId"] = new SelectList(_context.Cars, "CarId", "CarId");
-            ViewData["PersonId"] = new SelectList(_context.Set<Person>(), "Id", "AppUserId");
-            ViewData["WashId"] = new SelectList(_context.Set<Wash>(), "WashId", "NameOfWashType");
-            return View();
+            var vm = new IsInWashCreateEditViewModel();
+            vm.CarSelectList = new SelectList(
+                _context.Set<Car>(),
+                nameof(Car.Id), nameof(Car.Id));
+            vm.PersonSelectList = new SelectList(
+                _context.Set<Person>(),
+                nameof(Person.Id), nameof(Person.AppUserId));
+            vm.WashSelectList = new SelectList(
+                _context.Set<Wash>(),
+                nameof(Wash.Id), nameof(Wash.NameOfWashType));
+            return View(vm);
         }
 
         // POST: IsInWashs/Create
@@ -61,18 +69,18 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IsInWashId,CarId,PersonId,WashId,From,To")] IsInWash isInWash)
+        public async Task<IActionResult> Create(IsInWashCreateEditViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(isInWash);
+                _context.Add(vm);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CarId"] = new SelectList(_context.Cars, "CarId", "CarId", isInWash.CarId);
-            ViewData["PersonId"] = new SelectList(_context.Set<Person>(), "Id", "AppUserId", isInWash.PersonId);
-            ViewData["WashId"] = new SelectList(_context.Set<Wash>(), "WashId", "NameOfWashType", isInWash.WashId);
-            return View(isInWash);
+            ViewData["CarId"] = new SelectList(_context.Cars, "CarId", "CarId", vm.IsInWash.CarId);
+            ViewData["PersonId"] = new SelectList(_context.Set<Person>(), "Id", "AppUserId", vm.IsInWash.PersonId);
+            ViewData["WashId"] = new SelectList(_context.Set<Wash>(), "WashId", "NameOfWashType", vm.IsInWash.WashId);
+            return View(vm);
         }
 
         // GET: IsInWashs/Edit/5

@@ -1,8 +1,8 @@
-﻿@model Domain.PersonType
+﻿@model WebApp.ViewModels.PersonTypeCreateEditViewModel
 
 <div asp-validation-summary="All" class="text-danger"></div>
 <div class="form-group">
-    <label asp-for="Name" class="control-label"></label>
-    <input asp-for="Name" class="form-control" />
-    <span asp-validation-for="Name" class="text-danger"></span>
+    <label asp-for="PersonType.Name" class="control-label"></label>
+    <input asp-for="PersonType.Name" class="form-control" />
+    <span asp-validation-for="PersonType.Name" class="text-danger"></span>
 </div>

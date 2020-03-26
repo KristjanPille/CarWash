@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
@@ -48,8 +49,11 @@ namespace WebApp.Controllers
         // GET: Washs/Create
         public IActionResult Create()
         {
-            ViewData["OrderId"] = new SelectList(_context.Set<Order>(), "OderId", "Comment");
-            return View();
+            var vm = new WashCreateEditViewModel();
+            vm.OrderSelectList = new SelectList(
+                _context.Set<Order>(),
+                nameof(Order.Id), nameof(Order.Comment));
+            return View(vm);
         }
 
         // POST: Washs/Create
@@ -57,16 +61,16 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("WashId,CheckId,WashTypeId,OrderId,NameOfWashType")] Wash wash)
+        public async Task<IActionResult> Create(WashCreateEditViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(wash);
+                _context.Add(vm);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OrderId"] = new SelectList(_context.Set<Order>(), "OderId", "Comment", wash.OrderId);
-            return View(wash);
+            ViewData["OrderId"] = new SelectList(_context.Set<Order>(), "OderId", "Comment", vm.Wash.OrderId);
+            return View(vm);
         }
 
         // GET: Washs/Edit/5

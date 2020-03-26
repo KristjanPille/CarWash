@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.App.EF.Repositories
 {
-    public class ServiceRepository : BaseRepository<Service, AppDbContext>, IServiceRepository
+    public class ServiceRepository : EFBaseRepository<Service, AppDbContext>, IServiceRepository
     {
         public ServiceRepository(AppDbContext dbContext) : base(dbContext)
         {

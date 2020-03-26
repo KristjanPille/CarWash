@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
@@ -50,6 +51,19 @@ namespace WebApp.Controllers
         // GET: Payments/Create
         public IActionResult Create()
         {
+            var vm = new PaymentCreateEditViewModel();
+            vm.PaymentMethodSelectList = new SelectList(
+                _context.Set<PaymentMethod>(),
+                nameof(PaymentMethod.PaymentMethodId), nameof(PaymentMethod.PaymentMethodId));
+            vm.PersonSelectList = new SelectList(
+                _context.Set<Person>(),
+                nameof(Person.Id), nameof(Person.AppUserId));
+            vm.CheckSelectList = new SelectList(
+                _context.Set<Check>(),
+                nameof(Check.Id), nameof(Check.Comment));
+            return View(vm);           
+            
+            
             ViewData["CheckId"] = new SelectList(_context.Checks, "CheckId", "Comment");
             ViewData["PaymentMethodId"] = new SelectList(_context.Set<PaymentMethod>(), "PaymentMethodId", "PaymentMethodId");
             ViewData["PersonId"] = new SelectList(_context.Set<Person>(), "Id", "AppUserId");
@@ -61,18 +75,18 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PaymentId,PersonId,PaymentMethodId,CheckId,PaymentAmount,TimeOfPayment")] Payment payment)
+        public async Task<IActionResult> Create(PaymentCreateEditViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(payment);
+                _context.Add(vm);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CheckId"] = new SelectList(_context.Checks, "CheckId", "Comment", payment.CheckId);
-            ViewData["PaymentMethodId"] = new SelectList(_context.Set<PaymentMethod>(), "PaymentMethodId", "PaymentMethodId", payment.PaymentMethodId);
-            ViewData["PersonId"] = new SelectList(_context.Set<Person>(), "Id", "AppUserId", payment.PersonId);
-            return View(payment);
+            ViewData["CheckId"] = new SelectList(_context.Checks, "CheckId", "Comment", vm.Payment.CheckId);
+            ViewData["PaymentMethodId"] = new SelectList(_context.Set<PaymentMethod>(), "PaymentMethodId", "PaymentMethodId", vm.Payment.PaymentMethodId);
+            ViewData["PersonId"] = new SelectList(_context.Set<Person>(), "Id", "AppUserId", vm.Payment.PersonId);
+            return View(vm);
         }
 
         // GET: Payments/Edit/5

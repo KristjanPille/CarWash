@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.App.EF.Repositories
 {
-    public class ModelMarkRepository : BaseRepository<ModelMark, AppDbContext>, IModelMarkRepository
+    public class ModelMarkRepository : EFBaseRepository<ModelMark, AppDbContext>, IModelMarkRepository
     {
         public ModelMarkRepository(AppDbContext dbContext) : base(dbContext)
         {

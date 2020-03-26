@@ -89,6 +89,7 @@
         </e>
       </e>
       <e p="DAL.Base" t="IncludeRecursive">
+        <e p="BaseUnitOfWork.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="DAL.Base.csproj" t="IncludeRecursive" />
         <e p="DomainBaseEntity.cs" t="Include" />
@@ -103,9 +104,9 @@
         </e>
       </e>
       <e p="DAL.Base.EF" t="IncludeRecursive">
-        <e p="BaseUnitOfWork.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="DAL.Base.EF.csproj" t="IncludeRecursive" />
+        <e p="EFBaseUnitOfWork.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netstandard2.1" t="Include">
@@ -114,7 +115,7 @@
           </e>
         </e>
         <e p="Repositories" t="Include">
-          <e p="BaseRepository.cs" t="Include" />
+          <e p="EFBaseRepository.cs" t="Include" />
         </e>
       </e>
       <e p="Directory.Build.props" t="Include" />
@@ -316,7 +317,20 @@
         <e p="viewmodels" t="Include">
           <e p="CampaignCreateEditViewModel.cs" t="Include" />
           <e p="CarCreateEditViewModel.cs" t="Include" />
+          <e p="CarTypeCreateEditViewModel.cs" t="Include" />
+          <e p="CheckCreateEditViewModel.cs" t="Include" />
+          <e p="DiscountCreateEditViewModel.cs" t="Include" />
           <e p="ErrorViewModel.cs" t="Include" />
+          <e p="IsInWashCreateEditViewModel.cs" t="Include" />
+          <e p="ModelMarkCreateEditViewModel.cs" t="Include" />
+          <e p="OrderCreateEditViewModel.cs" t="Include" />
+          <e p="PaymentCreateEditViewModel.cs" t="Include" />
+          <e p="PaymentMethodCreateEditViewModel.cs" t="Include" />
+          <e p="PersonCreateEditViewModel.cs" t="Include" />
+          <e p="PersonTypeCreateEditViewModel.cs" t="Include" />
+          <e p="ServiceCreateEditViewModel.cs" t="Include" />
+          <e p="WashCreateEditViewModel.cs" t="Include" />
+          <e p="WashTypeCreateEditViewModel.cs" t="Include" />
         </e>
         <e p="Views" t="Include">
           <e p="_ViewImports.cshtml" t="Include" />

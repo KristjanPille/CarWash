@@ -1,9 +1,9 @@
-﻿@model Domain.CarType
+﻿@model WebApp.ViewModels.CarTypeCreateEditViewModel
 
 <div asp-validation-summary="All" class="text-danger"></div>
 
 <div class="form-group">
-    <label asp-for="Name" class="control-label"></label>
-    <input asp-for="Name" class="form-control" />
-    <span asp-validation-for="Name" class="text-danger"></span>
+    <label asp-for="CarType.Name" class="control-label"></label>
+    <input asp-for="CarType.Name" class="form-control" />
+    <span asp-validation-for="CarType.Name" class="text-danger"></span>
 </div>

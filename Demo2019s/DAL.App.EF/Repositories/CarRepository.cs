@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.App.EF.Repositories
 {
-    public class CarRepository : BaseRepository<Car, AppDbContext>, ICarRepository
+    public class CarRepository : EFBaseRepository<Car, AppDbContext>, ICarRepository
     {
         public CarRepository(AppDbContext dbContext) : base(dbContext)
         {

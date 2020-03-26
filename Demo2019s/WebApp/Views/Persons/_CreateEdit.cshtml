@@ -1,43 +1,43 @@
-﻿@model Domain.Person
+﻿@model WebApp.ViewModels.PersonCreateEditViewModel
 
 <div asp-validation-summary="All" class="text-danger"></div>
 
 <div class="form-group">
-    <label asp-for="Name" class="control-label"></label>
-    <input asp-for="Name" class="form-control" />
-    <span asp-validation-for="Name" class="text-danger"></span>
+    <label asp-for="Person.Name" class="control-label"></label>
+    <input asp-for="Person.Name" class="form-control" />
+    <span asp-validation-for="Person.Name" class="text-danger"></span>
 </div>
 <div class="form-group">
-    <label asp-for="PersonTypeId" class="control-label"></label>
-    <select asp-for="PersonTypeId" class ="form-control" asp-items="ViewBag.PersonTypeId"></select>
+    <label asp-for="Person.PersonTypeId" class="control-label"></label>
+    <select asp-for="Person.PersonTypeId" class ="form-control" asp-items="Model.PersonTypeSelectList"></select>
 </div>
 <div class="form-group">
-    <label asp-for="Email" class="control-label"></label>
-    <input asp-for="Email" class="form-control" />
-    <span asp-validation-for="Email" class="text-danger"></span>
+    <label asp-for="Person.Email" class="control-label"></label>
+    <input asp-for="Person.Email" class="form-control" />
+    <span asp-validation-for="Person.Email" class="text-danger"></span>
 </div>
 <div class="form-group">
-    <label asp-for="PhoneNr" class="control-label"></label>
-    <input asp-for="PhoneNr" class="form-control" />
-    <span asp-validation-for="PhoneNr" class="text-danger"></span>
+    <label asp-for="Person.PhoneNr" class="control-label"></label>
+    <input asp-for="Person.PhoneNr" class="form-control" />
+    <span asp-validation-for="Person.PhoneNr" class="text-danger"></span>
 </div>
 <div class="form-group">
-    <label asp-for="CreatedBy" class="control-label"></label>
-    <input asp-for="CreatedBy" class="form-control" />
-    <span asp-validation-for="CreatedBy" class="text-danger"></span>
+    <label asp-for="Person.CreatedBy" class="control-label"></label>
+    <input asp-for="Person.CreatedBy" class="form-control" />
+    <span asp-validation-for="Person.CreatedBy" class="text-danger"></span>
 </div>
 <div class="form-group">
-    <label asp-for="CreatedAt" class="control-label"></label>
-    <input asp-for="CreatedAt" class="form-control" />
-    <span asp-validation-for="CreatedAt" class="text-danger"></span>
+    <label asp-for="Person.CreatedAt" class="control-label"></label>
+    <input asp-for="Person.CreatedAt" class="form-control" />
+    <span asp-validation-for="Person.CreatedAt" class="text-danger"></span>
 </div>
 <div class="form-group">
-    <label asp-for="ChangedBy" class="control-label"></label>
-    <input asp-for="ChangedBy" class="form-control" />
-    <span asp-validation-for="ChangedBy" class="text-danger"></span>
+    <label asp-for="Person.ChangedBy" class="control-label"></label>
+    <input asp-for="Person.ChangedBy" class="form-control" />
+    <span asp-validation-for="Person.ChangedBy" class="text-danger"></span>
 </div>
 <div class="form-group">
-    <label asp-for="ChangedAt" class="control-label"></label>
-    <input asp-for="ChangedAt" class="form-control" />
-    <span asp-validation-for="ChangedAt" class="text-danger"></span>
+    <label asp-for="Person.ChangedAt" class="control-label"></label>
+    <input asp-for="Person.ChangedAt" class="form-control" />
+    <span asp-validation-for="Person.ChangedAt" class="text-danger"></span>
 </div>

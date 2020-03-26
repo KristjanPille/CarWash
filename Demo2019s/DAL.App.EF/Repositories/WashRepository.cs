@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.App.EF.Repositories
 {
-    public class WashRepository : BaseRepository<Wash, AppDbContext>, IWashRepository
+    public class WashRepository : EFBaseRepository<Wash, AppDbContext>, IWashRepository
     {
         public WashRepository(AppDbContext dbContext) : base(dbContext)
         {

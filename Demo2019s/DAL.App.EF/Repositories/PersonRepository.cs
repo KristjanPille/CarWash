@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.App.EF.Repositories
 {
-    public class PersonRepository : BaseRepository<Person, AppDbContext>, IPersonRepository
+    public class PersonRepository : EFBaseRepository<Person, AppDbContext>, IPersonRepository
     {
         public PersonRepository(AppDbContext dbContext) : base(dbContext)
         {

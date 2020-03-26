@@ -1,15 +1,17 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Contracts.DAL.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Base.EF
 {
-    public class BaseUnitOfWork<TDbContext> : IBaseUnitOfWork
+    public class EFBaseUnitOfWork<TDbContext> : BaseUnitOfWork, IBaseUnitOfWork
     where TDbContext: DbContext
     {
         protected TDbContext UOWDbContext;
 
-        public BaseUnitOfWork(TDbContext uowDbContext)
+        public EFBaseUnitOfWork(TDbContext uowDbContext)
         {
             UOWDbContext = uowDbContext;
         }
@@ -23,5 +25,6 @@ namespace DAL.Base.EF
         {
             return await UOWDbContext.SaveChangesAsync();
         }
+
     }
 }

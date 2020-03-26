@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.App.EF.Repositories
 {
-    public class DiscountRepository : BaseRepository<Discount, AppDbContext>, IDiscountRepository
+    public class DiscountRepository : EFBaseRepository<Discount, AppDbContext>, IDiscountRepository
     {
         public DiscountRepository(AppDbContext dbContext) : base(dbContext)
         {

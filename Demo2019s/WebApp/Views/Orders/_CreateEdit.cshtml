@@ -1,18 +1,18 @@
-﻿@model Domain.Order
+﻿@model WebApp.ViewModels.OrderCreateEditViewModel
 
 <div asp-validation-summary="All" class="text-danger"></div>
 <div class="form-group">
-    <label asp-for="DateAndTime" class="control-label"></label>
-    <input asp-for="DateAndTime" class="form-control" />
-    <span asp-validation-for="DateAndTime" class="text-danger"></span>
+    <label asp-for="Order.DateAndTime" class="control-label"></label>
+    <input asp-for="Order.DateAndTime" class="form-control" />
+    <span asp-validation-for="Order.DateAndTime" class="text-danger"></span>
 </div>
 <div class="form-group">
-    <label asp-for="WashId" class="control-label"></label>
-    <input asp-for="WashId" class="form-control" />
-    <span asp-validation-for="WashId" class="text-danger"></span>
+    <label asp-for="Order.WashId" class="control-label"></label>
+    <input asp-for="Order.WashId" class="form-control" />
+    <span asp-validation-for="Order.WashId" class="text-danger"></span>
 </div>
 <div class="form-group">
-    <label asp-for="Comment" class="control-label"></label>
-    <input asp-for="Comment" class="form-control" />
-    <span asp-validation-for="Comment" class="text-danger"></span>
+    <label asp-for="Order.Comment" class="control-label"></label>
+    <input asp-for="Order.Comment" class="form-control" />
+    <span asp-validation-for="Order.Comment" class="text-danger"></span>
 </div>

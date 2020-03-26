@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Base.EF.Repositories
 {
-    public class BaseRepository<TEntity, TDbContext> : BaseRepository<TEntity, Guid, TDbContext>
+    public class EFBaseRepository<TEntity, TDbContext> : BaseRepository<TEntity, Guid, TDbContext>
         where TEntity : class, IDomainEntity<Guid>, new()
         where TDbContext: DbContext
     {
-        public BaseRepository(TDbContext dbContext) : base(dbContext)
+        public EFBaseRepository(TDbContext dbContext) : base(dbContext)
         {
         }
     }

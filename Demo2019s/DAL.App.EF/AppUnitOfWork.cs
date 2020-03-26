@@ -8,13 +8,12 @@ using DAL.Base.EF;
 
 namespace DAL.App.EF
 {
-    public class AppUnitOfWork : BaseUnitOfWork<AppDbContext>, IAppUnitOfWork
+    public class AppUnitOfWork : EFBaseUnitOfWork<AppDbContext>, IAppUnitOfWork
     {
         public AppUnitOfWork(AppDbContext uowDbContext) : base(uowDbContext)
         {
         }
-
-        private Dictionary<Type, object> _repoCache = new Dictionary<Type, object>();
+        
         public ICampaignRepository Campaigns => GetRepository<ICampaignRepository>(() => new CampaignRepository(UOWDbContext));
         public ICarRepository Cars => GetRepository<ICarRepository>(() => new CarRepository(UOWDbContext));
         public ICarTypeRepository CarTypes => GetRepository<ICarTypeRepository>(() => new CarTypeRepository(UOWDbContext));
@@ -30,18 +29,5 @@ namespace DAL.App.EF
         public IServiceRepository Services => GetRepository<IServiceRepository>(() => new ServiceRepository(UOWDbContext));
         public IWashRepository Washes => GetRepository<IWashRepository>(() => new WashRepository(UOWDbContext));
         public IWashTypeRepository WashTypes => GetRepository<IWashTypeRepository>(() => new WashTypeRepository(UOWDbContext));
-
-
-        private TRepository GetRepository<TRepository>(Func<TRepository> repoCreationMethod)
-        {
-            if (_repoCache.TryGetValue(typeof(TRepository), out var repo))
-            {
-                return (TRepository) repo;
-            }
-
-            repo = repoCreationMethod();
-            _repoCache.Add(typeof(TRepository), repo);
-            return (TRepository)repo;
-        }
     }
 }

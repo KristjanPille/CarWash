@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.App.EF.Repositories
 {
-    public class CampaignRepository : BaseRepository<Campaign, AppDbContext>, ICampaignRepository
+    public class CampaignRepository : EFBaseRepository<Campaign, AppDbContext>, ICampaignRepository
     {
         public CampaignRepository(AppDbContext dbContext) : base(dbContext)
         {

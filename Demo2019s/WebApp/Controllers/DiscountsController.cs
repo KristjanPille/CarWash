@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
@@ -49,9 +50,15 @@ namespace WebApp.Controllers
         // GET: Discounts/Create
         public IActionResult Create()
         {
-            ViewData["CheckId"] = new SelectList(_context.Checks, "CheckId", "Comment");
-            ViewData["WashId"] = new SelectList(_context.Set<Wash>(), "WashId", "NameOfWashType");
-            return View();
+            var vm = new DiscountCreateEditViewModel();
+            vm.CheckSelectList = new SelectList(
+                _context.Set<Check>(),
+                nameof(Check.CheckId), nameof(Check.Comment));
+            vm.WashSelectList = new SelectList(
+                _context.Set<Wash>(),
+                nameof(Wash.Id), nameof(Wash.NameOfWashType)
+            );
+            return View(vm);
         }
 
         // POST: Discounts/Create
@@ -59,17 +66,17 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DiscountId,CheckId,WashId")] Discount discount)
+        public async Task<IActionResult> Create(DiscountCreateEditViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(discount);
+                _context.Add(vm);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CheckId"] = new SelectList(_context.Checks, "CheckId", "Comment", discount.CheckId);
-            ViewData["WashId"] = new SelectList(_context.Set<Wash>(), "WashId", "NameOfWashType", discount.WashId);
-            return View(discount);
+            ViewData["CheckId"] = new SelectList(_context.Checks, "CheckId", "Comment", vm.Discount.CheckId);
+            ViewData["WashId"] = new SelectList(_context.Set<Wash>(), "WashId", "NameOfWashType", vm.Discount.WashId);
+            return View(vm);
         }
 
         // GET: Discounts/Edit/5

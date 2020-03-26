@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.App.EF.Repositories
 {
-    public class CheckRepository : BaseRepository<Check, AppDbContext>, ICheckRepository
+    public class CheckRepository : EFBaseRepository<Check, AppDbContext>, ICheckRepository
     {
         public CheckRepository(AppDbContext dbContext) : base(dbContext)
         {

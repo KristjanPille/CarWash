@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.App.EF.Repositories
 {
-    public class PaymentRepository : BaseRepository<Payment, AppDbContext>, IPaymentRepository
+    public class PaymentRepository : EFBaseRepository<Payment, AppDbContext>, IPaymentRepository
     {
         public PaymentRepository(AppDbContext dbContext) : base(dbContext)
         {

@@ -1,13 +1,13 @@
-﻿@model Domain.Service
+﻿@model WebApp.ViewModels.ServiceCreateEditViewModel
 
 <div asp-validation-summary="All" class="text-danger"></div>
 <div class="form-group">
-    <label asp-for="NameOfService" class="control-label"></label>
-    <input asp-for="NameOfService" class="form-control" />
-    <span asp-validation-for="NameOfService" class="text-danger"></span>
+    <label asp-for="Service.NameOfService" class="control-label"></label>
+    <input asp-for="Service.NameOfService" class="form-control" />
+    <span asp-validation-for="Service.NameOfService" class="text-danger"></span>
 </div>
 <div class="form-group">
-    <label asp-for="CampaignId" class="control-label"></label>
-    <input asp-for="CampaignId" class="form-control" />
-    <span asp-validation-for="CampaignId" class="text-danger"></span>
+    <label asp-for="Service.CampaignId" class="control-label"></label>
+    <input asp-for="Service.CampaignId" class="form-control" />
+    <span asp-validation-for="Service.CampaignId" class="text-danger"></span>
 </div>

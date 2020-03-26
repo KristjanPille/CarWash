@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
@@ -49,9 +50,17 @@ namespace WebApp.Controllers
         // GET: Checks/Create
         public IActionResult Create()
         {
-            ViewData["PersonId"] = new SelectList(_context.Set<Person>(), "Id", "AppUserId");
-            ViewData["WashId"] = new SelectList(_context.Set<Wash>(), "WashId", "NameOfWashType");
-            return View();
+            //ViewData["PersonId"] = new SelectList(_context.Set<Person>(), "Id", "AppUserId");
+            //ViewData["WashId"] = new SelectList(_context.Set<Wash>(), "WashId", "NameOfWashType");
+
+            var vm = new CheckCreateEditViewModel();
+            vm.PersonSelectList = new SelectList(
+                _context.Set<Person>(),
+                nameof(Person.Id), nameof(Person.AppUserId));
+            vm.WashSelectList = new SelectList(
+                _context.Set<Wash>(),
+                nameof(Wash.Id), nameof(Wash.NameOfWashType));
+            return View(vm);
         }
 
         // POST: Checks/Create
@@ -59,17 +68,17 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CheckId,PersonId,WashId,DateTimeCheck,AmountExcludeVat,AmountWithVat,Vat,Comment")] Check check)
+        public async Task<IActionResult> Create(CheckCreateEditViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(check);
+                _context.Add(vm.Check);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PersonId"] = new SelectList(_context.Set<Person>(), "Id", "AppUserId", check.PersonId);
-            ViewData["WashId"] = new SelectList(_context.Set<Wash>(), "WashId", "NameOfWashType", check.WashId);
-            return View(check);
+            ViewData["PersonId"] = new SelectList(_context.Set<Person>(), "Id", "AppUserId", vm.Check.PersonId);
+            ViewData["WashId"] = new SelectList(_context.Set<Wash>(), "WashId", "NameOfWashType", vm.Check.WashId);
+            return View(vm);
         }
 
         // GET: Checks/Edit/5

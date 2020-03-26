@@ -47,22 +47,42 @@ namespace DAL.App.EF.Migrations
                     b.Property<int>("ServiceId")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("ServiceId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ServiceId");
+                    b.HasIndex("ServiceId1");
 
                     b.ToTable("Campaigns");
                 });
 
             modelBuilder.Entity("Domain.Car", b =>
                 {
-                    b.Property<int>("CarId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
 
                     b.Property<int>("CarTypeId")
                         .HasColumnType("int");
+
+                    b.Property<Guid?>("CarTypeId1")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ChangedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ChangedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("LicenceNr")
                         .HasColumnType("int");
@@ -70,9 +90,9 @@ namespace DAL.App.EF.Migrations
                     b.Property<int>("PersonId")
                         .HasColumnType("int");
 
-                    b.HasKey("CarId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("CarTypeId");
+                    b.HasIndex("CarTypeId1");
 
                     b.HasIndex("PersonId");
 
@@ -81,27 +101,40 @@ namespace DAL.App.EF.Migrations
 
             modelBuilder.Entity("Domain.CarType", b =>
                 {
-                    b.Property<int>("CarTypeId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CarTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ChangedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ChangedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(64)")
                         .HasMaxLength(64);
 
-                    b.HasKey("CarTypeId");
+                    b.HasKey("Id");
 
                     b.ToTable("CarTypes");
                 });
 
             modelBuilder.Entity("Domain.Check", b =>
                 {
-                    b.Property<int>("CheckId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("AmountExcludeVat")
                         .HasColumnType("int");
@@ -109,8 +142,23 @@ namespace DAL.App.EF.Migrations
                     b.Property<int>("AmountWithVat")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("ChangedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ChangedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CheckId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Comment")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateTimeCheck")
@@ -125,33 +173,56 @@ namespace DAL.App.EF.Migrations
                     b.Property<int>("WashId")
                         .HasColumnType("int");
 
-                    b.HasKey("CheckId");
+                    b.Property<Guid?>("WashId1")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("PersonId");
 
-                    b.HasIndex("WashId");
+                    b.HasIndex("WashId1");
 
                     b.ToTable("Checks");
                 });
 
             modelBuilder.Entity("Domain.Discount", b =>
                 {
-                    b.Property<int>("DiscountId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("CheckId")
+                    b.Property<DateTime>("ChangedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ChangedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CheckId")
                         .HasColumnType("int");
 
-                    b.Property<int>("WashId")
+                    b.Property<Guid?>("CheckId1")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DiscountId")
                         .HasColumnType("int");
 
-                    b.HasKey("DiscountId");
+                    b.Property<int?>("WashId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("CheckId");
+                    b.Property<Guid?>("WashId1")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("WashId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("CheckId1");
+
+                    b.HasIndex("WashId1");
 
                     b.ToTable("Discounts");
                 });
@@ -262,18 +333,35 @@ namespace DAL.App.EF.Migrations
 
             modelBuilder.Entity("Domain.IsInWash", b =>
                 {
-                    b.Property<int>("IsInWashId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("CarId")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("CarId1")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ChangedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ChangedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<TimeSpan>("From")
                         .HasColumnType("time");
 
-                    b.Property<int>("PersonId")
+                    b.Property<int>("IsInWashId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PersonId")
                         .HasColumnType("int");
 
                     b.Property<TimeSpan>("To")
@@ -282,23 +370,37 @@ namespace DAL.App.EF.Migrations
                     b.Property<int>("WashId")
                         .HasColumnType("int");
 
-                    b.HasKey("IsInWashId");
+                    b.Property<Guid?>("WashId1")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("CarId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarId1");
 
                     b.HasIndex("PersonId");
 
-                    b.HasIndex("WashId");
+                    b.HasIndex("WashId1");
 
                     b.ToTable("IsInWashes");
                 });
 
             modelBuilder.Entity("Domain.ModelMark", b =>
                 {
-                    b.Property<int>("ModelMarkId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ChangedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ChangedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Mark")
                         .IsRequired()
@@ -308,7 +410,10 @@ namespace DAL.App.EF.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ModelMarkId");
+                    b.Property<int>("ModelMarkId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.ToTable("ModelMarks");
                 });
@@ -320,12 +425,27 @@ namespace DAL.App.EF.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("ChangedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ChangedBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Comment")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("DateAndTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("WashId")
                         .HasColumnType("int");
@@ -337,31 +457,51 @@ namespace DAL.App.EF.Migrations
 
             modelBuilder.Entity("Domain.Payment", b =>
                 {
-                    b.Property<int>("PaymentId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ChangedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ChangedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CheckId")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("CheckId1")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("PaymentAmount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PaymentId")
                         .HasColumnType("int");
 
                     b.Property<int>("PaymentMethodId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PersonId")
+                    b.Property<Guid?>("PaymentMethodId1")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("PersonId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("TimeOfPayment")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("PaymentId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("CheckId");
+                    b.HasIndex("CheckId1");
 
-                    b.HasIndex("PaymentMethodId");
+                    b.HasIndex("PaymentMethodId1");
 
                     b.HasIndex("PersonId");
 
@@ -370,15 +510,29 @@ namespace DAL.App.EF.Migrations
 
             modelBuilder.Entity("Domain.PaymentMethod", b =>
                 {
-                    b.Property<int>("PaymentMethodId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ChangedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ChangedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PaymentMethodId")
+                        .HasColumnType("int");
 
                     b.Property<int>("PaymentMethodName")
                         .HasColumnType("int");
 
-                    b.HasKey("PaymentMethodId");
+                    b.HasKey("Id");
 
                     b.ToTable("PaymentMethods");
                 });
@@ -415,6 +569,9 @@ namespace DAL.App.EF.Migrations
                         .HasColumnType("nvarchar(64)")
                         .HasMaxLength(64);
 
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(64)")
@@ -422,6 +579,9 @@ namespace DAL.App.EF.Migrations
 
                     b.Property<int>("PersonTypeId")
                         .HasColumnType("int");
+
+                    b.Property<Guid?>("PersonTypeId1")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("PhoneNr")
                         .HasColumnType("int");
@@ -430,57 +590,96 @@ namespace DAL.App.EF.Migrations
 
                     b.HasIndex("AppUserId1");
 
-                    b.HasIndex("PersonTypeId");
+                    b.HasIndex("PersonTypeId1");
 
                     b.ToTable("Persons");
                 });
 
             modelBuilder.Entity("Domain.PersonType", b =>
                 {
-                    b.Property<int>("PersonTypeId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ChangedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ChangedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(64)")
                         .HasMaxLength(64);
 
-                    b.HasKey("PersonTypeId");
+                    b.Property<int>("PersonTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.ToTable("PersonTypes");
                 });
 
             modelBuilder.Entity("Domain.Service", b =>
                 {
-                    b.Property<int>("ServiceId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("CampaignId")
+                    b.Property<int?>("CampaignId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("ChangedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ChangedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NameOfService")
                         .IsRequired()
                         .HasColumnType("nvarchar(64)")
                         .HasMaxLength(64);
 
-                    b.HasKey("ServiceId");
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Services");
                 });
 
             modelBuilder.Entity("Domain.Wash", b =>
                 {
-                    b.Property<int>("WashId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ChangedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ChangedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CheckId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NameOfWashType")
                         .IsRequired()
@@ -489,13 +688,16 @@ namespace DAL.App.EF.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
+                    b.Property<int>("WashId")
+                        .HasColumnType("int");
+
                     b.Property<int>("WashTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("WashTypeId1")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("WashTypeId1")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("WashId");
+                    b.HasKey("Id");
 
                     b.HasIndex("OrderId");
 
@@ -506,10 +708,21 @@ namespace DAL.App.EF.Migrations
 
             modelBuilder.Entity("Domain.WashType", b =>
                 {
-                    b.Property<int>("WashTypeId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ChangedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ChangedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NameOfWash")
                         .IsRequired()
@@ -518,7 +731,10 @@ namespace DAL.App.EF.Migrations
                     b.Property<int>("WashId")
                         .HasColumnType("int");
 
-                    b.HasKey("WashTypeId");
+                    b.Property<int>("WashTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.ToTable("WashTypes");
                 });
@@ -632,18 +848,14 @@ namespace DAL.App.EF.Migrations
                 {
                     b.HasOne("Domain.Service", "Service")
                         .WithMany("Campaign")
-                        .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ServiceId1");
                 });
 
             modelBuilder.Entity("Domain.Car", b =>
                 {
                     b.HasOne("Domain.CarType", "CarType")
                         .WithMany()
-                        .HasForeignKey("CarTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CarTypeId1");
 
                     b.HasOne("Domain.Person", "Person")
                         .WithMany()
@@ -662,66 +874,48 @@ namespace DAL.App.EF.Migrations
 
                     b.HasOne("Domain.Wash", "Wash")
                         .WithMany("Check")
-                        .HasForeignKey("WashId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("WashId1");
                 });
 
             modelBuilder.Entity("Domain.Discount", b =>
                 {
                     b.HasOne("Domain.Check", "Check")
                         .WithMany()
-                        .HasForeignKey("CheckId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CheckId1");
 
                     b.HasOne("Domain.Wash", "Wash")
                         .WithMany()
-                        .HasForeignKey("WashId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("WashId1");
                 });
 
             modelBuilder.Entity("Domain.IsInWash", b =>
                 {
                     b.HasOne("Domain.Car", "Car")
                         .WithMany()
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CarId1");
 
                     b.HasOne("Domain.Person", "Person")
                         .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PersonId");
 
                     b.HasOne("Domain.Wash", "Wash")
                         .WithMany()
-                        .HasForeignKey("WashId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("WashId1");
                 });
 
             modelBuilder.Entity("Domain.Payment", b =>
                 {
                     b.HasOne("Domain.Check", "Check")
                         .WithMany()
-                        .HasForeignKey("CheckId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CheckId1");
 
                     b.HasOne("Domain.PaymentMethod", "PaymentMethod")
                         .WithMany()
-                        .HasForeignKey("PaymentMethodId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PaymentMethodId1");
 
                     b.HasOne("Domain.Person", "Person")
                         .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PersonId");
                 });
 
             modelBuilder.Entity("Domain.Person", b =>
@@ -732,9 +926,7 @@ namespace DAL.App.EF.Migrations
 
                     b.HasOne("Domain.PersonType", "PersonType")
                         .WithMany()
-                        .HasForeignKey("PersonTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PersonTypeId1");
                 });
 
             modelBuilder.Entity("Domain.Wash", b =>

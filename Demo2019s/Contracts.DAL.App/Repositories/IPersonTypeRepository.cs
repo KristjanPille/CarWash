@@ -1,7 +1,10 @@
-﻿namespace Contracts.DAL.App.Repositories
+﻿using Contracts.DAL.Base.Repositories;
+using Domain;
+ 
+namespace Contracts.DAL.App.Repositories
 {
-    public class IPersonTypeRepository
+    public interface IPersonTypeRepository : IBaseRepository<PersonType>
     {
-        
+        //Custom methods here   
     }
 }

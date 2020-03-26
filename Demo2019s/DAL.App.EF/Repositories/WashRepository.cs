@@ -1,7 +1,21 @@
-﻿namespace DAL.App.EF.Repositories
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Contracts.DAL.App.Repositories;
+using DAL.Base.EF.Repositories;
+using Domain;
+using Microsoft.EntityFrameworkCore;
+
+namespace DAL.App.EF.Repositories
 {
-    public class WashRepository
+    public class WashRepository : BaseRepository<Wash, AppDbContext>, IWashRepository
     {
+        public WashRepository(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         
+        public async  Task<IEnumerable<Wash>> AllASync()
+        {
+            return await RepoDbSet.ToListAsync();
+        }
     }
 }

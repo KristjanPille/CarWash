@@ -1,6 +1,8 @@
-﻿namespace Domain
+﻿using DAL.Base;
+
+namespace Domain
 {
-    public class ModelMark
+    public class ModelMark : DomainEntity
     {
         public int ModelMarkId { get; set; }
 

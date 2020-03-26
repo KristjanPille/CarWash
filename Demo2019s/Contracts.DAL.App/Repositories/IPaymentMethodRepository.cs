@@ -1,7 +1,10 @@
-﻿namespace Contracts.DAL.App.Repositories
+﻿using Contracts.DAL.Base.Repositories;
+using Domain;
+ 
+namespace Contracts.DAL.App.Repositories
 {
-    public class IPaymentMethodRepository
+    public interface IPaymentMethodRepository : IBaseRepository<PaymentMethod>
     {
-        
+        //Custom methods here   
     }
 }

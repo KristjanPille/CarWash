@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using DAL.Base;
 
 namespace Domain
 {
-    public class Wash
+    public class Wash : DomainEntity
     {
         public int WashId { get; set; }
         

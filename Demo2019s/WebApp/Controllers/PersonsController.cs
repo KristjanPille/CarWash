@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Contracts.DAL.App;
 using DAL.App.EF;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -17,11 +18,12 @@ namespace WebApp.Controllers
     [Authorize]
     public class PersonsController : Controller
     {
+        private readonly IAppUnitOfWork _uow;
         private readonly AppDbContext _context;
 
-        public PersonsController(AppDbContext context)
+        public PersonsController(IAppUnitOfWork uow)
         {
-            _context = context;
+            _uow = uow;
         }
 
         // GET: Persons
@@ -32,7 +34,7 @@ namespace WebApp.Controllers
                     .Include(p => p.AppUser)
                     .Include(p => p.PersonType)
                     .Where(a => a.AppUserId == User.UserId());
-            return View(await AppDbContext.ToListAsync());
+            return View(await _uow.Persons.AllAsync());
         }
 
         // GET: Persons/Details/5
@@ -76,8 +78,8 @@ namespace WebApp.Controllers
             
             if (ModelState.IsValid)
             {
-                _context.Add(person);
-                await _context.SaveChangesAsync();
+                _uow.Persons.Add(person);
+                await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["PersonTypeId"] = new SelectList(_context.Set<PersonType>(), "PersonTypeId", "Name", person.PersonTypeId);
@@ -92,7 +94,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var person = await _context.Persons.FindAsync(id);
+            var person = await _uow.Persons.FindAsync(id);
             if (person == null)
             {
                 return NotFound();
@@ -165,8 +167,8 @@ namespace WebApp.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var person = await _context.Persons.FindAsync(id);
-            _context.Persons.Remove(person);
-            await _context.SaveChangesAsync();
+            _uow.Persons.Remove(person);
+            await _uow.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

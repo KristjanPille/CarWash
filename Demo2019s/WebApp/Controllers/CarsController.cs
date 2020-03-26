@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.DAL.App;
 using DAL.App.EF;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -14,17 +15,18 @@ namespace WebApp.Controllers
     public class CarsController : Controller
     {
         private readonly AppDbContext _context;
-
-        public CarsController(AppDbContext context)
+        private readonly IAppUnitOfWork _uow;
+        public CarsController(AppDbContext context, IAppUnitOfWork uow)
         {
             _context = context;
+            _uow = uow;
         }
 
         // GET: Cars
         public async Task<IActionResult> Index()
         {
-            var AppDbContext = _context.Cars.Include(c => c.CarType).Include(c => c.Person);
-            return View(await AppDbContext.ToListAsync());
+            //var AppDbContext = _context.Cars.Include(c => c.CarType).Include(c => c.Person);
+            return View(await _uow.Cars.AllAsync());
         }
 
         // GET: Cars/Details/5
@@ -70,8 +72,8 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(vm.Car);
-                await _context.SaveChangesAsync();
+                _uow.Cars.Add(vm.Car);
+                await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CarTypeId"] = new SelectList(_context.Set<CarType>(), "CarTypeId", "Name", vm.Car.CarTypeId);
@@ -87,7 +89,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var car = await _context.Cars.FindAsync(id);
+            var car = await _uow.Cars.FindAsync(id);
             if (car == null)
             {
                 return NotFound();
@@ -113,8 +115,8 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _context.Update(car);
-                    await _context.SaveChangesAsync();
+                    _uow.Cars.Update(car);
+                    await _uow.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -159,9 +161,9 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var car = await _context.Cars.FindAsync(id);
-            _context.Cars.Remove(car);
-            await _context.SaveChangesAsync();
+            var car = await _uow.Cars.FindAsync(id);
+            _uow.Cars.Remove(car);
+            await _uow.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

@@ -1,8 +1,9 @@
 ﻿using System;
+using DAL.Base;
 
 namespace Domain
 {
-    public class Check
+    public class Check : DomainEntity
     {
         public int CheckId { get; set; }
         

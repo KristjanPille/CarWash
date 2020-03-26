@@ -1,13 +1,15 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Contracts.DAL.Base;
 using DAL.Base;
 using Domain.Identity;
 
 namespace Domain
 {
-    public class Person: DomainEntityMetadata
+    public class Person: DomainEntity
     {
+        [Key]
         public int PersonId { get; set; }
         [MaxLength(64)]
         [MinLength(1)]
@@ -17,8 +19,6 @@ namespace Domain
         public AppUser? AppUser { get; set; }
         
         public int PersonTypeId { get; set; }
-        
-        [ForeignKey(nameof(PersonTypeId))] 
         public PersonType? PersonType { get; set; }
 
         [MaxLength(64)]

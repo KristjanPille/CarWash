@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using DAL.Base;
 
 namespace Domain
 {
-    public class PersonType
+    public class PersonType : DomainEntity
     {
         public int PersonTypeId { get; set; }
         [MaxLength(64)]

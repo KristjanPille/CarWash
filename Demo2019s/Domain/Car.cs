@@ -1,7 +1,9 @@
-﻿namespace Domain
+﻿using DAL.Base;
+
+namespace Domain
 {
     //1
-    public class Car
+    public class Car : DomainEntity
     {
         private int _personId;
 
@@ -11,11 +13,7 @@
         public int CarTypeId { get; set; }
         public CarType? CarType { get; set; }
 
-        public int PersonId
-        {
-            get => _personId;
-            set => _personId = value;
-        }
+        public int PersonId { get; set; }
 
         public Person? Person { get; set; }
         

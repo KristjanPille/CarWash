@@ -9,6 +9,8 @@ namespace WebApp.ViewModels
         
         public SelectList? CarTypeSelectList { get; set; }
         public SelectList? PersonSelectList { get; set; }
+        public SelectList? CampaignSelectList { get; set; }
+
         public SelectList? ModelMarkSelectList { get; set; }
         public SelectList? IsInWashSelectList { get; set; }
         

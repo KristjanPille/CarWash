@@ -1,4 +1,8 @@
+using Contracts.DAL.App;
+using Contracts.DAL.App.Repositories;
 using DAL.App.EF;
+using DAL.App.EF.Repositories;
+using Domain;
 using Domain.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -26,9 +30,11 @@ namespace WebApp
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("MsSqlConnection")));
-            
+            services.AddScoped<IAppUnitOfWork, AppUnitOfWork>();
+
             services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<AppDbContext>();
+            
             
             services.AddControllersWithViews();
             services.AddRazorPages();

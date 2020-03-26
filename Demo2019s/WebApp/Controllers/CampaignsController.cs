@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.DAL.App;
 using Contracts.DAL.App.Repositories;
 using DAL.App.EF;
 using DAL.App.EF.Repositories;
@@ -9,24 +10,28 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
     public class CampaignsController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly ICampaignRepository _campaignRepository;
+        private readonly IAppUnitOfWork _uow;
 
-        public CampaignsController(AppDbContext context)
+        public CampaignsController(AppDbContext context, IAppUnitOfWork uow)
         {
             _context = context;
-            _campaignRepository = new CampaignRepository(_context);
+            _uow = uow;
+            //_campaignRepository = campaignRepository;
+            //_campaignRepository = new CampaignRepository(_context);
         }
 
         // GET: Campaigns
         public async Task<IActionResult> Index()
         {
-            return View(await _campaignRepository.AllAsync());
+            //var AppDbContext = _context.Campaigns.Include(c => c.Service);
+            return View(await _uow.Campaigns.AllAsync());
         }
 
         // GET: Campaigns/Details/5
@@ -37,7 +42,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var campaign = await _campaignRepository.FindAsync(id);
+            var campaign = await _uow.Campaigns.FindAsync(id);
             if (campaign == null)
             {
                 return NotFound();
@@ -49,8 +54,11 @@ namespace WebApp.Controllers
         // GET: Campaigns/Create
         public IActionResult Create()
         {
-            ViewData["ServiceId"] = new SelectList(_context.Set<Service>(), "ServiceId", "NameOfService");
-            return View();
+            var vm = new CampaignCreateEditViewModel();
+            vm.ServiceSelectList = new SelectList(
+                _context.Set<Service>(),
+                nameof(Service.ServiceId), nameof(Service.NameOfService));
+            return View(vm);
         }
 
         // POST: Campaigns/Create
@@ -58,18 +66,18 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CampaignId,ServiceId,NameOfCampaign,Id,CreatedBy,CreatedAt,ChangedBy,ChangedAt")] Campaign campaign)
+        public async Task<IActionResult> Create(CampaignCreateEditViewModel vm)
         {
             if (ModelState.IsValid)
             {
                 //campaign.Id = Guid.NewGuid();
-                _campaignRepository.Add(campaign);
-                await _campaignRepository.SaveChangesAsync();
+                _uow.Campaigns.Add(vm.Campaign);
+                await _uow.SaveChangesAsync();
             
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ServiceId"] = new SelectList(_context.Set<Service>(), "ServiceId", "NameOfService", campaign.ServiceId);
-            return View(campaign);
+            ViewData["ServiceId"] = new SelectList(_context.Set<Service>(), "ServiceId", "NameOfService", vm.Campaign.ServiceId);
+            return View(vm);
         }
 
         // GET: Campaigns/Edit/5
@@ -80,7 +88,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var campaign = await _campaignRepository.FindAsync(id);
+            var campaign = await _uow.Campaigns.FindAsync(id);
             if (campaign == null)
             {
                 return NotFound();
@@ -103,8 +111,8 @@ namespace WebApp.Controllers
 
             if (ModelState.IsValid)
             {
-                _campaignRepository.Update(campaign);
-                await _campaignRepository.SaveChangesAsync();
+                _uow.Campaigns.Update(campaign);
+                await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ServiceId"] = new SelectList(_context.Set<Service>(), "ServiceId", "NameOfService", campaign.ServiceId);
@@ -119,7 +127,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var campaign = await _campaignRepository.FindAsync(id);
+            var campaign = await _uow.Campaigns.FindAsync(id);
             if (campaign == null)
             {
                 return NotFound();
@@ -133,8 +141,8 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var campaign = _campaignRepository.Remove(id);
-            await _context.SaveChangesAsync();
+            var campaign = _uow.Campaigns.Remove(id);
+            await _uow.SaveChangesAsync();
             
             return RedirectToAction(nameof(Index));
         }

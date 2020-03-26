@@ -9,6 +9,7 @@
       <e p="Contracts.DAL.App" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="Contracts.DAL.App.csproj" t="IncludeRecursive" />
+        <e p="IAppUnitOfWork.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netstandard2.1" t="Include">
@@ -18,11 +19,26 @@
         </e>
         <e p="Repositories" t="Include">
           <e p="ICampaignRepository.cs" t="Include" />
+          <e p="ICarRepository.cs" t="Include" />
+          <e p="ICarTypeRepository.cs" t="Include" />
+          <e p="ICheckRepository.cs" t="Include" />
+          <e p="IDiscountRepository.cs" t="Include" />
+          <e p="IIsInWashRepository.cs" t="Include" />
+          <e p="IModelMarkRepository.cs" t="Include" />
+          <e p="IOrderRepository.cs" t="Include" />
+          <e p="IPaymentMethodRepository.cs" t="Include" />
+          <e p="IPaymentRepository.cs" t="Include" />
+          <e p="IPersonRepository.cs" t="Include" />
+          <e p="IPersonTypeRepository.cs" t="Include" />
+          <e p="IServiceRepository.cs" t="Include" />
+          <e p="IWashRepository.cs" t="Include" />
+          <e p="IWashTypeRepository.cs" t="Include" />
         </e>
       </e>
       <e p="Contracts.DAL.Base" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="Contracts.DAL.Base.csproj" t="IncludeRecursive" />
+        <e p="IBaseUnitOfWork.cs" t="Include" />
         <e p="IDomainBaseEntity.cs" t="Include" />
         <e p="IDomainEntity.cs" t="Include" />
         <e p="IDomainEntityMetaData.cs" t="Include" />
@@ -39,11 +55,12 @@
       </e>
       <e p="DAL.App.EF" t="IncludeRecursive">
         <e p="AppDbContext.cs" t="Include" />
+        <e p="AppUnitOfWork.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="DAL.App.EF.csproj" t="IncludeRecursive" />
         <e p="Migrations" t="Include">
-          <e p="20200322075036_InitialDbCreation.cs" t="Include" />
-          <e p="20200322075036_InitialDbCreation.Designer.cs" t="Include" />
+          <e p="20200324113751_InitialDbCreation.cs" t="Include" />
+          <e p="20200324113751_InitialDbCreation.Designer.cs" t="Include" />
           <e p="AppDbContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -55,6 +72,20 @@
         </e>
         <e p="Repositories" t="Include">
           <e p="CampaignRepository.cs" t="Include" />
+          <e p="CarRepository.cs" t="Include" />
+          <e p="CarTypeRepository.cs" t="Include" />
+          <e p="CheckRepository.cs" t="Include" />
+          <e p="DiscountRepository.cs" t="Include" />
+          <e p="IsInWashRepository.cs" t="Include" />
+          <e p="ModelMarkRepository.cs" t="Include" />
+          <e p="OrderRepository.cs" t="Include" />
+          <e p="PaymentMethodRepository.cs" t="Include" />
+          <e p="PaymentRepository.cs" t="Include" />
+          <e p="PersonRepository.cs" t="Include" />
+          <e p="PersonTypeRepository.cs" t="Include" />
+          <e p="ServiceRepository.cs" t="Include" />
+          <e p="WashRepository.cs" t="Include" />
+          <e p="WashTypeRepository.cs" t="Include" />
         </e>
       </e>
       <e p="DAL.Base" t="IncludeRecursive">
@@ -72,6 +103,7 @@
         </e>
       </e>
       <e p="DAL.Base.EF" t="IncludeRecursive">
+        <e p="BaseUnitOfWork.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="DAL.Base.EF.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">

@@ -1,6 +1,8 @@
-﻿namespace Domain
+﻿using DAL.Base;
+
+namespace Domain
 {
-    public class WashType
+    public class WashType : DomainEntity
     {
         public int WashTypeId { get; set; }
         

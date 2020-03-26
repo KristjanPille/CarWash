@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using DAL.Base;
 
 namespace Domain
 {
-    public class Order
+    public class Order : DomainEntity
     {
         [Key]
         public int OderId { get; set; }

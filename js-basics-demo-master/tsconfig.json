@@ -1,20 +1,27 @@
 {
     "compilerOptions": {
-        "module": "esnext",
-        "target": "es2017",
+        "module": "ESNext",
+        "target": "ES2017",
+
+        "alwaysStrict": true,
+        "strict": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "downlevelIteration": true,
+        "importHelpers": true,
+
         "sourceMap": true,
-        "strict": true,
-        "noUnusedLocals": false,
-        "alwaysStrict": true,
         "esModuleInterop": true,
         "experimentalDecorators": true,
         "removeComments": true,
         "moduleResolution": "node",
         "lib": [
-            "dom",
-            "esnext",
+            "DOM", "DOM.Iterable",
+            "ESNext",
         ]
     },
     "include": [
@@ -23,4 +30,5 @@
     "exclude": [
         "node_modules",
     ]
+    
 }

@@ -1,42 +1,65 @@
-import { autoinject } from 'aurelia-framework';
-import { ITodo } from "domain/ITodo";
-import {EventAggregator, Subscription} from 'aurelia-event-aggregator';
-import { EventChannels } from 'types/EventChannels';
-import { AppState } from 'state/app-state';
+import { autoinject, PLATFORM } from 'aurelia-framework';
+import { Router, RouterConfiguration } from 'aurelia-router';
 
 @autoinject
 export class App {
-  private _subscriptions : Subscription[] = [];
-  //private _todos: ITodo[] = [];
-  private _placeholder = "what?";
-  private _appTitle = "Aurelia Todos";
-  private _submitButtonTitle = "Add";
-  private _input = "";
+  router?: Router;
 
-  constructor(private appState: AppState, private eventAggregator: EventAggregator){
-    /*
-    this._subscriptions.push(
-    this.eventAggregator.subscribe(EventChannels.NewTodoCreation, 
-      (description: string) => this.eventNewTodoCreation(description))
-    );*/
-  }
+  configureRouter(config: RouterConfiguration, router: Router): void { 
+  this.router = router;
+  config.title = 'Car Wash'; 
+  config.map([
+    { route: ['', 'home', 'home/index'], name: 'home', moduleId:
+    PLATFORM.moduleName('views/home/index'), nav: true, title: 'Home' }, 
 
-  detached(){
-    this._subscriptions.forEach(subscription => subscription.dispose());
-    this._subscriptions = [];
-  }
+    { route: ['Campaigns', 'Campaigns/index'], name: 'home', moduleId:
+    PLATFORM.moduleName('views/Campaigns/index'), nav: true, title: 'Campaigns' }, 
 
-  /*
-  eventNewTodoCreation(description: string){
-    this._todos.push({description: description, done: false});
-  }*/
+    { route: ['Cars', 'Cars/index'], name: 'home', moduleId:
+    PLATFORM.moduleName('views/Cars/index'), nav: true, title: 'Cars' }, 
 
-  removeTodo(index: number){
-    this.appState.removeTodo(index);
-    //this._todos.splice(index,1);
-  }
+    { route: ['CarTypes', 'CarTypes/index'], name: 'home', moduleId:
+    PLATFORM.moduleName('views/CarTypes/index'), nav: true, title: 'CarTypes' }, 
 
-  getDatestr(): String {
-    return new Date().getTime.toString();
+    { route: ['Checks', 'Checks/index'], name: 'home', moduleId:
+    PLATFORM.moduleName('views/Checks/index'), nav: true, title: 'Checks' }, 
+
+    { route: ['Discounts', 'Discounts/index'], name: 'home', moduleId:
+    PLATFORM.moduleName('views/Discounts/index'), nav: true, title: 'Discounts' }, 
+
+    { route: ['IsInWashes', 'IsInWashes/index'], name: 'home', moduleId:
+    PLATFORM.moduleName('views/IsInWashes/index'), nav: true, title: 'IsInWashes' }, 
+
+    { route: ['ModelMarks', 'ModelMarks/index'], name: 'home', moduleId:
+    PLATFORM.moduleName('views/ModelMarks/index'), nav: true, title: 'ModelMarks' }, 
+
+    { route: ['Orders', 'Orders/index'], name: 'home', moduleId:
+    PLATFORM.moduleName('views/Orders/index'), nav: true, title: 'Orders' }, 
+
+    { route: ['PaymentMethods', 'PaymentMethods/index'], name: 'home', moduleId:
+    PLATFORM.moduleName('views/PaymentMethods/index'), nav: true, title: 'PaymentMethods' }, 
+
+    { route: ['Payments', 'Payments/index'], name: 'home', moduleId:
+    PLATFORM.moduleName('views/Payments/index'), nav: true, title: 'Payments' }, 
+
+    { route: ['Persons', 'Persons/index'], name: 'home', moduleId:
+    PLATFORM.moduleName('views/Persons/index'), nav: true, title: 'Persons' }, 
+
+    { route: ['PersonTypes', 'PersonTypes/index'], name: 'home', moduleId:
+    PLATFORM.moduleName('views/PersonTypes/index'), nav: true, title: 'PersonTypes' }, 
+
+    { route: ['PersonTypes', 'PersonTypes/index'], name: 'home', moduleId:
+    PLATFORM.moduleName('views/PersonTypes/index'), nav: true, title: 'PersonTypes' }, 
+
+    { route: ['Shared', 'Shared/index'], name: 'home', moduleId:
+    PLATFORM.moduleName('views/Shared/index'), nav: true, title: 'Shared' }, 
+
+    { route: ['Washes', 'Washes/index'], name: 'home', moduleId:
+    PLATFORM.moduleName('views/Washes/index'), nav: true, title: 'Washes' }, 
+
+    { route: ['WashTypes', 'WashTypes/index'], name: 'home', moduleId:
+    PLATFORM.moduleName('views/WashTypes/index'), nav: true, title: 'WashTypes' }, 
+  ]);
+  config.mapUnknownRoutes('views/home/index');
   }
 }

@@ -163,8 +163,39 @@
         </e>
       </e>
       <e p="packages" t="ExcludeRecursive" />
+      <e p="PublicApi.DTO.v1" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="CampaignDTO.cs" t="Include" />
+        <e p="CarDTO.cs" t="Include" />
+        <e p="CarTypeDTO.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.1" t="Include">
+              <e p="PublicApi.DTO.v1.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="PublicApi.DTO.v1.csproj" t="IncludeRecursive" />
+      </e>
       <e p="Solution Items" t="Include" />
       <e p="WebApp" t="IncludeRecursive">
+        <e p="ApiControllers" t="Include">
+          <e p="CampaignsController.cs" t="Include" />
+          <e p="CarsController.cs" t="Include" />
+          <e p="CarTypesController.cs" t="Include" />
+          <e p="ChecksController.cs" t="Include" />
+          <e p="DiscountsController.cs" t="Include" />
+          <e p="IsInWashsController.cs" t="Include" />
+          <e p="ModelMarksController.cs" t="Include" />
+          <e p="OrdersController.cs" t="Include" />
+          <e p="PaymentMethodsController.cs" t="Include" />
+          <e p="PaymentsController.cs" t="Include" />
+          <e p="PersonsController.cs" t="Include" />
+          <e p="PersonTypesController.cs" t="Include" />
+          <e p="ServicesController.cs" t="Include" />
+          <e p="WashsController.cs" t="Include" />
+          <e p="WashTypesController.cs" t="Include" />
+        </e>
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
         <e p="Areas" t="Include">

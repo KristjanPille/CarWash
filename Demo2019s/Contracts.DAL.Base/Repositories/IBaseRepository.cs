@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Contracts.DAL.Base.Repositories
@@ -9,7 +8,6 @@ namespace Contracts.DAL.Base.Repositories
     where TEntity: class, IDomainEntity<Guid>, new()
     {
     }
-
     public interface IBaseRepository<TEntity, TKey>
         where TEntity : class, IDomainEntity<TKey>, new()
         where TKey : struct, IComparable

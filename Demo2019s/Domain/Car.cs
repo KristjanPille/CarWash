@@ -5,8 +5,6 @@ namespace Domain
     //1
     public class Car : DomainEntity
     {
-        private int _personId;
-
         //car
         public int CarId { get; set; }
         
@@ -17,6 +15,6 @@ namespace Domain
 
         public Person? Person { get; set; }
         
-        public int LicenceNr { get; set; }
+        public string LicenceNr { get; set; }
     }
 }

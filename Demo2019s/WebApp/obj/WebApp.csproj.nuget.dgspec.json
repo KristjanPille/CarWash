@@ -447,6 +447,65 @@
         }
       }
     },
+    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj",
+        "projectName": "PublicApi.DTO.v1",
+        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj",
+        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "dependencies": {
+            "System.ComponentModel.Annotations": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\WebApp\\WebApp.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -479,6 +538,9 @@
               },
               "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Extensions\\Extensions.csproj": {
                 "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Extensions\\Extensions.csproj"
+              },
+              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj": {
+                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj"
               }
             }
           }

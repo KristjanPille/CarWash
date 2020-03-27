@@ -820,3 +820,5 @@ C:\Users\krist\icd0009-2019s\Demo2019s\WebApp\obj\Debug\netcoreapp3.1\staticweba
 C:\Users\krist\icd0009-2019s\Demo2019s\WebApp\obj\Debug\netcoreapp3.1\staticwebassets\WebApp.StaticWebAssets.xml
 C:\Users\krist\icd0009-2019s\Demo2019s\WebApp\obj\Debug\netcoreapp3.1\WebApp.dll
 C:\Users\krist\icd0009-2019s\Demo2019s\WebApp\obj\Debug\netcoreapp3.1\WebApp.pdb
+C:\Users\krist\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\PublicApi.DTO.v1.dll
+C:\Users\krist\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\PublicApi.DTO.v1.pdb

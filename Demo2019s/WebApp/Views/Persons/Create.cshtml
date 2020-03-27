@@ -1,4 +1,4 @@
-@model Domain.Person
+@model PersonCreateEditViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -12,7 +12,7 @@
     <div class="col-md-4">
         <form asp-action="Create">
 
-            <input type="hidden" asp-for="AppUserId" value="-"/>
+            <input type="hidden" asp-for="Person.AppUserId" value="-"/>
                <partial name="_CreateEdit" model="@Model"/>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

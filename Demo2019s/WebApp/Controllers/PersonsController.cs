@@ -1,17 +1,16 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Contracts.DAL.App;
 using DAL.App.EF;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Domain;
 using Domain.Identity;
 using Extensions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
@@ -21,8 +20,9 @@ namespace WebApp.Controllers
         private readonly IAppUnitOfWork _uow;
         private readonly AppDbContext _context;
 
-        public PersonsController(IAppUnitOfWork uow)
+        public PersonsController(AppDbContext context, IAppUnitOfWork uow)
         {
+            _context = context;
             _uow = uow;
         }
 
@@ -60,11 +60,16 @@ namespace WebApp.Controllers
         // GET: Persons/Create
         public IActionResult Create()
         {
-            ViewData["AppUserId"] = new SelectList(_context.Set<AppUser>(), "Id", "Id");
-            ViewData["PersonTypeId"] = new SelectList(
+            var vm = new PersonCreateEditViewModel();
+            vm.PersonTypeSelectList = new SelectList(
                 _context.Set<PersonType>(),
-                "PersonTypeId", "Name");
-            return View();
+                nameof(PersonType.PersonTypeId), nameof(PersonType.Name));
+            vm.AppUserSelectList = new SelectList(
+                _context.Set<AppUser>(),
+                nameof(AppUser.Id), nameof(PersonType.Name));
+            return View(vm);
+           
+            //ViewData["AppUserId"] = new SelectList(_context.Set<AppUser>(), "Id", "Id");
         }
 
         // POST: Persons/Create
@@ -72,18 +77,18 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PersonId,Name,AppUserId,PersonTypeId,Email,PhoneNr,CreatedBy,CreatedAt,DeletedBy,DeletedAt,Id")] Person person)
+        public async Task<IActionResult> Create(PersonCreateEditViewModel vm)
         {
-            person.AppUserId = User.UserId();
+            vm.Person.AppUserId = User.UserId();
             
             if (ModelState.IsValid)
             {
-                _uow.Persons.Add(person);
+                _uow.Persons.Add(vm.Person);
                 await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PersonTypeId"] = new SelectList(_context.Set<PersonType>(), "PersonTypeId", "Name", person.PersonTypeId);
-            return View(person);
+            ViewData["PersonTypeId"] = new SelectList(_context.Set<PersonType>(), "PersonTypeId", "Name", vm.Person.PersonTypeId);
+            return View(vm);
         }
 
         // GET: Persons/Edit/5
@@ -94,11 +99,15 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var person = await _uow.Persons.FindAsync(id);
+            var person = await _context.Persons
+                .Include(p => p.AppUser)
+                .Include(p => p.PersonType)
+                .FirstOrDefaultAsync(m => m.PersonId == id);
             if (person == null)
             {
                 return NotFound();
             }
+
             ViewData["AppUserId"] = new SelectList(_context.Set<AppUser>(), "Id", "Id", person.AppUserId);
             ViewData["PersonTypeId"] = new SelectList(_context.Set<PersonType>(), "PersonTypeId", "Name", person.PersonTypeId);
             return View(person);
@@ -109,8 +118,12 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PersonId,Name,AppUserId,PersonTypeId,Email,PhoneNr,CreatedBy,CreatedAt,DeletedBy,DeletedAt,Id")] Person person)
+        public async Task<IActionResult> Edit(int id)
         {
+            var person = await _context.Persons
+                .Include(p => p.AppUser)
+                .Include(p => p.PersonType)
+                .FirstOrDefaultAsync(m => m.PersonId == id);
             if (id != person.PersonId)
             {
                 return NotFound();

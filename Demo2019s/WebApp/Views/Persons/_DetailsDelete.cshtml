@@ -1,60 +1,60 @@
-﻿@model Domain.Person
+﻿@model WebApp.ViewModels.PersonCreateEditViewModel
 
 <h4>Person</h4>
 <hr />
 <dl class="row">
     <dt class = "col-sm-2">
-        @Html.DisplayNameFor(model => model.PersonId)
+        @Html.DisplayNameFor(model => Model.Person.PersonId)
     </dt>
     <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.PersonId)
+        @Html.DisplayFor(model => Model.Person.PersonId)
     </dd>
     <dt class = "col-sm-2">
-        @Html.DisplayNameFor(model => model.Name)
+        @Html.DisplayNameFor(model => Model.Person.Name)
     </dt>
     <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.Name)
+        @Html.DisplayFor(model => Model.Person.Name)
     </dd>
     <dt class = "col-sm-2">
-        @Html.DisplayNameFor(model => model.AppUser)
+        @Html.DisplayNameFor(model => Model.Person.AppUser)
     </dt>
     <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.AppUser.Id)
+        @Html.DisplayFor(model => Model.Person.AppUser.Id)
     </dd>
     <dt class = "col-sm-2">
-        @Html.DisplayNameFor(model => model.PersonType)
+        @Html.DisplayNameFor(model => Model.Person.PersonType)
     </dt>
     <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.PersonType.Name)
+        @Html.DisplayFor(model => Model.Person.PersonType.Name)
     </dd>
     <dt class = "col-sm-2">
-        @Html.DisplayNameFor(model => model.Email)
+        @Html.DisplayNameFor(model => Model.Person.Email)
     </dt>
     <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.Email)
+        @Html.DisplayFor(model => Model.Person.Email)
     </dd>
     <dt class = "col-sm-2">
-        @Html.DisplayNameFor(model => model.PhoneNr)
+        @Html.DisplayNameFor(model => Model.Person.PhoneNr)
     </dt>
     <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.PhoneNr)
+        @Html.DisplayFor(model => Model.Person.PhoneNr)
     </dd>
     <dt class = "col-sm-2">
-        @Html.DisplayNameFor(model => model.CreatedBy)
+        @Html.DisplayNameFor(model => Model.Person.CreatedBy)
     </dt>
     <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.CreatedBy)
+        @Html.DisplayFor(model => Model.Person.CreatedBy)
     </dd>
     <dt class = "col-sm-2">
-        @Html.DisplayNameFor(model => model.CreatedAt)
+        @Html.DisplayNameFor(model => Model.Person.CreatedAt)
     </dt>
     <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.CreatedAt)
+        @Html.DisplayFor(model => Model.Person.CreatedAt)
     </dd>
     <dt class = "col-sm-2">
-        @Html.DisplayNameFor(model => model.ChangedAt)
+        @Html.DisplayNameFor(model => Model.Person.ChangedAt)
     </dt>
     <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.ChangedBy)
+        @Html.DisplayFor(model => Model.Person.ChangedBy)
     </dd>
 </dl>

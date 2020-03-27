@@ -7,6 +7,6 @@ namespace WebApp.ViewModels
     {
         public Person Person { get; set; } = default!;
         public SelectList? PersonTypeSelectList { get; set; }
-        
-    }
+        public SelectList? AppUserSelectList { get; set; }
+         }
 }

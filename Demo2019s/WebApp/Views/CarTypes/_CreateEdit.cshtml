@@ -3,6 +3,12 @@
 <div asp-validation-summary="All" class="text-danger"></div>
 
 <div class="form-group">
+    <label asp-for="CarType.CarTypeId" class="control-label"></label>
+    <input asp-for="CarType.CarTypeId" class="form-control" />
+    <span asp-validation-for="CarType.CarTypeId" class="text-danger"></span>
+</div>
+
+<div class="form-group">
     <label asp-for="CarType.Name" class="control-label"></label>
     <input asp-for="CarType.Name" class="form-control" />
     <span asp-validation-for="CarType.Name" class="text-danger"></span>

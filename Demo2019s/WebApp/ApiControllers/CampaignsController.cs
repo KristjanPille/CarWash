@@ -35,7 +35,7 @@ namespace WebApp.ApiControllers
 
         // GET: api/Campaigns/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CampaignDTO>> GetCampaign(int id)
+        public async Task<ActionResult<CampaignDTO>> GetCampaign(Guid id)
         {
             var campaign = await _context.Campaigns
                 .Select(o => new CampaignDTO()
@@ -55,7 +55,7 @@ namespace WebApp.ApiControllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCampaign(int id, Campaign campaign)
+        public async Task<IActionResult> PutCampaign(Guid id, Campaign campaign)
         {
             if (id != campaign.Id)
             {
@@ -97,7 +97,7 @@ namespace WebApp.ApiControllers
 
         // DELETE: api/Campaigns/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Campaign>> DeleteCampaign(int id)
+        public async Task<ActionResult<Campaign>> DeleteCampaign(Guid id)
         {
             var campaign = await _context.Campaigns.FindAsync(id);
             if (campaign == null)
@@ -111,7 +111,7 @@ namespace WebApp.ApiControllers
             return campaign;
         }
 
-        private bool CampaignExists(int id)
+        private bool CampaignExists(Guid id)
         {
             return _context.Campaigns.Any(e => e.Id == id);
         }

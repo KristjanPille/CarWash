@@ -46,7 +46,7 @@ namespace WebApp.ApiControllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutWashType(int id, WashType washType)
+        public async Task<IActionResult> PutWashType(Guid id, WashType washType)
         {
             if (id != washType.Id)
             {
@@ -102,7 +102,7 @@ namespace WebApp.ApiControllers
             return washType;
         }
 
-        private bool WashTypeExists(int id)
+        private bool WashTypeExists(Guid id)
         {
             return _context.WashTypes.Any(e => e.Id == id);
         }

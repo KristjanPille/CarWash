@@ -1,12 +1,13 @@
-﻿@model WebApp.ViewModels.CarTypeCreateEditViewModel
+﻿@model Domain.CarType
+
 
 <h4>CarType</h4>
 <hr />
 <dl class="row">
     <dt class = "col-sm-2">
-        @Html.DisplayNameFor(model => model.CarType.Name)
+        @Html.DisplayNameFor(model => model.Name)
     </dt>
     <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.CarType.Name)
+        @Html.DisplayFor(model => model.Name)
     </dd>
 </dl>

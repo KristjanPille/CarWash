@@ -46,7 +46,7 @@ namespace WebApp.ApiControllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutModelMark(int id, ModelMark modelMark)
+        public async Task<IActionResult> PutModelMark(Guid id, ModelMark modelMark)
         {
             if (id != modelMark.Id)
             {
@@ -102,7 +102,7 @@ namespace WebApp.ApiControllers
             return modelMark;
         }
 
-        private bool ModelMarkExists(int id)
+        private bool ModelMarkExists(Guid id)
         {
             return _context.ModelMarks.Any(e => e.Id == id);
         }

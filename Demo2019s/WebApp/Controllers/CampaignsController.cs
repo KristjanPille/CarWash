@@ -86,6 +86,7 @@ namespace WebApp.Controllers
             var campaign = await _uow.Campaigns.FindAsync(vm);
             ViewData["ServiceId"] = new SelectList(_context.Set<Service>(), "ServiceId", "NameOfService", vm.Campaign.ServiceId);
             return View(vm);
+
         }
 
         // POST: Campaigns/Edit/5
@@ -93,7 +94,7 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, CampaignCreateEditViewModel vm)
+        public async Task<IActionResult> Edit(int id,  CampaignCreateEditViewModel vm)
         {
 
             if (id != vm.Campaign.CampaignId)
@@ -124,6 +125,7 @@ namespace WebApp.Controllers
             }
 
             return View(vm);
+
 
         }
 

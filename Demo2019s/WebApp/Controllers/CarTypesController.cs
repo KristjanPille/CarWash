@@ -30,7 +30,7 @@ namespace WebApp.Controllers
         }
 
         // GET: CarTypes/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
@@ -69,7 +69,7 @@ namespace WebApp.Controllers
         }
 
         // GET: CarTypes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id, CarTypeCreateEditViewModel vm)
         {
             if (id == null)
             {

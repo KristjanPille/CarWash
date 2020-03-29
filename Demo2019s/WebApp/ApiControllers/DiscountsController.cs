@@ -46,7 +46,7 @@ namespace WebApp.ApiControllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDiscount(int id, Discount discount)
+        public async Task<IActionResult> PutDiscount(Guid id, Discount discount)
         {
             if (id != discount.Id)
             {
@@ -102,7 +102,7 @@ namespace WebApp.ApiControllers
             return discount;
         }
 
-        private bool DiscountExists(int id)
+        private bool DiscountExists(Guid id)
         {
             return _context.Discounts.Any(e => e.Id == id);
         }

@@ -46,7 +46,7 @@ namespace WebApp.ApiControllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutService(int id, Service service)
+        public async Task<IActionResult> PutService(Guid id, Service service)
         {
             if (id != service.Id)
             {
@@ -102,7 +102,7 @@ namespace WebApp.ApiControllers
             return service;
         }
 
-        private bool ServiceExists(int id)
+        private bool ServiceExists(Guid id)
         {
             return _context.Services.Any(e => e.Id == id);
         }

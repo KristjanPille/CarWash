@@ -46,7 +46,7 @@ namespace WebApp.ApiControllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPaymentMethod(int id, PaymentMethod paymentMethod)
+        public async Task<IActionResult> PutPaymentMethod(Guid id, PaymentMethod paymentMethod)
         {
             if (id != paymentMethod.Id)
             {
@@ -102,7 +102,7 @@ namespace WebApp.ApiControllers
             return paymentMethod;
         }
 
-        private bool PaymentMethodExists(int id)
+        private bool PaymentMethodExists(Guid id)
         {
             return _context.PaymentMethods.Any(e => e.Id == id);
         }

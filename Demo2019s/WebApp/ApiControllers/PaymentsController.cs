@@ -30,7 +30,7 @@ namespace WebApp.ApiControllers
 
         // GET: api/Payments/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Payment>> GetPayment(Guid id)
+        public async Task<ActionResult<Payment>> GetPayment(int id)
         {
             var payment = await _context.Payments.FindAsync(id);
 
@@ -46,7 +46,7 @@ namespace WebApp.ApiControllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPayment(Guid id, Payment payment)
+        public async Task<IActionResult> PutPayment(int id, Payment payment)
         {
             if (id != payment.Id)
             {
@@ -88,7 +88,7 @@ namespace WebApp.ApiControllers
 
         // DELETE: api/Payments/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Payment>> DeletePayment(Guid id)
+        public async Task<ActionResult<Payment>> DeletePayment(int id)
         {
             var payment = await _context.Payments.FindAsync(id);
             if (payment == null)
@@ -102,7 +102,7 @@ namespace WebApp.ApiControllers
             return payment;
         }
 
-        private bool PaymentExists(Guid id)
+        private bool PaymentExists(int id)
         {
             return _context.Payments.Any(e => e.Id == id);
         }

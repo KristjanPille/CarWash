@@ -143,10 +143,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var check = await _context.Checks
-                .Include(c => c.Person)
-                .Include(c => c.Wash)
-                .FirstOrDefaultAsync(m => m.CheckId == id);
+            var check = await _uow.Checks.FindAsync(id);
             if (check == null)
             {
                 return NotFound();
@@ -160,9 +157,9 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var check = await _context.Checks.FindAsync(id);
-            _context.Checks.Remove(check);
-            await _context.SaveChangesAsync();
+            var check = _uow.Checks.Remove(id);
+            await _uow.SaveChangesAsync();
+            
             return RedirectToAction(nameof(Index));
         }
 

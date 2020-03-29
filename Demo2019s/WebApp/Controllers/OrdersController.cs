@@ -2,27 +2,32 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.DAL.App;
 using DAL.App.EF;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
     public class OrdersController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IAppUnitOfWork _uow;
 
-        public OrdersController(AppDbContext context)
+
+        public OrdersController(AppDbContext context, IAppUnitOfWork uow)
         {
             _context = context;
+            _uow = uow;
         }
 
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Orders.ToListAsync());
+            return View(await _uow.Orders.AllAsync());
         }
 
         // GET: Orders/Details/5
@@ -33,8 +38,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var order = await _context.Orders
-                .FirstOrDefaultAsync(m => m.OderId == id);
+            var order = await _uow.Orders.FindAsync(id);
             if (order == null)
             {
                 return NotFound();
@@ -46,7 +50,8 @@ namespace WebApp.Controllers
         // GET: Orders/Create
         public IActionResult Create()
         {
-            return View();
+            var vm = new OrderCreateEditViewModel();
+            return View(vm);
         }
 
         // POST: Orders/Create
@@ -54,15 +59,17 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OderId,DateAndTime,WashId,Comment")] Order order)
+        public async Task<IActionResult> Create(OrderCreateEditViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(order);
-                await _context.SaveChangesAsync();
+                //campaign.Id = Guid.NewGuid();
+                _uow.Orders.Add(vm.Order);
+                await _uow.SaveChangesAsync();
+            
                 return RedirectToAction(nameof(Index));
             }
-            return View(order);
+            return View(vm);
         }
 
         // GET: Orders/Edit/5
@@ -73,7 +80,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var order = await _context.Orders.FindAsync(id);
+            var order = await _uow.Orders.FindAsync(id);
             if (order == null)
             {
                 return NotFound();
@@ -95,22 +102,8 @@ namespace WebApp.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(order);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!OrderExists(order.OderId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _uow.Orders.Update(order);
+                await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(order);
@@ -124,8 +117,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var order = await _context.Orders
-                .FirstOrDefaultAsync(m => m.OderId == id);
+            var order = await _uow.Orders.FindAsync(id);
             if (order == null)
             {
                 return NotFound();
@@ -139,9 +131,9 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var order = await _context.Orders.FindAsync(id);
-            _context.Orders.Remove(order);
-            await _context.SaveChangesAsync();
+            var order = _uow.Orders.Remove(id);
+            await _uow.SaveChangesAsync();
+            
             return RedirectToAction(nameof(Index));
         }
 

@@ -30,7 +30,7 @@ namespace WebApp.ApiControllers
 
         // GET: api/Services/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Service>> GetService(Guid id)
+        public async Task<ActionResult<Service>> GetService(int id)
         {
             var service = await _context.Services.FindAsync(id);
 
@@ -46,7 +46,7 @@ namespace WebApp.ApiControllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutService(Guid id, Service service)
+        public async Task<IActionResult> PutService(int id, Service service)
         {
             if (id != service.Id)
             {
@@ -88,7 +88,7 @@ namespace WebApp.ApiControllers
 
         // DELETE: api/Services/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Service>> DeleteService(Guid id)
+        public async Task<ActionResult<Service>> DeleteService(int id)
         {
             var service = await _context.Services.FindAsync(id);
             if (service == null)
@@ -102,7 +102,7 @@ namespace WebApp.ApiControllers
             return service;
         }
 
-        private bool ServiceExists(Guid id)
+        private bool ServiceExists(int id)
         {
             return _context.Services.Any(e => e.Id == id);
         }

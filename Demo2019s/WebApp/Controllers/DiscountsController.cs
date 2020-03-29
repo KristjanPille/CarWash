@@ -139,10 +139,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var discount = await _context.Discounts
-                .Include(d => d.Check)
-                .Include(d => d.Wash)
-                .FirstOrDefaultAsync(m => m.DiscountId == id);
+            var discount = await _uow.Discounts.FindAsync(id);
             if (discount == null)
             {
                 return NotFound();
@@ -156,9 +153,9 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var discount = await _context.Discounts.FindAsync(id);
-            _context.Discounts.Remove(discount);
-            await _context.SaveChangesAsync();
+            var discount = _uow.Discounts.Remove(id);
+            await _uow.SaveChangesAsync();
+            
             return RedirectToAction(nameof(Index));
         }
 

@@ -2,27 +2,32 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.DAL.App;
 using DAL.App.EF;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
     public class ModelMarksController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IAppUnitOfWork _uow;
 
-        public ModelMarksController(AppDbContext context)
+
+        public ModelMarksController(AppDbContext context, IAppUnitOfWork uow)
         {
             _context = context;
+            _uow = uow;
         }
 
         // GET: ModelMarks
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ModelMarks.ToListAsync());
+            return View(await _uow.ModelMarks.AllAsync());
         }
 
         // GET: ModelMarks/Details/5
@@ -33,8 +38,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var modelMark = await _context.ModelMarks
-                .FirstOrDefaultAsync(m => m.ModelMarkId == id);
+            var modelMark = await _uow.ModelMarks.FindAsync(id);
             if (modelMark == null)
             {
                 return NotFound();
@@ -46,7 +50,8 @@ namespace WebApp.Controllers
         // GET: ModelMarks/Create
         public IActionResult Create()
         {
-            return View();
+            var vm = new ModelMarkCreateEditViewModel();
+            return View(vm);
         }
 
         // POST: ModelMarks/Create
@@ -54,15 +59,15 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ModelMarkId,Mark,Model")] ModelMark modelMark)
+        public async Task<IActionResult> Create(ModelMarkCreateEditViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(modelMark);
+                _context.Add(vm.ModelMark);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(modelMark);
+            return View(vm);
         }
 
         // GET: ModelMarks/Edit/5
@@ -73,7 +78,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var modelMark = await _context.ModelMarks.FindAsync(id);
+            var modelMark = await _uow.ModelMarks.FindAsync(id);
             if (modelMark == null)
             {
                 return NotFound();
@@ -95,22 +100,8 @@ namespace WebApp.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(modelMark);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ModelMarkExists(modelMark.ModelMarkId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _uow.ModelMarks.Update(modelMark);
+                await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(modelMark);
@@ -124,8 +115,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var modelMark = await _context.ModelMarks
-                .FirstOrDefaultAsync(m => m.ModelMarkId == id);
+            var modelMark = await _uow.ModelMarks.FindAsync(id);
             if (modelMark == null)
             {
                 return NotFound();
@@ -139,9 +129,9 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var modelMark = await _context.ModelMarks.FindAsync(id);
-            _context.ModelMarks.Remove(modelMark);
-            await _context.SaveChangesAsync();
+            var modelMark = _uow.ModelMarks.Remove(id);
+            await _uow.SaveChangesAsync();
+            
             return RedirectToAction(nameof(Index));
         }
 

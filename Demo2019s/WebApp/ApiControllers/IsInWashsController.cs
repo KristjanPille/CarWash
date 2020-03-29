@@ -30,7 +30,7 @@ namespace WebApp.ApiControllers
 
         // GET: api/IsInWashs/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<IsInWash>> GetIsInWash(Guid id)
+        public async Task<ActionResult<IsInWash>> GetIsInWash(int id)
         {
             var isInWash = await _context.IsInWashes.FindAsync(id);
 
@@ -46,7 +46,7 @@ namespace WebApp.ApiControllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutIsInWash(Guid id, IsInWash isInWash)
+        public async Task<IActionResult> PutIsInWash(int id, IsInWash isInWash)
         {
             if (id != isInWash.Id)
             {
@@ -88,7 +88,7 @@ namespace WebApp.ApiControllers
 
         // DELETE: api/IsInWashs/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<IsInWash>> DeleteIsInWash(Guid id)
+        public async Task<ActionResult<IsInWash>> DeleteIsInWash(int id)
         {
             var isInWash = await _context.IsInWashes.FindAsync(id);
             if (isInWash == null)
@@ -102,7 +102,7 @@ namespace WebApp.ApiControllers
             return isInWash;
         }
 
-        private bool IsInWashExists(Guid id)
+        private bool IsInWashExists(int id)
         {
             return _context.IsInWashes.Any(e => e.Id == id);
         }

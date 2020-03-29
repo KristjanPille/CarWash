@@ -30,7 +30,7 @@ namespace WebApp.ApiControllers
 
         // GET: api/PersonTypes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<PersonType>> GetPersonType(Guid id)
+        public async Task<ActionResult<PersonType>> GetPersonType(int id)
         {
             var personType = await _context.PersonTypes.FindAsync(id);
 
@@ -46,7 +46,7 @@ namespace WebApp.ApiControllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPersonType(Guid id, PersonType personType)
+        public async Task<IActionResult> PutPersonType(int id, PersonType personType)
         {
             if (id != personType.Id)
             {
@@ -88,7 +88,7 @@ namespace WebApp.ApiControllers
 
         // DELETE: api/PersonTypes/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<PersonType>> DeletePersonType(Guid id)
+        public async Task<ActionResult<PersonType>> DeletePersonType(int id)
         {
             var personType = await _context.PersonTypes.FindAsync(id);
             if (personType == null)
@@ -102,7 +102,7 @@ namespace WebApp.ApiControllers
             return personType;
         }
 
-        private bool PersonTypeExists(Guid id)
+        private bool PersonTypeExists(int id)
         {
             return _context.PersonTypes.Any(e => e.Id == id);
         }

@@ -34,7 +34,7 @@ namespace WebApp.ApiControllers
 
         // GET: api/Cars/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CarDTO>> GetCar(Guid id)
+        public async Task<ActionResult<CarDTO>> GetCar(int id)
         {
             var car = await _context.Cars
                 .Select(o => new CarDTO()
@@ -54,7 +54,7 @@ namespace WebApp.ApiControllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCar(Guid id, Car car)
+        public async Task<IActionResult> PutCar(int id, Car car)
         {
             if (id != car.Id)
             {
@@ -96,7 +96,7 @@ namespace WebApp.ApiControllers
 
         // DELETE: api/Cars/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Car>> DeleteCar(Guid id)
+        public async Task<ActionResult<Car>> DeleteCar(int id)
         {
             var car = await _context.Cars.FindAsync(id);
             if (car == null)
@@ -110,7 +110,7 @@ namespace WebApp.ApiControllers
             return car;
         }
 
-        private bool CarExists(Guid id)
+        private bool CarExists(int id)
         {
             return _context.Cars.Any(e => e.Id == id);
         }

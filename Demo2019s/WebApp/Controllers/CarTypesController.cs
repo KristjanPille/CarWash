@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
@@ -47,7 +48,8 @@ namespace WebApp.Controllers
         // GET: CarTypes/Create
         public IActionResult Create()
         {
-            return View();
+            var vm = new CarTypeCreateEditViewModel();
+            return View(vm);
         }
 
         // POST: CarTypes/Create
@@ -55,15 +57,15 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CarTypeId,Name")] CarType carType)
+        public async Task<IActionResult> Create(CarTypeCreateEditViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                _uow.CarTypes.Add(carType);
+                _uow.CarTypes.Add(vm.CarType);
                 await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(carType);
+            return View(vm);
         }
 
         // GET: CarTypes/Edit/5
@@ -125,8 +127,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var carType = await _context.CarTypes
-                .FirstOrDefaultAsync(m => m.CarTypeId == id);
+            var carType = await _uow.CarTypes.FindAsync(id);
             if (carType == null)
             {
                 return NotFound();
@@ -140,9 +141,9 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var carType = await _uow.CarTypes.FindAsync(id);
-            _uow.CarTypes.Remove(carType);
+            var carType = _uow.CarTypes.Remove(id);
             await _uow.SaveChangesAsync();
+            
             return RedirectToAction(nameof(Index));
         }
 

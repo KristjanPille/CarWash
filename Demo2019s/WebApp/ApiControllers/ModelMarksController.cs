@@ -30,7 +30,7 @@ namespace WebApp.ApiControllers
 
         // GET: api/ModelMarks/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ModelMark>> GetModelMark(Guid id)
+        public async Task<ActionResult<ModelMark>> GetModelMark(int id)
         {
             var modelMark = await _context.ModelMarks.FindAsync(id);
 
@@ -46,7 +46,7 @@ namespace WebApp.ApiControllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutModelMark(Guid id, ModelMark modelMark)
+        public async Task<IActionResult> PutModelMark(int id, ModelMark modelMark)
         {
             if (id != modelMark.Id)
             {
@@ -88,7 +88,7 @@ namespace WebApp.ApiControllers
 
         // DELETE: api/ModelMarks/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ModelMark>> DeleteModelMark(Guid id)
+        public async Task<ActionResult<ModelMark>> DeleteModelMark(int id)
         {
             var modelMark = await _context.ModelMarks.FindAsync(id);
             if (modelMark == null)
@@ -102,7 +102,7 @@ namespace WebApp.ApiControllers
             return modelMark;
         }
 
-        private bool ModelMarkExists(Guid id)
+        private bool ModelMarkExists(int id)
         {
             return _context.ModelMarks.Any(e => e.Id == id);
         }

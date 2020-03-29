@@ -140,10 +140,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var car = await _context.Cars
-                .Include(c => c.CarType)
-                .Include(c => c.Person)
-                .FirstOrDefaultAsync(m => m.CarId == id);
+            var car = await _uow.Cars.FindAsync(id);
             if (car == null)
             {
                 return NotFound();
@@ -157,9 +154,9 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var car = await _uow.Cars.FindAsync(id);
-            _uow.Cars.Remove(car);
+            var car = _uow.CarTypes.Remove(id);
             await _uow.SaveChangesAsync();
+            
             return RedirectToAction(nameof(Index));
         }
 

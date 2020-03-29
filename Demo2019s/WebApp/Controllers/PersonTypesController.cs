@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.DAL.App;
 using DAL.App.EF;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,10 +14,12 @@ namespace WebApp.Controllers
     public class PersonTypesController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IAppUnitOfWork _uow;
 
-        public PersonTypesController(AppDbContext context)
+        public PersonTypesController(AppDbContext context, IAppUnitOfWork uow)
         {
             _context = context;
+            _uow = uow;
         }
 
         // GET: PersonTypes

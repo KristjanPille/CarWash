@@ -29,11 +29,6 @@ namespace WebApp.Controllers
         // GET: Persons
         public async Task<IActionResult> Index()
         {
-            var AppDbContext =
-                _context.Persons
-                    .Include(p => p.AppUser)
-                    .Include(p => p.PersonType)
-                    .Where(a => a.AppUserId == User.UserId());
             return View(await _uow.Persons.AllAsync());
         }
 
@@ -45,10 +40,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var person = await _context.Persons
-                .Include(p => p.AppUser)
-                .Include(p => p.PersonType)
-                .FirstOrDefaultAsync(m => m.PersonId == id);
+            var person = await _uow.Persons.FindAsync(id);
             if (person == null)
             {
                 return NotFound();
@@ -79,12 +71,11 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PersonCreateEditViewModel vm)
         {
-            vm.Person.AppUserId = User.UserId();
-            
             if (ModelState.IsValid)
             {
                 _uow.Persons.Add(vm.Person);
                 await _uow.SaveChangesAsync();
+            
                 return RedirectToAction(nameof(Index));
             }
             ViewData["PersonTypeId"] = new SelectList(_context.Set<PersonType>(), "PersonTypeId", "Name", vm.Person.PersonTypeId);
@@ -99,17 +90,11 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var person = await _context.Persons
-                .Include(p => p.AppUser)
-                .Include(p => p.PersonType)
-                .FirstOrDefaultAsync(m => m.PersonId == id);
+            var person = await _uow.Persons.FindAsync(id);
             if (person == null)
             {
                 return NotFound();
             }
-
-            ViewData["AppUserId"] = new SelectList(_context.Set<AppUser>(), "Id", "Id", person.AppUserId);
-            ViewData["PersonTypeId"] = new SelectList(_context.Set<PersonType>(), "PersonTypeId", "Name", person.PersonTypeId);
             return View(person);
         }
 
@@ -118,12 +103,8 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id,  [Bind("PersonId,Name,AppUserId,AppUser,PersonTypeId,PersonType,Email,PhoneNr")] Person person)
         {
-            var person = await _context.Persons
-                .Include(p => p.AppUser)
-                .Include(p => p.PersonType)
-                .FirstOrDefaultAsync(m => m.PersonId == id);
             if (id != person.PersonId)
             {
                 return NotFound();
@@ -131,26 +112,10 @@ namespace WebApp.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(person);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PersonExists(person.PersonId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _uow.Persons.Update(person);
+                await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AppUserId"] = new SelectList(_context.Set<AppUser>(), "Id", "Id", person.AppUserId);
-            ViewData["PersonTypeId"] = new SelectList(_context.Set<PersonType>(), "PersonTypeId", "Name", person.PersonTypeId);
             return View(person);
         }
 
@@ -162,10 +127,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var person = await _context.Persons
-                .Include(p => p.AppUser)
-                .Include(p => p.PersonType)
-                .FirstOrDefaultAsync(m => m.PersonId == id);
+            var person = await _uow.Persons.FindAsync(id);
             if (person == null)
             {
                 return NotFound();
@@ -179,9 +141,9 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var person = await _context.Persons.FindAsync(id);
-            _uow.Persons.Remove(person);
+            var person = _uow.Persons.Remove(id);
             await _uow.SaveChangesAsync();
+            
             return RedirectToAction(nameof(Index));
         }
 

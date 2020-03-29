@@ -30,7 +30,7 @@ namespace WebApp.ApiControllers
 
         // GET: api/Checks/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Check>> GetCheck(Guid id)
+        public async Task<ActionResult<Check>> GetCheck(int id)
         {
             var check = await _context.Checks.FindAsync(id);
 
@@ -46,7 +46,7 @@ namespace WebApp.ApiControllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCheck(Guid id, Check check)
+        public async Task<IActionResult> PutCheck(int id, Check check)
         {
             if (id != check.Id)
             {
@@ -88,7 +88,7 @@ namespace WebApp.ApiControllers
 
         // DELETE: api/Checks/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Check>> DeleteCheck(Guid id)
+        public async Task<ActionResult<Check>> DeleteCheck(int id)
         {
             var check = await _context.Checks.FindAsync(id);
             if (check == null)
@@ -102,7 +102,7 @@ namespace WebApp.ApiControllers
             return check;
         }
 
-        private bool CheckExists(Guid id)
+        private bool CheckExists(int id)
         {
             return _context.Checks.Any(e => e.Id == id);
         }

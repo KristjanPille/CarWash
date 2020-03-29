@@ -30,7 +30,7 @@ namespace WebApp.ApiControllers
 
         // GET: api/Discounts/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Discount>> GetDiscount(Guid id)
+        public async Task<ActionResult<Discount>> GetDiscount(int id)
         {
             var discount = await _context.Discounts.FindAsync(id);
 
@@ -46,7 +46,7 @@ namespace WebApp.ApiControllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDiscount(Guid id, Discount discount)
+        public async Task<IActionResult> PutDiscount(int id, Discount discount)
         {
             if (id != discount.Id)
             {
@@ -88,7 +88,7 @@ namespace WebApp.ApiControllers
 
         // DELETE: api/Discounts/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Discount>> DeleteDiscount(Guid id)
+        public async Task<ActionResult<Discount>> DeleteDiscount(int id)
         {
             var discount = await _context.Discounts.FindAsync(id);
             if (discount == null)
@@ -102,7 +102,7 @@ namespace WebApp.ApiControllers
             return discount;
         }
 
-        private bool DiscountExists(Guid id)
+        private bool DiscountExists(int id)
         {
             return _context.Discounts.Any(e => e.Id == id);
         }

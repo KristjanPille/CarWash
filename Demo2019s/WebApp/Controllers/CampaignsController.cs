@@ -5,6 +5,7 @@ using DAL.App.EF;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Domain;
+using Microsoft.EntityFrameworkCore;
 using WebApp.ViewModels;
 
 namespace WebApp.Controllers
@@ -76,20 +77,15 @@ namespace WebApp.Controllers
         }
 
         // GET: Campaigns/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        public async Task<IActionResult> Edit(Guid? id, CampaignCreateEditViewModel vm)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var campaign = await _uow.Campaigns.FindAsync(id);
-            if (campaign == null)
-            {
-                return NotFound();
-            }
-            ViewData["ServiceId"] = new SelectList(_context.Set<Service>(), "ServiceId", "NameOfService", campaign.ServiceId);
-            return View(campaign);
+            var campaign = await _uow.Campaigns.FindAsync(vm);
+            ViewData["ServiceId"] = new SelectList(_context.Set<Service>(), "ServiceId", "NameOfService", vm.Campaign.ServiceId);
+            return View(vm);
         }
 
         // POST: Campaigns/Edit/5
@@ -97,21 +93,38 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("CampaignId,ServiceId,NameOfCampaign,Id,CreatedBy,CreatedAt,ChangedBy,ChangedAt")] Campaign campaign)
+        public async Task<IActionResult> Edit(int id, CampaignCreateEditViewModel vm)
         {
-            if (id != campaign.Id)
+
+            if (id != vm.Campaign.CampaignId)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                _uow.Campaigns.Update(campaign);
-                await _uow.SaveChangesAsync();
+                try
+                {
+                    _uow.Campaigns.Update(vm.Campaign);
+                    await _uow.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!vm.Campaign.CampaignId.Equals(null))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ServiceId"] = new SelectList(_context.Set<Service>(), "ServiceId", "NameOfService", campaign.ServiceId);
-            return View(campaign);
+
+            return View(vm);
+
         }
 
         // GET: Campaigns/Delete/5
@@ -119,6 +132,7 @@ namespace WebApp.Controllers
         {
             if (id == null)
             {
+                
                 return NotFound();
             }
 

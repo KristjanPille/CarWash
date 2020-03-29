@@ -2,27 +2,32 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.DAL.App;
 using DAL.App.EF;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
     public class PaymentMethodsController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IAppUnitOfWork _uow;
 
-        public PaymentMethodsController(AppDbContext context)
+
+        public PaymentMethodsController(AppDbContext context, IAppUnitOfWork uow)
         {
             _context = context;
+            _uow = uow;
         }
 
         // GET: PaymentMethods
         public async Task<IActionResult> Index()
         {
-            return View(await _context.PaymentMethods.ToListAsync());
+            return View(await _uow.PaymentMethods.AllAsync());
         }
 
         // GET: PaymentMethods/Details/5
@@ -33,8 +38,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var paymentMethod = await _context.PaymentMethods
-                .FirstOrDefaultAsync(m => m.PaymentMethodId == id);
+            var paymentMethod = await _uow.PaymentMethods.FindAsync(id);
             if (paymentMethod == null)
             {
                 return NotFound();
@@ -46,7 +50,8 @@ namespace WebApp.Controllers
         // GET: PaymentMethods/Create
         public IActionResult Create()
         {
-            return View();
+            var vm = new PaymentMethodCreateEditViewModel();
+            return View(vm);
         }
 
         // POST: PaymentMethods/Create
@@ -54,15 +59,17 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PaymentMethodId,PaymentMethodName")] PaymentMethod paymentMethod)
+        public async Task<IActionResult> Create(PaymentMethodCreateEditViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(paymentMethod);
-                await _context.SaveChangesAsync();
+                //campaign.Id = Guid.NewGuid();
+                _uow.PaymentMethods.Add(vm.PaymentMethod);
+                await _uow.SaveChangesAsync();
+            
                 return RedirectToAction(nameof(Index));
             }
-            return View(paymentMethod);
+            return View(vm);
         }
 
         // GET: PaymentMethods/Edit/5
@@ -73,12 +80,12 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var paymentMethod = await _context.PaymentMethods.FindAsync(id);
-            if (paymentMethod == null)
+            var campaign = await _uow.PaymentMethods.FindAsync(id);
+            if (campaign == null)
             {
                 return NotFound();
             }
-            return View(paymentMethod);
+            return View(campaign);
         }
 
         // POST: PaymentMethods/Edit/5
@@ -95,22 +102,8 @@ namespace WebApp.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(paymentMethod);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PaymentMethodExists(paymentMethod.PaymentMethodId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _uow.PaymentMethods.Update(paymentMethod);
+                await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(paymentMethod);
@@ -124,8 +117,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var paymentMethod = await _context.PaymentMethods
-                .FirstOrDefaultAsync(m => m.PaymentMethodId == id);
+            var paymentMethod = await _uow.PaymentMethods.FindAsync(id);
             if (paymentMethod == null)
             {
                 return NotFound();
@@ -139,9 +131,9 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var paymentMethod = await _context.PaymentMethods.FindAsync(id);
-            _context.PaymentMethods.Remove(paymentMethod);
-            await _context.SaveChangesAsync();
+            var paymentMethod = _uow.PaymentMethods.Remove(id);
+            await _uow.SaveChangesAsync();
+            
             return RedirectToAction(nameof(Index));
         }
 

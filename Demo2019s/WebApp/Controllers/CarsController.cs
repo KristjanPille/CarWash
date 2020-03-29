@@ -36,11 +36,7 @@ namespace WebApp.Controllers
             {
                 return NotFound();
             }
-
-            var car = await _context.Cars
-                .Include(c => c.CarType)
-                .Include(c => c.Person)
-                .FirstOrDefaultAsync(m => m.CarId == id);
+            var car = await _uow.Cars.FindAsync(id);
             if (car == null)
             {
                 return NotFound();

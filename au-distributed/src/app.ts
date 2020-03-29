@@ -12,11 +12,18 @@ export class App {
     { route: ['', 'home', 'home/index'], name: 'home', moduleId:
     PLATFORM.moduleName('views/home/index'), nav: true, title: 'Home' }, 
 
-    { route: ['Campaigns', 'Campaigns/index'], name: 'home', moduleId:
-    PLATFORM.moduleName('views/Campaigns/index'), nav: true, title: 'Campaigns' }, 
+    { route: ['campaigns', 'Campaigns/index'], name: 'campaigns-index', moduleId:
+    PLATFORM.moduleName('views/campaigns/index'), nav: true, title: 'Campaigns' },
 
-    { route: ['Cars', 'Cars/index'], name: 'home', moduleId:
-    PLATFORM.moduleName('views/Cars/index'), nav: true, title: 'Cars' }, 
+    { route: ['campaigns/details/:id'], name: 'campaigns-details', moduleId:
+    PLATFORM.moduleName('views/campaigns/details'), nav: false, title: 'Campaign Details' }, 
+
+    { route: ['cars', 'Cars/index'], name: 'cars-index', moduleId:
+    PLATFORM.moduleName('views/cars/index'), nav: true, title: 'Cars' }, 
+
+    //{ route: ['cars/details/:id'], name: 'cars-details', moduleId:
+    //PLATFORM.moduleName('views/cars/details'), nav: false, title: 'Car Details' }, 
+
 
     { route: ['CarTypes', 'CarTypes/index'], name: 'home', moduleId:
     PLATFORM.moduleName('views/CarTypes/index'), nav: true, title: 'CarTypes' }, 

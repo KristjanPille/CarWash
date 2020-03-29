@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.DAL.App;
 using DAL.App.EF;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -14,17 +15,20 @@ namespace WebApp.Controllers
     public class ChecksController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IAppUnitOfWork _uow;
 
-        public ChecksController(AppDbContext context)
+
+        public ChecksController(AppDbContext context, IAppUnitOfWork uow)
         {
             _context = context;
+            _uow = uow;
         }
 
         // GET: Checks
         public async Task<IActionResult> Index()
         {
-            var AppDbContext = _context.Checks.Include(c => c.Person).Include(c => c.Wash);
-            return View(await AppDbContext.ToListAsync());
+            //var AppDbContext = _context.Checks.Include(c => c.Person).Include(c => c.Wash);
+            return View(await _uow.Checks.AllAsync());
         }
 
         // GET: Checks/Details/5
@@ -34,16 +38,11 @@ namespace WebApp.Controllers
             {
                 return NotFound();
             }
-
-            var check = await _context.Checks
-                .Include(c => c.Person)
-                .Include(c => c.Wash)
-                .FirstOrDefaultAsync(m => m.CheckId == id);
+            var check = await _uow.Checks.FindAsync(id);
             if (check == null)
             {
                 return NotFound();
             }
-
             return View(check);
         }
 

@@ -470,7 +470,11 @@
         },
         "frameworks": {
           "netstandard2.1": {
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Domain.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

@@ -386,7 +386,7 @@ namespace DAL.App.EF.Migrations
                     CarTypeId = table.Column<int>(nullable: false),
                     CarTypeId1 = table.Column<Guid>(nullable: true),
                     PersonId = table.Column<int>(nullable: false),
-                    LicenceNr = table.Column<int>(nullable: false)
+                    LicenceNr = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.DAL.App;
 using DAL.App.EF;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -14,16 +15,18 @@ namespace WebApp.Controllers
     public class ServicesController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IAppUnitOfWork _uow;
 
-        public ServicesController(AppDbContext context)
+        public ServicesController(AppDbContext context, IAppUnitOfWork uow)
         {
             _context = context;
+            _uow = uow;
         }
 
         // GET: Services
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Services.ToListAsync());
+            return View(await _uow.Services.AllAsync());
         }
 
         // GET: Services/Details/5
@@ -34,8 +37,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var service = await _context.Services
-                .FirstOrDefaultAsync(m => m.ServiceId == id);
+            var service = await _uow.Services.FindAsync(id);
             if (service == null)
             {
                 return NotFound();
@@ -47,7 +49,8 @@ namespace WebApp.Controllers
         // GET: Services/Create
         public IActionResult Create()
         {
-            return View();
+            var vm = new ServiceCreateEditViewModel();
+            return View(vm);
         }
 
         // POST: Services/Create
@@ -59,8 +62,8 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(vm);
-                await _context.SaveChangesAsync();
+                _uow.Services.Add(vm.Service);
+                await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(vm);

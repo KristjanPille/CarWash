@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.DAL.App;
 using DAL.App.EF;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -14,17 +15,17 @@ namespace WebApp.Controllers
     public class DiscountsController : Controller
     {
         private readonly AppDbContext _context;
-
-        public DiscountsController(AppDbContext context)
+        private readonly IAppUnitOfWork _uow;
+        public DiscountsController(AppDbContext context, IAppUnitOfWork uow)
         {
             _context = context;
+            _uow = uow;
         }
 
         // GET: Discounts
         public async Task<IActionResult> Index()
         {
-            var AppDbContext = _context.Discounts.Include(d => d.Check).Include(d => d.Wash);
-            return View(await AppDbContext.ToListAsync());
+            return View(await _uow.Discounts.AllAsync());
         }
 
         // GET: Discounts/Details/5
@@ -34,11 +35,7 @@ namespace WebApp.Controllers
             {
                 return NotFound();
             }
-
-            var discount = await _context.Discounts
-                .Include(d => d.Check)
-                .Include(d => d.Wash)
-                .FirstOrDefaultAsync(m => m.DiscountId == id);
+            var discount = await _uow.Discounts.FindAsync(id);
             if (discount == null)
             {
                 return NotFound();

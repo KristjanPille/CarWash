@@ -28,19 +28,20 @@ namespace WebApp.ApiControllers
         {
             return await _context.Campaigns.Select(o => new CampaignDTO()
             {
-                Id = o.Id, CampaignId = o.CampaignId, ServiceId = o.ServiceId
+                
+                NameOfCampaign = o.NameOfCampaign, Id = o.Id
             }).ToListAsync();
         }
 
         // GET: api/Campaigns/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CampaignDTO>> GetCampaign()
+        public async Task<ActionResult<CampaignDTO>> GetCampaign(Guid id)
         {
             var campaign = await _context.Campaigns
                 .Select(o => new CampaignDTO()
                 {
-                    Id = o.Id, CampaignId = o.CampaignId, ServiceId = o.ServiceId
-                }).FirstOrDefaultAsync();
+                    NameOfCampaign = o.NameOfCampaign, Id = o.Id
+                }).FirstOrDefaultAsync(o => o.Id == id);
 
             if (campaign == null)
             {

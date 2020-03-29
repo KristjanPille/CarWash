@@ -40,7 +40,7 @@ namespace WebApp.ApiControllers
                 .Select(o => new CarTypeDTO()
                 {
                     Id = o.Id, CarTypeId = o.CarTypeId, Name = o.Name
-                }).FirstOrDefaultAsync();
+                }).FirstOrDefaultAsync(o => o.Id == id);
 
             if (carType == null)
             {

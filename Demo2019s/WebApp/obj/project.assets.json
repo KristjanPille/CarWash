@@ -2747,6 +2747,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
+          "Domain": "1.0.0",
           "System.ComponentModel.Annotations": "4.7.0"
         },
         "compile": {

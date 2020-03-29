@@ -35,9 +35,7 @@ namespace WebApp.Controllers
             {
                 return NotFound();
             }
-
-            var carType = await _context.CarTypes
-                .FirstOrDefaultAsync(m => m.CarTypeId == id);
+            var carType = await _uow.CarTypes.FindAsync(id);
             if (carType == null)
             {
                 return NotFound();

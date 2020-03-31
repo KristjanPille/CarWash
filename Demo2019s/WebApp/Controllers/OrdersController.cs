@@ -31,7 +31,7 @@ namespace WebApp.Controllers
         }
 
         // GET: Orders/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
@@ -63,7 +63,6 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                //campaign.Id = Guid.NewGuid();
                 _uow.Orders.Add(vm.Order);
                 await _uow.SaveChangesAsync();
             
@@ -73,19 +72,21 @@ namespace WebApp.Controllers
         }
 
         // GET: Orders/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var order = await _uow.Orders.FindAsync(id);
-            if (order == null)
+            var vm = new OrderCreateEditViewModel();
+
+            vm.Order = await _uow.Orders.FindAsync(id);
+            if (vm.Order == null)
             {
                 return NotFound();
             }
-            return View(order);
+            return View(vm);
         }
 
         // POST: Orders/Edit/5
@@ -93,20 +94,35 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OderId,DateAndTime,WashId,Comment")] Order order)
+        public async Task<IActionResult> Edit(Guid? id,  OrderCreateEditViewModel vm)
         {
-            if (id != order.OderId)
+            if (id == null)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                _uow.Orders.Update(order);
-                await _uow.SaveChangesAsync();
+                try
+                {
+                    _uow.Orders.Update(vm.Order);
+                    await _uow.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!OrderExists(vm.Order.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(order);
+            return View(vm);
         }
 
         // GET: Orders/Delete/5
@@ -137,9 +153,9 @@ namespace WebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool OrderExists(int id)
+        private bool OrderExists(Guid id)
         {
-            return _context.Orders.Any(e => e.OderId == id);
+            return _context.Orders.Any(e => e.Id == id);
         }
     }
 }

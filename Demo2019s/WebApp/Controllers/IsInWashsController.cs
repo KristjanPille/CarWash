@@ -53,9 +53,9 @@ namespace WebApp.Controllers
             vm.CarSelectList = new SelectList(
                 _context.Set<Car>(),
                 nameof(Car.Id), nameof(Car.Id));
-            vm.PersonSelectList = new SelectList(
-                _context.Set<Person>(),
-                nameof(Person.Id), nameof(Person.AppUserId));
+            // vm.PersonSelectList = new SelectList(
+            //    _context.Set<Person>(),
+            //    nameof(Person.Id), nameof(Person.AppUserId));
             vm.WashSelectList = new SelectList(
                 _context.Set<Wash>(),
                 nameof(Wash.Id), nameof(Wash.NameOfWashType));

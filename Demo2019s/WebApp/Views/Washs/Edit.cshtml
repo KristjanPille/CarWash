@@ -1,4 +1,4 @@
-@model Domain.Wash
+@model WashCreateEditViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -11,8 +11,6 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
-
-            <input type="hidden" asp-for="WashId" />
             <partial name="_CreateEdit" model="@Model"/>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

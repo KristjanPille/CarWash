@@ -77,12 +77,14 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var service = await _context.Services.FindAsync(id);
-            if (service == null)
+            var vm = new ServiceCreateEditViewModel();
+
+            vm.Service = await _uow.Services.FindAsync(id);
+            if (vm.Service == null)
             {
                 return NotFound();
             }
-            return View(service);
+            return View(vm);
         }
 
         // POST: Services/Edit/5
@@ -90,9 +92,9 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ServiceId,NameOfService,CampaignId")] Service service)
+        public async Task<IActionResult> Edit(Guid? id, ServiceCreateEditViewModel vm)
         {
-            if (id != service.ServiceId)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -101,12 +103,12 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _context.Update(service);
-                    await _context.SaveChangesAsync();
+                    _uow.Services.Update(vm.Service);
+                    await _uow.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ServiceExists(service.ServiceId))
+                    if (!ServiceExists(vm.Service.Id))
                     {
                         return NotFound();
                     }
@@ -115,21 +117,22 @@ namespace WebApp.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(service);
+            return View(vm);
         }
 
         // GET: Services/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
+                
                 return NotFound();
             }
 
-            var service = await _context.Services
-                .FirstOrDefaultAsync(m => m.ServiceId == id);
+            var service = await _uow.Services.FindAsync(id);
             if (service == null)
             {
                 return NotFound();
@@ -141,17 +144,16 @@ namespace WebApp.Controllers
         // POST: Services/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var service = await _context.Services.FindAsync(id);
-            _context.Services.Remove(service);
-            await _context.SaveChangesAsync();
+            _uow.Services.Remove(id);
+            await _uow.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ServiceExists(int id)
+        private bool ServiceExists(Guid id)
         {
-            return _context.Services.Any(e => e.ServiceId == id);
+            return _context.Services.Any(e => e.Id == id);
         }
     }
 }

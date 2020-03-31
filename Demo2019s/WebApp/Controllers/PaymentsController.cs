@@ -53,9 +53,9 @@ namespace WebApp.Controllers
             vm.PaymentMethodSelectList = new SelectList(
                 _context.Set<PaymentMethod>(),
                 nameof(PaymentMethod.PaymentMethodId), nameof(PaymentMethod.PaymentMethodId));
-            vm.PersonSelectList = new SelectList(
-                _context.Set<Person>(),
-                nameof(Person.Id), nameof(Person.AppUserId));
+            //vm.PersonSelectList = new SelectList(
+              //  _context.Set<Person>(),
+               // nameof(Person.Id), nameof(Person.AppUserId));
             vm.CheckSelectList = new SelectList(
                 _context.Set<Check>(),
                 nameof(Check.Id), nameof(Check.Comment));

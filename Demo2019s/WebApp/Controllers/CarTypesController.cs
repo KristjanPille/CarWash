@@ -37,6 +37,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
             var carType = await _uow.CarTypes.FindAsync(id);
+            
             if (carType == null)
             {
                 return NotFound();
@@ -69,19 +70,21 @@ namespace WebApp.Controllers
         }
 
         // GET: CarTypes/Edit/5
-        public async Task<IActionResult> Edit(Guid? id, CarTypeCreateEditViewModel vm)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var carType = await _uow.CarTypes.FindAsync(id);
-            if (carType == null)
+            var vm = new CarTypeCreateEditViewModel();
+
+            vm.CarType = await _uow.CarTypes.FindAsync(id);
+            if (vm.CarType == null)
             {
                 return NotFound();
             }
-            return View(carType);
+            return View(vm);
         }
 
         // POST: CarTypes/Edit/5
@@ -89,9 +92,9 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CarTypeId,Name")] CarType carType)
+        public async Task<IActionResult> Edit(Guid? id, CarTypeCreateEditViewModel vm)
         {
-            if (id != carType.CarTypeId)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -100,12 +103,12 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _uow.CarTypes.Update(carType);
+                    _uow.CarTypes.Update(vm.CarType);
                     await _uow.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CarTypeExists(carType.CarTypeId))
+                    if (!CarTypeExists(vm.CarType.Id))
                     {
                         return NotFound();
                     }
@@ -114,13 +117,14 @@ namespace WebApp.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(carType);
+            return View(vm);
         }
 
         // GET: CarTypes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
@@ -139,7 +143,7 @@ namespace WebApp.Controllers
         // POST: CarTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var carType = _uow.CarTypes.Remove(id);
             await _uow.SaveChangesAsync();
@@ -147,9 +151,9 @@ namespace WebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CarTypeExists(int id)
+        private bool CarTypeExists(Guid id)
         {
-            return _context.CarTypes.Any(e => e.CarTypeId == id);
+            return _context.CarTypes.Any(e => e.Id == id);
         }
     }
 }

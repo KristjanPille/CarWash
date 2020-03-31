@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
@@ -25,19 +26,18 @@ namespace WebApp.Controllers
         // GET: PersonTypes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.PersonTypes.ToListAsync());
+            return View(await _uow.PersonTypes.AllAsync());
         }
 
         // GET: PersonTypes/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var personType = await _context.PersonTypes
-                .FirstOrDefaultAsync(m => m.PersonTypeId == id);
+            var personType = await _uow.PersonTypes.FindAsync(id);
             if (personType == null)
             {
                 return NotFound();
@@ -49,7 +49,8 @@ namespace WebApp.Controllers
         // GET: PersonTypes/Create
         public IActionResult Create()
         {
-            return View();
+            var vm = new PersonTypeCreateEditViewModel();
+            return View(vm);
         }
 
         // POST: PersonTypes/Create
@@ -57,31 +58,34 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PersonTypeId,Name")] PersonType personType)
+        public async Task<IActionResult> Create(PersonTypeCreateEditViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(personType);
-                await _context.SaveChangesAsync();
+                _uow.PersonTypes.Add(vm.PersonType);
+                await _uow.SaveChangesAsync();
+            
                 return RedirectToAction(nameof(Index));
             }
-            return View(personType);
+            return View(vm);
         }
 
         // GET: PersonTypes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var personType = await _context.PersonTypes.FindAsync(id);
-            if (personType == null)
+            var vm = new PersonTypeCreateEditViewModel();
+
+            vm.PersonType = await _uow.PersonTypes.FindAsync(id);
+            if (vm.PersonType == null)
             {
                 return NotFound();
             }
-            return View(personType);
+            return View(vm);
         }
 
         // POST: PersonTypes/Edit/5
@@ -89,9 +93,9 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PersonTypeId,Name")] PersonType personType)
+        public async Task<IActionResult> Edit(Guid? id, PersonTypeCreateEditViewModel vm)
         {
-            if (id != personType.PersonTypeId)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -100,35 +104,33 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _context.Update(personType);
-                    await _context.SaveChangesAsync();
+                    _uow.PersonTypes.Update(vm.PersonType);
+                    await _uow.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PersonTypeExists(personType.PersonTypeId))
+                    if (!PersonTypeExists(vm.PersonType.Id))
                     {
                         return NotFound();
                     }
-                    else
-                    {
-                        throw;
-                    }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(personType);
+
+            return View(vm);
         }
 
         // GET: PersonTypes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
+                
                 return NotFound();
             }
 
-            var personType = await _context.PersonTypes
-                .FirstOrDefaultAsync(m => m.PersonTypeId == id);
+            var personType = await _uow.PersonTypes.FindAsync(id);
             if (personType == null)
             {
                 return NotFound();
@@ -140,17 +142,16 @@ namespace WebApp.Controllers
         // POST: PersonTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var personType = await _context.PersonTypes.FindAsync(id);
-            _context.PersonTypes.Remove(personType);
-            await _context.SaveChangesAsync();
+            _uow.PersonTypes.Remove(id);
+            await _uow.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PersonTypeExists(int id)
+        private bool PersonTypeExists(Guid id)
         {
-            return _context.PersonTypes.Any(e => e.PersonTypeId == id);
+            return _context.PersonTypes.Any(e => e.Id == id);
         }
     }
 }

@@ -2,39 +2,42 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.DAL.App;
 using DAL.App.EF;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
     public class WashTypesController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IAppUnitOfWork _uow;
 
-        public WashTypesController(AppDbContext context)
+        public WashTypesController(AppDbContext context, IAppUnitOfWork uow)
         {
             _context = context;
+            _uow = uow;
         }
 
         // GET: WashTypes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.WashTypes.ToListAsync());
+            return View(await _uow.WashTypes.AllAsync());
         }
 
         // GET: WashTypes/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var washType = await _context.WashTypes
-                .FirstOrDefaultAsync(m => m.WashTypeId == id);
+            var washType = await _uow.WashTypes.FindAsync(id);
             if (washType == null)
             {
                 return NotFound();
@@ -42,11 +45,11 @@ namespace WebApp.Controllers
 
             return View(washType);
         }
-
         // GET: WashTypes/Create
         public IActionResult Create()
         {
-            return View();
+            var vm = new WashTypeCreateEditViewModel();
+            return View(vm);
         }
 
         // POST: WashTypes/Create
@@ -54,31 +57,35 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("WashTypeId,WashId,NameOfWash")] WashType washType)
+        public async Task<IActionResult> Create(WashTypeCreateEditViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(washType);
-                await _context.SaveChangesAsync();
+                _uow.WashTypes.Add(vm.WashType);
+                await _uow.SaveChangesAsync();
+            
                 return RedirectToAction(nameof(Index));
             }
-            return View(washType);
+     
+            return View(vm);
         }
 
         // GET: WashTypes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var washType = await _context.WashTypes.FindAsync(id);
-            if (washType == null)
+            var vm = new WashTypeCreateEditViewModel();
+
+            vm.WashType = await _uow.WashTypes.FindAsync(id);
+            if (vm.WashType == null)
             {
                 return NotFound();
             }
-            return View(washType);
+            return View(vm);
         }
 
         // POST: WashTypes/Edit/5
@@ -86,9 +93,9 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("WashTypeId,WashId,NameOfWash")] WashType washType)
+        public async Task<IActionResult> Edit(Guid? id, WashTypeCreateEditViewModel vm)
         {
-            if (id != washType.WashTypeId)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -97,12 +104,12 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _context.Update(washType);
-                    await _context.SaveChangesAsync();
+                    _uow.WashTypes.Update(vm.WashType);
+                    await _uow.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!WashTypeExists(washType.WashTypeId))
+                    if (!WashTypeExists(vm.WashType.Id))
                     {
                         return NotFound();
                     }
@@ -111,21 +118,22 @@ namespace WebApp.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(washType);
+            return View(vm);
         }
 
         // GET: WashTypes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
+                
                 return NotFound();
             }
 
-            var washType = await _context.WashTypes
-                .FirstOrDefaultAsync(m => m.WashTypeId == id);
+            var washType = await _uow.WashTypes.FindAsync(id);
             if (washType == null)
             {
                 return NotFound();
@@ -137,17 +145,17 @@ namespace WebApp.Controllers
         // POST: WashTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var washType = await _context.WashTypes.FindAsync(id);
-            _context.WashTypes.Remove(washType);
-            await _context.SaveChangesAsync();
+            _uow.WashTypes.Remove(id);
+            await _uow.SaveChangesAsync();
+            
             return RedirectToAction(nameof(Index));
         }
 
-        private bool WashTypeExists(int id)
+        private bool WashTypeExists(Guid id)
         {
-            return _context.WashTypes.Any(e => e.WashTypeId == id);
+            return _context.WashTypes.Any(e => e.Id == id);
         }
     }
 }

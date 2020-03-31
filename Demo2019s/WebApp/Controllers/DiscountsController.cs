@@ -29,7 +29,7 @@ namespace WebApp.Controllers
         }
 
         // GET: Discounts/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
@@ -77,21 +77,27 @@ namespace WebApp.Controllers
         }
 
         // GET: Discounts/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var discount = await _context.Discounts.FindAsync(id);
-            if (discount == null)
+            var vm = new DiscountCreateEditViewModel();
+
+            vm.Discount = await _uow.Discounts.FindAsync(id);
+            if (vm.Discount == null)
             {
                 return NotFound();
             }
-            ViewData["CheckId"] = new SelectList(_context.Checks, "CheckId", "Comment", discount.CheckId);
-            ViewData["WashId"] = new SelectList(_context.Set<Wash>(), "WashId", "NameOfWashType", discount.WashId);
-            return View(discount);
+            vm.CheckSelectList = new SelectList(
+                _context.Set<Check>(),
+                nameof(Check.CheckId), nameof(Check.Comment));
+            vm.WashSelectList = new SelectList(
+                _context.Set<Wash>(),
+                nameof(Wash.Id), nameof(Wash.NameOfWashType));
+            return View(vm);
         }
 
         // POST: Discounts/Edit/5
@@ -99,9 +105,9 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DiscountId,CheckId,WashId")] Discount discount)
+        public async Task<IActionResult> Edit(Guid? id, DiscountCreateEditViewModel vm)
         {
-            if (id != discount.DiscountId)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -110,29 +116,29 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _context.Update(discount);
-                    await _context.SaveChangesAsync();
+                    _uow.Discounts.Update(vm.Discount);
+                    await _uow.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DiscountExists(discount.DiscountId))
+                    if (!DiscountExists(vm.Discount.Id))
                     {
                         return NotFound();
-                    }
-                    else
-                    {
-                        throw;
                     }
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CheckId"] = new SelectList(_context.Checks, "CheckId", "Comment", discount.CheckId);
-            ViewData["WashId"] = new SelectList(_context.Set<Wash>(), "WashId", "NameOfWashType", discount.WashId);
-            return View(discount);
+            vm.CheckSelectList = new SelectList(
+                _context.Set<Check>(),
+                nameof(Check.CheckId), nameof(Check.Comment));
+            vm.WashSelectList = new SelectList(
+                _context.Set<Wash>(),
+                nameof(Wash.Id), nameof(Wash.NameOfWashType));
+            return View(vm);
         }
 
         // GET: Discounts/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
@@ -151,17 +157,16 @@ namespace WebApp.Controllers
         // POST: Discounts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var discount = _uow.Discounts.Remove(id);
+            _uow.Discounts.Remove(id);
             await _uow.SaveChangesAsync();
-            
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DiscountExists(int id)
+        private bool DiscountExists(Guid id)
         {
-            return _context.Discounts.Any(e => e.DiscountId == id);
+            return _context.Discounts.Any(e => e.Id == id);
         }
     }
 }

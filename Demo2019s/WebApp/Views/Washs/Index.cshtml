@@ -19,7 +19,7 @@
                 @Html.DisplayNameFor(model => model.WashTypeId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Order)
+                @Html.DisplayNameFor(model => model.WashId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NameOfWashType)
@@ -37,15 +37,15 @@
                 @Html.DisplayFor(modelItem => item.WashTypeId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Order.Comment)
+                @Html.DisplayFor(modelItem => item.WashId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NameOfWashType)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.WashId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.WashId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.WashId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

@@ -33,7 +33,7 @@ namespace WebApp.Controllers
         }
 
         // GET: Persons/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
@@ -60,8 +60,6 @@ namespace WebApp.Controllers
                 _context.Set<AppUser>(),
                 nameof(AppUser.Id), nameof(PersonType.Name));
             return View(vm);
-           
-            //ViewData["AppUserId"] = new SelectList(_context.Set<AppUser>(), "Id", "Id");
         }
 
         // POST: Persons/Create
@@ -78,24 +76,32 @@ namespace WebApp.Controllers
             
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PersonTypeId"] = new SelectList(_context.Set<PersonType>(), "PersonTypeId", "Name", vm.Person.PersonTypeId);
             return View(vm);
         }
 
         // GET: Persons/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var person = await _uow.Persons.FindAsync(id);
-            if (person == null)
+            var vm = new PersonCreateEditViewModel();
+
+            vm.Person = await _uow.Persons.FindAsync(id);
+            if (vm.Person == null)
             {
                 return NotFound();
             }
-            return View(person);
+            vm.PersonTypeSelectList = new SelectList(
+                _context.Set<PersonType>(),
+                nameof(PersonType.PersonTypeId), nameof(PersonType.Name));
+            vm.AppUserSelectList = new SelectList(
+                _context.Set<AppUser>(),
+                nameof(AppUser.Id), nameof(PersonType.Name));
+
+            return View(vm);
         }
 
         // POST: Persons/Edit/5
@@ -103,24 +109,45 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,  [Bind("PersonId,Name,AppUserId,AppUser,PersonTypeId,PersonType,Email,PhoneNr")] Person person)
+        public async Task<IActionResult> Edit(Guid? id,  PersonCreateEditViewModel vm)
         {
-            if (id != person.PersonId)
+            if (id == null)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                _uow.Persons.Update(person);
-                await _uow.SaveChangesAsync();
+                try
+                {
+                    _uow.Persons.Update(vm.Person);
+                    await _uow.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PersonExists(vm.Person.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(person);
+            vm.PersonTypeSelectList = new SelectList(
+                _context.Set<PersonType>(),
+                nameof(PersonType.PersonTypeId), nameof(PersonType.Name));
+            vm.AppUserSelectList = new SelectList(
+                _context.Set<AppUser>(),
+                nameof(AppUser.Id), nameof(PersonType.Name));
+            return View(vm);
         }
 
         // GET: Persons/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
@@ -139,17 +166,17 @@ namespace WebApp.Controllers
         // POST: Persons/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var person = _uow.Persons.Remove(id);
+            _uow.Persons.Remove(id);
             await _uow.SaveChangesAsync();
             
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PersonExists(int id)
+        private bool PersonExists(Guid id)
         {
-            return _context.Persons.Any(e => e.PersonId == id);
+            return _context.Persons.Any(e => e.Id == id);
         }
     }
 }

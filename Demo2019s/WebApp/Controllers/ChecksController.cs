@@ -27,12 +27,11 @@ namespace WebApp.Controllers
         // GET: Checks
         public async Task<IActionResult> Index()
         {
-            //var AppDbContext = _context.Checks.Include(c => c.Person).Include(c => c.Wash);
             return View(await _uow.Checks.AllAsync());
         }
 
         // GET: Checks/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
@@ -49,16 +48,13 @@ namespace WebApp.Controllers
         // GET: Checks/Create
         public IActionResult Create()
         {
-            //ViewData["PersonId"] = new SelectList(_context.Set<Person>(), "Id", "AppUserId");
-            //ViewData["WashId"] = new SelectList(_context.Set<Wash>(), "WashId", "NameOfWashType");
-
             var vm = new CheckCreateEditViewModel();
-            vm.PersonSelectList = new SelectList(
-                _context.Set<Person>(),
-                nameof(Person.Id), nameof(Person.AppUserId));
             vm.WashSelectList = new SelectList(
                 _context.Set<Wash>(),
                 nameof(Wash.Id), nameof(Wash.NameOfWashType));
+            vm.PersonSelectList = new SelectList(
+                _context.Set<Person>(),
+                nameof(Person.Id), nameof(Person.Name));
             return View(vm);
         }
 
@@ -75,27 +71,33 @@ namespace WebApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PersonId"] = new SelectList(_context.Set<Person>(), "Id", "AppUserId", vm.Check.PersonId);
-            ViewData["WashId"] = new SelectList(_context.Set<Wash>(), "WashId", "NameOfWashType", vm.Check.WashId);
+            //ViewData["PersonId"] = new SelectList(_context.Set<Person>(), "Id", "AppUserId", vm.Check.PersonId);
+            //ViewData["WashId"] = new SelectList(_context.Set<Wash>(), "WashId", "NameOfWashType", vm.Check.WashId);
             return View(vm);
         }
 
         // GET: Checks/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var check = await _context.Checks.FindAsync(id);
-            if (check == null)
+            var vm = new CheckCreateEditViewModel();
+
+            vm.Check = await _uow.Checks.FindAsync(id);
+            if (vm.Check == null)
             {
                 return NotFound();
             }
-            ViewData["PersonId"] = new SelectList(_context.Set<Person>(), "Id", "AppUserId", check.PersonId);
-            ViewData["WashId"] = new SelectList(_context.Set<Wash>(), "WashId", "NameOfWashType", check.WashId);
-            return View(check);
+            vm.WashSelectList = new SelectList(
+                _context.Set<Wash>(),
+                nameof(Wash.Id), nameof(Wash.NameOfWashType));
+            vm.PersonSelectList = new SelectList(
+                _context.Set<Person>(),
+                nameof(Person.Id), nameof(Person.Name));
+            return View(vm);
         }
 
         // POST: Checks/Edit/5
@@ -103,9 +105,9 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CheckId,PersonId,WashId,DateTimeCheck,AmountExcludeVat,AmountWithVat,Vat,Comment")] Check check)
+        public async Task<IActionResult> Edit(Guid? id, CheckCreateEditViewModel vm)
         {
-            if (id != check.CheckId)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -114,29 +116,30 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _context.Update(check);
-                    await _context.SaveChangesAsync();
+                    _uow.Checks.Update(vm.Check);
+                    await _uow.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CheckExists(check.CheckId))
+                    if (!CheckExists(vm.Check.Id))
                     {
                         return NotFound();
                     }
-                    else
-                    {
-                        throw;
-                    }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PersonId"] = new SelectList(_context.Set<Person>(), "Id", "AppUserId", check.PersonId);
-            ViewData["WashId"] = new SelectList(_context.Set<Wash>(), "WashId", "NameOfWashType", check.WashId);
-            return View(check);
+            vm.WashSelectList = new SelectList(
+                _context.Set<Wash>(),
+                nameof(Wash.Id), nameof(Wash.NameOfWashType));
+            vm.PersonSelectList = new SelectList(
+                _context.Set<Person>(),
+                nameof(Person.Id), nameof(Person.Name));
+            return View(vm);
         }
 
         // GET: Checks/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
@@ -155,17 +158,16 @@ namespace WebApp.Controllers
         // POST: Checks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var check = _uow.Checks.Remove(id);
+            _uow.Checks.Remove(id);
             await _uow.SaveChangesAsync();
-            
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CheckExists(int id)
+        private bool CheckExists(Guid id)
         {
-            return _context.Checks.Any(e => e.CheckId == id);
+            return _context.Checks.Any(e => e.Id == id);
         }
     }
 }

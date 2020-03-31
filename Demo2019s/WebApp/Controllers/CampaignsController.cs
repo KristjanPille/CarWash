@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Contracts.DAL.App;
 using DAL.App.EF;
@@ -26,7 +27,6 @@ namespace WebApp.Controllers
         // GET: Campaigns
         public async Task<IActionResult> Index()
         {
-            //var AppDbContext = _context.Campaigns.Include(c => c.Service);
             return View(await _uow.Campaigns.AllAsync());
         }
 
@@ -66,7 +66,6 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                //campaign.Id = Guid.NewGuid();
                 _uow.Campaigns.Add(vm.Campaign);
                 await _uow.SaveChangesAsync();
             
@@ -77,16 +76,25 @@ namespace WebApp.Controllers
         }
 
         // GET: Campaigns/Edit/5
-        public async Task<IActionResult> Edit(Guid? id, CampaignCreateEditViewModel vm)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var campaign = await _uow.Campaigns.FindAsync(vm);
-            ViewData["ServiceId"] = new SelectList(_context.Set<Service>(), "ServiceId", "NameOfService", vm.Campaign.ServiceId);
-            return View(vm);
 
+            var vm = new CampaignCreateEditViewModel();
+
+            vm.Campaign = await _uow.Campaigns.FindAsync(id);
+            if (vm.Campaign == null)
+            {
+                return NotFound();
+            }
+            vm.ServiceSelectList = new SelectList(
+                _context.Set<Service>(),
+                nameof(Service.ServiceId), nameof(Service.NameOfService));
+
+            return View(vm);
         }
 
         // POST: Campaigns/Edit/5
@@ -94,10 +102,9 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,  CampaignCreateEditViewModel vm)
+        public async Task<IActionResult> Edit(Guid? id,  CampaignCreateEditViewModel vm)
         {
-
-            if (id != vm.Campaign.CampaignId)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -111,22 +118,18 @@ namespace WebApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!vm.Campaign.CampaignId.Equals(null))
+                    if (!CampaignExists(vm.Campaign.Id))
                     {
                         return NotFound();
-                    }
-                    else
-                    {
-                        throw;
                     }
                 }
 
                 return RedirectToAction(nameof(Index));
             }
-
+            vm.ServiceSelectList = new SelectList(
+                _context.Set<Service>(),
+                nameof(Service.ServiceId), nameof(Service.NameOfService));
             return View(vm);
-
-
         }
 
         // GET: Campaigns/Delete/5
@@ -152,10 +155,14 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var campaign = _uow.Campaigns.Remove(id);
+            _uow.Campaigns.Remove(id);
             await _uow.SaveChangesAsync();
-            
             return RedirectToAction(nameof(Index));
+        }
+        
+        private bool CampaignExists(Guid id)
+        {
+            return _context.Campaigns.Any(e => e.Id == id);
         }
     }
 }

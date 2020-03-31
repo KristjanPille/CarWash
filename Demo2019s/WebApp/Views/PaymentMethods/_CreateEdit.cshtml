@@ -1,7 +1,13 @@
 ﻿@model WebApp.ViewModels.PaymentMethodCreateEditViewModel
+
 <div asp-validation-summary="All" class="text-danger"></div>
 <div class="form-group">
     <label asp-for="PaymentMethod.PaymentMethodName" class="control-label"></label>
     <input asp-for="PaymentMethod.PaymentMethodName" class="form-control" />
     <span asp-validation-for="PaymentMethod.PaymentMethodName" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="PaymentMethod.PaymentMethodId" class="control-label"></label>
+    <input asp-for="PaymentMethod.PaymentMethodId" class="form-control" />
+    <span asp-validation-for="PaymentMethod.PaymentMethodId" class="text-danger"></span>
 </div>

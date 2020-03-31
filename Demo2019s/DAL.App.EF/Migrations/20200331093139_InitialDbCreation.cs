@@ -87,20 +87,19 @@ namespace DAL.App.EF.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    OderId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     Id = table.Column<Guid>(nullable: false),
                     CreatedBy = table.Column<string>(nullable: true),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     ChangedBy = table.Column<string>(nullable: true),
                     ChangedAt = table.Column<DateTime>(nullable: false),
+                    OderId = table.Column<int>(nullable: false),
                     DateAndTime = table.Column<DateTime>(nullable: false),
                     WashId = table.Column<int>(nullable: false),
                     Comment = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.OderId);
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -113,7 +112,7 @@ namespace DAL.App.EF.Migrations
                     ChangedBy = table.Column<string>(nullable: true),
                     ChangedAt = table.Column<DateTime>(nullable: false),
                     PaymentMethodId = table.Column<int>(nullable: false),
-                    PaymentMethodName = table.Column<int>(nullable: false)
+                    PaymentMethodName = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -280,19 +279,42 @@ namespace DAL.App.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Persons",
+                name: "Cars",
                 columns: table => new
                 {
-                    PersonId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     Id = table.Column<Guid>(nullable: false),
                     CreatedBy = table.Column<string>(nullable: true),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     ChangedBy = table.Column<string>(nullable: true),
                     ChangedAt = table.Column<DateTime>(nullable: false),
+                    CarId = table.Column<int>(nullable: false),
+                    CarTypeId = table.Column<int>(nullable: false),
+                    CarTypeId1 = table.Column<Guid>(nullable: true),
+                    LicenceNr = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cars", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cars_CarTypes_CarTypeId1",
+                        column: x => x.CarTypeId1,
+                        principalTable: "CarTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Persons",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    ChangedBy = table.Column<string>(nullable: true),
+                    ChangedAt = table.Column<DateTime>(nullable: false),
+                    PersonId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(maxLength: 64, nullable: false),
-                    AppUserId = table.Column<string>(maxLength: 36, nullable: false),
-                    AppUserId1 = table.Column<Guid>(nullable: true),
+                    AppUserId = table.Column<Guid>(nullable: true),
                     PersonTypeId = table.Column<int>(nullable: false),
                     PersonTypeId1 = table.Column<Guid>(nullable: true),
                     Email = table.Column<string>(maxLength: 64, nullable: false),
@@ -300,10 +322,10 @@ namespace DAL.App.EF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Persons", x => x.PersonId);
+                    table.PrimaryKey("PK_Persons", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Persons_AspNetUsers_AppUserId1",
-                        column: x => x.AppUserId1,
+                        name: "FK_Persons_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -354,55 +376,24 @@ namespace DAL.App.EF.Migrations
                     WashTypeId = table.Column<int>(nullable: false),
                     WashTypeId1 = table.Column<Guid>(nullable: true),
                     OrderId = table.Column<int>(nullable: false),
+                    OrderId1 = table.Column<Guid>(nullable: true),
                     NameOfWashType = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Washes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Washes_Orders_OrderId",
-                        column: x => x.OrderId,
+                        name: "FK_Washes_Orders_OrderId1",
+                        column: x => x.OrderId1,
                         principalTable: "Orders",
-                        principalColumn: "OderId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Washes_WashTypes_WashTypeId1",
                         column: x => x.WashTypeId1,
                         principalTable: "WashTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Cars",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    CreatedBy = table.Column<string>(nullable: true),
-                    CreatedAt = table.Column<DateTime>(nullable: false),
-                    ChangedBy = table.Column<string>(nullable: true),
-                    ChangedAt = table.Column<DateTime>(nullable: false),
-                    CarId = table.Column<int>(nullable: false),
-                    CarTypeId = table.Column<int>(nullable: false),
-                    CarTypeId1 = table.Column<Guid>(nullable: true),
-                    PersonId = table.Column<int>(nullable: false),
-                    LicenceNr = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cars", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Cars_CarTypes_CarTypeId1",
-                        column: x => x.CarTypeId1,
-                        principalTable: "CarTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Cars_Persons_PersonId",
-                        column: x => x.PersonId,
-                        principalTable: "Persons",
-                        principalColumn: "PersonId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -416,6 +407,7 @@ namespace DAL.App.EF.Migrations
                     ChangedAt = table.Column<DateTime>(nullable: false),
                     CheckId = table.Column<int>(nullable: false),
                     PersonId = table.Column<int>(nullable: false),
+                    PersonId1 = table.Column<Guid>(nullable: true),
                     WashId = table.Column<int>(nullable: false),
                     WashId1 = table.Column<Guid>(nullable: true),
                     DateTimeCheck = table.Column<DateTime>(nullable: false),
@@ -428,11 +420,11 @@ namespace DAL.App.EF.Migrations
                 {
                     table.PrimaryKey("PK_Checks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Checks_Persons_PersonId",
-                        column: x => x.PersonId,
+                        name: "FK_Checks_Persons_PersonId1",
+                        column: x => x.PersonId1,
                         principalTable: "Persons",
-                        principalColumn: "PersonId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Checks_Washes_WashId1",
                         column: x => x.WashId1,
@@ -454,6 +446,7 @@ namespace DAL.App.EF.Migrations
                     CarId = table.Column<int>(nullable: false),
                     CarId1 = table.Column<Guid>(nullable: true),
                     PersonId = table.Column<int>(nullable: true),
+                    PersonId1 = table.Column<Guid>(nullable: true),
                     WashId = table.Column<int>(nullable: false),
                     WashId1 = table.Column<Guid>(nullable: true),
                     From = table.Column<TimeSpan>(nullable: false),
@@ -469,10 +462,10 @@ namespace DAL.App.EF.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_IsInWashes_Persons_PersonId",
-                        column: x => x.PersonId,
+                        name: "FK_IsInWashes_Persons_PersonId1",
+                        column: x => x.PersonId1,
                         principalTable: "Persons",
-                        principalColumn: "PersonId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_IsInWashes_Washes_WashId1",
@@ -525,6 +518,7 @@ namespace DAL.App.EF.Migrations
                     ChangedAt = table.Column<DateTime>(nullable: false),
                     PaymentId = table.Column<int>(nullable: false),
                     PersonId = table.Column<int>(nullable: true),
+                    PersonId1 = table.Column<Guid>(nullable: true),
                     PaymentMethodId = table.Column<int>(nullable: false),
                     PaymentMethodId1 = table.Column<Guid>(nullable: true),
                     CheckId = table.Column<int>(nullable: false),
@@ -548,10 +542,10 @@ namespace DAL.App.EF.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Payments_Persons_PersonId",
-                        column: x => x.PersonId,
+                        name: "FK_Payments_Persons_PersonId1",
+                        column: x => x.PersonId1,
                         principalTable: "Persons",
-                        principalColumn: "PersonId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -605,14 +599,9 @@ namespace DAL.App.EF.Migrations
                 column: "CarTypeId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cars_PersonId",
-                table: "Cars",
-                column: "PersonId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Checks_PersonId",
+                name: "IX_Checks_PersonId1",
                 table: "Checks",
-                column: "PersonId");
+                column: "PersonId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Checks_WashId1",
@@ -635,9 +624,9 @@ namespace DAL.App.EF.Migrations
                 column: "CarId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_IsInWashes_PersonId",
+                name: "IX_IsInWashes_PersonId1",
                 table: "IsInWashes",
-                column: "PersonId");
+                column: "PersonId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_IsInWashes_WashId1",
@@ -655,14 +644,14 @@ namespace DAL.App.EF.Migrations
                 column: "PaymentMethodId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Payments_PersonId",
+                name: "IX_Payments_PersonId1",
                 table: "Payments",
-                column: "PersonId");
+                column: "PersonId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Persons_AppUserId1",
+                name: "IX_Persons_AppUserId",
                 table: "Persons",
-                column: "AppUserId1");
+                column: "AppUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Persons_PersonTypeId1",
@@ -670,9 +659,9 @@ namespace DAL.App.EF.Migrations
                 column: "PersonTypeId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Washes_OrderId",
+                name: "IX_Washes_OrderId1",
                 table: "Washes",
-                column: "OrderId");
+                column: "OrderId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Washes_WashTypeId1",

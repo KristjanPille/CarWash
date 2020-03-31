@@ -96,7 +96,7 @@ namespace WebApp.ApiControllers
 
         // DELETE: api/Cars/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Car>> DeleteCar(int id)
+        public async Task<ActionResult<Car>> DeleteCar(Guid id)
         {
             var car = await _context.Cars.FindAsync(id);
             if (car == null)

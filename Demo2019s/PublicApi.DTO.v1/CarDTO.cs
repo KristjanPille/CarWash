@@ -10,8 +10,6 @@ namespace PublicApi.DTO.v1
         
         public int CarTypeId { get; set; }
 
-        public int PersonId { get; set; }
-
         public int LicenceNr { get; set; }
     }
 }

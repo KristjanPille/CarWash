@@ -88,14 +88,9 @@ namespace DAL.App.EF.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CarTypeId1");
-
-                    b.HasIndex("PersonId");
 
                     b.ToTable("Cars");
                 });
@@ -168,6 +163,9 @@ namespace DAL.App.EF.Migrations
                     b.Property<int>("PersonId")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("PersonId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Vat")
                         .HasColumnType("int");
 
@@ -179,7 +177,7 @@ namespace DAL.App.EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("PersonId1");
 
                     b.HasIndex("WashId1");
 
@@ -365,6 +363,9 @@ namespace DAL.App.EF.Migrations
                     b.Property<int?>("PersonId")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("PersonId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<TimeSpan>("To")
                         .HasColumnType("time");
 
@@ -378,7 +379,7 @@ namespace DAL.App.EF.Migrations
 
                     b.HasIndex("CarId1");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("PersonId1");
 
                     b.HasIndex("WashId1");
 
@@ -421,10 +422,9 @@ namespace DAL.App.EF.Migrations
 
             modelBuilder.Entity("Domain.Order", b =>
                 {
-                    b.Property<int>("OderId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("ChangedAt")
                         .HasColumnType("datetime2");
@@ -445,13 +445,13 @@ namespace DAL.App.EF.Migrations
                     b.Property<DateTime>("DateAndTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("OderId")
+                        .HasColumnType("int");
 
                     b.Property<int>("WashId")
                         .HasColumnType("int");
 
-                    b.HasKey("OderId");
+                    b.HasKey("Id");
 
                     b.ToTable("Orders");
                 });
@@ -495,6 +495,9 @@ namespace DAL.App.EF.Migrations
                     b.Property<int?>("PersonId")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("PersonId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("TimeOfPayment")
                         .HasColumnType("datetime2");
 
@@ -504,7 +507,7 @@ namespace DAL.App.EF.Migrations
 
                     b.HasIndex("PaymentMethodId1");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("PersonId1");
 
                     b.ToTable("Payments");
                 });
@@ -530,8 +533,9 @@ namespace DAL.App.EF.Migrations
                     b.Property<int>("PaymentMethodId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PaymentMethodName")
-                        .HasColumnType("int");
+                    b.Property<string>("PaymentMethodName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -540,17 +544,11 @@ namespace DAL.App.EF.Migrations
 
             modelBuilder.Entity("Domain.Person", b =>
                 {
-                    b.Property<int>("PersonId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("AppUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(36)")
-                        .HasMaxLength(36);
-
-                    b.Property<Guid?>("AppUserId1")
+                    b.Property<Guid?>("AppUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("ChangedAt")
@@ -570,13 +568,13 @@ namespace DAL.App.EF.Migrations
                         .HasColumnType("nvarchar(64)")
                         .HasMaxLength(64);
 
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(64)")
                         .HasMaxLength(64);
+
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
 
                     b.Property<int>("PersonTypeId")
                         .HasColumnType("int");
@@ -587,9 +585,9 @@ namespace DAL.App.EF.Migrations
                     b.Property<int>("PhoneNr")
                         .HasColumnType("int");
 
-                    b.HasKey("PersonId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("AppUserId1");
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex("PersonTypeId1");
 
@@ -689,6 +687,9 @@ namespace DAL.App.EF.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("OrderId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("WashId")
                         .HasColumnType("int");
 
@@ -700,7 +701,7 @@ namespace DAL.App.EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderId");
+                    b.HasIndex("OrderId1");
 
                     b.HasIndex("WashTypeId1");
 
@@ -857,21 +858,13 @@ namespace DAL.App.EF.Migrations
                     b.HasOne("Domain.CarType", "CarType")
                         .WithMany()
                         .HasForeignKey("CarTypeId1");
-
-                    b.HasOne("Domain.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Check", b =>
                 {
                     b.HasOne("Domain.Person", "Person")
                         .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PersonId1");
 
                     b.HasOne("Domain.Wash", "Wash")
                         .WithMany("Check")
@@ -897,7 +890,7 @@ namespace DAL.App.EF.Migrations
 
                     b.HasOne("Domain.Person", "Person")
                         .WithMany()
-                        .HasForeignKey("PersonId");
+                        .HasForeignKey("PersonId1");
 
                     b.HasOne("Domain.Wash", "Wash")
                         .WithMany()
@@ -916,14 +909,14 @@ namespace DAL.App.EF.Migrations
 
                     b.HasOne("Domain.Person", "Person")
                         .WithMany()
-                        .HasForeignKey("PersonId");
+                        .HasForeignKey("PersonId1");
                 });
 
             modelBuilder.Entity("Domain.Person", b =>
                 {
                     b.HasOne("Domain.Identity.AppUser", "AppUser")
                         .WithMany("Persons")
-                        .HasForeignKey("AppUserId1");
+                        .HasForeignKey("AppUserId");
 
                     b.HasOne("Domain.PersonType", "PersonType")
                         .WithMany()
@@ -934,9 +927,7 @@ namespace DAL.App.EF.Migrations
                 {
                     b.HasOne("Domain.Order", "Order")
                         .WithMany("Wash")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrderId1");
 
                     b.HasOne("Domain.WashType", "WashType")
                         .WithMany()

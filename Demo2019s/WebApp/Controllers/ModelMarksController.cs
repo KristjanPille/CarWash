@@ -31,7 +31,7 @@ namespace WebApp.Controllers
         }
 
         // GET: ModelMarks/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
@@ -71,19 +71,21 @@ namespace WebApp.Controllers
         }
 
         // GET: ModelMarks/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var modelMark = await _uow.ModelMarks.FindAsync(id);
-            if (modelMark == null)
+            var vm = new ModelMarkCreateEditViewModel();
+
+            vm.ModelMark = await _uow.ModelMarks.FindAsync(id);
+            if (vm.ModelMark == null)
             {
                 return NotFound();
             }
-            return View(modelMark);
+            return View(vm);
         }
 
         // POST: ModelMarks/Edit/5
@@ -91,24 +93,35 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ModelMarkId,Mark,Model")] ModelMark modelMark)
+        public async Task<IActionResult> Edit(Guid? id, ModelMarkCreateEditViewModel vm)
         {
-            if (id != modelMark.ModelMarkId)
+            if (id == null)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                _uow.ModelMarks.Update(modelMark);
-                await _uow.SaveChangesAsync();
+                try
+                {
+                    _uow.ModelMarks.Update(vm.ModelMark);
+                    await _uow.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ModelMarkExists(vm.ModelMark.Id))
+                    {
+                        return NotFound();
+                    }
+                }
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(modelMark);
+            return View(vm);
         }
 
         // GET: ModelMarks/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
@@ -127,17 +140,16 @@ namespace WebApp.Controllers
         // POST: ModelMarks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var modelMark = _uow.ModelMarks.Remove(id);
+            _uow.ModelMarks.Remove(id);
             await _uow.SaveChangesAsync();
-            
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index));;
         }
 
-        private bool ModelMarkExists(int id)
+        private bool ModelMarkExists(Guid id)
         {
-            return _context.ModelMarks.Any(e => e.ModelMarkId == id);
+            return _context.ModelMarks.Any(e => e.Id == id);
         }
     }
 }

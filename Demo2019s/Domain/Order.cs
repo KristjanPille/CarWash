@@ -7,7 +7,6 @@ namespace Domain
 {
     public class Order : DomainEntity
     {
-        [Key]
         public int OderId { get; set; }
         public DateTime DateAndTime { get; set; }
         

@@ -6,10 +6,6 @@
     <select asp-for="Car.CarTypeId" class ="form-control" asp-items="Model.CarTypeSelectList"></select>
 </div>
 <div class="form-group">
-    <label asp-for="Car.PersonId" class="control-label"></label>
-    <select asp-for="Car.PersonId" class ="form-control" asp-items="Model.PersonSelectList"></select>
-</div>
-<div class="form-group">
     <label asp-for="Car.LicenceNr" class="control-label"></label>
     <input asp-for="Car.LicenceNr" class="form-control" />
     <span asp-validation-for="Car.LicenceNr" class="text-danger"></span>

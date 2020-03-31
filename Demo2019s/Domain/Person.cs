@@ -9,13 +9,12 @@ namespace Domain
 {
     public class Person: DomainEntity
     {
-        [Key]
         public int PersonId { get; set; }
         [MaxLength(64)]
         [MinLength(1)]
         public string Name { get; set; } = default!;
 
-        [MaxLength(36)] public string AppUserId { get; set; } = default!;
+        //[MaxLength(36)] public string AppUserId { get; set; } = default!;
         public AppUser? AppUser { get; set; }
         
         public int PersonTypeId { get; set; }

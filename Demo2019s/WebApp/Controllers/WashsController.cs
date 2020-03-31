@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.DAL.App;
 using DAL.App.EF;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -14,30 +15,29 @@ namespace WebApp.Controllers
     public class WashsController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IAppUnitOfWork _uow;
 
-        public WashsController(AppDbContext context)
+        public WashsController(AppDbContext context, IAppUnitOfWork uow)
         {
             _context = context;
+            _uow = uow;
         }
 
         // GET: Washs
         public async Task<IActionResult> Index()
         {
-            var AppDbContext = _context.Washes.Include(w => w.Order);
-            return View(await AppDbContext.ToListAsync());
+            return View(await _uow.Washes.AllAsync());
         }
 
         // GET: Washs/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var wash = await _context.Washes
-                .Include(w => w.Order)
-                .FirstOrDefaultAsync(m => m.WashId == id);
+            var wash = await _uow.Washes.FindAsync(id);
             if (wash == null)
             {
                 return NotFound();
@@ -52,7 +52,7 @@ namespace WebApp.Controllers
             var vm = new WashCreateEditViewModel();
             vm.OrderSelectList = new SelectList(
                 _context.Set<Order>(),
-                nameof(Order.Id), nameof(Order.Comment));
+                nameof(Order.Id), nameof(Order.Id));
             return View(vm);
         }
 
@@ -65,29 +65,33 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(vm);
-                await _context.SaveChangesAsync();
+                _uow.Washes.Add(vm.Wash);
+                await _uow.SaveChangesAsync();
+            
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OrderId"] = new SelectList(_context.Set<Order>(), "OderId", "Comment", vm.Wash.OrderId);
             return View(vm);
         }
 
         // GET: Washs/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var wash = await _context.Washes.FindAsync(id);
-            if (wash == null)
+            var vm = new WashCreateEditViewModel();
+
+            vm.Wash = await _uow.Washes.FindAsync(id);
+            if (vm.Wash == null)
             {
                 return NotFound();
             }
-            ViewData["OrderId"] = new SelectList(_context.Set<Order>(), "OderId", "Comment", wash.OrderId);
-            return View(wash);
+            vm.OrderSelectList = new SelectList(
+                _context.Set<Order>(),
+                nameof(Order.Id), nameof(Order.Id));
+            return View(vm);
         }
 
         // POST: Washs/Edit/5
@@ -95,9 +99,9 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("WashId,CheckId,WashTypeId,OrderId,NameOfWashType")] Wash wash)
+        public async Task<IActionResult> Edit(Guid? id,  WashCreateEditViewModel vm)
         {
-            if (id != wash.WashId)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -106,12 +110,12 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _context.Update(wash);
-                    await _context.SaveChangesAsync();
+                    _uow.Washes.Update(vm.Wash);
+                    await _uow.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!WashExists(wash.WashId))
+                    if (!WashExists(vm.Wash.Id))
                     {
                         return NotFound();
                     }
@@ -120,23 +124,25 @@ namespace WebApp.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OrderId"] = new SelectList(_context.Set<Order>(), "OderId", "Comment", wash.OrderId);
-            return View(wash);
+            vm.OrderSelectList = new SelectList(
+                _context.Set<Order>(),
+                nameof(Order.Id), nameof(Order.Id));
+            return View(vm);
         }
 
         // GET: Washs/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
+                
                 return NotFound();
             }
 
-            var wash = await _context.Washes
-                .Include(w => w.Order)
-                .FirstOrDefaultAsync(m => m.WashId == id);
+            var wash = await _uow.Washes.FindAsync(id);
             if (wash == null)
             {
                 return NotFound();
@@ -148,17 +154,17 @@ namespace WebApp.Controllers
         // POST: Washs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var wash = await _context.Washes.FindAsync(id);
-            _context.Washes.Remove(wash);
-            await _context.SaveChangesAsync();
+             _uow.Washes.Remove(id);
+            await _uow.SaveChangesAsync();
+            
             return RedirectToAction(nameof(Index));
         }
 
-        private bool WashExists(int id)
+        private bool WashExists(Guid id)
         {
-            return _context.Washes.Any(e => e.WashId == id);
+            return _context.Washes.Any(e => e.Id == id);
         }
     }
 }

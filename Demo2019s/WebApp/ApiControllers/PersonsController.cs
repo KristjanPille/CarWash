@@ -46,9 +46,9 @@ namespace WebApp.ApiControllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPerson(int id, Person person)
+        public async Task<IActionResult> PutPerson(Guid id, Person person)
         {
-            if (id != person.PersonId)
+            if (id != person.Id)
             {
                 return BadRequest();
             }
@@ -83,7 +83,7 @@ namespace WebApp.ApiControllers
             _context.Persons.Add(person);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPerson", new { id = person.PersonId }, person);
+            return CreatedAtAction("GetPerson", new { id = person.Id }, person);
         }
 
         // DELETE: api/Persons/5
@@ -102,9 +102,9 @@ namespace WebApp.ApiControllers
             return person;
         }
 
-        private bool PersonExists(int id)
+        private bool PersonExists(Guid id)
         {
-            return _context.Persons.Any(e => e.PersonId == id);
+            return _context.Persons.Any(e => e.Id == id);
         }
     }
 }

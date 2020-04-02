@@ -6,13 +6,18 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Domain.Identity
 {
-    public class AppUser: IdentityUser<Guid>
+    public class AppUser : AppUser<Guid>
     {
-
+        
+    }
+    
+    public class AppUser<TKey>: IdentityUser<TKey> 
+        where TKey : IEquatable<TKey>
+    {
         public ICollection<Person>? Persons { get; set; }
-        [MaxLength(128)] [MinLength(1)] public string FirstName { get; set; } = default!;
+        [MaxLength(128)] [MinLength(1)] public virtual string FirstName { get; set; } = default!;
 
-        [MaxLength(128)] [MinLength(1)] public string LastName { get; set; } = default!;
+        [MaxLength(128)] [MinLength(1)] public virtual string LastName { get; set; } = default!;
 
     }
 }

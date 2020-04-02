@@ -279,31 +279,6 @@ namespace DAL.App.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cars",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    CreatedBy = table.Column<string>(nullable: true),
-                    CreatedAt = table.Column<DateTime>(nullable: false),
-                    ChangedBy = table.Column<string>(nullable: true),
-                    ChangedAt = table.Column<DateTime>(nullable: false),
-                    CarId = table.Column<int>(nullable: false),
-                    CarTypeId = table.Column<int>(nullable: false),
-                    CarTypeId1 = table.Column<Guid>(nullable: true),
-                    LicenceNr = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cars", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Cars_CarTypes_CarTypeId1",
-                        column: x => x.CarTypeId1,
-                        principalTable: "CarTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Persons",
                 columns: table => new
                 {
@@ -312,9 +287,8 @@ namespace DAL.App.EF.Migrations
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     ChangedBy = table.Column<string>(nullable: true),
                     ChangedAt = table.Column<DateTime>(nullable: false),
-                    PersonId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(maxLength: 64, nullable: false),
-                    AppUserId = table.Column<Guid>(nullable: true),
+                    AppUserId = table.Column<Guid>(maxLength: 36, nullable: false),
                     PersonTypeId = table.Column<int>(nullable: false),
                     PersonTypeId1 = table.Column<Guid>(nullable: true),
                     Email = table.Column<string>(maxLength: 64, nullable: false),
@@ -328,7 +302,7 @@ namespace DAL.App.EF.Migrations
                         column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Persons_PersonTypes_PersonTypeId1",
                         column: x => x.PersonTypeId1,
@@ -394,6 +368,38 @@ namespace DAL.App.EF.Migrations
                         principalTable: "WashTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cars",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    ChangedBy = table.Column<string>(nullable: true),
+                    ChangedAt = table.Column<DateTime>(nullable: false),
+                    CarId = table.Column<int>(nullable: false),
+                    PersonId = table.Column<Guid>(nullable: false),
+                    CarTypeId = table.Column<int>(nullable: false),
+                    CarTypeId1 = table.Column<Guid>(nullable: true),
+                    LicenceNr = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cars", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cars_CarTypes_CarTypeId1",
+                        column: x => x.CarTypeId1,
+                        principalTable: "CarTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Cars_Persons_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "Persons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -597,6 +603,11 @@ namespace DAL.App.EF.Migrations
                 name: "IX_Cars_CarTypeId1",
                 table: "Cars",
                 column: "CarTypeId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cars_PersonId",
+                table: "Cars",
+                column: "PersonId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Checks_PersonId1",

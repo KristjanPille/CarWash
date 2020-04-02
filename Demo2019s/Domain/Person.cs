@@ -7,14 +7,19 @@ using Domain.Identity;
 
 namespace Domain
 {
-    public class Person: DomainEntity
+    public class Person : Person<Guid>, IDomainEntity{
+    
+    }
+    public class Person<TKey> : DomainEntity<TKey>
+    where TKey : struct, IEquatable<TKey>
     {
-        public int PersonId { get; set; }
+        //public TKey PersonId { get; set; }
         [MaxLength(64)]
         [MinLength(1)]
         public string Name { get; set; } = default!;
 
-        //[MaxLength(36)] public string AppUserId { get; set; } = default!;
+        [MaxLength(36)] 
+        public TKey AppUserId { get; set; } = default!;
         public AppUser? AppUser { get; set; }
         
         public int PersonTypeId { get; set; }

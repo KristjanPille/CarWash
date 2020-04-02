@@ -7,19 +7,19 @@
         @Html.DisplayNameFor(model => model.Person)
     </dt>
     <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.Person.Id)
+        @Html.DisplayFor(model => model.Person!.Id)
     </dd>
     <dt class = "col-sm-2">
         @Html.DisplayNameFor(model => model.PaymentMethod)
     </dt>
     <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.PaymentMethod.PaymentMethodId)
+        @Html.DisplayFor(model => model.PaymentMethod!.PaymentMethodId)
     </dd>
     <dt class = "col-sm-2">
         @Html.DisplayNameFor(model => model.Check)
     </dt>
     <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.Check.Comment)
+        @Html.DisplayFor(model => model.Check!.Comment)
     </dd>
     <dt class = "col-sm-2">
         @Html.DisplayNameFor(model => model.PaymentAmount)

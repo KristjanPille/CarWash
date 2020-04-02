@@ -71,7 +71,6 @@ namespace WebApp.Controllers
             
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ServiceId"] = new SelectList(_context.Set<Service>(), "ServiceId", "NameOfService", vm.Campaign.ServiceId);
             return View(vm);
         }
 
@@ -162,7 +161,7 @@ namespace WebApp.Controllers
         
         private bool CampaignExists(Guid id)
         {
-            return _context.Campaigns.Any(e => e.Id == id);
+            return _uow.Campaigns.Find(id).Equals(null);
         }
     }
 }

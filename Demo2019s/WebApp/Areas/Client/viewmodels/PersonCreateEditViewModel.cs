@@ -5,7 +5,7 @@ namespace WebApp.Areas.Client.viewmodels
 {
     public class PersonCreateEditViewModel
     {
-        public Person Person { get; set; }
+        public Person Person { get; set; } = default!;
         public SelectList? PersonTypeSelectList { get; set; }
     }
 }

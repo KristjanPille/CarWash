@@ -14,13 +14,17 @@ export class App {
 
     { route: ['campaigns', 'Campaigns/index'], name: 'campaigns-index', moduleId:
     PLATFORM.moduleName('views/campaigns/index'), nav: true, title: 'Campaigns' },
-
     { route: ['campaigns/details/:id'], name: 'campaigns-details', moduleId:
     PLATFORM.moduleName('views/campaigns/details'), nav: false, title: 'Campaign Details' }, 
+    { route: ['campaigns/create'], name: 'campaigns-create', moduleId: 
+    PLATFORM.moduleName('views/campaigns/create'), nav: false, title: 'Campaigns Create' },
+    { route: ['campaigns/delete/:id?'], name: 'campaigns-delete', moduleId:
+    PLATFORM.moduleName('views/campaigns/delete'), nav: false, title: 'Campaigns Delete' },
+    { route: ['campaigns/edit/:id?'], name: 'campaigns-edit', moduleId:
+    PLATFORM.moduleName('views/campaigns/edit'), nav: false, title: 'Campaigns Edit' },
 
     { route: ['cars', 'Cars/index'], name: 'cars-index', moduleId:
     PLATFORM.moduleName('views/cars/index'), nav: true, title: 'Cars' }, 
-
     //{ route: ['cars/details/:id'], name: 'cars-details', moduleId:
     //PLATFORM.moduleName('views/cars/details'), nav: false, title: 'Car Details' }, 
 

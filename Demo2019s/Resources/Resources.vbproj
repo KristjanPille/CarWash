@@ -5,28 +5,4 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Home\" />
-    <Folder Include="Views\Persons\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Domain\Person.en-GB.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <CustomToolNamespace>My.Resources</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Domain\Person.en-US.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <CustomToolNamespace>My.Resources</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Domain\Person.et.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <CustomToolNamespace>My.Resources</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Shared\_Layout.et.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <CustomToolNamespace>My.Resources</CustomToolNamespace>
-    </EmbeddedResource>
-  </ItemGroup>
-
 </Project>

@@ -14,7 +14,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.App\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -78,7 +78,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -135,7 +135,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.EF\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -216,7 +216,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base.EF\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -286,7 +286,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -357,7 +357,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -428,7 +428,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Extensions\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -499,7 +499,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -556,6 +556,63 @@
         }
       }
     },
+    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj",
+        "projectName": "Resources",
+        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj",
+        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\WebApp\\WebApp.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -566,7 +623,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\WebApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -595,6 +652,9 @@
               },
               "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj": {
                 "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj"
+              },
+              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj": {
+                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj"
               }
             }
           }

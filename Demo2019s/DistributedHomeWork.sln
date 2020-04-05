@@ -26,6 +26,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts.DAL.App", "Contra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicApi.DTO.v1", "PublicApi.DTO.v1\PublicApi.DTO.v1.csproj", "{8B2AD651-1F47-42CE-90EB-59F93599650D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resources", "Resources\Resources.csproj", "{DC326E63-2750-48E4-8AD0-5A5C7D82D494}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +70,10 @@ Global
 		{8B2AD651-1F47-42CE-90EB-59F93599650D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B2AD651-1F47-42CE-90EB-59F93599650D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B2AD651-1F47-42CE-90EB-59F93599650D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC326E63-2750-48E4-8AD0-5A5C7D82D494}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC326E63-2750-48E4-8AD0-5A5C7D82D494}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC326E63-2750-48E4-8AD0-5A5C7D82D494}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC326E63-2750-48E4-8AD0-5A5C7D82D494}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

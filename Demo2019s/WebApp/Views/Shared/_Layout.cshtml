@@ -24,7 +24,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@Resources.Views.Shared._Layout.Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> Culture: @Thread.CurrentThread.CurrentCulture.Name UICulture: @Thread.CurrentThread.CurrentUICulture.Name
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">@Resources.Views.Shared._Layout.Privacy</a>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Campaigns" asp-action="Create">Campaign</a>
                         </li>
@@ -83,7 +83,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - WebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2020 - WebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> Culture: @Thread.CurrentThread.CurrentCulture.Name UICulture: @Thread.CurrentThread.CurrentUICulture.Name
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -184,9 +184,11 @@
       <e p="Resources" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="Domain" t="Include">
+          <e p="Person.Designer.cs" t="Include" />
           <e p="person.en-GB.resx" t="Include" />
           <e p="Person.en-US.resx" t="Include" />
           <e p="Person.et.resx" t="Include" />
+          <e p="Person.resx" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -199,8 +201,10 @@
         <e p="Resources.csproj" t="IncludeRecursive" />
         <e p="Views" t="Include">
           <e p="Shared" t="Include">
+            <e p="_Layout.Designer.cs" t="Include" />
             <e p="_Layout.en.resx" t="Include" />
             <e p="_Layout.et.resx" t="Include" />
+            <e p="_Layout.resx" t="Include" />
           </e>
         </e>
       </e>

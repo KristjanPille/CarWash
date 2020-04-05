@@ -38,7 +38,7 @@ namespace DAL.Base.EF.Repositories
             return RepoDbSet.ToList();
         }
 
-        public virtual async Task<IEnumerable<TEntity>> AllAsync()
+        public virtual async Task<IEnumerable<TEntity>> AllAsync(Guid userGuidId)
         {
             return await RepoDbSet.ToListAsync();
         }

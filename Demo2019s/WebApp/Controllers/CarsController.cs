@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain;
+using Extensions;
 using WebApp.ViewModels;
 
 namespace WebApp.Controllers
@@ -25,8 +26,9 @@ namespace WebApp.Controllers
         // GET: Cars
         public async Task<IActionResult> Index()
         {
-            //var AppDbContext = _context.Cars.Include(c => c.CarType).Include(c => c.Person);
-            return View(await _uow.Cars.AllAsync());
+            var cars = await _uow.Cars.AllAsync(User.UserGuidId());
+
+            return View(cars);
         }
 
         // GET: Cars/Details/5

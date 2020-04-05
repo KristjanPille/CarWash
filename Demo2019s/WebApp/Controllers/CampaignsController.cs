@@ -6,11 +6,14 @@ using DAL.App.EF;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Domain;
+using Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
+    [Authorize(Roles = "User")]
     public class CampaignsController : Controller
     {
         private readonly AppDbContext _context;
@@ -27,7 +30,9 @@ namespace WebApp.Controllers
         // GET: Campaigns
         public async Task<IActionResult> Index()
         {
-            return View(await _uow.Campaigns.AllAsync());
+            var campaigns = await _uow.Campaigns.AllAsync(User.UserGuidId());
+
+            return View(campaigns);
         }
 
         // GET: Campaigns/Details/5

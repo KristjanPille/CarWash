@@ -29,7 +29,10 @@ namespace WebApp.Controllers
         // GET: Persons
         public async Task<IActionResult> Index()
         {
-            return View(await _uow.Persons.AllAsync());
+            
+            var persons = await _uow.Persons.AllAsync(User.UserGuidId());
+
+            return View(persons);
         }
 
         // GET: Persons/Details/5
@@ -58,7 +61,7 @@ namespace WebApp.Controllers
                 nameof(PersonType.PersonTypeId), nameof(PersonType.Name));
             vm.AppUserSelectList = new SelectList(
                 _context.Set<AppUser>(),
-                nameof(AppUser.Id), nameof(PersonType.Name));
+                nameof(AppUser.Id), nameof(AppUser.Id));
             return View(vm);
         }
 
@@ -69,6 +72,7 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PersonCreateEditViewModel vm)
         {
+            vm.Person.AppUserId = User.UserGuidId();
             if (ModelState.IsValid)
             {
                 _uow.Persons.Add(vm.Person);
@@ -99,8 +103,7 @@ namespace WebApp.Controllers
                 nameof(PersonType.PersonTypeId), nameof(PersonType.Name));
             vm.AppUserSelectList = new SelectList(
                 _context.Set<AppUser>(),
-                nameof(AppUser.Id), nameof(PersonType.Name));
-
+                nameof(AppUser.Id), nameof(AppUser.Id));
             return View(vm);
         }
 
@@ -142,7 +145,7 @@ namespace WebApp.Controllers
                 nameof(PersonType.PersonTypeId), nameof(PersonType.Name));
             vm.AppUserSelectList = new SelectList(
                 _context.Set<AppUser>(),
-                nameof(AppUser.Id), nameof(PersonType.Name));
+                nameof(AppUser.Id), nameof(AppUser.Id));
             return View(vm);
         }
 

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain;
+using Extensions;
 using WebApp.ViewModels;
 
 namespace WebApp.Controllers
@@ -25,7 +26,9 @@ namespace WebApp.Controllers
         // GET: Discounts
         public async Task<IActionResult> Index()
         {
-            return View(await _uow.Discounts.AllAsync());
+            var discounts = await _uow.Discounts.AllAsync(User.UserGuidId());
+
+            return View(discounts);
         }
 
         // GET: Discounts/Details/5

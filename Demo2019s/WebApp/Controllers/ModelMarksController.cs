@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain;
+using Extensions;
 using WebApp.ViewModels;
 
 namespace WebApp.Controllers
@@ -27,7 +28,9 @@ namespace WebApp.Controllers
         // GET: ModelMarks
         public async Task<IActionResult> Index()
         {
-            return View(await _uow.ModelMarks.AllAsync());
+            var modelMark = await _uow.ModelMarks.AllAsync(User.UserGuidId());
+
+            return View(modelMark);
         }
 
         // GET: ModelMarks/Details/5

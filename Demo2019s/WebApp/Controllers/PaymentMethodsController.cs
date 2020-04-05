@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain;
+using Extensions;
 using WebApp.ViewModels;
 
 namespace WebApp.Controllers
@@ -27,7 +28,9 @@ namespace WebApp.Controllers
         // GET: PaymentMethods
         public async Task<IActionResult> Index()
         {
-            return View(await _uow.PaymentMethods.AllAsync());
+            var paymentMethods = await _uow.PaymentMethods.AllAsync(User.UserGuidId());
+
+            return View(paymentMethods);
         }
 
         // GET: PaymentMethods/Details/5

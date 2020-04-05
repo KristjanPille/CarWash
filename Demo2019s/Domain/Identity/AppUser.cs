@@ -14,7 +14,7 @@ namespace Domain.Identity
     public class AppUser<TKey>: IdentityUser<TKey> 
         where TKey : IEquatable<TKey>
     {
-        public ICollection<Person>? Persons { get; set; }
+        //public ICollection<Person>? Persons { get; set; }
         [MaxLength(128)] [MinLength(1)] public virtual string FirstName { get; set; } = default!;
 
         [MaxLength(128)] [MinLength(1)] public virtual string LastName { get; set; } = default!;

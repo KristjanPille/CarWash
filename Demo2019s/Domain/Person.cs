@@ -11,16 +11,15 @@ namespace Domain
     
     }
     public class Person<TKey> : DomainEntity<TKey>
-    where TKey : struct, IEquatable<TKey>
+        where TKey : struct, IEquatable<TKey>
     {
         //public TKey PersonId { get; set; }
         [MaxLength(64)]
         [MinLength(1)]
         public string Name { get; set; } = default!;
-
-        [MaxLength(36)] 
-        public TKey AppUserId { get; set; } = default!;
-        public AppUser? AppUser { get; set; }
+        
+        public virtual TKey AppUserId{ get; set; }
+        public virtual AppUser? AppUser { get; set; }
         
         public int PersonTypeId { get; set; }
         public PersonType? PersonType { get; set; }

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain;
+using Extensions;
 using WebApp.ViewModels;
 
 namespace WebApp.Controllers
@@ -27,7 +28,9 @@ namespace WebApp.Controllers
         // GET: Checks
         public async Task<IActionResult> Index()
         {
-            return View(await _uow.Checks.AllAsync());
+            var checks = await _uow.Checks.AllAsync(User.UserGuidId());
+
+            return View(checks);
         }
 
         // GET: Checks/Details/5

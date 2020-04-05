@@ -7,11 +7,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DAL.App.EF;
 using Domain;
+using Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApp.ApiControllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class PersonsController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -25,14 +29,15 @@ namespace WebApp.ApiControllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Person>>> GetPersons()
         {
-            return await _context.Persons.ToListAsync();
+            return await _context.Persons.Where(o => o.AppUserId == User.UserGuidId()).ToListAsync();
         }
 
         // GET: api/Persons/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Person>> GetPerson(int id)
+        public async Task<ActionResult<Person>> GetPerson(Guid id)
         {
-            var person = await _context.Persons.FindAsync(id);
+            var person =
+                await _context.Persons.FirstOrDefaultAsync(o => o.Id == id && o.AppUserId == User.UserGuidId());
 
             if (person == null)
             {

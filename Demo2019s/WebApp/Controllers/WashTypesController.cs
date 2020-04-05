@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain;
+using Extensions;
 using WebApp.ViewModels;
 
 namespace WebApp.Controllers
@@ -26,7 +27,9 @@ namespace WebApp.Controllers
         // GET: WashTypes
         public async Task<IActionResult> Index()
         {
-            return View(await _uow.WashTypes.AllAsync());
+            var washTypes = await _uow.WashTypes.AllAsync(User.UserGuidId());
+
+            return View(washTypes);
         }
 
         // GET: WashTypes/Details/5

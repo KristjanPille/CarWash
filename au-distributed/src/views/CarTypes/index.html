@@ -1,0 +1,28 @@
+<template>
+    <h1>Index</h1>
+
+    <p>
+        <a route-href="route: CarTypes-create; params.bind: {}">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="carType of _carTypes">
+                <td>
+                    ${carType.Name}
+                </td>
+                <td>
+                    <a route-href="route: CarTypes-edit; params.bind: { id: carType.id }">Edit</a> |
+                    <a route-href="route: CarTypes-details; params.bind: { id: carType.id }">Details</a> |
+                    <a route-href="route: CarTypes-delete; params.bind: { id: carType.id }">Delete</a>
+                </td>
+
+            </tr>
+</template>

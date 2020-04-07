@@ -18,11 +18,9 @@ namespace WebApp.Controllers
     public class PersonsController : Controller
     {
         private readonly IAppUnitOfWork _uow;
-        private readonly AppDbContext _context;
 
-        public PersonsController(AppDbContext context, IAppUnitOfWork uow)
+        public PersonsController(IAppUnitOfWork uow)
         {
-            _context = context;
             _uow = uow;
         }
 
@@ -43,7 +41,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var person = await _uow.Persons.FindAsync(id);
+            var person = await _uow.Persons.FirstOrDefaultAsync(id.Value, User.UserGuidId());
             if (person == null)
             {
                 return NotFound();
@@ -53,15 +51,11 @@ namespace WebApp.Controllers
         }
 
         // GET: Persons/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             var vm = new PersonCreateEditViewModel();
-            vm.PersonTypeSelectList = new SelectList(
-                _context.Set<PersonType>(),
-                nameof(PersonType.PersonTypeId), nameof(PersonType.Name));
-            vm.AppUserSelectList = new SelectList(
-                _context.Set<AppUser>(),
-                nameof(AppUser.Id), nameof(AppUser.Id));
+            vm.PersonTypeSelectList = new SelectList(await _uow.PersonTypes.AllAsync(User.UserGuidId()), nameof(PersonType.Id),
+                nameof(PersonType.Name));
             return View(vm);
         }
 
@@ -80,6 +74,8 @@ namespace WebApp.Controllers
             
                 return RedirectToAction(nameof(Index));
             }
+            vm.PersonTypeSelectList = new SelectList(await _uow.PersonTypes.AllAsync(User.UserGuidId()), nameof(PersonType.Id),
+                        nameof(PersonType.Name));
             return View(vm);
         }
 
@@ -93,17 +89,13 @@ namespace WebApp.Controllers
 
             var vm = new PersonCreateEditViewModel();
 
-            vm.Person = await _uow.Persons.FindAsync(id);
+            vm.Person = await _uow.Persons.FirstOrDefaultAsync(id.Value, User.UserGuidId());
             if (vm.Person == null)
             {
                 return NotFound();
             }
-            vm.PersonTypeSelectList = new SelectList(
-                _context.Set<PersonType>(),
-                nameof(PersonType.PersonTypeId), nameof(PersonType.Name));
-            vm.AppUserSelectList = new SelectList(
-                _context.Set<AppUser>(),
-                nameof(AppUser.Id), nameof(AppUser.Id));
+            vm.PersonTypeSelectList = new SelectList(await _uow.PersonTypes.AllAsync(User.UserGuidId()), nameof(PersonType.Id),
+                nameof(PersonType.Name));
             return View(vm);
         }
 
@@ -112,9 +104,9 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid? id,  PersonCreateEditViewModel vm)
+        public async Task<IActionResult> Edit(Guid id,  PersonCreateEditViewModel vm)
         {
-            if (id == null)
+            if (id != vm.Person.Id)
             {
                 return NotFound();
             }
@@ -128,7 +120,7 @@ namespace WebApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PersonExists(vm.Person.Id))
+                    if (!await _uow.Persons.ExistsAsync(id, User.UserGuidId()))
                     {
                         return NotFound();
                     }
@@ -140,12 +132,9 @@ namespace WebApp.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            vm.PersonTypeSelectList = new SelectList(
-                _context.Set<PersonType>(),
-                nameof(PersonType.PersonTypeId), nameof(PersonType.Name));
-            vm.AppUserSelectList = new SelectList(
-                _context.Set<AppUser>(),
-                nameof(AppUser.Id), nameof(AppUser.Id));
+            vm.PersonTypeSelectList = new SelectList(await _uow.PersonTypes.AllAsync(User.UserGuidId()), nameof(PersonType.Id),
+                nameof(PersonType.Name));
+
             return View(vm);
         }
 
@@ -156,8 +145,7 @@ namespace WebApp.Controllers
             {
                 return NotFound();
             }
-
-            var person = await _uow.Persons.FindAsync(id);
+            var person = await _uow.Persons.FirstOrDefaultAsync(id.Value, User.UserGuidId());
             if (person == null)
             {
                 return NotFound();
@@ -171,15 +159,10 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            _uow.Persons.Remove(id);
+            await _uow.Persons.DeleteAsync(id, User.UserGuidId());
             await _uow.SaveChangesAsync();
             
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool PersonExists(Guid id)
-        {
-            return _context.Persons.Any(e => e.Id == id);
         }
     }
 }

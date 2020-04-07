@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Contracts.DAL.App.Repositories;
 using DAL.Base.EF.Repositories;
@@ -11,11 +13,37 @@ namespace DAL.App.EF.Repositories
     {
         public PersonTypeRepository(AppDbContext dbContext) : base(dbContext)
         {
+        }        
+        public async Task<IEnumerable<PersonType>> AllAsync(Guid? userId = null)
+        {
+            if (userId == null)
+            {
+                return await base.AllAsync(); // base is not actually needed, using it for clarity
+            }
+
+            return await RepoDbSet.ToListAsync();
+
         }
         
-        public async  Task<IEnumerable<PersonType>> AllASync()
+        public async Task<PersonType> FirstOrDefaultAsync(Guid id, Guid? userId = null)
         {
-            return await RepoDbSet.ToListAsync();
+            var query = RepoDbSet
+                .Include(a => a.Name)
+                .Where(a => a.Id == id)
+                .AsQueryable();
+
+            return await query.FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> ExistsAsync(Guid id)
+        {
+            return await RepoDbSet.AnyAsync(a => a.Id == id);
+        }
+
+        public async Task DeleteAsync(Guid id, Guid? userId = null)
+        {
+            var check = await FirstOrDefaultAsync(id, userId);
+            base.Remove(check);
         }
     }
 }

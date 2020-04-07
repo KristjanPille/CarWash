@@ -1,39 +1,33 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Contracts.DAL.App;
-using DAL.App.EF;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Domain;
 using Extensions;
-using WebApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApp.Controllers
 {
+    [Authorize(Roles = "User")]
     public class OrdersController : Controller
     {
-        private readonly AppDbContext _context;
         private readonly IAppUnitOfWork _uow;
 
-
-        public OrdersController(AppDbContext context, IAppUnitOfWork uow)
+        public OrdersController(IAppUnitOfWork uow)
         {
-            _context = context;
             _uow = uow;
         }
 
-        // GET: Orders
+        // GET: orders
         public async Task<IActionResult> Index()
         {
-            var order = await _uow.Orders.AllAsync(User.UserGuidId());
+            var orders = await _uow.Orders.AllAsync(User.UserGuidId());
+            return View(orders);
 
-            return View(order);
         }
 
-        // GET: Orders/Details/5
+        // GET: orders/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -41,7 +35,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var order = await _uow.Orders.FindAsync(id);
+            var order = await _uow.Orders.FirstOrDefaultAsync(id.Value, User.UserGuidId());
             if (order == null)
             {
                 return NotFound();
@@ -50,31 +44,31 @@ namespace WebApp.Controllers
             return View(order);
         }
 
-        // GET: Orders/Create
+        // GET: orders/Create
         public IActionResult Create()
         {
-            var vm = new OrderCreateEditViewModel();
-            return View(vm);
+            return View();
         }
 
-        // POST: Orders/Create
+        // POST: orders/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(OrderCreateEditViewModel vm)
+        public async Task<IActionResult> Create(Order order)
         {
+
             if (ModelState.IsValid)
             {
-                _uow.Orders.Add(vm.Order);
+                _uow.Orders.Add(order);
                 await _uow.SaveChangesAsync();
-            
                 return RedirectToAction(nameof(Index));
             }
-            return View(vm);
+            return View(order);
+
         }
 
-        // GET: Orders/Edit/5
+        // GET: orders/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -82,24 +76,23 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var vm = new OrderCreateEditViewModel();
-
-            vm.Order = await _uow.Orders.FindAsync(id);
-            if (vm.Order == null)
+            var order = await _uow.Orders.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            if (order == null)
             {
                 return NotFound();
             }
-            return View(vm);
+            return View(order);
+
         }
 
-        // POST: Orders/Edit/5
+        // POST: orders/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid? id,  OrderCreateEditViewModel vm)
+        public async Task<IActionResult> Edit(Guid id, Order order)
         {
-            if (id == null)
+            if (id != order.Id)
             {
                 return NotFound();
             }
@@ -108,12 +101,12 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _uow.Orders.Update(vm.Order);
+                    _uow.Orders.Update(order);
                     await _uow.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!OrderExists(vm.Order.Id))
+                    if (!await _uow.Orders.ExistsAsync(id, User.UserGuidId()))
                     {
                         return NotFound();
                     }
@@ -122,43 +115,39 @@ namespace WebApp.Controllers
                         throw;
                     }
                 }
-
                 return RedirectToAction(nameof(Index));
             }
-            return View(vm);
+            return View(order);
+
         }
 
-        // GET: Orders/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: orders/Delete/5
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var order = await _uow.Orders.FindAsync(id);
+            var order = await _uow.Orders.FirstOrDefaultAsync(id.Value, User.UserGuidId());
             if (order == null)
             {
                 return NotFound();
             }
 
             return View(order);
+
         }
 
-        // POST: Orders/Delete/5
+        // POST: orders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var order = _uow.Orders.Remove(id);
+            await _uow.Orders.DeleteAsync(id, User.UserGuidId());
             await _uow.SaveChangesAsync();
-            
             return RedirectToAction(nameof(Index));
         }
 
-        private bool OrderExists(Guid id)
-        {
-            return _context.Orders.Any(e => e.Id == id);
-        }
     }
 }

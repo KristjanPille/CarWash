@@ -12,11 +12,6 @@ export class App {
     { route: ['', 'home', 'home/index'], name: 'home', moduleId:
     PLATFORM.moduleName('views/home/index'), nav: true, title: 'Home' }, 
 
-    { route: ['account/login'], name: 'account-login', moduleId:
-    PLATFORM.moduleName('views/account/login'), nav: false, title: 'Login' }, 
-    { route: ['account/register'], name: 'account-register', moduleId:
-    PLATFORM.moduleName('views/account/register'), nav: false, title: 'Register' }, 
-
     { route: ['campaigns', 'Campaigns/index'], name: 'campaigns-index', moduleId:
     PLATFORM.moduleName('views/campaigns/index'), nav: true, title: 'Campaigns' },
     { route: ['campaigns/details/:id'], name: 'campaigns-details', moduleId:

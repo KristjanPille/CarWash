@@ -15,12 +15,10 @@ namespace WebApp.Controllers
 {
     public class IsInWashsController : Controller
     {
-        private readonly AppDbContext _context;
         private readonly IAppUnitOfWork _uow;
 
-        public IsInWashsController(AppDbContext context, IAppUnitOfWork uow)
+        public IsInWashsController(IAppUnitOfWork uow)
         {
-            _context = context;
             _uow = uow;
         }
 
@@ -28,41 +26,30 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Index()
         {
             var isInWashes = await _uow.IsInWashes.AllAsync(User.UserGuidId());
-
             return View(isInWashes);
         }
 
         // GET: IsInWashs/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var isInWash = await _uow.IsInWashes.FindAsync(id);
-            if (isInWash == null)
+            var isInWashes = await _uow.IsInWashes.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            if (isInWashes == null)
             {
                 return NotFound();
             }
 
-            return View(isInWash);
+            return View(isInWashes);
         }
 
         // GET: IsInWashs/Create
         public IActionResult Create()
         {
-            var vm = new IsInWashCreateEditViewModel();
-            vm.CarSelectList = new SelectList(
-                _context.Set<Car>(),
-                nameof(Car.Id), nameof(Car.Id));
-            // vm.PersonSelectList = new SelectList(
-            //    _context.Set<Person>(),
-            //    nameof(Person.Id), nameof(Person.AppUserId));
-            vm.WashSelectList = new SelectList(
-                _context.Set<Wash>(),
-                nameof(Wash.Id), nameof(Wash.NameOfWashType));
-            return View(vm);
+            return View();
         }
 
         // POST: IsInWashs/Create
@@ -70,36 +57,30 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IsInWashCreateEditViewModel vm)
+        public async Task<IActionResult> Create(IsInWash isInWash)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(vm);
-                await _context.SaveChangesAsync();
+                _uow.IsInWashes.Add(isInWash);
+                await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CarId"] = new SelectList(_context.Cars, "CarId", "CarId", vm.IsInWash.CarId);
-            ViewData["PersonId"] = new SelectList(_context.Set<Person>(), "Id", "AppUserId", vm.IsInWash.PersonId);
-            ViewData["WashId"] = new SelectList(_context.Set<Wash>(), "WashId", "NameOfWashType", vm.IsInWash.WashId);
-            return View(vm);
+            return View(isInWash);
         }
 
         // GET: IsInWashs/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var isInWash = await _uow.IsInWashes.FindAsync(id);
+            var isInWash = await _uow.IsInWashes.FirstOrDefaultAsync(id.Value, User.UserGuidId());
             if (isInWash == null)
             {
                 return NotFound();
             }
-            //ViewData["CarId"] = new SelectList(_context.Cars, "CarId", "CarId", isInWash.CarId);
-            //ViewData["PersonId"] = new SelectList(_context.Set<Person>(), "Id", "AppUserId", isInWash.PersonId);
-            //ViewData["WashId"] = new SelectList(_context.Set<Wash>(), "WashId", "NameOfWashType", isInWash.WashId);
             return View(isInWash);
         }
 
@@ -108,9 +89,9 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IsInWashId,CarId,PersonId,WashId,From,To")] IsInWash isInWash)
+        public async Task<IActionResult> Edit(Guid id, IsInWash isInWash)
         {
-            if (id != isInWash.IsInWashId)
+            if (id != isInWash.Id)
             {
                 return NotFound();
             }
@@ -124,7 +105,7 @@ namespace WebApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!IsInWashExists(isInWash.IsInWashId))
+                    if (!await _uow.IsInWashes.ExistsAsync(id, User.UserGuidId()))
                     {
                         return NotFound();
                     }
@@ -135,21 +116,18 @@ namespace WebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["CarId"] = new SelectList(_context.Cars, "CarId", "CarId", isInWash.CarId);
-            //ViewData["PersonId"] = new SelectList(_context.Set<Person>(), "Id", "AppUserId", isInWash.PersonId);
-            //ViewData["WashId"] = new SelectList(_context.Set<Wash>(), "WashId", "NameOfWashType", isInWash.WashId);
             return View(isInWash);
         }
 
         // GET: IsInWashs/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var isInWash = await _uow.IsInWashes.FindAsync(id);
+            var isInWash = await _uow.IsInWashes.FirstOrDefaultAsync(id.Value, User.UserGuidId());
             if (isInWash == null)
             {
                 return NotFound();
@@ -161,17 +139,11 @@ namespace WebApp.Controllers
         // POST: IsInWashs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var isInWash = _uow.IsInWashes.Remove(id);
+            await _uow.IsInWashes.DeleteAsync(id, User.UserGuidId());
             await _uow.SaveChangesAsync();
-            
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool IsInWashExists(int id)
-        {
-            return _context.IsInWashes.Any(e => e.IsInWashId == id);
         }
     }
 }

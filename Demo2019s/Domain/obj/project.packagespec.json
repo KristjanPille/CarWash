@@ -22,6 +22,9 @@
         "projectReferences": {
           "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj": {
             "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj"
+          },
+          "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj": {
+            "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj"
           }
         }
       }

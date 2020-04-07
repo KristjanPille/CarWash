@@ -1,46 +1,41 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Contracts.DAL.App;
-using DAL.App.EF;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Domain;
 using Extensions;
-using WebApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApp.Controllers
 {
+    [Authorize(Roles = "User")]
     public class PaymentsController : Controller
     {
-        private readonly AppDbContext _context;
         private readonly IAppUnitOfWork _uow;
 
-        public PaymentsController(AppDbContext context, IAppUnitOfWork uow)
+        public PaymentsController(IAppUnitOfWork uow)
         {
-            _context = context;
             _uow = uow;
         }
 
-        // GET: Payments
+        // GET: payments
         public async Task<IActionResult> Index()
         {
-            var paymentMethods = await _uow.Payments.AllAsync(User.UserGuidId());
+            var payments = await _uow.Payments.AllAsync(User.UserGuidId());
+            return View(payments);
 
-            return View(paymentMethods);
         }
 
-        // GET: Payments/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: payments/Details/5
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var payment = await _uow.Payments.FindAsync(id);
+            var payment = await _uow.Payments.FirstOrDefaultAsync(id.Value, User.UserGuidId());
             if (payment == null)
             {
                 return NotFound();
@@ -49,108 +44,109 @@ namespace WebApp.Controllers
             return View(payment);
         }
 
-        // GET: Payments/Create
+        // GET: payments/Create
         public IActionResult Create()
         {
-            var vm = new PaymentCreateEditViewModel();
-            vm.PaymentMethodSelectList = new SelectList(
-                _context.Set<PaymentMethod>(),
-                nameof(PaymentMethod.PaymentMethodId), nameof(PaymentMethod.PaymentMethodId));
-            //vm.PersonSelectList = new SelectList(
-              //  _context.Set<Person>(),
-               // nameof(Person.Id), nameof(Person.AppUserId));
-            vm.CheckSelectList = new SelectList(
-                _context.Set<Check>(),
-                nameof(Check.Id), nameof(Check.Comment));
-            return View(vm);
+            return View();
         }
 
-        // POST: Payments/Create
+        // POST: payments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(PaymentCreateEditViewModel vm)
+        public async Task<IActionResult> Create(Payment payment)
         {
+
             if (ModelState.IsValid)
             {
-                //campaign.Id = Guid.NewGuid();
-                _uow.Payments.Add(vm.Payment);
+                _uow.Payments.Add(payment);
                 await _uow.SaveChangesAsync();
-            
                 return RedirectToAction(nameof(Index));
             }
-            return View(vm);
+            return View(payment);
+
         }
 
-        // GET: Payments/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: payments/Edit/5
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var payment = await _uow.Payments.FindAsync(id);
+            var payment = await _uow.Payments.FirstOrDefaultAsync(id.Value, User.UserGuidId());
             if (payment == null)
             {
                 return NotFound();
             }
             return View(payment);
+
         }
 
-        // POST: Payments/Edit/5
+        // POST: payments/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PaymentId,PersonId,PaymentMethodId,CheckId,PaymentAmount,TimeOfPayment")] Payment payment)
+        public async Task<IActionResult> Edit(Guid id, Payment payment)
         {
-            if (id != payment.PaymentId)
+            if (id != payment.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                _uow.Payments.Update(payment);
-                await _uow.SaveChangesAsync();
+                try
+                {
+                    _uow.Payments.Update(payment);
+                    await _uow.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!await _uow.Payments.ExistsAsync(id, User.UserGuidId()))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(payment);
+
         }
 
-        // GET: Payments/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: payments/Delete/5
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var payment = await _uow.Payments.FindAsync(id);
+            var payment = await _uow.Payments.FirstOrDefaultAsync(id.Value, User.UserGuidId());
             if (payment == null)
             {
                 return NotFound();
             }
 
             return View(payment);
+
         }
 
-        // POST: Payments/Delete/5
+        // POST: payments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var payment = _uow.Payments.Remove(id);
+            await _uow.Payments.DeleteAsync(id, User.UserGuidId());
             await _uow.SaveChangesAsync();
-            
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool PaymentExists(int id)
-        {
-            return _context.Payments.Any(e => e.PaymentId == id);
         }
     }
 }

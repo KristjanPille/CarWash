@@ -1,39 +1,33 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Contracts.DAL.App;
-using DAL.App.EF;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Domain;
 using Extensions;
-using WebApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApp.Controllers
 {
+    [Authorize(Roles = "User")]
     public class ModelMarksController : Controller
     {
-        private readonly AppDbContext _context;
         private readonly IAppUnitOfWork _uow;
 
-
-        public ModelMarksController(AppDbContext context, IAppUnitOfWork uow)
+        public ModelMarksController(IAppUnitOfWork uow)
         {
-            _context = context;
             _uow = uow;
         }
 
-        // GET: ModelMarks
+        // GET: modelMarks
         public async Task<IActionResult> Index()
         {
-            var modelMark = await _uow.ModelMarks.AllAsync(User.UserGuidId());
+            var modelMarks = await _uow.ModelMarks.AllAsync(User.UserGuidId());
+            return View(modelMarks);
 
-            return View(modelMark);
         }
 
-        // GET: ModelMarks/Details/5
+        // GET: modelMarks/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -41,7 +35,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var modelMark = await _uow.ModelMarks.FindAsync(id);
+            var modelMark = await _uow.ModelMarks.FirstOrDefaultAsync(id.Value, User.UserGuidId());
             if (modelMark == null)
             {
                 return NotFound();
@@ -50,30 +44,31 @@ namespace WebApp.Controllers
             return View(modelMark);
         }
 
-        // GET: ModelMarks/Create
+        // GET: modelMarks/Create
         public IActionResult Create()
         {
-            var vm = new ModelMarkCreateEditViewModel();
-            return View(vm);
+            return View();
         }
 
-        // POST: ModelMarks/Create
+        // POST: modelMarks/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ModelMarkCreateEditViewModel vm)
+        public async Task<IActionResult> Create(ModelMark modelMark)
         {
+
             if (ModelState.IsValid)
             {
-                _context.Add(vm.ModelMark);
-                await _context.SaveChangesAsync();
+                _uow.ModelMarks.Add(modelMark);
+                await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(vm);
+            return View(modelMark);
+
         }
 
-        // GET: ModelMarks/Edit/5
+        // GET: modelMarks/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -81,24 +76,23 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var vm = new ModelMarkCreateEditViewModel();
-
-            vm.ModelMark = await _uow.ModelMarks.FindAsync(id);
-            if (vm.ModelMark == null)
+            var modelMark = await _uow.ModelMarks.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            if (modelMark == null)
             {
                 return NotFound();
             }
-            return View(vm);
+            return View(modelMark);
+
         }
 
-        // POST: ModelMarks/Edit/5
+        // POST: modelMarks/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid? id, ModelMarkCreateEditViewModel vm)
+        public async Task<IActionResult> Edit(Guid id, ModelMark modelMark)
         {
-            if (id == null)
+            if (id != modelMark.Id)
             {
                 return NotFound();
             }
@@ -107,23 +101,27 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _uow.ModelMarks.Update(vm.ModelMark);
+                    _uow.ModelMarks.Update(modelMark);
                     await _uow.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ModelMarkExists(vm.ModelMark.Id))
+                    if (!await _uow.ModelMarks.ExistsAsync(id, User.UserGuidId()))
                     {
                         return NotFound();
                     }
+                    else
+                    {
+                        throw;
+                    }
                 }
-
                 return RedirectToAction(nameof(Index));
             }
-            return View(vm);
+            return View(modelMark);
+
         }
 
-        // GET: ModelMarks/Delete/5
+        // GET: modelMarks/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -131,28 +129,25 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var modelMark = await _uow.ModelMarks.FindAsync(id);
+            var modelMark = await _uow.ModelMarks.FirstOrDefaultAsync(id.Value, User.UserGuidId());
             if (modelMark == null)
             {
                 return NotFound();
             }
 
             return View(modelMark);
+
         }
 
-        // POST: ModelMarks/Delete/5
+        // POST: modelMarks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            _uow.ModelMarks.Remove(id);
+            await _uow.ModelMarks.DeleteAsync(id, User.UserGuidId());
             await _uow.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));;
+            return RedirectToAction(nameof(Index));
         }
 
-        private bool ModelMarkExists(Guid id)
-        {
-            return _context.ModelMarks.Any(e => e.Id == id);
-        }
     }
 }

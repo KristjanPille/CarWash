@@ -356,6 +356,16 @@
         "runtime": {
           "bin/placeholder/DAL.Base.dll": {}
         }
+      },
+      "Resources/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "compile": {
+          "bin/placeholder/Resources.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Resources.dll": {}
+        }
       }
     }
   },
@@ -995,18 +1005,24 @@
       "type": "project",
       "path": "../DAL.Base/DAL.Base.csproj",
       "msbuildProject": "../DAL.Base/DAL.Base.csproj"
+    },
+    "Resources/1.0.0": {
+      "type": "project",
+      "path": "../Resources/Resources.csproj",
+      "msbuildProject": "../Resources/Resources.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.1": [
       "DAL.Base >= 1.0.0",
       "Microsoft.Extensions.Identity.Stores >= 3.1.3",
+      "Resources >= 1.0.0",
       "System.ComponentModel.Annotations >= 4.7.0"
     ]
   },
   "packageFolders": {
     "C:\\Users\\krist\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -1019,7 +1035,7 @@
       "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet",
+        "C:\\Microsoft\\Xamarin\\NuGet\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
@@ -1039,6 +1055,9 @@
           "projectReferences": {
             "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj": {
               "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj"
+            },
+            "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj": {
+              "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj"
             }
           }
         }

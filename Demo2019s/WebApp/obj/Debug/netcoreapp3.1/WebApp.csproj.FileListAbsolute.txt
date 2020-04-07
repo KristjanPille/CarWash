@@ -500,7 +500,6 @@ C:\Users\krist\icd0009-2019s\WebApp\obj\Debug\netcoreapp3.1\WebApp.Views.pdb
 C:\Users\krist\icd0009-2019s\WebApp\obj\Debug\netcoreapp3.1\WebApp.csproj.CopyComplete
 C:\Users\krist\icd0009-2019s\WebApp\obj\Debug\netcoreapp3.1\WebApp.dll
 C:\Users\krist\icd0009-2019s\WebApp\obj\Debug\netcoreapp3.1\WebApp.pdb
-C:\Users\krist\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\Resources.exe
 C:\Users\krist\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\krist\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\krist\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\Properties\launchSettings.json

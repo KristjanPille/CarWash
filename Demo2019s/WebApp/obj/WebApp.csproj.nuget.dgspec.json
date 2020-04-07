@@ -14,7 +14,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.App\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -78,7 +78,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -135,7 +135,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.EF\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -216,7 +216,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base.EF\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -286,7 +286,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -357,7 +357,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -377,6 +377,9 @@
             "projectReferences": {
               "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj": {
                 "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj"
+              },
+              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj": {
+                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj"
               }
             }
           }
@@ -428,7 +431,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Extensions\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -499,7 +502,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -566,7 +569,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -575,14 +578,14 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.1"
+          "netstandard2.1"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.1": {
+          "netstandard2.1": {
             "projectReferences": {}
           }
         },
@@ -593,7 +596,7 @@
         }
       },
       "frameworks": {
-        "netcoreapp3.1": {
+        "netstandard2.1": {
           "imports": [
             "net461",
             "net462",
@@ -605,7 +608,7 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.NETCore.App": {
+            "NETStandard.Library": {
               "privateAssets": "all"
             }
           },
@@ -623,7 +626,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\WebApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [

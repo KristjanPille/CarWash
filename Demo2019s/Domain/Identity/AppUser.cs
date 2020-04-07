@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography;
 using Microsoft.AspNetCore.Identity;
 
 namespace Domain.Identity
@@ -10,14 +10,16 @@ namespace Domain.Identity
     {
         
     }
-    
-    public class AppUser<TKey>: IdentityUser<TKey> 
+
+    public class AppUser<TKey> : IdentityUser<TKey> 
         where TKey : IEquatable<TKey>
     {
-        //public ICollection<Person>? Persons { get; set; }
+
+        // add your own fields
         [MaxLength(128)] [MinLength(1)] public virtual string FirstName { get; set; } = default!;
 
         [MaxLength(128)] [MinLength(1)] public virtual string LastName { get; set; } = default!;
-
+        
+        
     }
 }

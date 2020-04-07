@@ -1,37 +1,33 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Contracts.DAL.App;
-using DAL.App.EF;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Domain;
 using Extensions;
-using WebApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApp.Controllers
 {
+    [Authorize(Roles = "User")]
     public class CarsController : Controller
     {
-        private readonly AppDbContext _context;
         private readonly IAppUnitOfWork _uow;
-        public CarsController(AppDbContext context, IAppUnitOfWork uow)
+
+        public CarsController(IAppUnitOfWork uow)
         {
-            _context = context;
             _uow = uow;
         }
 
-        // GET: Cars
+        // GET: cars
         public async Task<IActionResult> Index()
         {
             var cars = await _uow.Cars.AllAsync(User.UserGuidId());
-
             return View(cars);
+
         }
 
-        // GET: Cars/Details/5
+        // GET: cars/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -39,7 +35,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var car = await _uow.Cars.FindAsync(id);
+            var car = await _uow.Cars.FirstOrDefaultAsync(id.Value, User.UserGuidId());
             if (car == null)
             {
                 return NotFound();
@@ -48,37 +44,31 @@ namespace WebApp.Controllers
             return View(car);
         }
 
-        // GET: Cars/Create
+        // GET: cars/Create
         public IActionResult Create()
         {
-            var vm = new CarCreateEditViewModel();
-            vm.CarTypeSelectList = new SelectList(
-                _context.Set<CarType>(),
-                nameof(CarType.CarTypeId), nameof(CarType.Name));
-            vm.ModelMarkSelectList = new SelectList(
-                    _context.Set<ModelMark>(),
-                    nameof(ModelMark.ModelMarkId), nameof(ModelMark.Mark));
-            return View(vm);
+            return View();
         }
 
-        // POST: Cars/Create
+        // POST: cars/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CarCreateEditViewModel vm)
+        public async Task<IActionResult> Create(Car car)
         {
+
             if (ModelState.IsValid)
             {
-                _uow.Cars.Add(vm.Car);
+                _uow.Cars.Add(car);
                 await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CarTypeId"] = new SelectList(_context.Set<CarType>(), "CarTypeId", "Name", vm.Car.CarTypeId);
-            return View(vm);
+            return View(car);
+
         }
 
-        // GET: Cars/Edit/5
+        // GET: cars/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -86,40 +76,37 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var vm = new CarCreateEditViewModel();
-
-            vm.Car = await _uow.Cars.FindAsync(id);
-            if (vm.Car == null)
+            var car = await _uow.Cars.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            if (car == null)
             {
                 return NotFound();
             }
-            vm.CarTypeSelectList = new SelectList(
-                _context.Set<CarType>(),
-                nameof(CarType.CarTypeId), nameof(CarType.Name));
-            vm.ModelMarkSelectList = new SelectList(
-                _context.Set<ModelMark>(),
-                nameof(ModelMark.ModelMarkId), nameof(ModelMark.Mark));
+            return View(car);
 
-            return View(vm);
         }
 
-        // POST: Cars/Edit/5
+        // POST: cars/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid? id, CarCreateEditViewModel vm)
+        public async Task<IActionResult> Edit(Guid id, Car car)
         {
+            if (id != car.Id)
+            {
+                return NotFound();
+            }
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _uow.Cars.Update(vm.Car);
+                    _uow.Cars.Update(car);
                     await _uow.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CarExists(vm.Car.Id))
+                    if (!await _uow.Cars.ExistsAsync(id, User.UserGuidId()))
                     {
                         return NotFound();
                     }
@@ -128,19 +115,13 @@ namespace WebApp.Controllers
                         throw;
                     }
                 }
-
                 return RedirectToAction(nameof(Index));
             }
-            vm.CarTypeSelectList = new SelectList(
-                _context.Set<CarType>(),
-                nameof(CarType.CarTypeId), nameof(CarType.Name));
-            vm.ModelMarkSelectList = new SelectList(
-                _context.Set<ModelMark>(),
-                nameof(ModelMark.ModelMarkId), nameof(ModelMark.Mark));
-            return View(vm);
+            return View(car);
+
         }
 
-        // GET: Cars/Delete/5
+        // GET: cars/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -148,29 +129,25 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var car = await _uow.Cars.FindAsync(id);
+            var car = await _uow.Cars.FirstOrDefaultAsync(id.Value, User.UserGuidId());
             if (car == null)
             {
                 return NotFound();
             }
 
             return View(car);
+
         }
 
-        // POST: Cars/Delete/5
+        // POST: cars/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            _uow.Cars.Remove(id);
+            await _uow.Cars.DeleteAsync(id, User.UserGuidId());
             await _uow.SaveChangesAsync();
-            
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CarExists(Guid id)
-        {
-            return _context.Cars.Any(e => e.Id == id);
-        }
     }
 }

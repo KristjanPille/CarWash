@@ -1,39 +1,74 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Contracts.DAL.App;
-using DAL.App.EF;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Domain;
 using Extensions;
-using WebApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApp.Controllers
 {
+    [Authorize(Roles = "User")]
     public class PersonTypesController : Controller
     {
-        private readonly AppDbContext _context;
         private readonly IAppUnitOfWork _uow;
 
-        public PersonTypesController(AppDbContext context, IAppUnitOfWork uow)
+        public PersonTypesController(IAppUnitOfWork uow)
         {
-            _context = context;
             _uow = uow;
         }
 
-        // GET: PersonTypes
+        // GET: personTypes
         public async Task<IActionResult> Index()
         {
             var personTypes = await _uow.PersonTypes.AllAsync(User.UserGuidId());
-
             return View(personTypes);
+
         }
 
-        // GET: PersonTypes/Details/5
+        // GET: personTypes/Details/5
         public async Task<IActionResult> Details(Guid? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var personType = await _uow.PersonTypes.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            if (personType == null)
+            {
+                return NotFound();
+            }
+
+            return View(personType);
+        }
+
+        // GET: personTypes/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: personTypes/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(PersonType personType)
+        {
+            if (ModelState.IsValid)
+            {
+                _uow.PersonTypes.Add(personType);
+                await _uow.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(personType);
+
+        }
+
+        // GET: personTypes/Edit/5
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
@@ -45,60 +80,18 @@ namespace WebApp.Controllers
             {
                 return NotFound();
             }
-
             return View(personType);
+
         }
 
-        // GET: PersonTypes/Create
-        public IActionResult Create()
-        {
-            var vm = new PersonTypeCreateEditViewModel();
-            return View(vm);
-        }
-
-        // POST: PersonTypes/Create
+        // POST: personTypes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(PersonTypeCreateEditViewModel vm)
+        public async Task<IActionResult> Edit(Guid id, PersonType personType)
         {
-            if (ModelState.IsValid)
-            {
-                _uow.PersonTypes.Add(vm.PersonType);
-                await _uow.SaveChangesAsync();
-            
-                return RedirectToAction(nameof(Index));
-            }
-            return View(vm);
-        }
-
-        // GET: PersonTypes/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var vm = new PersonTypeCreateEditViewModel();
-
-            vm.PersonType = await _uow.PersonTypes.FindAsync(id);
-            if (vm.PersonType == null)
-            {
-                return NotFound();
-            }
-            return View(vm);
-        }
-
-        // POST: PersonTypes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid? id, PersonTypeCreateEditViewModel vm)
-        {
-            if (id == null)
+            if (id != personType.Id)
             {
                 return NotFound();
             }
@@ -107,54 +100,52 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _uow.PersonTypes.Update(vm.PersonType);
+                    _uow.PersonTypes.Update(personType);
                     await _uow.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PersonTypeExists(vm.PersonType.Id))
+                    if (!await _uow.PersonTypes.ExistsAsync(id))
                     {
                         return NotFound();
                     }
+                    else
+                    {
+                        throw;
+                    }
                 }
-
                 return RedirectToAction(nameof(Index));
             }
+            return View(personType);
 
-            return View(vm);
         }
 
-        // GET: PersonTypes/Delete/5
+        // GET: personTypes/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
-                
                 return NotFound();
             }
 
-            var personType = await _uow.PersonTypes.FindAsync(id);
+            var personType = await _uow.PersonTypes.FirstOrDefaultAsync(id.Value, User.UserGuidId());
             if (personType == null)
             {
                 return NotFound();
             }
 
             return View(personType);
+
         }
 
-        // POST: PersonTypes/Delete/5
+        // POST: personTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            _uow.PersonTypes.Remove(id);
+            await _uow.PersonTypes.DeleteAsync(id, User.UserGuidId());
             await _uow.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool PersonTypeExists(Guid id)
-        {
-            return _context.PersonTypes.Any(e => e.Id == id);
         }
     }
 }

@@ -15,12 +15,10 @@ namespace WebApp.Controllers
 {
     public class WashsController : Controller
     {
-        private readonly AppDbContext _context;
         private readonly IAppUnitOfWork _uow;
 
-        public WashsController(AppDbContext context, IAppUnitOfWork uow)
+        public WashsController(IAppUnitOfWork uow)
         {
-            _context = context;
             _uow = uow;
         }
 
@@ -28,7 +26,6 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Index()
         {
             var washes = await _uow.Washes.AllAsync(User.UserGuidId());
-
             return View(washes);
         }
 
@@ -40,7 +37,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var wash = await _uow.Washes.FindAsync(id);
+            var wash = await _uow.Washes.FirstOrDefaultAsync(id.Value, User.UserGuidId());
             if (wash == null)
             {
                 return NotFound();
@@ -52,11 +49,7 @@ namespace WebApp.Controllers
         // GET: Washs/Create
         public IActionResult Create()
         {
-            var vm = new WashCreateEditViewModel();
-            vm.OrderSelectList = new SelectList(
-                _context.Set<Order>(),
-                nameof(Order.Id), nameof(Order.Id));
-            return View(vm);
+            return View();
         }
 
         // POST: Washs/Create
@@ -64,16 +57,15 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(WashCreateEditViewModel vm)
+        public async Task<IActionResult> Create(Wash wash)
         {
             if (ModelState.IsValid)
             {
-                _uow.Washes.Add(vm.Wash);
+                _uow.Washes.Add(wash);
                 await _uow.SaveChangesAsync();
-            
                 return RedirectToAction(nameof(Index));
             }
-            return View(vm);
+            return View(wash);
         }
 
         // GET: Washs/Edit/5
@@ -84,17 +76,12 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var vm = new WashCreateEditViewModel();
-
-            vm.Wash = await _uow.Washes.FindAsync(id);
-            if (vm.Wash == null)
+            var wash = await _uow.Washes.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            if (wash == null)
             {
                 return NotFound();
             }
-            vm.OrderSelectList = new SelectList(
-                _context.Set<Order>(),
-                nameof(Order.Id), nameof(Order.Id));
-            return View(vm);
+            return View(wash);
         }
 
         // POST: Washs/Edit/5
@@ -102,9 +89,9 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid? id,  WashCreateEditViewModel vm)
+        public async Task<IActionResult> Edit(Guid id,  Wash wash)
         {
-            if (id == null)
+            if (id != wash.Id)
             {
                 return NotFound();
             }
@@ -113,12 +100,12 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _uow.Washes.Update(vm.Wash);
+                    _uow.Washes.Update(wash);
                     await _uow.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!WashExists(vm.Wash.Id))
+                    if (!await _uow.Washes.ExistsAsync(id, User.UserGuidId()))
                     {
                         return NotFound();
                     }
@@ -127,13 +114,9 @@ namespace WebApp.Controllers
                         throw;
                     }
                 }
-
                 return RedirectToAction(nameof(Index));
             }
-            vm.OrderSelectList = new SelectList(
-                _context.Set<Order>(),
-                nameof(Order.Id), nameof(Order.Id));
-            return View(vm);
+            return View(wash);
         }
 
         // GET: Washs/Delete/5
@@ -141,11 +124,10 @@ namespace WebApp.Controllers
         {
             if (id == null)
             {
-                
                 return NotFound();
             }
 
-            var wash = await _uow.Washes.FindAsync(id);
+            var wash = await _uow.Washes.FirstOrDefaultAsync(id.Value, User.UserGuidId());
             if (wash == null)
             {
                 return NotFound();
@@ -159,15 +141,9 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-             _uow.Washes.Remove(id);
+            await _uow.Washes.DeleteAsync(id, User.UserGuidId());
             await _uow.SaveChangesAsync();
-            
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool WashExists(Guid id)
-        {
-            return _context.Washes.Any(e => e.Id == id);
         }
     }
 }

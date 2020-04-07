@@ -1,38 +1,33 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Contracts.DAL.App;
-using DAL.App.EF;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Domain;
 using Extensions;
-using WebApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApp.Controllers
 {
+    [Authorize(Roles = "User")]
     public class ServicesController : Controller
     {
-        private readonly AppDbContext _context;
         private readonly IAppUnitOfWork _uow;
 
-        public ServicesController(AppDbContext context, IAppUnitOfWork uow)
+        public ServicesController(IAppUnitOfWork uow)
         {
-            _context = context;
             _uow = uow;
         }
 
-        // GET: Services
+        // GET: services
         public async Task<IActionResult> Index()
         {
             var services = await _uow.Services.AllAsync(User.UserGuidId());
-
             return View(services);
+
         }
 
-        // GET: Services/Details/5
+        // GET: services/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -40,7 +35,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var service = await _uow.Services.FindAsync(id);
+            var service = await _uow.Services.FirstOrDefaultAsync(id.Value, User.UserGuidId());
             if (service == null)
             {
                 return NotFound();
@@ -49,30 +44,31 @@ namespace WebApp.Controllers
             return View(service);
         }
 
-        // GET: Services/Create
+        // GET: services/Create
         public IActionResult Create()
         {
-            var vm = new ServiceCreateEditViewModel();
-            return View(vm);
+            return View();
         }
 
-        // POST: Services/Create
+        // POST: services/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ServiceCreateEditViewModel vm)
+        public async Task<IActionResult> Create(Service service)
         {
+
             if (ModelState.IsValid)
             {
-                _uow.Services.Add(vm.Service);
+                _uow.Services.Add(service);
                 await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(vm);
+            return View(service);
+
         }
 
-        // GET: Services/Edit/5
+        // GET: services/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -80,24 +76,23 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var vm = new ServiceCreateEditViewModel();
-
-            vm.Service = await _uow.Services.FindAsync(id);
-            if (vm.Service == null)
+            var service = await _uow.Services.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            if (service == null)
             {
                 return NotFound();
             }
-            return View(vm);
+            return View(service);
+
         }
 
-        // POST: Services/Edit/5
+        // POST: services/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid? id, ServiceCreateEditViewModel vm)
+        public async Task<IActionResult> Edit(Guid id, Service service)
         {
-            if (id == null)
+            if (id != service.Id)
             {
                 return NotFound();
             }
@@ -106,12 +101,12 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _uow.Services.Update(vm.Service);
+                    _uow.Services.Update(service);
                     await _uow.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ServiceExists(vm.Service.Id))
+                    if (!await _uow.Services.ExistsAsync(id, User.UserGuidId()))
                     {
                         return NotFound();
                     }
@@ -120,43 +115,38 @@ namespace WebApp.Controllers
                         throw;
                     }
                 }
-
                 return RedirectToAction(nameof(Index));
             }
-            return View(vm);
+            return View(service);
+
         }
 
-        // GET: Services/Delete/5
+        // GET: services/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
-                
                 return NotFound();
             }
 
-            var service = await _uow.Services.FindAsync(id);
+            var service = await _uow.Services.FirstOrDefaultAsync(id.Value, User.UserGuidId());
             if (service == null)
             {
                 return NotFound();
             }
 
             return View(service);
+
         }
 
-        // POST: Services/Delete/5
+        // POST: services/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            _uow.Services.Remove(id);
+            await _uow.Services.DeleteAsync(id, User.UserGuidId());
             await _uow.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool ServiceExists(Guid id)
-        {
-            return _context.Services.Any(e => e.Id == id);
         }
     }
 }

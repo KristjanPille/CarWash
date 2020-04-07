@@ -13,7 +13,7 @@ namespace Contracts.DAL.Base.Repositories
         where TKey : struct, IEquatable<TKey>
     {
         IEnumerable<TEntity> All();
-        Task<IEnumerable<TEntity>> AllAsync(Guid userGuidId);
+        Task<IEnumerable<TEntity>> AllAsync();
         TEntity Find(params object[] id);
         Task<TEntity> FindAsync(params object[] id);
         TEntity Add(TEntity entity);

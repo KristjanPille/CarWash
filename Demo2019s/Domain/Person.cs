@@ -15,8 +15,12 @@ namespace Domain
         where TKey : struct, IEquatable<TKey>
     {
         [MaxLength(64)] [MinLength(1)]
-        //[Display(Name = nameof(Name), ResourceType = typeof(Resources.Domain.Person))]
-        public string Name { get; set; } = default!;
+        [Display(Name = nameof(FirstName), ResourceType = typeof(Resources.Domain.Person))]
+        public string FirstName { get; set; } = default!;
+        
+        [MaxLength(64)] [MinLength(1)]
+        [Display(Name = nameof(LastName), ResourceType = typeof(Resources.Domain.Person))]
+        public string LastName { get; set; } = default!;
         
         public virtual TKey AppUserId{ get; set; }
         public virtual AppUser? AppUser { get; set; }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Base.EF.Repositories
 {
-    public class EFBaseRepository<TEntity, TDbContext> : BaseRepository<TEntity, Guid, TDbContext>
+    public class EFBaseRepository<TEntity, TDbContext> : BaseRepository<TEntity, Guid, TDbContext>, IBaseRepository<TEntity>
         where TEntity : class, IDomainEntity<Guid>, new()
         where TDbContext: DbContext
     {
@@ -16,9 +16,9 @@ namespace DAL.Base.EF.Repositories
         {
         }
     }
-    
-    public class BaseRepository<TEntity, TKey, TDbContext> : IBaseRepository<TEntity, TKey> 
-        where TEntity : class, IDomainEntity<TKey>, new() 
+
+    public class BaseRepository<TEntity, TKey, TDbContext> : IBaseRepository<TEntity, TKey>
+        where TEntity : class, IDomainEntity<TKey>, new()
         where TKey : struct, IEquatable<TKey>
         where TDbContext: DbContext
     {
@@ -30,15 +30,16 @@ namespace DAL.Base.EF.Repositories
             RepoDbSet = RepoDbContext.Set<TEntity>();
             if (RepoDbSet == null)
             {
-                throw new ArgumentNullException(typeof(TEntity).Name + " was not found as DbSet!");
+               throw new ArgumentNullException(typeof(TEntity).Name + " was not found as DBSet!");
             }
         }
+        
         public virtual IEnumerable<TEntity> All()
         {
             return RepoDbSet.ToList();
         }
 
-        public virtual async Task<IEnumerable<TEntity>> AllAsync(Guid userGuidId)
+        public virtual async Task<IEnumerable<TEntity>> AllAsync()
         {
             return await RepoDbSet.ToListAsync();
         }
@@ -72,5 +73,7 @@ namespace DAL.Base.EF.Repositories
         {
             return Remove(Find(id));
         }
+
     }
+    
 }

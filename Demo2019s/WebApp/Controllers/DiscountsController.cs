@@ -1,44 +1,41 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Contracts.DAL.App;
-using DAL.App.EF;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Domain;
 using Extensions;
-using WebApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApp.Controllers
 {
+    [Authorize(Roles = "User")]
     public class DiscountsController : Controller
     {
-        private readonly AppDbContext _context;
         private readonly IAppUnitOfWork _uow;
-        public DiscountsController(AppDbContext context, IAppUnitOfWork uow)
+
+        public DiscountsController(IAppUnitOfWork uow)
         {
-            _context = context;
             _uow = uow;
         }
 
-        // GET: Discounts
+        // GET: discounts
         public async Task<IActionResult> Index()
         {
             var discounts = await _uow.Discounts.AllAsync(User.UserGuidId());
-
             return View(discounts);
+
         }
 
-        // GET: Discounts/Details/5
+        // GET: discounts/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var discount = await _uow.Discounts.FindAsync(id);
+
+            var discount = await _uow.Discounts.FirstOrDefaultAsync(id.Value, User.UserGuidId());
             if (discount == null)
             {
                 return NotFound();
@@ -47,39 +44,31 @@ namespace WebApp.Controllers
             return View(discount);
         }
 
-        // GET: Discounts/Create
+        // GET: discounts/Create
         public IActionResult Create()
         {
-            var vm = new DiscountCreateEditViewModel();
-            vm.CheckSelectList = new SelectList(
-                _context.Set<Check>(),
-                nameof(Check.CheckId), nameof(Check.Comment));
-            vm.WashSelectList = new SelectList(
-                _context.Set<Wash>(),
-                nameof(Wash.Id), nameof(Wash.NameOfWashType)
-            );
-            return View(vm);
+            return View();
         }
 
-        // POST: Discounts/Create
+        // POST: discounts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(DiscountCreateEditViewModel vm)
+        public async Task<IActionResult> Create(Discount discount)
         {
+
             if (ModelState.IsValid)
             {
-                _context.Add(vm);
-                await _context.SaveChangesAsync();
+                _uow.Discounts.Add(discount);
+                await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CheckId"] = new SelectList(_context.Checks, "CheckId", "Comment", vm.Discount.CheckId);
-            ViewData["WashId"] = new SelectList(_context.Set<Wash>(), "WashId", "NameOfWashType", vm.Discount.WashId);
-            return View(vm);
+            return View(discount);
+
         }
 
-        // GET: Discounts/Edit/5
+        // GET: discounts/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -87,30 +76,23 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var vm = new DiscountCreateEditViewModel();
-
-            vm.Discount = await _uow.Discounts.FindAsync(id);
-            if (vm.Discount == null)
+            var discount = await _uow.Discounts.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            if (discount == null)
             {
                 return NotFound();
             }
-            vm.CheckSelectList = new SelectList(
-                _context.Set<Check>(),
-                nameof(Check.CheckId), nameof(Check.Comment));
-            vm.WashSelectList = new SelectList(
-                _context.Set<Wash>(),
-                nameof(Wash.Id), nameof(Wash.NameOfWashType));
-            return View(vm);
+            return View(discount);
+
         }
 
-        // POST: Discounts/Edit/5
+        // POST: discounts/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid? id, DiscountCreateEditViewModel vm)
+        public async Task<IActionResult> Edit(Guid id, Discount discount)
         {
-            if (id == null)
+            if (id != discount.Id)
             {
                 return NotFound();
             }
@@ -119,28 +101,27 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _uow.Discounts.Update(vm.Discount);
+                    _uow.Discounts.Update(discount);
                     await _uow.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DiscountExists(vm.Discount.Id))
+                    if (!await _uow.Discounts.ExistsAsync(id, User.UserGuidId()))
                     {
                         return NotFound();
+                    }
+                    else
+                    {
+                        throw;
                     }
                 }
                 return RedirectToAction(nameof(Index));
             }
-            vm.CheckSelectList = new SelectList(
-                _context.Set<Check>(),
-                nameof(Check.CheckId), nameof(Check.Comment));
-            vm.WashSelectList = new SelectList(
-                _context.Set<Wash>(),
-                nameof(Wash.Id), nameof(Wash.NameOfWashType));
-            return View(vm);
+            return View(discount);
+
         }
 
-        // GET: Discounts/Delete/5
+        // GET: discounts/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -148,28 +129,25 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var discount = await _uow.Discounts.FindAsync(id);
+            var discount = await _uow.Discounts.FirstOrDefaultAsync(id.Value, User.UserGuidId());
             if (discount == null)
             {
                 return NotFound();
             }
 
             return View(discount);
+
         }
 
-        // POST: Discounts/Delete/5
+        // POST: discounts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            _uow.Discounts.Remove(id);
+            await _uow.Discounts.DeleteAsync(id, User.UserGuidId());
             await _uow.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DiscountExists(Guid id)
-        {
-            return _context.Discounts.Any(e => e.Id == id);
-        }
     }
 }

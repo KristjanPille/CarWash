@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Base.EF
 {
-    public class EFBaseUnitOfWork<TDbContext> : BaseUnitOfWork, IBaseUnitOfWork
+    public class EFBaseUnitOfWork<TDbContext> : BaseUnitOfWork
     where TDbContext: DbContext
     {
         protected TDbContext UOWDbContext;

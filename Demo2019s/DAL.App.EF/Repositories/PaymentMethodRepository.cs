@@ -17,7 +17,6 @@ namespace DAL.App.EF.Repositories
         public async Task<IEnumerable<PaymentMethod>> AllAsync(Guid? userId = null)
         {
             var query = RepoDbSet
-                .Include(a => a.PaymentMethodName)
                 .AsQueryable();
             
             return await query.ToListAsync();
@@ -26,7 +25,6 @@ namespace DAL.App.EF.Repositories
         public async Task<PaymentMethod> FirstOrDefaultAsync(Guid id, Guid? userId = null)
         {
             var query = RepoDbSet
-                .Include(a => a.PaymentMethodName)
                 .Where(a => a.Id == id)
                 .AsQueryable();
 

@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Domain;
 using Extensions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
@@ -45,9 +47,18 @@ namespace WebApp.Controllers
         }
 
         // GET: payments/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var vm = new PaymentCreateEditViewModel();
+            
+            vm.PersonSelectList = new SelectList(await _uow.Persons.AllAsync(User.UserGuidId()), nameof(Person.Id),
+                nameof(Person.FirstName));
+            vm.CheckSelectList = new SelectList(await _uow.Checks.AllAsync(User.UserGuidId()), nameof(Check.Id),
+                nameof(Check.Wash.NameOfWashType));
+            vm.PaymentMethodSelectList = new SelectList(await _uow.PaymentMethods.AllAsync(User.UserGuidId()), nameof(PaymentMethod.PaymentMethodId),
+                nameof(PaymentMethod.PaymentMethodName));
+            return View(vm);
+
         }
 
         // POST: payments/Create
@@ -55,17 +66,22 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Payment payment)
+        public async Task<IActionResult> Create(PaymentCreateEditViewModel vm)
         {
-
             if (ModelState.IsValid)
             {
-                _uow.Payments.Add(payment);
+                _uow.Payments.Add(vm.Payment);
                 await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(payment);
+            vm.PersonSelectList = new SelectList(await _uow.Persons.AllAsync(User.UserGuidId()), nameof(Person.Id),
+                nameof(Person.FirstName));
+            vm.CheckSelectList = new SelectList(await _uow.Checks.AllAsync(User.UserGuidId()), nameof(Check.Id),
+                nameof(Check.Wash.NameOfWashType));
+            vm.PaymentMethodSelectList = new SelectList(await _uow.PaymentMethods.AllAsync(User.UserGuidId()), nameof(PaymentMethod.Id),
+                nameof(PaymentMethod.PaymentMethodName));
 
+            return View(vm);
         }
 
         // GET: payments/Edit/5

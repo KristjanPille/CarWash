@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Domain;
 using Extensions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
@@ -45,9 +47,13 @@ namespace WebApp.Controllers
         }
 
         // GET: Campaigns/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var vm = new CampaignCreateEditViewModel();
+            
+            vm.ServiceSelectList = new SelectList(await _uow.Services.AllAsync(User.UserGuidId()), nameof(Service.ServiceId),
+                nameof(Service.NameOfService));
+            return View(vm);
         }
 
         // POST: Campaigns/Create
@@ -55,17 +61,17 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Campaign campaign)
+        public async Task<IActionResult> Create(CampaignCreateEditViewModel vm)
         {
-
             if (ModelState.IsValid)
             {
-                _uow.Campaigns.Add(campaign);
+                _uow.Campaigns.Add(vm.Campaign);
                 await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(campaign);
-
+            vm.ServiceSelectList = new SelectList(await _uow.Services.AllAsync(User.UserGuidId()), nameof(Service.ServiceId),
+                nameof(Service.NameOfService));
+            return View(vm);
         }
 
         // GET: Campaigns/Edit/5

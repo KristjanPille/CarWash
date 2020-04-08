@@ -47,9 +47,16 @@ namespace WebApp.Controllers
         }
 
         // GET: IsInWashs/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var vm = new IsInWashCreateEditViewModel();
+            vm.CarSelectList = new SelectList(await _uow.Cars.AllAsync(User.UserGuidId()), nameof(Car.Id),
+                nameof(Car.ModelMark.Mark));
+            vm.WashSelectList = new SelectList(await _uow.Washes.AllAsync(User.UserGuidId()), nameof(Wash.Id),
+                nameof(Wash.NameOfWashType));
+            vm.PersonSelectList = new SelectList(await _uow.Persons.AllAsync(User.UserGuidId()), nameof(Person.Id),
+                nameof(Person.FirstName));
+            return View(vm);
         }
 
         // POST: IsInWashs/Create
@@ -57,15 +64,21 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IsInWash isInWash)
+        public async Task<IActionResult> Create(IsInWashCreateEditViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                _uow.IsInWashes.Add(isInWash);
+                _uow.IsInWashes.Add(vm.IsInWash);
                 await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(isInWash);
+            vm.CarSelectList = new SelectList(await _uow.Cars.AllAsync(User.UserGuidId()), nameof(Car.Id),
+                nameof(Car.ModelMark.Mark));
+            vm.WashSelectList = new SelectList(await _uow.Washes.AllAsync(User.UserGuidId()), nameof(Wash.Id),
+                nameof(Wash.NameOfWashType));
+            vm.PersonSelectList = new SelectList(await _uow.Persons.AllAsync(User.UserGuidId()), nameof(Person.Id),
+                nameof(Person.FirstName));
+            return View(vm);
         }
 
         // GET: IsInWashs/Edit/5

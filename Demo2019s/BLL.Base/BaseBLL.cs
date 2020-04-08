@@ -7,14 +7,19 @@ namespace BLL.Base
     public class BaseBLL<TUnitOfWork> : IBaseBLL
         where TUnitOfWork: IBaseUnitOfWork
     {
-        public Task<int> SaveChangesAsync()
+        protected readonly TUnitOfWork unitOfWork;
+        public BaseBLL(TUnitOfWork unitOfWork)
         {
-            throw new System.NotImplementedException();
+            unitOfWork = this.unitOfWork;
+        }
+        public async Task<int> SaveChangesAsync()
+        {
+            return await unitOfWork.SaveChangesAsync();
         }
 
         public int SaveChanges()
         {
-            throw new System.NotImplementedException();
+            return unitOfWork.SaveChanges();
         }
     }
 }

@@ -18,7 +18,6 @@ namespace DAL.App.EF.Repositories
         public async Task<IEnumerable<CarType>> AllAsync(Guid? userId = null)
         {
             var query = RepoDbSet
-                .Include(a => a.Name)
                 .AsQueryable();
             
             return await query.ToListAsync();
@@ -26,7 +25,6 @@ namespace DAL.App.EF.Repositories
         public async Task<CarType> FirstOrDefaultAsync(Guid id, Guid? userId = null)
         {
             var query = RepoDbSet
-                .Include(a => a.Name)
                 .Where(a => a.Id == id)
                 .AsQueryable();
 

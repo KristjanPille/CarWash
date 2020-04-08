@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Domain;
 using Extensions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
@@ -45,9 +47,15 @@ namespace WebApp.Controllers
         }
 
         // GET: checks/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var vm = new CheckCreateEditViewModel();
+            
+            vm.PersonSelectList = new SelectList(await _uow.Persons.AllAsync(User.UserGuidId()), nameof(Person.Id),
+                nameof(Person.FirstName));
+            vm.WashSelectList = new SelectList(await _uow.Washes.AllAsync(User.UserGuidId()), nameof(Wash.Id),
+                nameof(Wash.NameOfWashType));
+            return View(vm);
         }
 
         // POST: checks/Create
@@ -55,17 +63,19 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Check check)
+        public async Task<IActionResult> Create(CheckCreateEditViewModel vm)
         {
-
             if (ModelState.IsValid)
             {
-                _uow.Checks.Add(check);
+                _uow.Checks.Add(vm.Check);
                 await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(check);
-
+            vm.PersonSelectList = new SelectList(await _uow.Persons.AllAsync(User.UserGuidId()), nameof(Person.Id),
+                nameof(Person.FirstName));
+            vm.WashSelectList = new SelectList(await _uow.Washes.AllAsync(User.UserGuidId()), nameof(Wash.Id),
+                nameof(Wash.NameOfWashType));
+            return View(vm);
         }
 
         // GET: checks/Edit/5

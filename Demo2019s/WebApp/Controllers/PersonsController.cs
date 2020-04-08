@@ -53,10 +53,7 @@ namespace WebApp.Controllers
         // GET: Persons/Create
         public async Task<IActionResult> Create()
         {
-            var vm = new PersonCreateEditViewModel();
-            vm.PersonTypeSelectList = new SelectList(await _uow.PersonTypes.AllAsync(User.UserGuidId()), nameof(PersonType.Id),
-                nameof(PersonType.Name));
-            return View(vm);
+            return View();
         }
 
         // POST: Persons/Create
@@ -64,19 +61,20 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(PersonCreateEditViewModel vm)
+        public async Task<IActionResult> Create(Person person)
         {
-            vm.Person.AppUserId = User.UserGuidId();
+            person.AppUserId = User.UserGuidId();
+
             if (ModelState.IsValid)
             {
-                _uow.Persons.Add(vm.Person);
+                //owner.Id = Guid.NewGuid();
+                _uow.Persons.Add(person);
                 await _uow.SaveChangesAsync();
-            
                 return RedirectToAction(nameof(Index));
             }
-            vm.PersonTypeSelectList = new SelectList(await _uow.PersonTypes.AllAsync(User.UserGuidId()), nameof(PersonType.Id),
-                        nameof(PersonType.Name));
-            return View(vm);
+
+            return View(person);
+
         }
 
         // GET: Persons/Edit/5
@@ -87,16 +85,15 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var vm = new PersonCreateEditViewModel();
+            var person = await _uow.Persons.FirstOrDefaultAsync(id.Value, User.UserGuidId());
 
-            vm.Person = await _uow.Persons.FirstOrDefaultAsync(id.Value, User.UserGuidId());
-            if (vm.Person == null)
+            if (person == null)
             {
                 return NotFound();
             }
-            vm.PersonTypeSelectList = new SelectList(await _uow.PersonTypes.AllAsync(User.UserGuidId()), nameof(PersonType.Id),
-                nameof(PersonType.Name));
-            return View(vm);
+
+            return View(person);
+
         }
 
         // POST: Persons/Edit/5
@@ -104,9 +101,11 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id,  PersonCreateEditViewModel vm)
+        public async Task<IActionResult> Edit(Guid id,  Person person)
         {
-            if (id != vm.Person.Id)
+            person.AppUserId = User.UserGuidId();
+
+            if (id != person.Id)
             {
                 return NotFound();
             }
@@ -115,12 +114,12 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _uow.Persons.Update(vm.Person);
+                    _uow.Persons.Update(person);
                     await _uow.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await _uow.Persons.ExistsAsync(id, User.UserGuidId()))
+                    if (! await _uow.Persons.ExistsAsync(person.Id, User.UserGuidId()))
                     {
                         return NotFound();
                     }
@@ -132,10 +131,9 @@ namespace WebApp.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            vm.PersonTypeSelectList = new SelectList(await _uow.PersonTypes.AllAsync(User.UserGuidId()), nameof(PersonType.Id),
-                nameof(PersonType.Name));
 
-            return View(vm);
+            return View(person);
+
         }
 
         // GET: Persons/Delete/5

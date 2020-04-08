@@ -382,6 +382,8 @@ namespace DAL.App.EF.Migrations
                     ChangedAt = table.Column<DateTime>(nullable: false),
                     CarId = table.Column<int>(nullable: false),
                     PersonId = table.Column<Guid>(nullable: false),
+                    ModelMarkId = table.Column<int>(nullable: false),
+                    ModelMarkId1 = table.Column<Guid>(nullable: true),
                     CarTypeId = table.Column<int>(nullable: false),
                     CarTypeId1 = table.Column<Guid>(nullable: true),
                     LicenceNr = table.Column<string>(nullable: false)
@@ -393,6 +395,12 @@ namespace DAL.App.EF.Migrations
                         name: "FK_Cars_CarTypes_CarTypeId1",
                         column: x => x.CarTypeId1,
                         principalTable: "CarTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Cars_ModelMarks_ModelMarkId1",
+                        column: x => x.ModelMarkId1,
+                        principalTable: "ModelMarks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -524,8 +532,7 @@ namespace DAL.App.EF.Migrations
                     ChangedBy = table.Column<string>(nullable: true),
                     ChangedAt = table.Column<DateTime>(nullable: false),
                     PaymentId = table.Column<int>(nullable: false),
-                    PersonId = table.Column<int>(nullable: true),
-                    PersonId1 = table.Column<Guid>(nullable: true),
+                    PersonId = table.Column<Guid>(nullable: false),
                     PaymentMethodId = table.Column<int>(nullable: false),
                     PaymentMethodId1 = table.Column<Guid>(nullable: true),
                     CheckId = table.Column<int>(nullable: false),
@@ -549,11 +556,11 @@ namespace DAL.App.EF.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Payments_Persons_PersonId1",
-                        column: x => x.PersonId1,
+                        name: "FK_Payments_Persons_PersonId",
+                        column: x => x.PersonId,
                         principalTable: "Persons",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -606,6 +613,11 @@ namespace DAL.App.EF.Migrations
                 column: "CarTypeId1");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Cars_ModelMarkId1",
+                table: "Cars",
+                column: "ModelMarkId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Cars_PersonId",
                 table: "Cars",
                 column: "PersonId");
@@ -656,9 +668,9 @@ namespace DAL.App.EF.Migrations
                 column: "PaymentMethodId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Payments_PersonId1",
+                name: "IX_Payments_PersonId",
                 table: "Payments",
-                column: "PersonId1");
+                column: "PersonId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Persons_AppUserId",
@@ -708,9 +720,6 @@ namespace DAL.App.EF.Migrations
                 name: "IsInWashes");
 
             migrationBuilder.DropTable(
-                name: "ModelMarks");
-
-            migrationBuilder.DropTable(
                 name: "Payments");
 
             migrationBuilder.DropTable(
@@ -730,6 +739,9 @@ namespace DAL.App.EF.Migrations
 
             migrationBuilder.DropTable(
                 name: "CarTypes");
+
+            migrationBuilder.DropTable(
+                name: "ModelMarks");
 
             migrationBuilder.DropTable(
                 name: "Persons");

@@ -161,6 +161,13 @@
       <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\ResetPasswordConfirmation.cshtml" />
       <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\_StatusMessage.cshtml" />
       <_ContentIncludedByDefault Remove="Areas\Identity\Pages\Account\_ViewImports.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PersonCars\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PersonCars\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PersonCars\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PersonCars\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PersonCars\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PersonCars\_CreateEdit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PersonCars\_DetailsDelete.cshtml" />
     </ItemGroup>
 
     <ItemGroup>

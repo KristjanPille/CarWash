@@ -19,7 +19,8 @@ namespace DAL.App.EF
         public DbSet<Payment> Payments { get; set; } = default!;
         public DbSet<PaymentMethod> PaymentMethods { get; set; } = default!;
         public DbSet<Person> Persons { get; set; } = default!;
-        public DbSet<PersonType> PersonTypes { get; set; } = default!;
+        
+        public DbSet<PersonCar> PersonCars { get; set; } = default!;
         public DbSet<Service> Services { get; set; } = default!;
         public DbSet<Wash> Washes { get; set; } = default!;
         public DbSet<WashType> WashTypes { get; set; } = default!;

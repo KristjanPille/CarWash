@@ -88,12 +88,20 @@ namespace DAL.App.EF.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ModelMarkId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("ModelMarkId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("PersonId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CarTypeId1");
+
+                    b.HasIndex("ModelMarkId1");
 
                     b.HasIndex("PersonId");
 
@@ -497,10 +505,7 @@ namespace DAL.App.EF.Migrations
                     b.Property<Guid?>("PaymentMethodId1")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("PersonId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("PersonId1")
+                    b.Property<Guid>("PersonId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("TimeOfPayment")
@@ -512,7 +517,7 @@ namespace DAL.App.EF.Migrations
 
                     b.HasIndex("PaymentMethodId1");
 
-                    b.HasIndex("PersonId1");
+                    b.HasIndex("PersonId");
 
                     b.ToTable("Payments");
                 });
@@ -862,6 +867,10 @@ namespace DAL.App.EF.Migrations
                         .WithMany()
                         .HasForeignKey("CarTypeId1");
 
+                    b.HasOne("Domain.ModelMark", "ModelMark")
+                        .WithMany()
+                        .HasForeignKey("ModelMarkId1");
+
                     b.HasOne("Domain.Person", "Person")
                         .WithMany()
                         .HasForeignKey("PersonId")
@@ -918,7 +927,9 @@ namespace DAL.App.EF.Migrations
 
                     b.HasOne("Domain.Person", "Person")
                         .WithMany()
-                        .HasForeignKey("PersonId1");
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Person", b =>

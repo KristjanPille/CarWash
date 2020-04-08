@@ -19,7 +19,6 @@ namespace DAL.App.EF.Repositories
         {
             var query = RepoDbSet
                 .Include(a => a.Service)
-                .Include(a => a.NameOfCampaign)
                 .AsQueryable();
             
             return await query.ToListAsync();
@@ -28,7 +27,6 @@ namespace DAL.App.EF.Repositories
         {
             var query = RepoDbSet
                 .Include(a => a.Service)
-                .Include(a => a.NameOfCampaign)
                 .Where(a => a.Id == id)
                 .AsQueryable();
 

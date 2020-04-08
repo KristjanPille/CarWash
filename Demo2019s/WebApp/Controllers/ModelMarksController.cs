@@ -6,6 +6,7 @@ using Domain;
 using Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
@@ -47,7 +48,8 @@ namespace WebApp.Controllers
         // GET: modelMarks/Create
         public IActionResult Create()
         {
-            return View();
+            var vm = new ModelMarkCreateEditViewModel();
+            return View(vm);
         }
 
         // POST: modelMarks/Create
@@ -55,16 +57,15 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ModelMark modelMark)
+        public async Task<IActionResult> Create(ModelMarkCreateEditViewModel vm)
         {
-
             if (ModelState.IsValid)
             {
-                _uow.ModelMarks.Add(modelMark);
+                _uow.ModelMarks.Add(vm.ModelMark);
                 await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(modelMark);
+            return View(vm);
 
         }
 

@@ -17,7 +17,6 @@ namespace DAL.App.EF.Repositories
         public async Task<IEnumerable<ModelMark>> AllAsync(Guid? userId = null)
         {
             var query = RepoDbSet
-                .Include(a => a.Mark)
                 .AsQueryable();
             
             return await query.ToListAsync();
@@ -26,7 +25,6 @@ namespace DAL.App.EF.Repositories
         public async Task<ModelMark> FirstOrDefaultAsync(Guid id, Guid? userId = null)
         {
             var query = RepoDbSet
-                .Include(a => a.Mark)
                 .Where(a => a.Id == id)
                 .AsQueryable();
 

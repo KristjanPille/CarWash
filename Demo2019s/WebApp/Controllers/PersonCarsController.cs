@@ -5,16 +5,18 @@ using Microsoft.AspNetCore.Mvc;
 using Domain;
 using Extensions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
     [Authorize(Roles = "User")]
-    public class PersonTypesController : Controller
+    public class PersonCarsController : Controller
     {
         private readonly IAppUnitOfWork _uow;
 
-        public PersonTypesController(IAppUnitOfWork uow)
+        public PersonCarsController(IAppUnitOfWork uow)
         {
             _uow = uow;
         }
@@ -22,8 +24,8 @@ namespace WebApp.Controllers
         // GET: personTypes
         public async Task<IActionResult> Index()
         {
-            var personTypes = await _uow.PersonTypes.AllAsync(User.UserGuidId());
-            return View(personTypes);
+            var personCars = await _uow.PersonCars.AllAsync(User.UserGuidId());
+            return View(personCars);
 
         }
 
@@ -35,19 +37,25 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var personType = await _uow.PersonTypes.FirstOrDefaultAsync(id.Value, User.UserGuidId());
-            if (personType == null)
+            var personCar = await _uow.PersonCars.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            if (personCar == null)
             {
                 return NotFound();
             }
 
-            return View(personType);
+            return View(personCar);
         }
 
         // GET: personTypes/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var vm = new PersonCarCreateEditViewModel();
+            
+            vm.Car = new SelectList(await _uow.Cars.AllAsync(User.UserGuidId()), nameof(Car.Id),
+                nameof(Car.LicenceNr));
+
+            return View(vm);
+
         }
 
         // POST: personTypes/Create
@@ -55,16 +63,17 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(PersonType personType)
+        public async Task<IActionResult> Create(PersonCarCreateEditViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                _uow.PersonTypes.Add(personType);
+                _uow.PersonCars.Add(vm.PersonCar);
                 await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(personType);
-
+            vm.Car = new SelectList(await _uow.Cars.AllAsync(User.UserGuidId()), nameof(Car.Id),
+                nameof(Car.LicenceNr));
+            return View(vm);
         }
 
         // GET: personTypes/Edit/5
@@ -75,13 +84,16 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var personType = await _uow.PersonTypes.FindAsync(id);
-            if (personType == null)
+            var vm = new PersonCarCreateEditViewModel();
+
+            vm.PersonCar = await _uow.PersonCars.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            if (vm.PersonCar == null)
             {
                 return NotFound();
             }
-            return View(personType);
-
+            vm.Car = new SelectList(await _uow.Cars.AllAsync(User.UserGuidId()), nameof(Car.Id),
+                nameof(Car.LicenceNr));
+            return View(vm);
         }
 
         // POST: personTypes/Edit/5
@@ -89,9 +101,9 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, PersonType personType)
+        public async Task<IActionResult> Edit(Guid id, PersonCarCreateEditViewModel vm)
         {
-            if (id != personType.Id)
+            if (id != vm.PersonCar.Id)
             {
                 return NotFound();
             }
@@ -100,12 +112,12 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _uow.PersonTypes.Update(personType);
+                    _uow.PersonCars.Update(vm.PersonCar);
                     await _uow.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await _uow.PersonTypes.ExistsAsync(id))
+                    if (!await _uow.PersonCars.ExistsAsync(id, User.UserGuidId()))
                     {
                         return NotFound();
                     }
@@ -114,10 +126,12 @@ namespace WebApp.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(personType);
-
+            vm.Car = new SelectList(await _uow.Cars.AllAsync(User.UserGuidId()), nameof(Car.Id),
+                nameof(Car.LicenceNr));
+            return View(vm);
         }
 
         // GET: personTypes/Delete/5
@@ -128,14 +142,13 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var personType = await _uow.PersonTypes.FirstOrDefaultAsync(id.Value, User.UserGuidId());
-            if (personType == null)
+            var personCar = await _uow.PersonCars.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            if (personCar == null)
             {
                 return NotFound();
             }
 
-            return View(personType);
-
+            return View(personCar);
         }
 
         // POST: personTypes/Delete/5
@@ -143,7 +156,7 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            await _uow.PersonTypes.DeleteAsync(id, User.UserGuidId());
+            await _uow.PersonCars.DeleteAsync(id, User.UserGuidId());
             await _uow.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

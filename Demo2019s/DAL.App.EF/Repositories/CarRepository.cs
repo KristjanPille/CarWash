@@ -18,6 +18,7 @@ namespace DAL.App.EF.Repositories
         {
             var query = RepoDbSet
                 .Include(a => a.CarType)
+                .Include(a => a.ModelMark)
                 .AsQueryable();
             
             return await query.ToListAsync();
@@ -26,7 +27,7 @@ namespace DAL.App.EF.Repositories
         {
             var query = RepoDbSet
                 .Include(a => a.CarType)
-                .Where(a => a.Id == id)
+                .Include(a => a.ModelMark)
                 .AsQueryable();
 
             return await query.FirstOrDefaultAsync();

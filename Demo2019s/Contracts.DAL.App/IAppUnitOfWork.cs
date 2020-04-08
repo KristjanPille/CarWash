@@ -16,7 +16,7 @@ namespace Contracts.DAL.App
         IPaymentRepository Payments { get; }
         IPaymentMethodRepository PaymentMethods { get; }
         IPersonRepository Persons { get; }
-        IPersonTypeRepository PersonTypes { get; }
+        IPersonCarRepository PersonCars { get; }
         IServiceRepository Services { get; }
         IWashRepository Washes { get; }
         IWashTypeRepository WashTypes { get; }

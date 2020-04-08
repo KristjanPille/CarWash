@@ -6,6 +6,7 @@ using Domain;
 using Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
@@ -47,7 +48,8 @@ namespace WebApp.Controllers
         // GET: orders/Create
         public IActionResult Create()
         {
-            return View();
+            var vm = new OrderCreateEditViewModel();
+            return View(vm);
         }
 
         // POST: orders/Create
@@ -55,16 +57,15 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Order order)
+        public async Task<IActionResult> Create(OrderCreateEditViewModel vm)
         {
-
             if (ModelState.IsValid)
             {
-                _uow.Orders.Add(order);
+                _uow.Orders.Add(vm.Order);
                 await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(order);
+            return View(vm);
 
         }
 

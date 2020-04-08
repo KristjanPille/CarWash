@@ -18,6 +18,7 @@ namespace DAL.App.EF.Repositories
         {
             var query = RepoDbSet
                 .Include(a => a.Check)
+                .Include(a => a.Order)
                 .AsQueryable();
             
             return await query.ToListAsync();
@@ -27,6 +28,7 @@ namespace DAL.App.EF.Repositories
         {
             var query = RepoDbSet
                 .Include(a => a.Check)
+                .Include(a => a.Order)
                 .Where(a => a.Id == id)
                 .AsQueryable();
 

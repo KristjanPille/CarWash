@@ -25,7 +25,7 @@ namespace DAL.App.EF
         public IPaymentRepository Payments => GetRepository<IPaymentRepository>(() => new PaymentRepository(UOWDbContext));
         public IPaymentMethodRepository PaymentMethods => GetRepository<IPaymentMethodRepository>(() => new PaymentMethodRepository(UOWDbContext));
         public IPersonRepository Persons => GetRepository<IPersonRepository>(() => new PersonRepository(UOWDbContext));
-        public IPersonTypeRepository PersonTypes => GetRepository<IPersonTypeRepository>(() => new PersonTypeRepository(UOWDbContext));
+        public IPersonCarRepository PersonCars => GetRepository<IPersonCarRepository>(() => new PersonCarRepository(UOWDbContext));
         public IServiceRepository Services => GetRepository<IServiceRepository>(() => new ServiceRepository(UOWDbContext));
         public IWashRepository Washes => GetRepository<IWashRepository>(() => new WashRepository(UOWDbContext));
         public IWashTypeRepository WashTypes => GetRepository<IWashTypeRepository>(() => new WashTypeRepository(UOWDbContext));

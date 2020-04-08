@@ -1,4 +1,4 @@
-﻿@model WebApp.ViewModels.PersonCreateEditViewModel
+﻿@Model Person
 
 <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -11,10 +11,6 @@
     <label asp-for="Person.LastName" class="control-label"></label>
     <input asp-for="Person.LastName" class="form-control" />
     <span asp-validation-for="Person.LastName" class="text-danger"></span>
-</div>
-<div class="form-group">
-    <label asp-for="Person.PersonTypeId" class="control-label"></label>
-    <select asp-for="Person.PersonTypeId" class ="form-control" asp-items="Model.PersonTypeSelectList"></select>
 </div>
 <div class="form-group">
     <label asp-for="Person.Email" class="control-label"></label>

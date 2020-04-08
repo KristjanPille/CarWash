@@ -28,7 +28,7 @@ namespace WebApp.ApiControllers
         {
             return await _context.Cars.Select(o => new CarDTO()
             {
-                Id = o.Id, CarId = o.CarId, CarTypeId = o.CarTypeId
+                Id = o.Id, CarId = o.CarTypeId
             }).ToListAsync();
         }
 
@@ -39,7 +39,7 @@ namespace WebApp.ApiControllers
             var car = await _context.Cars
                 .Select(o => new CarDTO()
                 {
-                    Id = o.Id, CarId = o.CarId, CarTypeId = o.CarTypeId
+                    Id = o.Id, CarTypeId = o.CarTypeId
                 }).FirstOrDefaultAsync(o => o.Id == id);
 
             if (car == null)

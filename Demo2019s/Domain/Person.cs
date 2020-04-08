@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Versioning;
@@ -25,8 +26,8 @@ namespace Domain
         public virtual TKey AppUserId{ get; set; }
         public virtual AppUser? AppUser { get; set; }
         
-        public int PersonTypeId { get; set; }
-        public PersonType? PersonType { get; set; }
+        public virtual ICollection<PersonCar>? Cars { get; set; }
+        
 
         [MaxLength(64)]
         public string Email { get; set; } = default!;

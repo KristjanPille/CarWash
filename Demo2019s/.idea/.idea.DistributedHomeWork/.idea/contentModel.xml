@@ -19,6 +19,10 @@
             </e>
           </e>
         </e>
+        <e p="Services" t="Include">
+          <e p="BaseEntityService.cs" t="Include" />
+          <e p="BaseService.cs" t="Include" />
+        </e>
       </e>
       <e p="Contracts.BLL.Base" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
@@ -61,8 +65,8 @@
           <e p="IOrderRepository.cs" t="Include" />
           <e p="IPaymentMethodRepository.cs" t="Include" />
           <e p="IPaymentRepository.cs" t="Include" />
+          <e p="IPersonCarRepository.cs" t="Include" />
           <e p="IPersonRepository.cs" t="Include" />
-          <e p="IPersonTypeRepository.cs" t="Include" />
           <e p="IServiceRepository.cs" t="Include" />
           <e p="IWashRepository.cs" t="Include" />
           <e p="IWashTypeRepository.cs" t="Include" />
@@ -96,8 +100,8 @@
           <e p="DataInitializers.cs" t="Include" />
         </e>
         <e p="Migrations" t="Include">
-          <e p="20200405142603_InitialDbCreation.cs" t="Include" />
-          <e p="20200405142603_InitialDbCreation.Designer.cs" t="Include" />
+          <e p="20200408103811_InitialDbCreation.cs" t="Include" />
+          <e p="20200408103811_InitialDbCreation.Designer.cs" t="Include" />
           <e p="AppDbContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -118,8 +122,8 @@
           <e p="OrderRepository.cs" t="Include" />
           <e p="PaymentMethodRepository.cs" t="Include" />
           <e p="PaymentRepository.cs" t="Include" />
+          <e p="PersonCarRepository.cs" t="Include" />
           <e p="PersonRepository.cs" t="Include" />
-          <e p="PersonTypeRepository.cs" t="Include" />
           <e p="ServiceRepository.cs" t="Include" />
           <e p="WashRepository.cs" t="Include" />
           <e p="WashTypeRepository.cs" t="Include" />
@@ -182,7 +186,7 @@
         <e p="Payment.cs" t="Include" />
         <e p="PaymentMethod.cs" t="Include" />
         <e p="Person.cs" t="Include" />
-        <e p="PersonType.cs" t="Include" />
+        <e p="PersonCar.cs" t="Include" />
         <e p="Service.cs" t="Include" />
         <e p="Wash.cs" t="Include" />
         <e p="WashType.cs" t="Include" />
@@ -258,7 +262,6 @@
           <e p="PaymentMethodsController.cs" t="Include" />
           <e p="PaymentsController.cs" t="Include" />
           <e p="PersonsController.cs" t="Include" />
-          <e p="PersonTypesController.cs" t="Include" />
           <e p="ServicesController.cs" t="Include" />
           <e p="WashsController.cs" t="Include" />
           <e p="WashTypesController.cs" t="Include" />
@@ -392,8 +395,8 @@
           <e p="OrdersController.cs" t="Include" />
           <e p="PaymentMethodsController.cs" t="Include" />
           <e p="PaymentsController.cs" t="Include" />
+          <e p="PersonCarsController.cs" t="Include" />
           <e p="PersonsController.cs" t="Include" />
-          <e p="PersonTypesController.cs" t="Include" />
           <e p="ServicesController.cs" t="Include" />
           <e p="WashsController.cs" t="Include" />
           <e p="WashTypesController.cs" t="Include" />
@@ -424,8 +427,8 @@
           <e p="OrderCreateEditViewModel.cs" t="Include" />
           <e p="PaymentCreateEditViewModel.cs" t="Include" />
           <e p="PaymentMethodCreateEditViewModel.cs" t="Include" />
+          <e p="PersonCarCreateEditViewModel.cs" t="Include" />
           <e p="PersonCreateEditViewModel.cs" t="Include" />
-          <e p="PersonTypeCreateEditViewModel.cs" t="Include" />
           <e p="ServiceCreateEditViewModel.cs" t="Include" />
           <e p="WashCreateEditViewModel.cs" t="Include" />
           <e p="WashTypeCreateEditViewModel.cs" t="Include" />
@@ -528,15 +531,6 @@
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="Persons" t="Include">
-            <e p="_CreateEdit.cshtml" t="Include" />
-            <e p="_DetailsDelete.cshtml" t="Include" />
-            <e p="Create.cshtml" t="Include" />
-            <e p="Delete.cshtml" t="Include" />
-            <e p="Details.cshtml" t="Include" />
-            <e p="Edit.cshtml" t="Include" />
-            <e p="Index.cshtml" t="Include" />
-          </e>
-          <e p="PersonTypes" t="Include">
             <e p="_CreateEdit.cshtml" t="Include" />
             <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />

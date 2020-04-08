@@ -17,7 +17,6 @@ namespace DAL.App.EF.Repositories
         public async Task<IEnumerable<WashType>> AllAsync(Guid? userId = null)
         {
             var query = RepoDbSet
-                .Include(a => a.NameOfWash)
                 .AsQueryable();
             
             return await query.ToListAsync();
@@ -26,7 +25,6 @@ namespace DAL.App.EF.Repositories
         public async Task<WashType> FirstOrDefaultAsync(Guid id, Guid? userId = null)
         {
             var query = RepoDbSet
-                .Include(a => a.NameOfWash)
                 .Where(a => a.Id == id)
                 .AsQueryable();
 

@@ -9,12 +9,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.App.EF.Repositories
 {
-    public class PersonTypeRepository : EFBaseRepository<PersonType, AppDbContext>, IPersonTypeRepository
+    public class PersonCarRepository : EFBaseRepository<PersonCar, AppDbContext>, IPersonCarRepository
     {
-        public PersonTypeRepository(AppDbContext dbContext) : base(dbContext)
+        public PersonCarRepository(AppDbContext dbContext) : base(dbContext)
         {
         }        
-        public async Task<IEnumerable<PersonType>> AllAsync(Guid? userId = null)
+        public async Task<IEnumerable<PersonCar>> AllAsync(Guid? userId = null)
         {
             if (userId == null)
             {
@@ -25,18 +25,22 @@ namespace DAL.App.EF.Repositories
 
         }
         
-        public async Task<PersonType> FirstOrDefaultAsync(Guid id, Guid? userId = null)
+        public async Task<PersonCar> FirstOrDefaultAsync(Guid id, Guid? userId = null)
         {
             var query = RepoDbSet
-                .Include(a => a.Name)
                 .Where(a => a.Id == id)
                 .AsQueryable();
 
             return await query.FirstOrDefaultAsync();
         }
 
-        public async Task<bool> ExistsAsync(Guid id)
+        public async Task<bool> ExistsAsync(Guid id, Guid? userId = null)
         {
+            if (userId == null)
+            {
+                return await RepoDbSet.AnyAsync(a => a.Id == id);
+            }
+
             return await RepoDbSet.AnyAsync(a => a.Id == id);
         }
 

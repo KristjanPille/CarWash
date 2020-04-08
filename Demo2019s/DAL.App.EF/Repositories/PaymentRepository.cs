@@ -18,8 +18,14 @@ namespace DAL.App.EF.Repositories
         {
             var query = RepoDbSet
                 .Include(a => a.Person)
+                .Include(a => a.PaymentMethod)
+                .Include(a => a.Check)
                 .AsQueryable();
-            
+            if (userId != null)
+            {
+                query = query.Where(o => o.Person!.AppUserId == userId && o.Person!.AppUserId == userId);
+            }
+
             return await query.ToListAsync();
         }
         
@@ -27,8 +33,13 @@ namespace DAL.App.EF.Repositories
         {
             var query = RepoDbSet
                 .Include(a => a.Person)
-                .Where(a => a.Id == id)
+                .Include(a => a.PaymentMethod)
+                .Include(a => a.Check)
                 .AsQueryable();
+            if (userId != null)
+            {
+                query = query.Where(o => o.Person!.AppUserId == userId && o.Person!.AppUserId == userId);
+            }
 
             return await query.FirstOrDefaultAsync();
         }

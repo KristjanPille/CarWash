@@ -6,11 +6,12 @@ namespace Contracts.BLL.Base.Services
 {
     public interface IBaseService
     {
-        
+        // add common base methods here
     }
-    public interface IEntityService<TBLLEntity> : IBaseService, IBaseRepository<TBLLEntity>
+    
+    public interface IBaseEntityService<TBLLEntity> : IBaseService, IBaseRepository<TBLLEntity> 
         where TBLLEntity : class, IDomainEntity<Guid>, new()
     {
-        
     }
+    
 }

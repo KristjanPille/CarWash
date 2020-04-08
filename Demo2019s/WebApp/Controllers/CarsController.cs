@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Domain;
 using Extensions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
@@ -45,9 +47,16 @@ namespace WebApp.Controllers
         }
 
         // GET: cars/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var vm = new CarCreateEditViewModel();
+            
+            vm.CarTypeSelectList = new SelectList(await _uow.CarTypes.AllAsync(User.UserGuidId()), nameof(CarType.CarTypeId),
+                nameof(CarType.Name));
+                     
+            vm.ModelMarkSelectList = new SelectList(await _uow.ModelMarks.AllAsync(User.UserGuidId()), nameof(ModelMark.ModelMarkId),
+                nameof(ModelMark.Mark));
+            return View(vm);
         }
 
         // POST: cars/Create
@@ -55,17 +64,21 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Car car)
+        public async Task<IActionResult> Create(CarCreateEditViewModel vm)
         {
-
+            vm.Car.AppUserId = User.UserGuidId();
             if (ModelState.IsValid)
             {
-                _uow.Cars.Add(car);
+                _uow.Cars.Add(vm.Car);
                 await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(car);
-
+            vm.CarTypeSelectList = new SelectList(await _uow.CarTypes.AllAsync(User.UserGuidId()), nameof(CarType.CarTypeId),
+                nameof(CarType.Name));
+                                 
+            vm.ModelMarkSelectList = new SelectList(await _uow.ModelMarks.AllAsync(User.UserGuidId()), nameof(ModelMark.ModelMarkId),
+                nameof(ModelMark.Mark));
+            return View(vm);
         }
 
         // GET: cars/Edit/5

@@ -6,6 +6,39 @@
     <e p="C:\Users\krist\.Rider2019.3\system\extResources" t="IncludeRecursive" />
     <e p="C:\Users\krist\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_DistributedHomeWork.1277058304.00" t="ExcludeRecursive" />
     <e p="C:\Users\krist\icd0009-2019s\Demo2019s" t="IncludeFlat">
+      <e p="_Solution Items" t="Include" />
+      <e p="BLL" t="Include" />
+      <e p="BLL.Base" t="IncludeRecursive">
+        <e p="BaseBLL.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="BLL.Base.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.1" t="Include">
+              <e p="BLL.Base.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="Contracts.BLL.Base" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Class1.cs" t="Include" />
+        <e p="Contracts.BLL.Base.csproj" t="IncludeRecursive" />
+        <e p="IBaseBLL.cs" t="Include" />
+        <e p="Mappers" t="Include">
+          <e p="IBaseBLLMapper.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.1" t="Include">
+              <e p="Contracts.BLL.Base.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Services" t="Include">
+          <e p="IBaseService.cs" t="Include" />
+        </e>
+      </e>
       <e p="Contracts.DAL.App" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="Contracts.DAL.App.csproj" t="IncludeRecursive" />
@@ -53,6 +86,7 @@
           <e p="IBaseRepository.cs" t="Include" />
         </e>
       </e>
+      <e p="DAL" t="Include" />
       <e p="DAL.App.EF" t="IncludeRecursive">
         <e p="AppDbContext.cs" t="Include" />
         <e p="AppUnitOfWork.cs" t="Include" />
@@ -208,7 +242,6 @@
           </e>
         </e>
       </e>
-      <e p="Solution Items" t="Include" />
       <e p="WebApp" t="IncludeRecursive">
         <e p="ApiControllers" t="Include">
           <e p="CampaignsController.cs" t="Include" />

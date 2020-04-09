@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using BLL.Base.Mappers;
 using BLL.Base.Services;
+using Contracts.BLL.App.Services;
 using Contracts.DAL.App;
 using Contracts.DAL.App.Repositories;
 using Domain;
@@ -11,14 +11,12 @@ using PublicApi.DTO.v1;
 
 namespace BLL.App.Services
 {
-    public class OwnerService : BaseEntityService<IPersonRepository, IAppUnitOfWork, Person, Person>, IPersonRepository
+    public class PersonService : BaseEntityService<IPersonRepository, IAppUnitOfWork, Person, Person>, IPersonService
     {
-        public OwnerService(IAppUnitOfWork unitOfWork)
+        public PersonService(IAppUnitOfWork unitOfWork)
             : base(unitOfWork, new IdentityMapper<Person, Person>(), unitOfWork.Persons)
         {
         }
-
-
         public async Task<IEnumerable<Person>> AllAsync(Guid? userId = null) =>
             await ServiceRepository.AllAsync(userId);
 

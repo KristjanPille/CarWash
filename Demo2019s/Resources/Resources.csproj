@@ -32,4 +32,8 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="obj\Debug\netstandard2.1\Resources.csprojAssemblyReference.cache" />
+  </ItemGroup>
+
 </Project>

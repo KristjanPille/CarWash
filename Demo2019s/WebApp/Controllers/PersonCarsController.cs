@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Contracts.DAL.App;
 using Microsoft.AspNetCore.Mvc;
@@ -50,15 +50,14 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Create()
         {
             var vm = new PersonCarCreateEditViewModel();
-            
-            vm.Car = new SelectList(await _uow.Cars.AllAsync(User.UserGuidId()), nameof(Car.Id),
+            vm.CarSelectList = new SelectList(await _uow.Cars.AllAsync(User.UserGuidId()), nameof(Car.Id),
                 nameof(Car.LicenceNr));
-
+            vm.PersonSelectList = new SelectList(await _uow.Persons.AllAsync(User.UserGuidId()), nameof(Person.Id),
+                nameof(Person.FirstLastName));
             return View(vm);
-
         }
 
-        // POST: personTypes/Create
+        // POST: personCars/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -71,8 +70,11 @@ namespace WebApp.Controllers
                 await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            vm.Car = new SelectList(await _uow.Cars.AllAsync(User.UserGuidId()), nameof(Car.Id),
-                nameof(Car.LicenceNr));
+            vm.CarSelectList = new SelectList(await _uow.Cars.AllAsync(User.UserGuidId()), nameof(Car.Id),
+                nameof(Car.LicenceNr), vm.PersonCar.CarId);
+            vm.PersonSelectList = new SelectList(await _uow.Persons.AllAsync(User.UserGuidId()), nameof(Person.Id),
+                nameof(Person.FirstLastName), vm.PersonCar.PersonId);
+            
             return View(vm);
         }
 
@@ -84,16 +86,13 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var vm = new PersonCarCreateEditViewModel();
-
-            vm.PersonCar = await _uow.PersonCars.FirstOrDefaultAsync(id.Value, User.UserGuidId());
-            if (vm.PersonCar == null)
+            var personCar = await _uow.PersonCars.FindAsync(id);
+            if (personCar == null)
             {
                 return NotFound();
             }
-            vm.Car = new SelectList(await _uow.Cars.AllAsync(User.UserGuidId()), nameof(Car.Id),
-                nameof(Car.LicenceNr));
-            return View(vm);
+            return View(personCar);
+
         }
 
         // POST: personTypes/Edit/5
@@ -101,9 +100,9 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, PersonCarCreateEditViewModel vm)
+        public async Task<IActionResult> Edit(Guid id, PersonCar personCar)
         {
-            if (id != vm.PersonCar.Id)
+            if (id != personCar.Id)
             {
                 return NotFound();
             }
@@ -112,12 +111,12 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _uow.PersonCars.Update(vm.PersonCar);
+                    _uow.PersonCars.Update(personCar);
                     await _uow.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await _uow.PersonCars.ExistsAsync(id, User.UserGuidId()))
+                    if (!await _uow.PersonCars.ExistsAsync(id))
                     {
                         return NotFound();
                     }
@@ -126,12 +125,10 @@ namespace WebApp.Controllers
                         throw;
                     }
                 }
-
                 return RedirectToAction(nameof(Index));
             }
-            vm.Car = new SelectList(await _uow.Cars.AllAsync(User.UserGuidId()), nameof(Car.Id),
-                nameof(Car.LicenceNr));
-            return View(vm);
+            return View(personCar);
+
         }
 
         // GET: personTypes/Delete/5
@@ -149,6 +146,7 @@ namespace WebApp.Controllers
             }
 
             return View(personCar);
+
         }
 
         // POST: personTypes/Delete/5

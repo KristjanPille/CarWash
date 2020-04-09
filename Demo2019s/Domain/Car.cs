@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Contracts.DAL.Base;
 using DAL.Base;
 using Domain.Identity;
@@ -22,6 +23,7 @@ namespace Domain
         public CarType? CarType { get; set; }
 
         public string LicenceNr { get; set; } = default!;
-        public PersonCar? PersonCar { get; set; }
+        
+        public virtual ICollection<PersonCar>? Persons { get; set; }
     }
 }

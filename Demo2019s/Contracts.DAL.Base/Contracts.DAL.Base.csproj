@@ -4,4 +4,8 @@
         <TargetFramework>netstandard2.1</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Content Include="obj\Debug\netstandard2.1\Contracts.DAL.Base.csprojAssemblyReference.cache" />
+    </ItemGroup>
+
 </Project>

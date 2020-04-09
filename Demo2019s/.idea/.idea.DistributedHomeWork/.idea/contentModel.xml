@@ -83,6 +83,7 @@
           <e p="Debug" t="Include">
             <e p="netstandard2.1" t="Include">
               <e p="Contracts.DAL.Base.AssemblyInfo.cs" t="Include" />
+              <e p="Contracts.DAL.Base.csprojAssemblyReference.cache" t="Include" />
             </e>
           </e>
         </e>
@@ -100,8 +101,8 @@
           <e p="DataInitializers.cs" t="Include" />
         </e>
         <e p="Migrations" t="Include">
-          <e p="20200408103811_InitialDbCreation.cs" t="Include" />
-          <e p="20200408103811_InitialDbCreation.Designer.cs" t="Include" />
+          <e p="20200408172608_InitialDbCreation.cs" t="Include" />
+          <e p="20200408172608_InitialDbCreation.Designer.cs" t="Include" />
           <e p="AppDbContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -200,6 +201,7 @@
           <e p="Debug" t="Include">
             <e p="netstandard2.1" t="Include">
               <e p="Extensions.AssemblyInfo.cs" t="Include" />
+              <e p="Extensions.csprojAssemblyReference.cache" t="Include" />
             </e>
           </e>
         </e>
@@ -217,6 +219,7 @@
             </e>
           </e>
         </e>
+        <e p="PersonCarDTO.cs" t="Include" />
         <e p="PublicApi.DTO.v1.csproj" t="IncludeRecursive" />
       </e>
       <e p="Resources" t="IncludeRecursive">
@@ -232,6 +235,7 @@
           <e p="Debug" t="Include">
             <e p="netstandard2.1" t="Include">
               <e p="Resources.AssemblyInfo.cs" t="Include" />
+              <e p="Resources.csprojAssemblyReference.cache" t="Include" />
             </e>
           </e>
         </e>
@@ -261,6 +265,7 @@
           <e p="OrdersController.cs" t="Include" />
           <e p="PaymentMethodsController.cs" t="Include" />
           <e p="PaymentsController.cs" t="Include" />
+          <e p="PersonCarsController.cs" t="Include" />
           <e p="PersonsController.cs" t="Include" />
           <e p="ServicesController.cs" t="Include" />
           <e p="WashsController.cs" t="Include" />
@@ -405,7 +410,9 @@
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
               <e p="WebApp.AssemblyInfo.cs" t="Include" />
+              <e p="WebApp.genruntimeconfig.cache" t="Include" />
               <e p="WebApp.RazorAssemblyInfo.cs" t="Include" />
+              <e p="WebApp.Views.pdb" t="Include" />
             </e>
           </e>
         </e>
@@ -522,6 +529,15 @@
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="Payments" t="Include">
+            <e p="_CreateEdit.cshtml" t="Include" />
+            <e p="_DetailsDelete.cshtml" t="Include" />
+            <e p="Create.cshtml" t="Include" />
+            <e p="Delete.cshtml" t="Include" />
+            <e p="Details.cshtml" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+          </e>
+          <e p="PersonCars" t="Include">
             <e p="_CreateEdit.cshtml" t="Include" />
             <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />

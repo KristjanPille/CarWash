@@ -120,23 +120,6 @@ namespace DAL.App.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PersonTypes",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    CreatedBy = table.Column<string>(nullable: true),
-                    CreatedAt = table.Column<DateTime>(nullable: false),
-                    ChangedBy = table.Column<string>(nullable: true),
-                    ChangedAt = table.Column<DateTime>(nullable: false),
-                    PersonTypeId = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(maxLength: 64, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PersonTypes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Services",
                 columns: table => new
                 {
@@ -290,8 +273,6 @@ namespace DAL.App.EF.Migrations
                     FirstName = table.Column<string>(maxLength: 64, nullable: false),
                     LastName = table.Column<string>(maxLength: 64, nullable: false),
                     AppUserId = table.Column<Guid>(nullable: false),
-                    PersonTypeId = table.Column<int>(nullable: false),
-                    PersonTypeId1 = table.Column<Guid>(nullable: true),
                     Email = table.Column<string>(maxLength: 64, nullable: false),
                     PhoneNr = table.Column<int>(nullable: false)
                 },
@@ -304,10 +285,43 @@ namespace DAL.App.EF.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cars",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    ChangedBy = table.Column<string>(nullable: true),
+                    ChangedAt = table.Column<DateTime>(nullable: false),
+                    AppUserId = table.Column<Guid>(nullable: false),
+                    ModelMarkId = table.Column<int>(nullable: false),
+                    ModelMarkId1 = table.Column<Guid>(nullable: true),
+                    CarTypeId = table.Column<int>(nullable: false),
+                    CarTypeId1 = table.Column<Guid>(nullable: true),
+                    LicenceNr = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cars", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Persons_PersonTypes_PersonTypeId1",
-                        column: x => x.PersonTypeId1,
-                        principalTable: "PersonTypes",
+                        name: "FK_Cars_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Cars_CarTypes_CarTypeId1",
+                        column: x => x.CarTypeId1,
+                        principalTable: "CarTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Cars_ModelMarks_ModelMarkId1",
+                        column: x => x.ModelMarkId1,
+                        principalTable: "ModelMarks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -372,7 +386,7 @@ namespace DAL.App.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cars",
+                name: "PersonCars",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -380,35 +394,24 @@ namespace DAL.App.EF.Migrations
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     ChangedBy = table.Column<string>(nullable: true),
                     ChangedAt = table.Column<DateTime>(nullable: false),
-                    CarId = table.Column<int>(nullable: false),
                     PersonId = table.Column<Guid>(nullable: false),
-                    ModelMarkId = table.Column<int>(nullable: false),
-                    ModelMarkId1 = table.Column<Guid>(nullable: true),
-                    CarTypeId = table.Column<int>(nullable: false),
-                    CarTypeId1 = table.Column<Guid>(nullable: true),
-                    LicenceNr = table.Column<string>(nullable: false)
+                    CarId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cars", x => x.Id);
+                    table.PrimaryKey("PK_PersonCars", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Cars_CarTypes_CarTypeId1",
-                        column: x => x.CarTypeId1,
-                        principalTable: "CarTypes",
+                        name: "FK_PersonCars_Cars_CarId",
+                        column: x => x.CarId,
+                        principalTable: "Cars",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Cars_ModelMarks_ModelMarkId1",
-                        column: x => x.ModelMarkId1,
-                        principalTable: "ModelMarks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Cars_Persons_PersonId",
+                        name: "FK_PersonCars_Persons_PersonId",
                         column: x => x.PersonId,
                         principalTable: "Persons",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -608,6 +611,11 @@ namespace DAL.App.EF.Migrations
                 column: "ServiceId1");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Cars_AppUserId",
+                table: "Cars",
+                column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Cars_CarTypeId1",
                 table: "Cars",
                 column: "CarTypeId1");
@@ -616,11 +624,6 @@ namespace DAL.App.EF.Migrations
                 name: "IX_Cars_ModelMarkId1",
                 table: "Cars",
                 column: "ModelMarkId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Cars_PersonId",
-                table: "Cars",
-                column: "PersonId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Checks_PersonId1",
@@ -673,14 +676,19 @@ namespace DAL.App.EF.Migrations
                 column: "PersonId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PersonCars_CarId",
+                table: "PersonCars",
+                column: "CarId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PersonCars_PersonId",
+                table: "PersonCars",
+                column: "PersonId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Persons_AppUserId",
                 table: "Persons",
                 column: "AppUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Persons_PersonTypeId1",
-                table: "Persons",
-                column: "PersonTypeId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Washes_OrderId1",
@@ -723,13 +731,13 @@ namespace DAL.App.EF.Migrations
                 name: "Payments");
 
             migrationBuilder.DropTable(
+                name: "PersonCars");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Services");
-
-            migrationBuilder.DropTable(
-                name: "Cars");
 
             migrationBuilder.DropTable(
                 name: "Checks");
@@ -738,10 +746,7 @@ namespace DAL.App.EF.Migrations
                 name: "PaymentMethods");
 
             migrationBuilder.DropTable(
-                name: "CarTypes");
-
-            migrationBuilder.DropTable(
-                name: "ModelMarks");
+                name: "Cars");
 
             migrationBuilder.DropTable(
                 name: "Persons");
@@ -750,10 +755,13 @@ namespace DAL.App.EF.Migrations
                 name: "Washes");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "CarTypes");
 
             migrationBuilder.DropTable(
-                name: "PersonTypes");
+                name: "ModelMarks");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Orders");

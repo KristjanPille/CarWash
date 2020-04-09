@@ -115,11 +115,6 @@
       <_ContentIncludedByDefault Remove="Views\Payments\Details.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Payments\Edit.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Payments\Index.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\PersonTypes\Create.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\PersonTypes\Delete.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\PersonTypes\Details.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\PersonTypes\Edit.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\PersonTypes\Index.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Services\Create.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Services\Delete.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Services\Details.cshtml" />
@@ -173,6 +168,11 @@
     <ItemGroup>
       <Folder Include="Areas\Admin\Controllers" />
       <Folder Include="Areas\Admin\viewmodels" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="obj\Debug\netcoreapp3.1\WebApp.genruntimeconfig.cache" />
+      <Content Include="obj\Debug\netcoreapp3.1\WebApp.Views.pdb" />
     </ItemGroup>
 
 </Project>

@@ -22,7 +22,7 @@ namespace Domain
         [MaxLength(64)] [MinLength(1)]
         [Display(Name = nameof(LastName), ResourceType = typeof(Resources.Domain.Person))]
         public string LastName { get; set; } = default!;
-        
+        public virtual string FirstLastName => FirstName + " " + LastName;
         public virtual TKey AppUserId{ get; set; }
         public virtual AppUser? AppUser { get; set; }
         

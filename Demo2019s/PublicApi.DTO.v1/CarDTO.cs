@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace PublicApi.DTO.v1
 {
@@ -9,7 +10,7 @@ namespace PublicApi.DTO.v1
         public int CarId { get; set; }
         
         public int CarTypeId { get; set; }
-
-        public int LicenceNr { get; set; }
+        [MinLength(1)] [MaxLength(64)] 
+        public string LicenceNr { get; set; }
     }
 }

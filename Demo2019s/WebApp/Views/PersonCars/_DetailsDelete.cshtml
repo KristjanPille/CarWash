@@ -11,10 +11,10 @@
         @Html.DisplayNameFor(model => model.Car)
     </dt>
     <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Car!.ModelMark.Mark)
+        @Html.DisplayFor(model => model!.Car!.ModelMark!.Mark)
     </dd>
     <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Car!.ModelMark.Model)
+        @Html.DisplayFor(model => model!.Car!.ModelMark!.Model)
     </dd>
     <dt class="col-sm-2">
         @Html.DisplayNameFor(model => model.CreatedBy)

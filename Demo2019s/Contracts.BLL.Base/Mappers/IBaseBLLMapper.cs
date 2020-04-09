@@ -9,6 +9,4 @@
             where TInObject : class, new();
 
     }
-    
-    
 }

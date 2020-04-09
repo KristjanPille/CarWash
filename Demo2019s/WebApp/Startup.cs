@@ -2,6 +2,8 @@ using System;
 using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using BLL.App;
+using Contracts.BLL.App;
 using Contracts.DAL.App;
 using Contracts.DAL.App.Repositories;
 using DAL.App.EF;
@@ -12,6 +14,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
@@ -40,6 +43,11 @@ namespace WebApp
                     Configuration.GetConnectionString("MsSqlConnection")));
             services.AddScoped<IAppUnitOfWork, AppUnitOfWork>();
 
+            //services.AddScoped<IUserNameProvider, UserNameProvider>();
+            services.AddScoped<IAppUnitOfWork, AppUnitOfWork>();
+            services.AddScoped<IAppBLL, AppBLL>();
+            
+            
             services.AddIdentity<AppUser, AppRole>()
                 .AddDefaultUI()
                 .AddEntityFrameworkStores<AppDbContext>();
@@ -92,7 +100,12 @@ namespace WebApp
                 options.SupportedUICultures = supportedCultures;
             });
 
-
+            services.AddApiVersioning(options =>
+            {
+                options.ReportApiVersions = true;
+                //options.DefaultApiVersion = new ApiVersion(1, 0);
+                //options.AssumeDefaultVersionWhenUnspecified = false;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

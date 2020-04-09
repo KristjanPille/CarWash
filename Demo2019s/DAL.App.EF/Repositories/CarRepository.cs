@@ -6,6 +6,7 @@ using Contracts.DAL.App.Repositories;
 using DAL.Base.EF.Repositories;
 using Domain;
 using Microsoft.EntityFrameworkCore;
+using PublicApi.DTO.v1;
 
 namespace DAL.App.EF.Repositories
 {
@@ -47,6 +48,28 @@ namespace DAL.App.EF.Repositories
         {
             var car = await FirstOrDefaultAsync(id, userId);
             base.Remove(car);
+        }
+
+        public Task<IEnumerable<CarDTO>> DTOAllAsync(Guid? userId = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<CarDTO> DTOFirstOrDefaultAsync(Guid id, Guid? userId = null)
+        {
+            var query = RepoDbSet.Where(a => a.Id == id).AsQueryable();
+            if (userId != null)
+            {
+                query = query.Where(a => a.AppUserId == userId);
+            }
+
+            var carDTO = await query.Select(o => new CarDTO()
+            {
+                Id = o.Id,
+                LicenceNr = o.LicenceNr,
+            }).FirstOrDefaultAsync();
+
+            return carDTO;
         }
     }
 }

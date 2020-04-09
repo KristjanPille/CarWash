@@ -1,115 +1,133 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using Contracts.BLL.App;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DAL.App.EF;
 using Domain;
 using Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using PublicApi.DTO.v1;
 
 namespace WebApp.ApiControllers
 {
-    [Route("api/[controller]")]
+    
     [ApiController]
+    [ApiVersion( "1.0" )]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class PersonsController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IAppBLL _bll;
 
-        public PersonsController(AppDbContext context)
+        public PersonsController(IAppBLL bll)
         {
-            _context = context;
+            _bll = bll;
         }
+
 
         // GET: api/Persons
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Person>>> GetPersons()
         {
-            return await _context.Persons.Where(o => o.AppUserId == User.UserGuidId()).ToListAsync();
+            var personDTOs = await _bll.Persons.DTOAllAsync(User.UserGuidId());
+            
+            return Ok(personDTOs);
+
         }
 
         // GET: api/Persons/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Person>> GetPerson(Guid id)
         {
-            var person =
-                await _context.Persons.FirstOrDefaultAsync(o => o.Id == id && o.AppUserId == User.UserGuidId());
+            var person = await _bll.Persons.DTOFirstOrDefaultAsync(id, User.UserGuidId());
 
             if (person == null)
             {
                 return NotFound();
             }
 
-            return person;
+            return Ok(person);
+
         }
 
         // PUT: api/Persons/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPerson(Guid id, Person person)
+        public async Task<IActionResult> PutPerson(Guid id, PersonEditDTO personEditDTO)
         {
-            if (id != person.Id)
+            if (id != personEditDTO.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(person).State = EntityState.Modified;
+            var owner = await _bll.Persons.FirstOrDefaultAsync(personEditDTO.Id, User.UserGuidId());
+            if (owner == null)
+            {
+                return BadRequest();
+            }
+
+            owner.FirstName = personEditDTO.FirstName;
+            owner.LastName = personEditDTO.LastName;
+            
+            _bll.Persons.Update(owner);
+
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _bll.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PersonExists(id))
+                if (!await _bll.Persons.ExistsAsync(id, User.UserGuidId()))
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+
+                throw;
             }
 
             return NoContent();
+
         }
 
         // POST: api/Persons
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Person>> PostPerson(Person person)
+        public async Task<ActionResult<Person>> PostPerson(PersonCreateDTO personCreateDTO)
         {
-            _context.Persons.Add(person);
-            await _context.SaveChangesAsync();
+            var person = new Person
+            {
+                AppUserId = User.UserGuidId(),
+                FirstName = personCreateDTO.FirstName,
+                LastName = personCreateDTO.LastName
+            };
 
-            return CreatedAtAction("GetPerson", new { id = person.Id }, person);
+            _bll.Persons.Add(person);
+            await _bll.SaveChangesAsync();
+
+            return CreatedAtAction("GetPerson", new {id = person.Id}, person);
+
         }
 
         // DELETE: api/Persons/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Person>> DeletePerson(int id)
+        public async Task<ActionResult<Person>> DeletePerson(Guid id)
         {
-            var person = await _context.Persons.FindAsync(id);
+            var person = await _bll.Persons.FirstOrDefaultAsync(id, User.UserGuidId());
             if (person == null)
             {
                 return NotFound();
             }
 
-            _context.Persons.Remove(person);
-            await _context.SaveChangesAsync();
+            _bll.Persons.Remove(person);
+            await _bll.SaveChangesAsync();
 
-            return person;
-        }
+            return Ok(person);
 
-        private bool PersonExists(Guid id)
-        {
-            return _context.Persons.Any(e => e.Id == id);
         }
     }
 }

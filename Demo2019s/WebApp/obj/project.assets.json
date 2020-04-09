@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
+      "AutoMapper/9.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.5.0",
+          "System.Reflection.Emit": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/AutoMapper.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/AutoMapper.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Authentication.JwtBearer/3.1.3": {
         "type": "package",
         "dependencies": {
@@ -106,6 +119,18 @@
           "buildMultiTargeting/Microsoft.AspNetCore.Identity.UI.props": {},
           "buildMultiTargeting/Microsoft.AspnetCore.Identity.UI.targets": {}
         }
+      },
+      "Microsoft.AspNetCore.Mvc.Versioning/4.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Mvc.Versioning.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Mvc.Versioning.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       },
       "Microsoft.AspNetCore.Razor/2.2.0": {
         "type": "package",
@@ -1963,7 +1988,7 @@
           "System.Runtime": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.1/_._": {}
+          "ref/netstandard1.1/System.Reflection.Emit.dll": {}
         },
         "runtime": {
           "lib/netstandard1.3/System.Reflection.Emit.dll": {}
@@ -1977,7 +2002,7 @@
           "System.Runtime": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.0/_._": {}
+          "ref/netstandard1.0/System.Reflection.Emit.ILGeneration.dll": {}
         },
         "runtime": {
           "lib/netstandard1.3/System.Reflection.Emit.ILGeneration.dll": {}
@@ -2722,12 +2747,70 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "BLL.App/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "BLL.Base": "1.0.0",
+          "Contracts.BLL.App": "1.0.0",
+          "DAL.App.EF": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BLL.App.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BLL.App.dll": {}
+        }
+      },
+      "BLL.Base/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "AutoMapper": "9.0.0",
+          "Contracts.BLL.Base": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BLL.Base.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BLL.Base.dll": {}
+        }
+      },
+      "Contracts.BLL.App/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Contracts.BLL.Base": "1.0.0",
+          "Contracts.DAL.App": "1.0.0",
+          "Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Contracts.BLL.App.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Contracts.BLL.App.dll": {}
+        }
+      },
+      "Contracts.BLL.Base/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Contracts.DAL.Base": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Contracts.BLL.Base.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Contracts.BLL.Base.dll": {}
+        }
+      },
       "Contracts.DAL.App/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
           "Contracts.DAL.Base": "1.0.0",
-          "Domain": "1.0.0"
+          "Domain": "1.0.0",
+          "PublicApi.DTO.v1": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Contracts.DAL.App.dll": {}
@@ -2852,6 +2935,23 @@
     }
   },
   "libraries": {
+    "AutoMapper/9.0.0": {
+      "sha512": "xCqvoxT4HIrNY/xlXG9W+BA/awdrhWvMTKTK/igkGSRbhOhpl3Q8O8Gxlhzjc9JsYqE7sS6AxgyuUUvZ6R5/Bw==",
+      "type": "package",
+      "path": "automapper/9.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "automapper.9.0.0.nupkg.sha512",
+        "automapper.nuspec",
+        "lib/net461/AutoMapper.dll",
+        "lib/net461/AutoMapper.pdb",
+        "lib/net461/AutoMapper.xml",
+        "lib/netstandard2.0/AutoMapper.dll",
+        "lib/netstandard2.0/AutoMapper.pdb",
+        "lib/netstandard2.0/AutoMapper.xml"
+      ]
+    },
     "Microsoft.AspNetCore.Authentication.JwtBearer/3.1.3": {
       "sha512": "F19wwKzyE1K/KF30XZq2STKNJNxBrTKa1wLxTy5qdgXh7akzgLreMdC3j7rPzIQVGHlPCMeI30fpmD1k5zHkCQ==",
       "type": "package",
@@ -3031,6 +3131,22 @@
         "staticwebassets/V4/lib/jquery/dist/jquery.js",
         "staticwebassets/V4/lib/jquery/dist/jquery.min.js",
         "staticwebassets/V4/lib/jquery/dist/jquery.min.map"
+      ]
+    },
+    "Microsoft.AspNetCore.Mvc.Versioning/4.1.1": {
+      "sha512": "ioFhRz5gm2Ny+t758Jab638eTG8Uui++klcH00EgBuU/BQbjkbFY+9xw/CkoAChIcrJsoQP2NKDYJ09zN5jR0g==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.mvc.versioning/4.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "icon.png",
+        "lib/netcoreapp3.1/Microsoft.AspNetCore.Mvc.Versioning.dll",
+        "lib/netcoreapp3.1/Microsoft.AspNetCore.Mvc.Versioning.pdb",
+        "lib/netcoreapp3.1/Microsoft.AspNetCore.Mvc.Versioning.xml",
+        "microsoft.aspnetcore.mvc.versioning.4.1.1.nupkg.sha512",
+        "microsoft.aspnetcore.mvc.versioning.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Razor/2.2.0": {
@@ -8862,6 +8978,26 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
+    "BLL.App/1.0.0": {
+      "type": "project",
+      "path": "../BLL.App/BLL.App.csproj",
+      "msbuildProject": "../BLL.App/BLL.App.csproj"
+    },
+    "BLL.Base/1.0.0": {
+      "type": "project",
+      "path": "../BLL.Base/BLL.Base.csproj",
+      "msbuildProject": "../BLL.Base/BLL.Base.csproj"
+    },
+    "Contracts.BLL.App/1.0.0": {
+      "type": "project",
+      "path": "../Contracts.BLL.App/Contracts.BLL.App.csproj",
+      "msbuildProject": "../Contracts.BLL.App/Contracts.BLL.App.csproj"
+    },
+    "Contracts.BLL.Base/1.0.0": {
+      "type": "project",
+      "path": "../Contracts.BLL.Base/Contracts.BLL.Base.csproj",
+      "msbuildProject": "../Contracts.BLL.Base/Contracts.BLL.Base.csproj"
+    },
     "Contracts.DAL.App/1.0.0": {
       "type": "project",
       "path": "../Contracts.DAL.App/Contracts.DAL.App.csproj",
@@ -8910,6 +9046,8 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "BLL.App >= 1.0.0",
+      "Contracts.BLL.App >= 1.0.0",
       "DAL.App.EF >= 1.0.0",
       "Domain >= 1.0.0",
       "Extensions >= 1.0.0",
@@ -8917,6 +9055,7 @@
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 3.1.3",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 3.1.3",
       "Microsoft.AspNetCore.Identity.UI >= 3.1.3",
+      "Microsoft.AspNetCore.Mvc.Versioning >= 4.1.1",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.3",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.3",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.1",
@@ -8926,7 +9065,7 @@
   },
   "packageFolders": {
     "C:\\Users\\krist\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -8939,7 +9078,7 @@
       "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\WebApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\",
+        "C:\\Microsoft\\Xamarin\\NuGet",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
@@ -8957,6 +9096,12 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
+            "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App\\BLL.App.csproj": {
+              "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App\\BLL.App.csproj"
+            },
+            "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.BLL.App\\Contracts.BLL.App.csproj": {
+              "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.BLL.App\\Contracts.BLL.App.csproj"
+            },
             "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.EF\\DAL.App.EF.csproj": {
               "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.EF\\DAL.App.EF.csproj"
             },
@@ -8999,6 +9144,10 @@
           "Microsoft.AspNetCore.Identity.UI": {
             "target": "Package",
             "version": "[3.1.3, )"
+          },
+          "Microsoft.AspNetCore.Mvc.Versioning": {
+            "target": "Package",
+            "version": "[4.1.1, )"
           },
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",

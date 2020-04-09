@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Contracts.DAL.Base.Repositories;
 using Domain;
+using PublicApi.DTO.v1;
 
 namespace Contracts.DAL.App.Repositories
 {
@@ -13,5 +14,10 @@ namespace Contracts.DAL.App.Repositories
 
         Task<bool> ExistsAsync(Guid id, Guid? userId = null);
         Task DeleteAsync(Guid id, Guid? userId = null);
+        
+        // DTO methods
+        Task<IEnumerable<PersonCarDTO>> DTOAllAsync(Guid? userId = null);
+        Task<PersonCarDTO> DTOFirstOrDefaultAsync(Guid id, Guid? userId = null);
+
     }
 }

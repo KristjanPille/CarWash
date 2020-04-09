@@ -8,10 +8,31 @@
     <e p="C:\Users\krist\icd0009-2019s\Demo2019s" t="IncludeFlat">
       <e p="_Solution Items" t="Include" />
       <e p="BLL" t="Include" />
+      <e p="BLL.App" t="IncludeRecursive">
+        <e p="AppBLL.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="BLL.App.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.1" t="Include">
+              <e p="BLL.App.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Services" t="Include">
+          <e p="CarService.cs" t="Include" />
+          <e p="PersonCarService.cs" t="Include" />
+          <e p="PersonService.cs" t="Include" />
+        </e>
+      </e>
       <e p="BLL.Base" t="IncludeRecursive">
         <e p="BaseBLL.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="BLL.Base.csproj" t="IncludeRecursive" />
+        <e p="Mappers" t="Include">
+          <e p="BaseBLLMapper.cs" t="Include" />
+          <e p="IdentityMapper.cs" t="Include" />
+        </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netstandard2.1" t="Include">
@@ -22,6 +43,23 @@
         <e p="Services" t="Include">
           <e p="BaseEntityService.cs" t="Include" />
           <e p="BaseService.cs" t="Include" />
+        </e>
+      </e>
+      <e p="Contracts.BLL.App" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Contracts.BLL.App.csproj" t="IncludeRecursive" />
+        <e p="IAppBLL.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.1" t="Include">
+              <e p="Contracts.BLL.App.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Services" t="Include">
+          <e p="ICarService.cs" t="Include" />
+          <e p="IPersonCarService.cs" t="Include" />
+          <e p="IPersonService.cs" t="Include" />
         </e>
       </e>
       <e p="Contracts.BLL.Base" t="IncludeRecursive">
@@ -210,7 +248,9 @@
       <e p="PublicApi.DTO.v1" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="CampaignDTO.cs" t="Include" />
+        <e p="CarCreateDTO.cs" t="Include" />
         <e p="CarDTO.cs" t="Include" />
+        <e p="CarEditDTO.cs" t="Include" />
         <e p="CarTypeDTO.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -220,16 +260,25 @@
           </e>
         </e>
         <e p="PersonCarDTO.cs" t="Include" />
+        <e p="PersonCreateDTO.cs" t="Include" />
+        <e p="PersonDTO.cs" t="Include" />
+        <e p="PersonEditDTO.cs" t="Include" />
         <e p="PublicApi.DTO.v1.csproj" t="IncludeRecursive" />
       </e>
       <e p="Resources" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="Domain" t="Include">
+          <e p="modelMark.en-GB.resx" t="Include" />
+          <e p="modelMark.en-US.resx" t="Include" />
+          <e p="modelMark.et.resx" t="Include" />
           <e p="Person.Designer.cs" t="Include" />
           <e p="person.en-GB.resx" t="Include" />
           <e p="Person.en-US.resx" t="Include" />
           <e p="Person.et.resx" t="Include" />
           <e p="Person.resx" t="Include" />
+          <e p="personCar.en-GB.resx" t="Include" />
+          <e p="personCar.en-US.resx" t="Include" />
+          <e p="personCar.et.resx" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">

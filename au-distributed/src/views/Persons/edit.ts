@@ -1,17 +1,18 @@
 import { autoinject } from 'aurelia-framework';
 import { RouteConfig, NavigationInstruction, Router } from 'aurelia-router';
-import { CampaignService } from 'service/campaign-service';
-import { ICampaign } from 'domain/ICampaign';
+import { PersonService } from 'service/person-service';
+import { IPerson } from 'domain/IPerson';
 import { IAlertData } from 'types/IAlertData';
 import { AlertType } from 'types/AlertType';
 
+
 @autoinject
-export class CampaignsEdit {
+export class PersonsEdit {
     private _alert: IAlertData | null = null;
 
-    private _campaign?: ICampaign;
+    private _person?: IPerson;
 
-    constructor(private campaignService: CampaignService, private router: Router) {
+    constructor(private personService: PersonService, private router: Router) {
     }
 
     attached() {
@@ -20,11 +21,11 @@ export class CampaignsEdit {
     activate(params: any, routeConfig: RouteConfig, navigationInstruction: NavigationInstruction) {
         console.log(params);
         if (params.id && typeof (params.id) == 'string') {
-            this.campaignService.getCampaign(params.id).then(
+            this.personService.getPerson(params.id).then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
-                        this._campaign = response.data!;
+                        this._person = response.data!;
                     } else {
                         // show error message
                         this._alert = {
@@ -40,13 +41,13 @@ export class CampaignsEdit {
 
     onSubmit(event: Event) {
         console.log(event);
-        this.campaignService
-            .updateCampaign(this._campaign!)
+        this.personService
+            .updatePerson(this._person!)
             .then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
-                        this.router.navigateToRoute('campaigns-index', {});
+                        this.router.navigateToRoute('persons-index', {});
                     } else {
                         // show error message
                         this._alert = {

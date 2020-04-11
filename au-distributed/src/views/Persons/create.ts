@@ -1,18 +1,19 @@
 import { autoinject } from 'aurelia-framework';
 import { RouteConfig, NavigationInstruction, Router } from 'aurelia-router';
-import { CampaignService } from 'service/campaign-service';
-import { ICampaign } from 'domain/ICampaign';
+import { PersonService } from 'service/person-service';
+import { IPerson } from 'domain/IPerson';
 import { IAlertData } from 'types/IAlertData';
 import { AlertType } from 'types/AlertType';
 
 @autoinject
-export class CampaignsCreate {
+export class PersonsCreate {
     private _alert: IAlertData | null = null;
 
 
-    _NameOfCampaign = "";
+    _firstName = "";
+    _lastName = ""
 
-    constructor(private campaignService: CampaignService, private router: Router) {
+    constructor(private personService: PersonService, private router: Router) {
 
     }
 
@@ -26,13 +27,13 @@ export class CampaignsCreate {
 
     onSubmit(event: Event) {
         console.log(event);
-        this.campaignService
-            .createCampaign({ NameOfCampaign: this._NameOfCampaign })
+        this.personService
+            .createPerson({ firstName: this._firstName, lastName: this._lastName })
             .then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
-                        this.router.navigateToRoute('campaigns-index', {});
+                        this.router.navigateToRoute('persons-index', {});
                     } else {
                         // show error message
                         this._alert = {

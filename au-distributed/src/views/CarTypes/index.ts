@@ -19,6 +19,7 @@ export class CarTypesIndex{
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;
+                    console.log(response.data)
                     this._carTypes = response.data!;
                 } else {
                     // show error message

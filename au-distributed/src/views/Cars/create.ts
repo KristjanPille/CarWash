@@ -33,7 +33,7 @@ export class CampaignsCreate {
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
-                        this.router.navigateToRoute('cars-index', {});
+                        this.router.navigateToRoute('Cars-index', {});
                     } else {
                         // show error message
                         this._alert = {

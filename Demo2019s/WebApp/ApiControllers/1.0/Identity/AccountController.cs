@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Security.Claims;
+using System.Linq;
 using System.Threading.Tasks;
 using Domain.Identity;
 using Extensions;
@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace WebApp.ApiControllers.Identity
+namespace WebApp.ApiControllers._1._0.Identity
 {
     [ApiController]
     [ApiVersion( "1.0" )]
@@ -55,12 +55,39 @@ namespace WebApp.ApiControllers.Identity
             _logger.LogInformation($"Web-Api login. User {model.Email} attempted to log-in with bad password!");
             return StatusCode(403);
         }
-
-
         [HttpPost]
         public async Task<ActionResult<string>> Register([FromBody] RegisterDTO model)
         {
-            throw new NotImplementedException();
+            var ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            if (ModelState.IsValid)
+            {
+                var user = new AppUser
+                {
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName
+                };
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation("User created a new account with password.");
+                    
+                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                    {
+                        return RedirectToPage("RegisterConfirmation", new { email = model.Email });
+                    }
+                    else
+                    {
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                    }
+                }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+            // If we got this far, something failed, redisplay form
+            return StatusCode(403);
         }
 
         public class LoginDTO

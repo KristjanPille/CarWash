@@ -11,9 +11,9 @@
         <div class="col-md-4">
             <form submit.trigger="onSubmit($event)">
                 <div class="form-group">
-                    <label class="control-label" for="NameOfCampaign">Name Of Campaign</label>
-                    <input class="form-control" type="text" id="NameOfCampaign" maxlength="64"
-                        value.bind="_campaign.NameOfCampaign" />
+                    <label class="control-label" for="car">Car</label>
+                    <input class="form-control" type="text" id="car" maxlength="64"
+                        value.bind="_car.LicenceNr" />
                 </div>
 
                 <div class="form-group">
@@ -24,6 +24,6 @@
     </div>
 
     <div>
-        <a route-href="route: campaigns-index; params.bind: { }">Back to List</a>
+        <a route-href="route: Cars-index; params.bind: { }">Back to List</a>
     </div>
 

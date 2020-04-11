@@ -1,16 +1,41 @@
 import { autoinject, PLATFORM } from 'aurelia-framework';
 import { Router, RouterConfiguration } from 'aurelia-router';
+import { AppState } from 'state/app-state';
 
 @autoinject
 export class App {
   router?: Router;
 
+  constructor(private appState: AppState) {
+
+  }
+
   configureRouter(config: RouterConfiguration, router: Router): void { 
   this.router = router;
+
   config.title = 'Car Wash'; 
+
   config.map([
     { route: ['', 'home', 'home/index'], name: 'home', moduleId:
     PLATFORM.moduleName('views/home/index'), nav: true, title: 'Home' }, 
+
+    { route: ['account/login'], name: 'account-login', moduleId: 
+    PLATFORM.moduleName('views/account/login'), nav: false, title: 'Login' },
+    { route: ['account/register'], name: 'account-register', moduleId: 
+    PLATFORM.moduleName('views/account/register'), nav: false, title: 'Register' },
+
+    { route: ['persons', 'persons/index'], name: 'persons-index', moduleId: PLATFORM.moduleName('views/persons/index'), nav: true, title: 'persons' },
+    { route: ['persons/details/:id?'], name: 'persons-details', moduleId: PLATFORM.moduleName('views/persons/details'), nav: false, title: 'persons Details' },
+    { route: ['persons/edit/:id?'], name: 'persons-edit', moduleId: PLATFORM.moduleName('views/persons/edit'), nav: false, title: 'persons Edit' },
+    { route: ['persons/delete/:id?'], name: 'persons-delete', moduleId: PLATFORM.moduleName('views/persons/delete'), nav: false, title: 'persons Delete' },
+    { route: ['persons/create'], name: 'persons-create', moduleId: PLATFORM.moduleName('views/persons/create'), nav: false, title: 'persons Create' },
+
+    { route: ['personcars', 'personcars/index'], name: 'personcars-index', moduleId: PLATFORM.moduleName('views/personcars/index'), nav: true, title: 'personcars' },
+    { route: ['personcars/details/:id?'], name: 'personcars-details', moduleId: PLATFORM.moduleName('views/personcars/details'), nav: false, title: 'personcars Details' },
+    { route: ['personcars/edit/:id?'], name: 'personcars-edit', moduleId: PLATFORM.moduleName('views/personcars/edit'), nav: false, title: 'personcars Edit' },
+    { route: ['personcars/delete/:id?'], name: 'personcars-delete', moduleId: PLATFORM.moduleName('views/personcars/delete'), nav: false, title: 'personcars Delete' },
+    { route: ['personcars/create'], name: 'personcars-create', moduleId: PLATFORM.moduleName('views/personcars/create'), nav: false, title: 'personcars Create' },
+
 
     { route: ['campaigns', 'Campaigns/index'], name: 'campaigns-index', moduleId:
     PLATFORM.moduleName('views/campaigns/index'), nav: true, title: 'Campaigns' },
@@ -34,7 +59,7 @@ export class App {
     { route: ['Cars/edit/:id?'], name: 'Cars-edit', moduleId:
     PLATFORM.moduleName('views/Cars/edit'), nav: false, title: 'Cars Edit' },
 
-    { route: ['CarTypes', 'CarTypes/index'], name: 'home', moduleId:
+    { route: ['CarTypes', 'CarTypes/index'], name: 'CarTypes-index', moduleId:
     PLATFORM.moduleName('views/CarTypes/index'), nav: true, title: 'CarTypes' },
     { route: ['CarTypes/details/:id'], name: 'CarTypes-details', moduleId:
     PLATFORM.moduleName('views/CarTypes/details'), nav: false, title: 'CarTypes Details' }, 
@@ -66,15 +91,6 @@ export class App {
     { route: ['Payments', 'Payments/index'], name: 'home', moduleId:
     PLATFORM.moduleName('views/Payments/index'), nav: true, title: 'Payments' }, 
 
-    { route: ['Persons', 'Persons/index'], name: 'home', moduleId:
-    PLATFORM.moduleName('views/Persons/index'), nav: true, title: 'Persons' }, 
-
-    { route: ['PersonTypes', 'PersonTypes/index'], name: 'home', moduleId:
-    PLATFORM.moduleName('views/PersonTypes/index'), nav: true, title: 'PersonTypes' }, 
-
-    { route: ['PersonTypes', 'PersonTypes/index'], name: 'home', moduleId:
-    PLATFORM.moduleName('views/PersonTypes/index'), nav: true, title: 'PersonTypes' }, 
-
     { route: ['Shared', 'Shared/index'], name: 'home', moduleId:
     PLATFORM.moduleName('views/Shared/index'), nav: true, title: 'Shared' }, 
 
@@ -85,5 +101,10 @@ export class App {
     PLATFORM.moduleName('views/WashTypes/index'), nav: true, title: 'WashTypes' }, 
   ]);
   config.mapUnknownRoutes('views/home/index');
+  }
+
+  logoutOnClick(){
+    this.appState.jwt = null;
+    this.router!.navigateToRoute('account-login');
   }
 }

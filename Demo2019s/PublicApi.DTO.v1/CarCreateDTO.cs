@@ -10,6 +10,6 @@ namespace PublicApi.DTO.v1
         public int CarTypeId { get; set; }
         
         [MinLength(1)] [MaxLength(64)] 
-        public int LicenceNr { get; set; }
+        public string LicenceNr { get; set; }
     }
 }

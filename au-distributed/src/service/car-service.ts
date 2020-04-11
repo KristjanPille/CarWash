@@ -12,8 +12,7 @@ export class CarService {
         this.httpClient.baseUrl = this.appState.baseUrl;
     }
 
-    //private readonly _baseUrl = 'Owners';
-    private readonly _baseUrl = 'https://localhost:5001/api/Cars'
+    private readonly _baseUrl = 'Cars';
 
 
     async getCars(): Promise<IFetchResponse<ICar[]>> {

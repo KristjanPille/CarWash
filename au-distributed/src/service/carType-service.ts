@@ -1,7 +1,6 @@
 import { autoinject } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { IFetchResponse } from 'types/IFetchResponse';
-import { ICarCreate } from 'domain/ICarCreate';
 import { AppState } from 'state/app-state';
 import { ICarTypeEdit } from 'domain/ICarTypeEdit';
 import { ICarType } from 'domain/ICarType';
@@ -13,8 +12,7 @@ export class CarTypeService {
         this.httpClient.baseUrl = this.appState.baseUrl;
     }
 
-    //private readonly _baseUrl = 'Owners';
-    private readonly _baseUrl = 'https://localhost:5001/api/CarTypes'
+    private readonly _baseUrl = 'CarTypes';
 
 
     async getCarTypes(): Promise<IFetchResponse<ICarType[]>> {

@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using PublicApi.DTO.v1;
 
-namespace WebApp.ApiControllers
+namespace WebApp.ApiControllers._1._0
 {
     
     [ApiController]
@@ -29,17 +29,24 @@ namespace WebApp.ApiControllers
 
         // GET: api/Persons
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Person>>> GetPersons()
+        public async Task<ActionResult<IEnumerable<PersonDTO>>> GetPersons()
         {
             var personDTOs = await _bll.Persons.DTOAllAsync(User.UserGuidId());
             
             return Ok(personDTOs);
-
         }
 
-        // GET: api/Persons/5
+        /// <summary>
+        /// Find and return person from data soruce
+        /// </summary>
+        /// <param name="id">person id - guid</param>
+        /// <returns>Person object based on id</returns>
+        /// <response code="200">The person was successfully retrieved.</response>
+        /// <response code="404">The person does not exist.</response>
+        [ProducesResponseType( typeof( Person ), 200 )]	
+        [ProducesResponseType( 404 )]
         [HttpGet("{id}")]
-        public async Task<ActionResult<Person>> GetPerson(Guid id)
+        public async Task<ActionResult<PersonDTO>> GetPerson(Guid id)
         {
             var person = await _bll.Persons.DTOFirstOrDefaultAsync(id, User.UserGuidId());
 
@@ -49,7 +56,6 @@ namespace WebApp.ApiControllers
             }
 
             return Ok(person);
-
         }
 
         // PUT: api/Persons/5

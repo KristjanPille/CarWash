@@ -251,7 +251,9 @@
         <e p="CarCreateDTO.cs" t="Include" />
         <e p="CarDTO.cs" t="Include" />
         <e p="CarEditDTO.cs" t="Include" />
+        <e p="CarTypeCreateDTO.cs" t="Include" />
         <e p="CarTypeDTO.cs" t="Include" />
+        <e p="CarTypeEditDTO.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netstandard2.1" t="Include">
@@ -320,6 +322,9 @@
             <e p="ServicesController.cs" t="Include" />
             <e p="WashsController.cs" t="Include" />
             <e p="WashTypesController.cs" t="Include" />
+          </e>
+          <e p="1.1" t="Include">
+            <e p="PersonsController.cs" t="Include" />
           </e>
         </e>
         <e p="appsettings.Development.json" t="Include" />
@@ -456,6 +461,10 @@
           <e p="ServicesController.cs" t="Include" />
           <e p="WashsController.cs" t="Include" />
           <e p="WashTypesController.cs" t="Include" />
+        </e>
+        <e p="Helpers" t="Include">
+          <e p="ConfigureSwaggerOptions.cs" t="Include" />
+          <e p="UserNameProvider.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">

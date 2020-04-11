@@ -18,8 +18,7 @@ namespace DAL.App.EF.Repositories
         public async Task<IEnumerable<Car>> AllAsync(Guid? userId = null)
         {
             var query = RepoDbSet
-                .Include(a => a.CarType)
-                .Include(a => a.ModelMark)
+                .Include(a => a.LicenceNr)
                 .AsQueryable();
             
             return await query.ToListAsync();
@@ -27,8 +26,7 @@ namespace DAL.App.EF.Repositories
         public async Task<Car> FirstOrDefaultAsync(Guid id, Guid? userId = null)
         {
             var query = RepoDbSet
-                .Include(a => a.CarType)
-                .Include(a => a.ModelMark)
+                .Include(a => a.LicenceNr)
                 .AsQueryable();
 
             return await query.FirstOrDefaultAsync();
@@ -50,9 +48,17 @@ namespace DAL.App.EF.Repositories
             base.Remove(car);
         }
 
-        public Task<IEnumerable<CarDTO>> DTOAllAsync(Guid? userId = null)
+        public async Task<IEnumerable<CarDTO>> DTOAllAsync(Guid? userId = null)
         {
-            throw new NotImplementedException();
+            var query = RepoDbSet.AsQueryable();
+    
+            return await query
+                .Select(o => new CarDTO()
+                {
+                    Id = o.Id,
+                    LicenceNr = o.LicenceNr
+                })
+                .ToListAsync();
         }
 
         public async Task<CarDTO> DTOFirstOrDefaultAsync(Guid id, Guid? userId = null)

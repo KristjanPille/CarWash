@@ -12,8 +12,7 @@ export class CampaignService {
         this.httpClient.baseUrl = this.appState.baseUrl;
     }
 
-    //private readonly _baseUrl = 'Owners';
-    private readonly _baseUrl = 'https://localhost:5001/api/Campaigns'
+    private readonly _baseUrl = 'Campaigns';
 
 
     async getCampaigns(): Promise<IFetchResponse<ICampaign[]>> {

@@ -5,15 +5,19 @@
     
     <h1>Edit</h1>
 
-    <h4>Campaign</h4>
+    <h4>Person</h4>
     <hr />
     <div class="row">
         <div class="col-md-4">
             <form submit.trigger="onSubmit($event)">
                 <div class="form-group">
-                    <label class="control-label" for="NameOfCampaign">Name Of Campaign</label>
-                    <input class="form-control" type="text" id="NameOfCampaign" maxlength="64"
-                        value.bind="_campaign.NameOfCampaign" />
+                    <label class="control-label" for="FirstName">FirstName</label>
+                    <input class="form-control" type="text" id="FirstName" maxlength="64"
+                        value.bind="_person.firstName" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="LastName">LastName</label>
+                    <input class="form-control" type="text" id="LastName" maxlength="64" value.bind="_person.lastName" />
                 </div>
 
                 <div class="form-group">
@@ -24,6 +28,7 @@
     </div>
 
     <div>
-        <a route-href="route: campaigns-index; params.bind: { }">Back to List</a>
+        <a route-href="route: persons-index; params.bind: { }">Back to List</a>
     </div>
 
+</template>

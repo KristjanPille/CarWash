@@ -32,7 +32,7 @@ export class CarTypesCreate {
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
-                        this.router.navigateToRoute('carTypes-index', {});
+                        this.router.navigateToRoute('CarTypes-index', {});
                     } else {
                         // show error message
                         this._alert = {

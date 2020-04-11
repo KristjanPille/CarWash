@@ -848,3 +848,9 @@ C:\Users\krist\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\BLL.App.pd
 C:\Users\krist\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\Contracts.BLL.App.pdb
 C:\Users\krist\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\BLL.Base.pdb
 C:\Users\krist\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\Contracts.BLL.Base.pdb
+C:\Users\krist\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer.dll
+C:\Users\krist\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+C:\Users\krist\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\krist\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\krist\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\krist\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\WebApp.xml

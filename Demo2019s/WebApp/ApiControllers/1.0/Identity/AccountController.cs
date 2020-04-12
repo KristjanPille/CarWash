@@ -43,7 +43,8 @@ namespace WebApp.ApiControllers._1._0.Identity
             if (result.Succeeded)
             {
                 var claimsPrincipal = await _signInManager.CreateUserPrincipalAsync(appUser); //get the User analog
-                var jwt = IdentityExtensions.GenerateJWT(claimsPrincipal.Claims,
+                var jwt = IdentityExtensions.GenerateJWT(
+                    claimsPrincipal.Claims,
                     _configuration["JWT:SigningKey"],
                     _configuration["JWT:Issuer"],
                     _configuration.GetValue<int>("JWT:ExpirationInDays")
@@ -55,39 +56,37 @@ namespace WebApp.ApiControllers._1._0.Identity
             _logger.LogInformation($"Web-Api login. User {model.Email} attempted to log-in with bad password!");
             return StatusCode(403);
         }
+        
+        
         [HttpPost]
         public async Task<ActionResult<string>> Register([FromBody] RegisterDTO model)
         {
-            var ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new AppUser
-                {
-                    Email = model.Email,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                };
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var appUser = new AppUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName};
+                var result = await _userManager.CreateAsync(appUser, model.Password);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("New user created.");
+
+                    // create claims based user 
+                    var claimsPrincipal = await _signInManager.CreateUserPrincipalAsync(appUser);
+          
+                    // get the Json Web Token
+                    var jwt = IdentityExtensions.GenerateJWT(
+                        claimsPrincipal.Claims,
+                        _configuration["JWT:SigningKey"],
+                        _configuration["JWT:Issuer"],
+                        _configuration.GetValue<int>("JWT:ExpirationInDays")
+                        );
+                    _logger.LogInformation("Token generated for user");
+                    return Ok(new {token = jwt});
                     
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
-                        return RedirectToPage("RegisterConfirmation", new { email = model.Email });
-                    }
-                    else
-                    {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                    }
                 }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
+                return StatusCode(406); //406 Not Acceptable
             }
-            // If we got this far, something failed, redisplay form
-            return StatusCode(403);
+            
+            return StatusCode(400); //400 Bad Request
         }
 
         public class LoginDTO

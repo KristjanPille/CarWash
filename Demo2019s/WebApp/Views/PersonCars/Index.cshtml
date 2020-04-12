@@ -13,10 +13,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Car)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Person)
+             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Car)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreatedBy)
@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.Person!.FirstLastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item!.Car!.ModelMark!.Mark)
+                @Html.DisplayFor(modelItem => item.Car!.ModelMark!.Mark)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedBy)

@@ -24,9 +24,9 @@ namespace WebApp.Controllers
         // GET: personTypes
         public async Task<IActionResult> Index()
         {
-            var personCars = await _uow.PersonCars.AllAsync(User.UserGuidId());
-            return View(personCars);
+            var personCars = await _uow.PersonCars.AllAsync();
 
+            return View(personCars);
         }
 
         // GET: personTypes/Details/5
@@ -86,12 +86,20 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var personCar = await _uow.PersonCars.FindAsync(id);
-            if (personCar == null)
+            var vm = new PersonCarCreateEditViewModel();
+
+            vm.PersonCar = await _uow.PersonCars.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            if (vm.PersonCar == null)
             {
                 return NotFound();
             }
-            return View(personCar);
+            vm.CarSelectList = new SelectList(await _uow.Cars.AllAsync(User.UserGuidId()), nameof(Car.Id),
+                nameof(Car.LicenceNr), vm.PersonCar.CarId);
+            vm.PersonSelectList = new SelectList(await _uow.Persons.AllAsync(User.UserGuidId()), nameof(Person.Id),
+                nameof(Person.FirstLastName), vm.PersonCar.PersonId);
+
+            return View(vm);
+
 
         }
 
@@ -100,9 +108,9 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, PersonCar personCar)
+        public async Task<IActionResult> Edit(Guid id, PersonCarCreateEditViewModel vm)
         {
-            if (id != personCar.Id)
+            if (id != vm.PersonCar.Id)
             {
                 return NotFound();
             }
@@ -111,12 +119,12 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _uow.PersonCars.Update(personCar);
+                    _uow.PersonCars.Update(vm.PersonCar);
                     await _uow.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await _uow.PersonCars.ExistsAsync(id))
+                    if (!await _uow.PersonCars.ExistsAsync(id, User.UserGuidId()))
                     {
                         return NotFound();
                     }
@@ -125,9 +133,15 @@ namespace WebApp.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(personCar);
+            vm.CarSelectList = new SelectList(await _uow.Cars.AllAsync(User.UserGuidId()), nameof(Car.Id),
+                nameof(Car.LicenceNr), vm.PersonCar.CarId);
+            vm.PersonSelectList = new SelectList(await _uow.Persons.AllAsync(User.UserGuidId()), nameof(Person.Id),
+                nameof(Person.FirstLastName), vm.PersonCar.PersonId);
+            return View(vm);
+
 
         }
 

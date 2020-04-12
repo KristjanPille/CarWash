@@ -2,13 +2,13 @@
 
 <dl class="row">
     <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Person)
+        @Html.DisplayNameFor(model => model.Person.FirstLastName)
     </dt>
     <dd class="col-sm-10">
         @Html.DisplayFor(model => model.Person!.FirstLastName)
     </dd>
     <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Car)
+        @Html.DisplayNameFor(model => model.Car.ModelMark.Mark)
     </dt>
     <dd class="col-sm-10">
         @Html.DisplayFor(model => model!.Car!.ModelMark!.Mark)

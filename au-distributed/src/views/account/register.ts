@@ -12,7 +12,11 @@ export class AccountRegister {
     private _lastname: string = "";
     private _errorMessage: string | null = null;
 
-    constructor(private accountService: AccountService, private appState: AppState, private router: Router) {
+    constructor(
+        private accountService: AccountService,
+        private appState: AppState,
+        private router: Router,
+        ) {
 
     }
 
@@ -20,7 +24,7 @@ export class AccountRegister {
         console.log(this._email, this._password);
         event.preventDefault();
 
-        this.accountService.register(this._email, this._password, this._firstname, this._lastname).then(
+        this.accountService.register(this._email, this._password, this._passwordconfirm, this._firstname, this._lastname).then(
             response => {
                 console.log(response);
                 if (response.statusCode == 200) {

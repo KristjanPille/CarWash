@@ -45,8 +45,8 @@ namespace DAL.App.EF.Repositories
 
         public async Task DeleteAsync(Guid id, Guid? userId = null)
         {
-            var campaign = await FirstOrDefaultAsync(id, userId);
-            base.Remove(campaign);
+            var carType = await FirstOrDefaultAsync(id, userId);
+            base.Remove(carType);
         }
 
         public async Task<IEnumerable<CarTypeDTO>> DTOAllAsync(Guid? userId = null)

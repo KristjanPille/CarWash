@@ -51,7 +51,7 @@ namespace WebApp.Controllers
         }
 
         // GET: Persons/Create
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             return View();
         }
@@ -67,7 +67,6 @@ namespace WebApp.Controllers
 
             if (ModelState.IsValid)
             {
-                //owner.Id = Guid.NewGuid();
                 _uow.Persons.Add(person);
                 await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

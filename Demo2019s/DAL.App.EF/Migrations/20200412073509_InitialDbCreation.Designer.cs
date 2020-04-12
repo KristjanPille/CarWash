@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.App.EF.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200408172608_InitialDbCreation")]
+    [Migration("20200412073509_InitialDbCreation")]
     partial class InitialDbCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -945,7 +945,7 @@ namespace DAL.App.EF.Migrations
                     b.HasOne("Domain.Person", "Person")
                         .WithMany("Cars")
                         .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 

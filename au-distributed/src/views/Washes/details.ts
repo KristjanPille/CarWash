@@ -1,39 +1,31 @@
-import { CarsIndex } from './index';
+import { WashService } from './../../service/wash-service';
+import { IWash } from 'domain/IWash';
 import { autoinject } from 'aurelia-framework';
-import { RouteConfig, NavigationInstruction, Router } from 'aurelia-router';
-import { CarService } from 'service/car-service';
-import { ICar } from 'domain/ICar';
+import { CampaignService } from 'service/campaign-service';
+import { NavigationInstruction, RouteConfig } from 'aurelia-router';
 import { IAlertData } from 'types/IAlertData';
 import { AlertType } from 'types/AlertType';
 
 @autoinject
-export class CarsCreate {
+export class CampaignsDetails{
+    private _wash?: IWash;    
     private _alert: IAlertData | null = null;
 
-
-    _LicenceNr = "";
-
-    constructor(private carService: CarService, private router: Router) {
+    constructor(private WashService: WashService){
 
     }
 
     attached() {
-
+       
     }
-
     activate(params: any, routeConfig: RouteConfig, navigationInstruction: NavigationInstruction) {
-
-    }
-
-    onSubmit(event: Event) {
-        console.log(event);
-        this.carService
-            .createCar({ LicenceNr: this._LicenceNr })
-            .then(
+        console.log(params);
+        if (params.id && typeof (params.id) == 'string') {
+            this.WashService.getWash(params.id).then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
-                        this.router.navigateToRoute('Cars-index', {});
+                        this._wash = response.data!;
                     } else {
                         // show error message
                         this._alert = {
@@ -41,11 +33,11 @@ export class CarsCreate {
                             type: AlertType.Danger,
                             dismissable: true,
                         }
+                        this._wash = undefined;
                     }
-                }   
+                }                
             );
-
-        event.preventDefault();
+        }
     }
 
 }

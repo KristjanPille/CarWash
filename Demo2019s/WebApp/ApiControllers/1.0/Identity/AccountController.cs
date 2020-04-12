@@ -65,7 +65,7 @@ namespace WebApp.ApiControllers._1._0.Identity
                 {
                     Email = model.Email,
                     FirstName = model.FirstName,
-                    LastName = model.LastName
+                    LastName = model.LastName,
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

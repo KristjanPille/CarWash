@@ -11,6 +11,7 @@ export class AccountService {
         private httpClient: HttpClient) {
         this.httpClient.baseUrl = this.appState.baseUrl;
     }
+    
 
     async login(email: string, password: string): Promise<IFetchResponse<ILoginResponse>> {
         try {
@@ -44,11 +45,12 @@ export class AccountService {
         }
     }
 
-    async register(email: string, password: string, firstname: string, lastname: string): Promise<IFetchResponse<ILoginResponse>> {
+    async register(email: string, password: string, passwordconfirm: string, firstname: string, lastname: string): Promise<IFetchResponse<ILoginResponse>> {
         try {
             const response = await this.httpClient.post('account/register', JSON.stringify({
                 email: email,
                 password: password,
+                passwordconfirm: passwordconfirm,
                 firstname: firstname,
                 lastname: lastname,
             }), {

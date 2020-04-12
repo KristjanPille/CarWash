@@ -1,17 +1,18 @@
 import { autoinject } from 'aurelia-framework';
 import { RouteConfig, NavigationInstruction, Router } from 'aurelia-router';
-import { CarService } from 'service/car-service';
-import { ICar } from 'domain/ICar';
+import { WashService } from 'service/wash-service';
+import { IWash } from 'domain/IWash';
 import { IAlertData } from 'types/IAlertData';
 import { AlertType } from 'types/AlertType';
+import { IWashCreate } from 'domain/IWashCreate';
 
 @autoinject
-export class CarsEdit {
+export class WashesEdit {
     private _alert: IAlertData | null = null;
 
-    private _car?: ICar;
+    private _Wash?: IWash;
 
-    constructor(private carService: CarService, private router: Router) {
+    constructor(private washService: WashService, private router: Router) {
     }
 
     attached() {
@@ -20,11 +21,11 @@ export class CarsEdit {
     activate(params: any, routeConfig: RouteConfig, navigationInstruction: NavigationInstruction) {
         console.log(params);
         if (params.id && typeof (params.id) == 'string') {
-            this.carService.getCar(params.id).then(
+            this.washService.getWash(params.id).then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
-                        this._car = response.data!;
+                        this._Wash = response.data!;
                     } else {
                         // show error message
                         this._alert = {
@@ -40,13 +41,13 @@ export class CarsEdit {
 
     onSubmit(event: Event) {
         console.log(event);
-        this.carService
-            .updateCar(this._car!)
+        this.washService
+            .updateWash(this._Wash!)
             .then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
-                        this.router.navigateToRoute('Cars-index', {});
+                        this.router.navigateToRoute('Washes-index', {});
                     } else {
                         // show error message
                         this._alert = {

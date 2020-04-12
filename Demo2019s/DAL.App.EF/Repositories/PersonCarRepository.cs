@@ -76,6 +76,7 @@ namespace DAL.App.EF.Repositories
                     Person = new PersonDTO()
                     {
                         Id = o.Person!.Id,
+                        Email = o.Person!.Email,
                         FirstName = o.Person!.FirstName,
                         LastName = o.Person!.LastName,
                     }

@@ -17,19 +17,23 @@ namespace DAL.App.EF.Repositories
         }
         public async Task<IEnumerable<Car>> AllAsync(Guid? userId = null)
         {
-            var query = RepoDbSet
-                .Include(a => a.LicenceNr)
-                .AsQueryable();
-            
-            return await query.ToListAsync();
+            if (userId == null)
+            {
+                return await base.AllAsync(); // base is not actually needed, using it for clarity
+            }
+
+            return await RepoDbSet.Where(o => o.AppUserId == userId).ToListAsync();
         }
         public async Task<Car> FirstOrDefaultAsync(Guid id, Guid? userId = null)
         {
-            var query = RepoDbSet
-                .Include(a => a.LicenceNr)
-                .AsQueryable();
+            var query = RepoDbSet.Where(a => a.Id == id).AsQueryable();
+            if (userId != null)
+            {
+                query = query.Where(a => a.AppUserId == userId);
+            }
 
             return await query.FirstOrDefaultAsync();
+
         }
 
         public async Task<bool> ExistsAsync(Guid id, Guid? userId = null)
@@ -39,13 +43,13 @@ namespace DAL.App.EF.Repositories
                 return await RepoDbSet.AnyAsync(a => a.Id == id);
             }
 
-            return await RepoDbSet.AnyAsync(a => a.Id == id);
-        }
+            return await RepoDbSet.AnyAsync(a => a.Id == id && a.AppUserId == userId);
 
+        }
         public async Task DeleteAsync(Guid id, Guid? userId = null)
         {
-            var car = await FirstOrDefaultAsync(id, userId);
-            base.Remove(car);
+            var owner = await FirstOrDefaultAsync(id, userId);
+            base.Remove(owner);
         }
 
         public async Task<IEnumerable<CarDTO>> DTOAllAsync(Guid? userId = null)

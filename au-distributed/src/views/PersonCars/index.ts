@@ -1,3 +1,4 @@
+import { PersonService } from 'service/person-service';
 import { PersonCarService } from './../../service/PersonCar-service';
 import { autoinject } from 'aurelia-framework';
 import { RouteConfig, NavigationInstruction, Router } from 'aurelia-router';
@@ -9,7 +10,7 @@ import { IPersonCar } from 'domain/IPersonCar';
 export class PersonCarsIndex {
     private _alert: IAlertData | null = null;
    
-    private _ownerAnimals: IPersonCar[] = [];
+    private _personCars: IPersonCar[] = [];
 
     constructor(private personCarService:PersonCarService, private router: Router) {
 
@@ -20,7 +21,7 @@ export class PersonCarsIndex {
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;
-                    this._ownerAnimals = response.data!;
+                    this._personCars = response.data!;
                 } else {
                     // show error message
                     this._alert = {

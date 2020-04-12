@@ -11,6 +11,9 @@
         <thead>
             <tr>
                 <th>
+                    Email
+                </th>
+                <th>
                     FirstName
                 </th>
                 <th>
@@ -21,6 +24,9 @@
         </thead>
         <tbody>
             <tr repeat.for="person of _persons">
+                <td>
+                    ${person.email}
+                </td>
                 <td>
                     ${person.firstName}
                 </td>

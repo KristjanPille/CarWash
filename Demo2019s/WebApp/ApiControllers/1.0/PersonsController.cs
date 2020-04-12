@@ -74,7 +74,7 @@ namespace WebApp.ApiControllers._1._0
             {
                 return BadRequest();
             }
-
+            owner.Email = personEditDTO.Email;
             owner.FirstName = personEditDTO.FirstName;
             owner.LastName = personEditDTO.LastName;
             
@@ -108,6 +108,7 @@ namespace WebApp.ApiControllers._1._0
             var person = new Person
             {
                 AppUserId = User.UserGuidId(),
+                Email = personCreateDTO.Email,
                 FirstName = personCreateDTO.FirstName,
                 LastName = personCreateDTO.LastName
             };

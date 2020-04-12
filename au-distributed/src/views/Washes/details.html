@@ -4,21 +4,21 @@
     <div>
         
         
-    <h4>Car</h4>
+    <h4>Wash</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            Licence Number
+            Wash name
         </dt>
         <dd class = "col-sm-10">
-            ${_car.licenceNr}
+            ${_wash.nameOfWashType}
         </dd>
     </dl>
     
         
     </div>
     <div>
-        <a route-href="route: Cars-edit; params.bind: { id: _car.id }">Edit</a> |
-        <a route-href="route: Cars-index; params.bind: { }">Back to List</a>
+        <a route-href="route: Washes-edit; params.bind: { id: _wash.id }">Edit</a> |
+        <a route-href="route: Washes-index; params.bind: { }">Back to List</a>
     </div>
 </template>

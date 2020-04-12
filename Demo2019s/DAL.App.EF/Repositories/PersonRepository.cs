@@ -62,6 +62,7 @@ namespace DAL.App.EF.Repositories
                 .Select(o => new PersonDTO()
                 {
                     Id = o.Id,
+                    Email = o.Email,
                     FirstName = o.FirstName,
                     LastName = o.LastName,
                 })
@@ -80,6 +81,7 @@ namespace DAL.App.EF.Repositories
             var ownerDTO = await query.Select(o => new PersonDTO()
             {
                 Id = o.Id,
+                Email = o.Email,
                 FirstName = o.FirstName,
                 LastName = o.LastName,
             }).FirstOrDefaultAsync();

@@ -70,6 +70,18 @@ export class App {
     { route: ['CarTypes/edit/:id?'], name: 'CarTypes-edit', moduleId:
     PLATFORM.moduleName('views/CarTypes/edit'), nav: false, title: 'CarTypes Edit' }, 
 
+    { route: ['Washes', 'Washes/index'], name: 'Washes-index', moduleId: 
+    PLATFORM.moduleName('views/Washes/index'), nav: true, title: 'Washes' },
+    { route: ['Washes/details/:id?'], name: 'Washes-details', moduleId: 
+    PLATFORM.moduleName('views/Washes/details'), nav: false, title: 'Washes Details' },
+    { route: ['Washes/edit/:id?'], name: 'Washes-edit', moduleId: 
+    PLATFORM.moduleName('views/Washes/edit'), nav: false, title: 'Washes Edit' },
+    { route: ['Washes/delete/:id?'], name: 'Washes-delete', moduleId: 
+    PLATFORM.moduleName('views/Washes/delete'), nav: false, title: 'Washes Delete' },
+    { route: ['Washes/create'], name: 'Washes-create', moduleId: 
+    PLATFORM.moduleName('views/Washes/create'), nav: false, title: 'Washes Create' },
+
+
     { route: ['Checks', 'Checks/index'], name: 'home', moduleId:
     PLATFORM.moduleName('views/Checks/index'), nav: true, title: 'Checks' }, 
 
@@ -93,9 +105,6 @@ export class App {
 
     { route: ['Shared', 'Shared/index'], name: 'home', moduleId:
     PLATFORM.moduleName('views/Shared/index'), nav: true, title: 'Shared' }, 
-
-    { route: ['Washes', 'Washes/index'], name: 'home', moduleId:
-    PLATFORM.moduleName('views/Washes/index'), nav: true, title: 'Washes' }, 
 
     { route: ['WashTypes', 'WashTypes/index'], name: 'home', moduleId:
     PLATFORM.moduleName('views/WashTypes/index'), nav: true, title: 'WashTypes' }, 

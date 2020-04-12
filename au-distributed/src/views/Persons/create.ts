@@ -9,9 +9,9 @@ import { AlertType } from 'types/AlertType';
 export class PersonsCreate {
     private _alert: IAlertData | null = null;
 
-
     _firstName = "";
-    _lastName = ""
+    _lastName = "";
+    _email = "";
 
     constructor(private personService: PersonService, private router: Router) {
 
@@ -28,7 +28,7 @@ export class PersonsCreate {
     onSubmit(event: Event) {
         console.log(event);
         this.personService
-            .createPerson({ firstName: this._firstName, lastName: this._lastName })
+            .createPerson({ firstName: this._firstName, lastName: this._lastName, email: this._email })
             .then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {

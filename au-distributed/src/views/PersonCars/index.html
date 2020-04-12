@@ -12,26 +12,26 @@
         <thead>
             <tr>
                 <th>
-                    Person
+                    Car
                 </th>
                 <th>
-                    Car
+                    Person
                 </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr repeat.for="personCar of _personCars">
+            <tr repeat.for="personcar of _personCars">
                 <td>
-                    ${personCar.person.firstName + ' ' + personCar.person.lastName}
+                    ${personcar.person.firstName + ' ' + personcar.person.lastName}
                 </td>
                 <td>
-                    ${personCar.car.licenceNr}
+                    ${personcar.car.LicenceNr}
                 </td>
                 <td>
-                    <a route-href="route: personcars-edit; params.bind: { id: personCar.id }">Edit</a> |
-                    <a route-href="route: personcars-details; params.bind: { id: personCar.id }">Details</a> |
-                    <a route-href="route: personcars-delete; params.bind: { id: personCar.id }">Delete</a>
+                    <a route-href="route: personcars-edit; params.bind: { id: personcars.id }">Edit</a> |
+                    <a route-href="route: personcars-details; params.bind: { id: personcars.id }">Details</a> |
+                    <a route-href="route: personcars-delete; params.bind: { id: personcars.id }">Delete</a>
                 </td>
             </tr>
         </tbody>

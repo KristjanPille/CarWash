@@ -4,14 +4,14 @@
     <alert alert-data.bind="_alert"></alert>
     
     <h1>Create</h1>
-    <h4>Car</h4>
+    <h4>Wash</h4>
     <hr />
     <div class="row">
         <div class="col-md-4">
             <form submit.trigger="onSubmit($event)">
                 <div class="form-group">
-                    <label class="control-label" for="LicenceNr">LicenceNr</label>
-                    <input class="form-control" type="text" id="LicenceNr" maxlength="64" value.bind="_LicenceNr" />
+                    <label class="control-label" for="nameOfWashType">Wash</label>
+                    <input class="form-control" type="text" id="nameOfWashType" maxlength="64" value.bind="_nameOfWashType" />
                 </div>
 
                 <div class="form-group">
@@ -22,7 +22,7 @@
     </div>
 
     <div>
-        <a route-href="route: Cars-index; params.bind: { }">Back to List</a>
+        <a route-href="route: Washes-index; params.bind: { }">Back to List</a>
     </div>
 
 </template>

@@ -1,6 +1,24 @@
 <template>
-    <require from="../../components/alert"></require>
+    <h1>Details</h1>
 
-    <alert alert-data.bind="_alert"></alert>
-
+    <div>
+        
+        
+    <h4>Car</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Licence Number
+        </dt>
+        <dd class = "col-sm-10">
+            ${_car.licenceNr}
+        </dd>
+    </dl>
+    
+        
+    </div>
+    <div>
+        <a route-href="route: Cars-edit; params.bind: { id: _car.id }">Edit</a> |
+        <a route-href="route: Cars-index; params.bind: { }">Back to List</a>
+    </div>
 </template>

@@ -96,7 +96,8 @@ namespace WebApp.ApiControllers._1._0
         {
             var car = new Car();
             car.LicenceNr = carCreateDTO.LicenceNr;
-
+            car.AppUserId = User.UserGuidId();
+            
             _uow.Cars.Add(car);
            
             await _uow.SaveChangesAsync();

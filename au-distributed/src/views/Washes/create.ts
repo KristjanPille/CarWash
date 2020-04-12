@@ -1,19 +1,18 @@
-import { CarsIndex } from './index';
 import { autoinject } from 'aurelia-framework';
 import { RouteConfig, NavigationInstruction, Router } from 'aurelia-router';
-import { CarService } from 'service/car-service';
-import { ICar } from 'domain/ICar';
+import { WashService } from 'service/wash-service';
+import { IWash } from 'domain/IWash';
 import { IAlertData } from 'types/IAlertData';
 import { AlertType } from 'types/AlertType';
 
 @autoinject
-export class CarsCreate {
+export class WashesCreate {
     private _alert: IAlertData | null = null;
 
 
-    _LicenceNr = "";
+    _nameOfWashType = "";
 
-    constructor(private carService: CarService, private router: Router) {
+    constructor(private washService: WashService, private router: Router) {
 
     }
 
@@ -27,13 +26,13 @@ export class CarsCreate {
 
     onSubmit(event: Event) {
         console.log(event);
-        this.carService
-            .createCar({ LicenceNr: this._LicenceNr })
+        this.washService
+            .createWash({ nameOfWashType: this._nameOfWashType })
             .then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
-                        this.router.navigateToRoute('Cars-index', {});
+                        this.router.navigateToRoute('Washes-index', {});
                     } else {
                         // show error message
                         this._alert = {

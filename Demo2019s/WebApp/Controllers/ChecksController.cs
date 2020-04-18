@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApp.ViewModels;
+using Check = DAL.App.DTO.Check;
 
 namespace WebApp.Controllers
 {

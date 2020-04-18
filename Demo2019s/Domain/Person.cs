@@ -9,11 +9,15 @@ using Domain.Identity;
 
 namespace Domain
 {
-    public class Person : Person<Guid>, IDomainEntity{
-    
+    public class Person : Person<Guid, AppUser>, IDomainEntityBaseMetadata, IDomainEntityUser<AppUser>
+    {
+        
     }
-    public class Person<TKey> : DomainEntity<TKey>
-        where TKey : struct, IEquatable<TKey>
+
+    public class Person<TKey, TUser> : DomainEntityBaseMetadata<TKey>, IDomainEntityUser<TKey, TUser>
+        where TKey : IEquatable<TKey>
+        where TUser: AppUser<TKey>
+
     {
         [MaxLength(64)] [MinLength(1)]
         [Display(Name = nameof(FirstName), ResourceType = typeof(Resources.Domain.Person))]
@@ -23,14 +27,14 @@ namespace Domain
         [Display(Name = nameof(LastName), ResourceType = typeof(Resources.Domain.Person))]
         public string LastName { get; set; } = default!;
         public virtual string FirstLastName => FirstName + " " + LastName;
-        public virtual TKey AppUserId{ get; set; }
-        public virtual AppUser? AppUser { get; set; }
         
         public virtual ICollection<PersonCar>? Cars { get; set; }
         
-
         [MaxLength(64)]
         public string Email { get; set; }
         public int PhoneNr { get; set; }
+        
+        public TKey AppUserId { get; set; }
+        public TUser? AppUser { get; set; }
     }
 }

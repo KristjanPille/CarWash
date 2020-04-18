@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Domain;
 using Extensions;
 using WebApp.ViewModels;
+using IsInWash = DAL.App.DTO.IsInWash;
 
 namespace WebApp.Controllers
 {

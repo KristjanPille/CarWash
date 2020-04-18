@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Contracts.DAL.Base.Repositories;
+using DAL.App.DTO;
 using Domain;
-using PublicApi.DTO.v1;
+using Campaign = DAL.App.DTO.Campaign;
 
 namespace Contracts.DAL.App.Repositories
 {
@@ -15,9 +16,10 @@ namespace Contracts.DAL.App.Repositories
         Task<bool> ExistsAsync(Guid id, Guid? userId = null);
         Task DeleteAsync(Guid id, Guid? userId = null);
         
+        /*
         // DTO methods
         Task<IEnumerable<CampaignDTO>> DTOAllAsync(Guid? userId = null);
         Task<CampaignDTO> DTOFirstOrDefaultAsync(Guid id, Guid? userId = null);
-
+        */
     }
 }

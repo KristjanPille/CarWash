@@ -11,10 +11,11 @@ using Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using WebApp.ViewModels;
+using Person = DAL.App.DTO.Person;
 
 namespace WebApp.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class PersonsController : Controller
     {
         private readonly IAppUnitOfWork _uow;
@@ -61,7 +62,7 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Person person)
+        public async Task<IActionResult> Create(DAL.App.DTO.Person person)
         {
             person.AppUserId = User.UserGuidId();
 

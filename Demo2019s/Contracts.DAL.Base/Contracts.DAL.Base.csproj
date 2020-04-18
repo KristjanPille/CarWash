@@ -8,4 +8,8 @@
       <Content Include="obj\Debug\netstandard2.1\Contracts.DAL.Base.csprojAssemblyReference.cache" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="3.1.3" />
+    </ItemGroup>
+
 </Project>

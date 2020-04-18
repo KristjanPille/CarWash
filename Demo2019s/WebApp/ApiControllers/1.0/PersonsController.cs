@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Contracts.BLL.App;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,7 @@ namespace WebApp.ApiControllers._1._0
     [ApiVersion( "1.0" )]
     [Route("api/v{version:apiVersion}/[controller]")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(Roles = "Admin")]
     public class PersonsController : ControllerBase
     {
         private readonly IAppBLL _bll;
@@ -31,9 +33,16 @@ namespace WebApp.ApiControllers._1._0
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PersonDTO>>> GetPersons()
         {
-            var personDTOs = await _bll.Persons.DTOAllAsync(User.UserGuidId());
+            var owners = (await _bll.Persons.AllAsync(User.UserGuidId()))
+                .Select(bllEntity => new Person()
+                {
+                    Id = bllEntity.Id,
+                    FirstName = bllEntity.FirstName,
+                    LastName = bllEntity.LastName,
+                }) ;
             
-            return Ok(personDTOs);
+            return Ok(owners);
+
         }
 
         /// <summary>
@@ -48,7 +57,7 @@ namespace WebApp.ApiControllers._1._0
         [HttpGet("{id}")]
         public async Task<ActionResult<PersonDTO>> GetPerson(Guid id)
         {
-            var person = await _bll.Persons.DTOFirstOrDefaultAsync(id, User.UserGuidId());
+            var person = await _bll.Persons.FirstOrDefaultAsync(id, User.UserGuidId());
 
             if (person == null)
             {
@@ -56,6 +65,7 @@ namespace WebApp.ApiControllers._1._0
             }
 
             return Ok(person);
+
         }
 
         // PUT: api/Persons/5
@@ -64,21 +74,21 @@ namespace WebApp.ApiControllers._1._0
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPerson(Guid id, PersonEditDTO personEditDTO)
         {
-            if (id != personEditDTO.Id)
+            if (id != PersonEditDTO.Id)
             {
                 return BadRequest();
             }
 
-            var owner = await _bll.Persons.FirstOrDefaultAsync(personEditDTO.Id, User.UserGuidId());
-            if (owner == null)
+            var person = await _bll.Persons.FirstOrDefaultAsync(PersonEditDTO.Id, User.UserGuidId());
+            if (person == null)
             {
                 return BadRequest();
             }
-            owner.Email = personEditDTO.Email;
-            owner.FirstName = personEditDTO.FirstName;
-            owner.LastName = personEditDTO.LastName;
+
+            person.FirstName = PersonEditDTO.FirstName;
+            person.LastName = PersonEditDTO.LastName;
             
-            _bll.Persons.Update(owner);
+            _bll.Persons.Update(person);
 
 
             try
@@ -105,18 +115,17 @@ namespace WebApp.ApiControllers._1._0
         [HttpPost]
         public async Task<ActionResult<Person>> PostPerson(PersonCreateDTO personCreateDTO)
         {
-            var person = new Person
+            var owner = new BLL.App.DTO.Person
             {
                 AppUserId = User.UserGuidId(),
-                Email = personCreateDTO.Email,
-                FirstName = personCreateDTO.FirstName,
-                LastName = personCreateDTO.LastName
+                FirstName = PersonCreateDTO.FirstName,
+                LastName = PersonCreateDTO.LastName
             };
 
-            _bll.Persons.Add(person);
+            _bll.Persons.Add(owner);
             await _bll.SaveChangesAsync();
 
-            return CreatedAtAction("GetPerson", new {id = person.Id}, person);
+            return CreatedAtAction("GetPerson", new {id = owner.Id}, owner);
 
         }
 
@@ -134,7 +143,6 @@ namespace WebApp.ApiControllers._1._0
             await _bll.SaveChangesAsync();
 
             return Ok(person);
-
         }
     }
 }

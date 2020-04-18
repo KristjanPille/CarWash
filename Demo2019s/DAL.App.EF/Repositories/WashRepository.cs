@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Contracts.DAL.App.Repositories;
+using DAL.Base.EF.Mappers;
 using DAL.Base.EF.Repositories;
 using Domain;
 using Microsoft.EntityFrameworkCore;
 using PublicApi.DTO.v1;
+using Wash = DAL.App.DTO.Wash;
 
 namespace DAL.App.EF.Repositories
 {
-    public class WashRepository : EFBaseRepository<Wash, AppDbContext>, IWashRepository
+    public class WashRepository : EFBaseRepository<AppDbContext, Domain.Wash, DAL.App.DTO.Wash>, IWashRepository
     {
-        public WashRepository(AppDbContext dbContext) : base(dbContext)
+        public WashRepository(AppDbContext dbContext) : base(dbContext, new BaseDALMapper<Domain.Wash, DAL.App.DTO.Wash>())
         {
         }
         public async Task<IEnumerable<Wash>> AllAsync(Guid? userId = null)
@@ -22,15 +24,19 @@ namespace DAL.App.EF.Repositories
                 return await base.AllAsync(); // base is not actually needed, using it for clarity
             }
 
-            return await RepoDbSet.ToListAsync();
+            return (await RepoDbSet.Where(o => o.AppUserId == userId)
+                .ToListAsync()).Select(domainEntity => Mapper.Map(domainEntity));
         }
-        
-        public async Task<Wash> FirstOrDefaultAsync(Guid id, Guid? userId = null)
-        {
-            var query = RepoDbSet
-                .AsQueryable();
 
-            return await query.FirstOrDefaultAsync();
+        public async Task<DTO.Wash> FirstOrDefaultAsync(Guid id, Guid? userId = null)
+        {
+            var query = RepoDbSet.Where(a => a.Id == id).AsQueryable();
+            if (userId != null)
+            {
+                query = query.Where(a => a.AppUserId == userId);
+            }
+
+            return Mapper.Map(await query.FirstOrDefaultAsync());
         }
 
         public async Task<bool> ExistsAsync(Guid id, Guid? userId = null)
@@ -40,39 +46,13 @@ namespace DAL.App.EF.Repositories
                 return await RepoDbSet.AnyAsync(a => a.Id == id);
             }
 
-            return await RepoDbSet.AnyAsync(a => a.Id == id);
+            return await RepoDbSet.AnyAsync(a => a.Id == id && a.AppUserId == userId);
         }
 
         public async Task DeleteAsync(Guid id, Guid? userId = null)
         {
-            var wash = await FirstOrDefaultAsync(id, userId);
-            base.Remove(wash);
-        }
-
-        public async Task<IEnumerable<WashDTO>> DTOAllAsync(Guid? userId = null)
-        {
-            var query = RepoDbSet.AsQueryable();
-    
-            return await query
-                .Select(o => new WashDTO()
-                {
-                    Id = o.Id,
-                    NameOfWashType = o.NameOfWashType
-                })
-                .ToListAsync();
-        }
-
-        public async Task<WashDTO> DTOFirstOrDefaultAsync(Guid id, Guid? userId = null)
-        {
-            var query = RepoDbSet.Where(a => a.Id == id).AsQueryable();
-
-            var washDTO = await query.Select(o => new WashDTO()
-            {
-                Id = o.Id,
-                NameOfWashType = o.NameOfWashType
-            }).FirstOrDefaultAsync();
-
-            return washDTO;
+            var Discount = await FirstOrDefaultAsync(id, userId);
+            base.Remove(Discount);
         }
     }
 }

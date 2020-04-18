@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\BLL.App.DTO\BLL.App.DTO.csproj" />
       <ProjectReference Include="..\Contracts.DAL.Base\Contracts.DAL.Base.csproj" />
     </ItemGroup>
 

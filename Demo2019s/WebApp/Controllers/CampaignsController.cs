@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApp.ViewModels;
+using Campaign = DAL.App.DTO.Campaign;
 
 namespace WebApp.Controllers
 {
@@ -51,7 +52,7 @@ namespace WebApp.Controllers
         {
             var vm = new CampaignCreateEditViewModel();
             
-            vm.ServiceSelectList = new SelectList(await _uow.Services.AllAsync(User.UserGuidId()), nameof(Service.ServiceId),
+            vm.ServiceSelectList = new SelectList(await _uow.Services.AllAsync(User.UserGuidId()), nameof(Service.NameOfService),
                 nameof(Service.NameOfService));
             return View(vm);
         }
@@ -69,7 +70,7 @@ namespace WebApp.Controllers
                 await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            vm.ServiceSelectList = new SelectList(await _uow.Services.AllAsync(User.UserGuidId()), nameof(Service.ServiceId),
+            vm.ServiceSelectList = new SelectList(await _uow.Services.AllAsync(User.UserGuidId()), nameof(Service.NameOfService),
                 nameof(Service.NameOfService));
             return View(vm);
         }

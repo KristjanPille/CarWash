@@ -3,36 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Contracts.DAL.App.Repositories;
+using DAL.Base.EF.Mappers;
 using DAL.Base.EF.Repositories;
 using Domain;
 using Microsoft.EntityFrameworkCore;
+using Check = DAL.App.DTO.Check;
 
 namespace DAL.App.EF.Repositories
 {
-    public class CheckRepository : EFBaseRepository<Check, AppDbContext>, ICheckRepository
+    public class CheckRepository : EFBaseRepository<AppDbContext, Domain.Check, DAL.App.DTO.Check>, ICheckRepository
     {
-        public CheckRepository(AppDbContext dbContext) : base(dbContext)
+        public CheckRepository(AppDbContext dbContext) : base(dbContext, new BaseDALMapper<Domain.Check, DAL.App.DTO.Check>())
         {
         }
         public async Task<IEnumerable<Check>> AllAsync(Guid? userId = null)
         {
-            var query = RepoDbSet
-                .Include(a => a.Person)
-                .Include(a => a.Wash)
-                .AsQueryable();
-            
-            return await query.ToListAsync();
-        }
-        
-        public async Task<Check> FirstOrDefaultAsync(Guid id, Guid? userId = null)
-        {
-            var query = RepoDbSet
-                .Include(a => a.Person)
-                .Include(a => a.Wash)
-                .Where(a => a.Id == id)
-                .AsQueryable();
+            if (userId == null)
+            {
+                return await base.AllAsync(); // base is not actually needed, using it for clarity
+            }
 
-            return await query.FirstOrDefaultAsync();
+            return (await RepoDbSet.Where(o => o.AppUserId == userId)
+                .ToListAsync()).Select(domainEntity => Mapper.Map(domainEntity));
+        }
+
+        public async Task<DTO.Check> FirstOrDefaultAsync(Guid id, Guid? userId = null)
+        {
+            var query = RepoDbSet.Where(a => a.Id == id).AsQueryable();
+            if (userId != null)
+            {
+                query = query.Where(a => a.AppUserId == userId);
+            }
+
+            return Mapper.Map(await query.FirstOrDefaultAsync());
         }
 
         public async Task<bool> ExistsAsync(Guid id, Guid? userId = null)
@@ -42,13 +45,13 @@ namespace DAL.App.EF.Repositories
                 return await RepoDbSet.AnyAsync(a => a.Id == id);
             }
 
-            return await RepoDbSet.AnyAsync(a => a.Id == id);
+            return await RepoDbSet.AnyAsync(a => a.Id == id && a.AppUserId == userId);
         }
 
         public async Task DeleteAsync(Guid id, Guid? userId = null)
         {
-            var check = await FirstOrDefaultAsync(id, userId);
-            base.Remove(check);
+            var Check = await FirstOrDefaultAsync(id, userId);
+            base.Remove(Check);
         }
     }
 }

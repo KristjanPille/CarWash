@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Contracts.DAL.Base.Repositories;
-using Domain;
+using IsInWash = DAL.App.DTO.IsInWash;
 
 namespace Contracts.DAL.App.Repositories
 {

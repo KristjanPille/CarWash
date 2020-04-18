@@ -1,5 +1,6 @@
 ﻿using Domain;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Check = DAL.App.DTO.Check;
 
 namespace WebApp.ViewModels
 {

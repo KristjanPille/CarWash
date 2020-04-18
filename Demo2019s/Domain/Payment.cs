@@ -1,29 +1,33 @@
 ﻿using System;
+using Contracts.DAL.Base;
 using DAL.Base;
+using Domain.Identity;
 
 namespace Domain
 {
-    public class Payment : Payment<Guid>
+    public class Payment : Payment<Guid, AppUser>, IDomainEntityBaseMetadata, IDomainEntityUser<AppUser>
     {
-        
     }
 
-    public class Payment<TKey> : DomainEntity<TKey> 
-        where TKey : struct, IEquatable<TKey>
 
+    public class Payment<TKey, TUser> : DomainEntityBaseMetadata<TKey>, IDomainEntityUser<TKey, TUser>
+        where TKey : IEquatable<TKey>
+        where TUser : AppUser<TKey>
+  
     {
-        public int PaymentId { get; set; }
-        
         public virtual TKey PersonId { get; set; }
         public virtual Person? Person { get; set; }
 
-        public int PaymentMethodId { get; set; }
+        public TKey PaymentMethodId { get; set; }
         public PaymentMethod? PaymentMethod { get; set; }
         
-        public int CheckId { get; set; }
+        public TKey CheckId { get; set; }
         public Check? Check { get; set; }
         
         public int PaymentAmount { get; set; }
         public DateTime TimeOfPayment { get; set; }
+        
+        public TKey AppUserId { get; set; }
+        public TUser? AppUser { get; set; }
     }
 }

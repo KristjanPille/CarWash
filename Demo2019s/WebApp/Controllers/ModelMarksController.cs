@@ -7,6 +7,7 @@ using Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using WebApp.ViewModels;
+using ModelMark = DAL.App.DTO.ModelMark;
 
 namespace WebApp.Controllers
 {

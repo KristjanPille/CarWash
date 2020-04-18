@@ -9,9 +9,10 @@ namespace Contracts.BLL.Base.Services
         // add common base methods here
     }
     
-    public interface IBaseEntityService<TBLLEntity> : IBaseService, IBaseRepository<TBLLEntity> 
-        where TBLLEntity : class, IDomainEntity<Guid>, new()
+    public interface IBaseEntityService<TBLLEntity> : IBaseService, IBaseRepository<Guid, TBLLEntity> 
+        where TBLLEntity : class, IDomainBaseEntity<Guid>, new()
     {
     }
+    
     
 }

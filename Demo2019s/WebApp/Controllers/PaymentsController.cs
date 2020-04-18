@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApp.ViewModels;
+using Payment = DAL.App.DTO.Payment;
 
 namespace WebApp.Controllers
 {
@@ -55,7 +56,7 @@ namespace WebApp.Controllers
                 nameof(Person.FirstName));
             vm.CheckSelectList = new SelectList(await _uow.Checks.AllAsync(User.UserGuidId()), nameof(Check.Id),
                 nameof(Check.Wash.NameOfWashType));
-            vm.PaymentMethodSelectList = new SelectList(await _uow.PaymentMethods.AllAsync(User.UserGuidId()), nameof(PaymentMethod.PaymentMethodId),
+            vm.PaymentMethodSelectList = new SelectList(await _uow.PaymentMethods.AllAsync(User.UserGuidId()), nameof(PaymentMethod.PaymentMethodName),
                 nameof(PaymentMethod.PaymentMethodName));
             return View(vm);
 

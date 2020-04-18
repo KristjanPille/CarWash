@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApp.ViewModels;
+using Discount = DAL.App.DTO.Discount;
 
 namespace WebApp.Controllers
 {

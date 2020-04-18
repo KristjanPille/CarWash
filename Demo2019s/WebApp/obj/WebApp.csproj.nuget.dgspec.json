@@ -4,17 +4,17 @@
     "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\WebApp\\WebApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App\\BLL.App.csproj": {
+    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App\\BLL.App.csproj",
-        "projectName": "BLL.App",
-        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App\\BLL.App.csproj",
+        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj",
+        "projectName": "BLL.App.DTO",
+        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj",
         "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App\\obj\\",
+        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Microsoft\\Xamarin\\NuGet",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -32,6 +32,73 @@
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
+              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj": {
+                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj"
+              },
+              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App\\BLL.App.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App\\BLL.App.csproj",
+        "projectName": "BLL.App",
+        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App\\BLL.App.csproj",
+        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {
+              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj": {
+                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj"
+              },
               "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.Base\\BLL.Base.csproj": {
                 "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.Base\\BLL.Base.csproj"
               },
@@ -81,7 +148,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.Base\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Microsoft\\Xamarin\\NuGet",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -148,7 +215,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.BLL.App\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Microsoft\\Xamarin\\NuGet",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -215,7 +282,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.BLL.Base\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Microsoft\\Xamarin\\NuGet",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -233,6 +300,9 @@
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
+              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj": {
+                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj"
+              },
               "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj": {
                 "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj"
               }
@@ -276,7 +346,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.App\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Microsoft\\Xamarin\\NuGet",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -296,6 +366,9 @@
             "projectReferences": {
               "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj": {
                 "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj"
+              },
+              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.DTO\\DAL.App.DTO.csproj": {
+                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.DTO\\DAL.App.DTO.csproj"
               },
               "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Domain.csproj": {
                 "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Domain.csproj"
@@ -343,7 +416,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Microsoft\\Xamarin\\NuGet",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -361,6 +434,76 @@
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "dependencies": {
+            "Microsoft.Extensions.Identity.Stores": {
+              "target": "Package",
+              "version": "[3.1.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.DTO\\DAL.App.DTO.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.DTO\\DAL.App.DTO.csproj",
+        "projectName": "DAL.App.DTO",
+        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.DTO\\DAL.App.DTO.csproj",
+        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.DTO\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {
+              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj": {
+                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj"
+              },
+              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Domain.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -400,7 +543,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.EF\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Microsoft\\Xamarin\\NuGet",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -420,6 +563,9 @@
             "projectReferences": {
               "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.App\\Contracts.DAL.App.csproj": {
                 "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.App\\Contracts.DAL.App.csproj"
+              },
+              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.DTO\\DAL.App.DTO.csproj": {
+                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.DTO\\DAL.App.DTO.csproj"
               },
               "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base.EF\\DAL.Base.EF.csproj": {
                 "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base.EF\\DAL.Base.EF.csproj"
@@ -481,7 +627,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base.EF\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Microsoft\\Xamarin\\NuGet",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -517,6 +663,10 @@
       "frameworks": {
         "netstandard2.1": {
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[3.1.3, )"
@@ -551,7 +701,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Microsoft\\Xamarin\\NuGet",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -622,7 +772,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Microsoft\\Xamarin\\NuGet",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -696,7 +846,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Extensions\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Microsoft\\Xamarin\\NuGet",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -767,7 +917,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Microsoft\\Xamarin\\NuGet",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -785,6 +935,9 @@
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
+              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj": {
+                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj"
+              },
               "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Domain.csproj": {
                 "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Domain.csproj"
               }
@@ -834,7 +987,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Microsoft\\Xamarin\\NuGet",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
@@ -891,7 +1044,7 @@
         "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\WebApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Microsoft\\Xamarin\\NuGet",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [

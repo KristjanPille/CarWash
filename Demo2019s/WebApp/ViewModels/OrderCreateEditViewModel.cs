@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Order = DAL.App.DTO.Order;
 
 namespace WebApp.ViewModels
 {

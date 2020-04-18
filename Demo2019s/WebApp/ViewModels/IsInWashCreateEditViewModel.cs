@@ -1,5 +1,6 @@
 ﻿using Domain;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using IsInWash = DAL.App.DTO.IsInWash;
 
 namespace WebApp.ViewModels
 {

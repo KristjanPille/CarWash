@@ -9,4 +9,8 @@
     <label asp-for="Discount.WashId" class="control-label"></label>
     <select asp-for="Discount.WashId" class ="form-control" asp-items="Model.WashSelectList"></select>
 </div>
-
+<div class="form-group">
+    <label asp-for="Discount.DiscountAmount" class="control-label"></label>
+    <input asp-for="Discount.DiscountAmount" class="form-control" />
+    <span asp-validation-for="Discount.DiscountAmount" class="text-danger"></span>
+</div>

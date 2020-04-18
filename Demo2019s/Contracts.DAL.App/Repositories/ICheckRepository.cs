@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Contracts.DAL.Base.Repositories;
-using Domain;
+using Check = DAL.App.DTO.Check;
 
 namespace Contracts.DAL.App.Repositories
 {

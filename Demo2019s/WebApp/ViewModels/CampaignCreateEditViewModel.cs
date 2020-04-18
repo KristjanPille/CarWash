@@ -1,5 +1,6 @@
 ﻿using Domain;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Campaign = DAL.App.DTO.Campaign;
 
 namespace WebApp.ViewModels
 {

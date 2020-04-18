@@ -8,7 +8,6 @@ namespace Domain.Identity
 {
     public class AppUser : AppUser<Guid>
     {
-        
     }
 
     public class AppUser<TKey> : IdentityUser<TKey> 

@@ -1,5 +1,6 @@
 ﻿using Domain;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Discount = DAL.App.DTO.Discount;
 
 namespace WebApp.ViewModels
 {

@@ -1,5 +1,6 @@
 ﻿using Domain;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Car = DAL.App.DTO.Car;
 
 namespace WebApp.ViewModels
 {

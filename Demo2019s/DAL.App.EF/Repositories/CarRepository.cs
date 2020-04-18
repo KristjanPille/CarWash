@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Contracts.DAL.App.Repositories;
+using DAL.Base.EF.Mappers;
 using DAL.Base.EF.Repositories;
 using Domain;
 using Microsoft.EntityFrameworkCore;
 using PublicApi.DTO.v1;
+using Car = DAL.App.DTO.Car;
 
 namespace DAL.App.EF.Repositories
 {
-    public class CarRepository : EFBaseRepository<Car, AppDbContext>, ICarRepository
+    public class CarRepository : EFBaseRepository<AppDbContext, Domain.Car, DAL.App.DTO.Car>, ICarRepository
     {
-        public CarRepository(AppDbContext dbContext) : base(dbContext)
+        public CarRepository(AppDbContext dbContext) : base(dbContext, new BaseDALMapper<Domain.Car, DAL.App.DTO.Car>())
         {
         }
         public async Task<IEnumerable<Car>> AllAsync(Guid? userId = null)
@@ -22,8 +24,10 @@ namespace DAL.App.EF.Repositories
                 return await base.AllAsync(); // base is not actually needed, using it for clarity
             }
 
-            return await RepoDbSet.Where(o => o.AppUserId == userId).ToListAsync();
+            return (await RepoDbSet.Where(o => o.AppUserId == userId)
+                .ToListAsync()).Select(domainEntity => Mapper.Map(domainEntity));
         }
+
         public async Task<Car> FirstOrDefaultAsync(Guid id, Guid? userId = null)
         {
             var query = RepoDbSet.Where(a => a.Id == id).AsQueryable();
@@ -32,8 +36,7 @@ namespace DAL.App.EF.Repositories
                 query = query.Where(a => a.AppUserId == userId);
             }
 
-            return await query.FirstOrDefaultAsync();
-
+            return Mapper.Map(await query.FirstOrDefaultAsync());
         }
 
         public async Task<bool> ExistsAsync(Guid id, Guid? userId = null)
@@ -44,14 +47,16 @@ namespace DAL.App.EF.Repositories
             }
 
             return await RepoDbSet.AnyAsync(a => a.Id == id && a.AppUserId == userId);
-
         }
+
         public async Task DeleteAsync(Guid id, Guid? userId = null)
         {
             var owner = await FirstOrDefaultAsync(id, userId);
             base.Remove(owner);
         }
 
+
+        /*
         public async Task<IEnumerable<CarDTO>> DTOAllAsync(Guid? userId = null)
         {
             var query = RepoDbSet.AsQueryable();
@@ -81,5 +86,6 @@ namespace DAL.App.EF.Repositories
 
             return carDTO;
         }
+        */
     }
 }

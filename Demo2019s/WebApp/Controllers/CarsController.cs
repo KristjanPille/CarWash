@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApp.ViewModels;
+using Car = DAL.App.DTO.Car;
 
 namespace WebApp.Controllers
 {
@@ -51,10 +52,10 @@ namespace WebApp.Controllers
         {
             var vm = new CarCreateEditViewModel();
             
-            vm.CarTypeSelectList = new SelectList(await _uow.CarTypes.AllAsync(User.UserGuidId()), nameof(CarType.CarTypeId),
+            vm.CarTypeSelectList = new SelectList(await _uow.CarTypes.AllAsync(User.UserGuidId()), nameof(CarType.Name),
                 nameof(CarType.Name));
                      
-            vm.ModelMarkSelectList = new SelectList(await _uow.ModelMarks.AllAsync(User.UserGuidId()), nameof(ModelMark.ModelMarkId),
+            vm.ModelMarkSelectList = new SelectList(await _uow.ModelMarks.AllAsync(User.UserGuidId()), nameof(ModelMark.Mark),
                 nameof(ModelMark.Mark));
             return View(vm);
         }
@@ -73,10 +74,10 @@ namespace WebApp.Controllers
                 await _uow.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            vm.CarTypeSelectList = new SelectList(await _uow.CarTypes.AllAsync(User.UserGuidId()), nameof(CarType.CarTypeId),
+            vm.CarTypeSelectList = new SelectList(await _uow.CarTypes.AllAsync(User.UserGuidId()), nameof(CarType.Name),
                 nameof(CarType.Name));
                                  
-            vm.ModelMarkSelectList = new SelectList(await _uow.ModelMarks.AllAsync(User.UserGuidId()), nameof(ModelMark.ModelMarkId),
+            vm.ModelMarkSelectList = new SelectList(await _uow.ModelMarks.AllAsync(User.UserGuidId()), nameof(ModelMark.Mark),
                 nameof(ModelMark.Mark));
             return View(vm);
         }

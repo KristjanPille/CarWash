@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Contracts.DAL.App.Repositories;
+using DAL.Base.EF.Mappers;
 using DAL.Base.EF.Repositories;
 using Domain;
 using Microsoft.EntityFrameworkCore;
@@ -10,29 +11,42 @@ using PublicApi.DTO.v1;
 
 namespace DAL.App.EF.Repositories
 {
-    public class PersonCarRepository : EFBaseRepository<PersonCar, AppDbContext>, IPersonCarRepository
+    public class PersonCarRepository : EFBaseRepository<AppDbContext, Domain.PersonCar, DAL.App.DTO.PersonCar>, IPersonCarRepository
     {
-        public PersonCarRepository(AppDbContext dbContext) : base(dbContext)
+        public PersonCarRepository(AppDbContext dbContext) : base(dbContext, new BaseDALMapper<Domain.PersonCar, DAL.App.DTO.PersonCar>())
         {
-        }        
-        public async Task<IEnumerable<PersonCar>> AllAsync(Guid? userId = null)
-        {
-            if (userId == null)
-            {
-                return await base.AllAsync(); // base is not actually needed, using it for clarity
-            }
-
-            return await RepoDbSet.ToListAsync();
-
         }
-        
-        public async Task<PersonCar> FirstOrDefaultAsync(Guid id, Guid? userId = null)
+
+        public async Task<IEnumerable<DAL.App.DTO.PersonCar>> AllAsync(Guid? userId = null)
         {
             var query = RepoDbSet
+                .Include(a => a.Car)
+                .Include(a => a.Person)
+                .AsQueryable();
+
+            if (userId != null)
+            {
+                query = query.Where(o => o.Person!.AppUserId == userId && o.Car!.AppUserId == userId);
+            }
+
+            return (await query.ToListAsync())
+                .Select(domainEntity => Mapper.Map(domainEntity));
+        }
+
+        public async Task<DAL.App.DTO.PersonCar> FirstOrDefaultAsync(Guid id, Guid? userId = null)
+        {
+            var query = RepoDbSet
+                .Include(a => a.Car)
+                .Include(a => a.Person)
                 .Where(a => a.Id == id)
                 .AsQueryable();
 
-            return await query.FirstOrDefaultAsync();
+            if (userId != null)
+            {
+                query = query.Where(a => a.Person!.AppUserId == userId && a.Car!.AppUserId == userId);
+            }
+
+            return Mapper.Map(  await query.FirstOrDefaultAsync());
         }
 
         public async Task<bool> ExistsAsync(Guid id, Guid? userId = null)
@@ -42,52 +56,15 @@ namespace DAL.App.EF.Repositories
                 return await RepoDbSet.AnyAsync(a => a.Id == id);
             }
 
-            return await RepoDbSet.AnyAsync(a => a.Id == id);
+            return await RepoDbSet.AnyAsync(a =>
+                a.Id == id && a.Person!.AppUserId == userId && a.Car!.AppUserId == userId);
         }
 
         public async Task DeleteAsync(Guid id, Guid? userId = null)
         {
-            var check = await FirstOrDefaultAsync(id, userId);
-            base.Remove(check);
+            var owner = await FirstOrDefaultAsync(id, userId);
+            base.Remove(owner);
         }
 
-        public async Task<IEnumerable<PersonCarDTO>> DTOAllAsync(Guid? userId = null)
-        {
-            var query = RepoDbSet
-                .Include(o => o.Person)
-                .Include(o => o.Car)
-                .AsQueryable();
-            if (userId != null)
-            {
-                query = query.Where(o => o.Car!.AppUserId == userId && o.Person!.AppUserId == userId);
-            }
-
-            return await query
-                .Select(o => new PersonCarDTO()
-                {
-                    Id = o.Id,
-                    CarId = o.CarId,
-                    PersonId = o.PersonId,
-                    Car = new CarDTO()
-                    {
-                        Id = o.Car!.Id,
-                        LicenceNr = o.Car.LicenceNr,
-                    },
-                    Person = new PersonDTO()
-                    {
-                        Id = o.Person!.Id,
-                        Email = o.Person!.Email,
-                        FirstName = o.Person!.FirstName,
-                        LastName = o.Person!.LastName,
-                    }
-                })
-                .ToListAsync();
-
-        }
-
-        public Task<PersonCarDTO> DTOFirstOrDefaultAsync(Guid id, Guid? userId = null)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

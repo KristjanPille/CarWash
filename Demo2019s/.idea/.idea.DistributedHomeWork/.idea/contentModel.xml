@@ -25,6 +25,24 @@
           <e p="PersonService.cs" t="Include" />
         </e>
       </e>
+      <e p="BLL.App.DTO" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="BLL.App.DTO.csproj" t="IncludeRecursive" />
+        <e p="Car.cs" t="Include" />
+        <e p="Identity" t="Include">
+          <e p="AppRole.cs" t="Include" />
+          <e p="AppUser.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.1" t="Include">
+              <e p="BLL.App.DTO.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="OwnerAnimal.cs" t="Include" />
+        <e p="Person.cs" t="Include" />
+      </e>
       <e p="BLL.Base" t="IncludeRecursive">
         <e p="BaseBLL.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
@@ -114,8 +132,13 @@
         <e p="Contracts.DAL.Base.csproj" t="IncludeRecursive" />
         <e p="IBaseUnitOfWork.cs" t="Include" />
         <e p="IDomainBaseEntity.cs" t="Include" />
-        <e p="IDomainEntity.cs" t="Include" />
+        <e p="IDomainEntityBaseMetadata.cs" t="Include" />
         <e p="IDomainEntityMetaData.cs" t="Include" />
+        <e p="IDomainEntityUser.cs" t="Include" />
+        <e p="IUserNameProvider.cs" t="Include" />
+        <e p="Mappers" t="Include">
+          <e p="IBaseDALMapper.cs" t="Include" />
+        </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netstandard2.1" t="Include">
@@ -129,6 +152,36 @@
         </e>
       </e>
       <e p="DAL" t="Include" />
+      <e p="DAL.App.DTO" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Campaign.cs" t="Include" />
+        <e p="Car.cs" t="Include" />
+        <e p="carType.cs" t="Include" />
+        <e p="Check.cs" t="Include" />
+        <e p="DAL.App.DTO.csproj" t="IncludeRecursive" />
+        <e p="Discount.cs" t="Include" />
+        <e p="Identity" t="Include">
+          <e p="AppRole.cs" t="Include" />
+          <e p="AppUser.cs" t="Include" />
+        </e>
+        <e p="IsInWash.cs" t="Include" />
+        <e p="ModelMark.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.1" t="Include">
+              <e p="DAL.App.DTO.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Order.cs" t="Include" />
+        <e p="Payment.cs" t="Include" />
+        <e p="PaymentMethod.cs" t="Include" />
+        <e p="Person.cs" t="Include" />
+        <e p="PersonCar.cs" t="Include" />
+        <e p="Service.cs" t="Include" />
+        <e p="Wash.cs" t="Include" />
+        <e p="WashType.cs" t="Include" />
+      </e>
       <e p="DAL.App.EF" t="IncludeRecursive">
         <e p="AppDbContext.cs" t="Include" />
         <e p="AppUnitOfWork.cs" t="Include" />
@@ -172,7 +225,7 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="DAL.Base.csproj" t="IncludeRecursive" />
         <e p="DomainBaseEntity.cs" t="Include" />
-        <e p="DomainEntity.cs" t="Include" />
+        <e p="DomainEntityBaseMetadata.cs" t="Include" />
         <e p="DomainEntityMetaData.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -186,6 +239,10 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="DAL.Base.EF.csproj" t="IncludeRecursive" />
         <e p="EFBaseUnitOfWork.cs" t="Include" />
+        <e p="Mappers" t="Include">
+          <e p="BaseDALMapper.cs" t="Include" />
+          <e p="IdentityMapper.cs" t="Include" />
+        </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netstandard2.1" t="Include">
@@ -246,13 +303,12 @@
       <e p="packages" t="ExcludeRecursive" />
       <e p="PublicApi.DTO.v1" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
-        <e p="CampaignDTO.cs" t="Include" />
-        <e p="CarCreateDTO.cs" t="Include" />
-        <e p="CarDTO.cs" t="Include" />
-        <e p="CarEditDTO.cs" t="Include" />
-        <e p="CarTypeCreateDTO.cs" t="Include" />
-        <e p="CarTypeDTO.cs" t="Include" />
-        <e p="CarTypeEditDTO.cs" t="Include" />
+        <e p="Campaigncs.cs" t="Include" />
+        <e p="Car.cs" t="Include" />
+        <e p="carType.cs" t="Include" />
+        <e p="Mappers" t="Include">
+          <e p="DTOMapper.cs" t="Include" />
+        </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netstandard2.1" t="Include">
@@ -260,14 +316,10 @@
             </e>
           </e>
         </e>
+        <e p="Person.cs" t="Include" />
         <e p="PersonCarDTO.cs" t="Include" />
-        <e p="PersonCreateDTO.cs" t="Include" />
-        <e p="PersonDTO.cs" t="Include" />
-        <e p="PersonEditDTO.cs" t="Include" />
         <e p="PublicApi.DTO.v1.csproj" t="IncludeRecursive" />
-        <e p="WashCreateDTO.cs" t="Include" />
-        <e p="WashDTO.cs" t="Include" />
-        <e p="WashEditDTO.cs" t="Include" />
+        <e p="Wash.cs" t="Include" />
       </e>
       <e p="Resources" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
@@ -333,7 +385,9 @@
         <e p="appsettings.json" t="Include" />
         <e p="Areas" t="Include">
           <e p="Admin" t="Include">
-            <e p="Controllers" t="Include" />
+            <e p="Controllers" t="Include">
+              <e p="HomeController.cs" t="Include" />
+            </e>
             <e p="viewmodels" t="Include" />
             <e p="Views" t="Include">
               <e p="_ViewImports.cshtml" t="Include" />

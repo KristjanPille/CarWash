@@ -2837,6 +2837,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
+          "BLL.App.DTO": "1.0.0",
           "BLL.Base": "1.0.0",
           "Contracts.BLL.App": "1.0.0",
           "DAL.App.EF": "1.0.0"
@@ -2846,6 +2847,20 @@
         },
         "runtime": {
           "bin/placeholder/BLL.App.dll": {}
+        }
+      },
+      "BLL.App.DTO/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Contracts.DAL.Base": "1.0.0",
+          "Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BLL.App.DTO.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BLL.App.DTO.dll": {}
         }
       },
       "BLL.Base/1.0.0": {
@@ -2881,6 +2896,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
+          "BLL.App.DTO": "1.0.0",
           "Contracts.DAL.Base": "1.0.0"
         },
         "compile": {
@@ -2895,6 +2911,7 @@
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
           "Contracts.DAL.Base": "1.0.0",
+          "DAL.App.DTO": "1.0.0",
           "Domain": "1.0.0",
           "PublicApi.DTO.v1": "1.0.0"
         },
@@ -2908,6 +2925,9 @@
       "Contracts.DAL.Base/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Microsoft.Extensions.Identity.Stores": "3.1.3"
+        },
         "compile": {
           "bin/placeholder/Contracts.DAL.Base.dll": {}
         },
@@ -2915,11 +2935,26 @@
           "bin/placeholder/Contracts.DAL.Base.dll": {}
         }
       },
+      "DAL.App.DTO/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Contracts.DAL.Base": "1.0.0",
+          "Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DAL.App.DTO.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DAL.App.DTO.dll": {}
+        }
+      },
       "DAL.App.EF/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
           "Contracts.DAL.App": "1.0.0",
+          "DAL.App.DTO": "1.0.0",
           "DAL.Base.EF": "1.0.0",
           "Domain": "1.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.3",
@@ -2952,6 +2987,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
+          "AutoMapper": "9.0.0",
           "Contracts.DAL.Base": "1.0.0",
           "DAL.Base": "1.0.0",
           "Microsoft.EntityFrameworkCore": "3.1.3"
@@ -2998,6 +3034,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
+          "BLL.App.DTO": "1.0.0",
           "Domain": "1.0.0",
           "System.ComponentModel.Annotations": "4.7.0"
         },
@@ -9186,6 +9223,11 @@
       "path": "../BLL.App/BLL.App.csproj",
       "msbuildProject": "../BLL.App/BLL.App.csproj"
     },
+    "BLL.App.DTO/1.0.0": {
+      "type": "project",
+      "path": "../BLL.App.DTO/BLL.App.DTO.csproj",
+      "msbuildProject": "../BLL.App.DTO/BLL.App.DTO.csproj"
+    },
     "BLL.Base/1.0.0": {
       "type": "project",
       "path": "../BLL.Base/BLL.Base.csproj",
@@ -9210,6 +9252,11 @@
       "type": "project",
       "path": "../Contracts.DAL.Base/Contracts.DAL.Base.csproj",
       "msbuildProject": "../Contracts.DAL.Base/Contracts.DAL.Base.csproj"
+    },
+    "DAL.App.DTO/1.0.0": {
+      "type": "project",
+      "path": "../DAL.App.DTO/DAL.App.DTO.csproj",
+      "msbuildProject": "../DAL.App.DTO/DAL.App.DTO.csproj"
     },
     "DAL.App.EF/1.0.0": {
       "type": "project",
@@ -9270,7 +9317,7 @@
   },
   "packageFolders": {
     "C:\\Users\\krist\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -9283,7 +9330,7 @@
       "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\WebApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\",
+        "C:\\Microsoft\\Xamarin\\NuGet",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [

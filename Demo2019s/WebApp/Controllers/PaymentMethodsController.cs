@@ -6,6 +6,7 @@ using Domain;
 using Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using PaymentMethod = DAL.App.DTO.PaymentMethod;
 
 namespace WebApp.Controllers
 {
@@ -55,7 +56,7 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(PaymentMethod paymentMethod)
+        public async Task<IActionResult> Create(DAL.App.DTO.PaymentMethod paymentMethod)
         {
 
             if (ModelState.IsValid)

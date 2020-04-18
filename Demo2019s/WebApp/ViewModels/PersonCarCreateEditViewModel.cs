@@ -1,7 +1,8 @@
 ﻿﻿using Domain;
 using Microsoft.AspNetCore.Mvc.Rendering;
+ using PersonCar = DAL.App.DTO.PersonCar;
 
-namespace WebApp.ViewModels
+ namespace WebApp.ViewModels
 {
     public class PersonCarCreateEditViewModel
     {

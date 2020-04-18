@@ -1,13 +1,21 @@
-﻿using DAL.Base;
+﻿using System;
+using Contracts.DAL.Base;
+using DAL.Base;
+using Domain.Identity;
 
 namespace Domain
 {
-    public class WashType : DomainEntity
+    public class WashType : Was<Guid, AppUser>, IDomainEntityUser<AppUser>
     {
-        public int WashTypeId { get; set; }
-        
-        public int WashId { get; set; }
+    }
 
+
+    public class Was<TKey, TUser> : DomainEntityBaseMetadata<TKey>, IDomainEntityUser<TKey, TUser>
+        where TKey : IEquatable<TKey> 
+        where TUser : AppUser<TKey>
+    {
         public string NameOfWash { get; set; } = default!;
+        public TKey AppUserId { get; set; }
+        public TUser? AppUser { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.BLL.App;
 using Contracts.DAL.App;
 using DAL.App.EF;
 using Microsoft.AspNetCore.Mvc;
@@ -18,18 +19,20 @@ namespace WebApp.Controllers
     [Authorize(Roles = "Admin")]
     public class PersonsController : Controller
     {
-        private readonly IAppUnitOfWork _uow;
+        
+        private readonly IAppBLL _bll;
 
-        public PersonsController(IAppUnitOfWork uow)
+        public PersonsController(IAppBLL bll)
         {
-            _uow = uow;
+            _bll = bll;
         }
+
 
         // GET: Persons
         public async Task<IActionResult> Index()
         {
             
-            var persons = await _uow.Persons.AllAsync(User.UserGuidId());
+            var persons = await _bll.Persons.AllAsync(User.UserGuidId());
 
             return View(persons);
         }
@@ -42,7 +45,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var person = await _uow.Persons.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            var person = await _bll.Persons.FirstOrDefaultAsync(id.Value, User.UserGuidId());
             if (person == null)
             {
                 return NotFound();
@@ -62,14 +65,14 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(DAL.App.DTO.Person person)
+        public async Task<IActionResult> Create(BLL.App.DTO.Person person)
         {
             person.AppUserId = User.UserGuidId();
 
             if (ModelState.IsValid)
             {
-                _uow.Persons.Add(person);
-                await _uow.SaveChangesAsync();
+                _bll.Persons.Add(person);
+                await _bll.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
@@ -85,7 +88,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var person = await _uow.Persons.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            var person = await _bll.Persons.FirstOrDefaultAsync(id.Value, User.UserGuidId());
 
             if (person == null)
             {
@@ -101,7 +104,7 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id,  Person person)
+        public async Task<IActionResult> Edit(Guid id,  BLL.App.DTO.Person person)
         {
             person.AppUserId = User.UserGuidId();
 
@@ -114,12 +117,12 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _uow.Persons.Update(person);
-                    await _uow.SaveChangesAsync();
+                    _bll.Persons.Update(person);
+                    await _bll.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (! await _uow.Persons.ExistsAsync(person.Id, User.UserGuidId()))
+                    if (! await _bll.Persons.ExistsAsync(person.Id, User.UserGuidId()))
                     {
                         return NotFound();
                     }
@@ -143,7 +146,7 @@ namespace WebApp.Controllers
             {
                 return NotFound();
             }
-            var person = await _uow.Persons.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            var person = await _bll.Persons.FirstOrDefaultAsync(id.Value, User.UserGuidId());
             if (person == null)
             {
                 return NotFound();
@@ -157,8 +160,8 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            await _uow.Persons.DeleteAsync(id, User.UserGuidId());
-            await _uow.SaveChangesAsync();
+            await _bll.Persons.DeleteAsync(id, User.UserGuidId());
+            await _bll.SaveChangesAsync();
             
             return RedirectToAction(nameof(Index));
         }

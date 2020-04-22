@@ -5,7 +5,7 @@ using Domain.Identity;
 
 namespace Domain
 {
-    public class Discount : Check<Guid, AppUser>, IDomainEntityBaseMetadata, IDomainEntityUser<AppUser>
+    public class Discount : Discount<Guid, AppUser>, IDomainEntityBaseMetadata, IDomainEntityUser<AppUser>
     {
     }
 
@@ -15,8 +15,8 @@ namespace Domain
     {
         public TKey CheckId { get; set; }
         public Check? Check { get; set; }
-        
-        public int DiscountAmount { get; set; }
+
+        public int DiscountAmount { get; set; } = default!;
         
         public TKey WashId { get; set; }
         public Wash? Wash { get; set; }

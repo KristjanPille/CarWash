@@ -62,7 +62,7 @@ namespace DAL.Base.EF.Repositories
             return Mapper.Map(await RepoDbSet.FindAsync(id));
         }
 
-        public virtual TDALEntity Add(IsInWash entity)
+        public virtual TDALEntity Add(TDALEntity entity)
         {
             return Mapper.Map(RepoDbSet.Add(Mapper.Map<TDALEntity, TDomainEntity>(entity)).Entity);
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Contracts.DAL.Base.Repositories
@@ -23,7 +24,7 @@ namespace Contracts.DAL.Base.Repositories
 
         TDALEntity Find(params object[] id);
         Task<TDALEntity> FindAsync(params object[] id);
-        TDALEntity Add(IsInWash entity);
+        TDALEntity Add(TDALEntity entity);
         TDALEntity Update(TDALEntity entity);
         TDALEntity Remove(TDALEntity entity);
         TDALEntity Remove(params object[] id);

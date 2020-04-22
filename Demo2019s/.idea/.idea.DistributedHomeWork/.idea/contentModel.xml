@@ -20,7 +20,19 @@
           </e>
         </e>
         <e p="Services" t="Include">
+          <e p="CampaignService.cs" t="Include" />
           <e p="CarService.cs" t="Include" />
+          <e p="CarTpeService.cs" t="Include" />
+          <e p="ICheckService.cs" t="Include" />
+          <e p="IDiscountService.cs" t="Include" />
+          <e p="IIsInWashService.cs" t="Include" />
+          <e p="IModelMarkService.cs" t="Include" />
+          <e p="IOrderService.cs" t="Include" />
+          <e p="IPaymentMehtodService.cs" t="Include" />
+          <e p="IPaymentService.cs" t="Include" />
+          <e p="IServiceService.cs" t="Include" />
+          <e p="IWashService.cs" t="Include" />
+          <e p="IWashTypeService.cs" t="Include" />
           <e p="PersonCarService.cs" t="Include" />
           <e p="PersonService.cs" t="Include" />
         </e>
@@ -75,9 +87,21 @@
           </e>
         </e>
         <e p="Services" t="Include">
+          <e p="ICampaignService.cs" t="Include" />
           <e p="ICarService.cs" t="Include" />
+          <e p="ICarTypeService.cs" t="Include" />
+          <e p="ICheckService.cs" t="Include" />
+          <e p="IDiscountService.cs" t="Include" />
+          <e p="IIsInWashService.cs" t="Include" />
+          <e p="IModelMarkService.cs" t="Include" />
+          <e p="IOrderService.cs" t="Include" />
+          <e p="IPaymentMehtodService.cs" t="Include" />
+          <e p="IPaymentService.cs" t="Include" />
           <e p="IPersonCarService.cs" t="Include" />
           <e p="IPersonService.cs" t="Include" />
+          <e p="IServiceService.cs" t="Include" />
+          <e p="IWashService.cs" t="Include" />
+          <e p="IWashTypeService.cs" t="Include" />
         </e>
       </e>
       <e p="Contracts.BLL.Base" t="IncludeRecursive">

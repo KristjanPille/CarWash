@@ -10,6 +10,7 @@ using Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using PublicApi.DTO.v1;
+using Person = Domain.Person;
 
 namespace WebApp.ApiControllers._1._0
 {
@@ -31,7 +32,7 @@ namespace WebApp.ApiControllers._1._0
 
         // GET: api/Persons
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PersonDTO>>> GetPersons()
+        public async Task<ActionResult<IEnumerable<Person>>> GetPersons()
         {
             var owners = (await _bll.Persons.AllAsync(User.UserGuidId()))
                 .Select(bllEntity => new Person()
@@ -55,7 +56,7 @@ namespace WebApp.ApiControllers._1._0
         [ProducesResponseType( typeof( Person ), 200 )]	
         [ProducesResponseType( 404 )]
         [HttpGet("{id}")]
-        public async Task<ActionResult<PersonDTO>> GetPerson(Guid id)
+        public async Task<ActionResult<Person>> GetPerson(Guid id)
         {
             var person = await _bll.Persons.FirstOrDefaultAsync(id, User.UserGuidId());
 
@@ -72,21 +73,21 @@ namespace WebApp.ApiControllers._1._0
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPerson(Guid id, PersonEditDTO personEditDTO)
+        public async Task<IActionResult> PutPerson(Guid id, PersonEdit personEditDTO)
         {
-            if (id != PersonEditDTO.Id)
+            if (id != personEditDTO.Id)
             {
                 return BadRequest();
             }
 
-            var person = await _bll.Persons.FirstOrDefaultAsync(PersonEditDTO.Id, User.UserGuidId());
+            var person = await _bll.Persons.FirstOrDefaultAsync(personEditDTO.Id, User.UserGuidId());
             if (person == null)
             {
                 return BadRequest();
             }
 
-            person.FirstName = PersonEditDTO.FirstName;
-            person.LastName = PersonEditDTO.LastName;
+            person.FirstName = personEditDTO.FirstName;
+            person.LastName = personEditDTO.LastName;
             
             _bll.Persons.Update(person);
 
@@ -113,13 +114,13 @@ namespace WebApp.ApiControllers._1._0
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Person>> PostPerson(PersonCreateDTO personCreateDTO)
+        public async Task<ActionResult<Person>> PostPerson(PersonCreate personCreateDTO)
         {
             var owner = new BLL.App.DTO.Person
             {
                 AppUserId = User.UserGuidId(),
-                FirstName = PersonCreateDTO.FirstName,
-                LastName = PersonCreateDTO.LastName
+                FirstName = personCreateDTO.FirstName,
+                LastName = personCreateDTO.LastName
             };
 
             _bll.Persons.Add(owner);

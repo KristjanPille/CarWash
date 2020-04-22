@@ -1,4 +1,4 @@
-@model IEnumerable<DAL.App.DTO.Person>
+@model IEnumerable<BLL.App.DTO.Person>
 
 @{
     ViewData["Title"] = "Index";
@@ -24,18 +24,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.PhoneNr)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ChangedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ChangedAt)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -54,18 +42,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PhoneNr)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ChangedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ChangedAt)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

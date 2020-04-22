@@ -6,7 +6,6 @@ using Contracts.BLL.Base.Mappers;
 using Contracts.BLL.Base.Services;
 using Contracts.DAL.Base;
 using Contracts.DAL.Base.Repositories;
-using Domain;
 
 namespace BLL.Base.Services
 {
@@ -47,7 +46,7 @@ namespace BLL.Base.Services
         public virtual async Task<TBLLEntity> FindAsync(params object[] id) =>
             Mapper.Map<TDALEntity, TBLLEntity>(await ServiceRepository.FindAsync(id));
 
-        public virtual TBLLEntity Add(Wash entity) =>
+        public virtual TBLLEntity Add(TBLLEntity entity) =>
             Mapper.Map<TDALEntity, TBLLEntity>(ServiceRepository.Add(Mapper.Map<TBLLEntity, TDALEntity>(entity)));
 
         public virtual TBLLEntity Update(TBLLEntity entity) =>

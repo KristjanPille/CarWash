@@ -25,7 +25,6 @@ namespace WebApp.Controllers
         {
             var services = await _uow.Services.AllAsync(User.UserGuidId());
             return View(services);
-
         }
 
         // GET: services/Details/5

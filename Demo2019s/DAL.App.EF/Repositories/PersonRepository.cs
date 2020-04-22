@@ -6,9 +6,7 @@ using Contracts.DAL.App.Repositories;
 using DAL.App.DTO;
 using DAL.Base.EF.Mappers;
 using DAL.Base.EF.Repositories;
-using Domain;
 using Microsoft.EntityFrameworkCore;
-using PublicApi.DTO.v1;
 
 namespace DAL.App.EF.Repositories
 {

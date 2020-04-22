@@ -1,4 +1,4 @@
-@model IEnumerable<Domain.Wash>
+@model IEnumerable<DAL.App.DTO.Wash>
 
 @{
     ViewData["Title"] = "Index";
@@ -19,7 +19,7 @@
                 @Html.DisplayNameFor(model => model.WashTypeId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.WashId)
+                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NameOfWashType)
@@ -37,7 +37,7 @@
                 @Html.DisplayFor(modelItem => item.WashTypeId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.WashId)
+                @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NameOfWashType)

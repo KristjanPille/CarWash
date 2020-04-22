@@ -1,11 +1,7 @@
 ﻿@model WebApp.ViewModels.WashTypeCreateEditViewModel
 
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-<div class="form-group">
-    <label asp-for="WashType.WashId" class="control-label"></label>
-    <input asp-for="WashType.WashId" class="form-control" />
-    <span asp-validation-for="WashType.WashId" class="text-danger"></span>
-</div>
+
 <div class="form-group">
     <label asp-for="WashType.NameOfWash" class="control-label"></label>
     <input asp-for="WashType.NameOfWash" class="form-control" />

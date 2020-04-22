@@ -1,7 +1,6 @@
 ﻿using System;
 using Contracts.DAL.Base;
 using DAL.App.DTO.Identity;
-using Domain;
 
 namespace DAL.App.DTO
 {

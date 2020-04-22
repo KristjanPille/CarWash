@@ -5,7 +5,7 @@ using DAL.App.DTO.Identity;
 
 namespace DAL.App.DTO
 {
-    public class CarType : Car<Guid>, IDomainBaseEntity
+    public class CarType : CarType<Guid>, IDomainBaseEntity
     {
     }
     

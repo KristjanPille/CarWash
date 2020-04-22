@@ -2,14 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.DAL.App;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DAL.App.EF;
 using Domain;
+using Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using PublicApi.DTO.v1;
+using Campaign = Domain.Campaign;
 
 namespace WebApp.ApiControllers._1._0
 {
@@ -19,22 +22,19 @@ namespace WebApp.ApiControllers._1._0
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class CampaignsController : ControllerBase
     {
-        private readonly AppDbContext _context;
+       
+        private readonly IAppUnitOfWork _uow;
 
-        public CampaignsController(AppDbContext context)
+        public CampaignsController(IAppUnitOfWork uow)
         {
-            _context = context;
+            _uow = uow;
         }
 
         // GET: api/Campaigns
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CampaignDTO>>> GetCampaigns()
+        public async Task<ActionResult<IEnumerable<Campaign>>> GetCampaigns()
         {
-            return await _context.Campaigns.Select(o => new CampaignDTO()
-            {
-                
-                NameOfCampaign = o.NameOfCampaign, Id = o.Id
-            }).ToListAsync();
+            return Ok(await _uow.Campaigns.DTOAllAsync(User.UserGuidId()));
         }
 
         // GET: api/Campaigns/5

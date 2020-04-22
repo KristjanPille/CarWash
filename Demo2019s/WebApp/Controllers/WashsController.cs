@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Domain;
 using Extensions;
 using WebApp.ViewModels;
+using Wash = DAL.App.DTO.Wash;
 
 namespace WebApp.Controllers
 {
@@ -22,12 +23,12 @@ namespace WebApp.Controllers
             _uow = uow;
         }
 
-        // GET: Washs
-        public async Task<IActionResult> Index()
-        {
-            var washes = await _uow.Washes.AllAsync(User.UserGuidId());
-            return View(washes);
-        }
+        // GET: Washes
+          public async Task<IActionResult> Index()
+          {
+              var washes = await _uow.Washes.AllAsync(User.UserGuidId());
+              return View(washes);
+          }
 
         // GET: Washs/Details/5
         public async Task<IActionResult> Details(Guid? id)
@@ -57,7 +58,7 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Wash wash)
+        public async Task<IActionResult> Create(DAL.App.DTO.Wash wash)
         {
             if (ModelState.IsValid)
             {

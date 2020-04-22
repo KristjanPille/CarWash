@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Contracts.DAL.Base;
 using DAL.App.DTO.Identity;
-using Domain;
 
 namespace DAL.App.DTO
 {
@@ -19,6 +19,13 @@ namespace DAL.App.DTO
 
         public virtual string FirstName { get; set; } = default!;
         public virtual string LastName { get; set; } = default!;
+        
+        public virtual string FirstLastName => FirstName + " " + LastName;
+
+        [MinLength(1)][MaxLength(64)]
+        public string Email { get; set; }
+        [MinLength(1)][MaxLength(32)]
+        public int PhoneNr { get; set; }
 
         public virtual ICollection<PersonCar>? PersonCars { get; set; }
         

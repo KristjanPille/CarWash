@@ -19,7 +19,10 @@ namespace BLL.App.DTO
 
         public virtual string FirstName { get; set; } = default!;
         public virtual string LastName { get; set; } = default!;
-
+        public virtual string FirstLastName => FirstName + " " + LastName;
+         public string Email { get; set; }
+              
+public int PhoneNr { get; set; }
         public virtual ICollection<PersonCar>? PersonCars { get; set; }
         
         public String LicenceNr { get; set; }

@@ -1,4 +1,4 @@
-@model Domain.Wash
+@model DAL.App.DTO.Wash
 
 @{
     ViewData["Title"] = "Delete";
@@ -11,7 +11,7 @@
     <partial name="_DetailsDelete" model="@Model"/>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="WashId" />
+        <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>

@@ -2,13 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.BLL.App;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DAL.App.EF;
-using Domain;
+using Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using PublicApi.DTO.v1;
+using ModelMark = Domain.ModelMark;
 
 namespace WebApp.ApiControllers._1._0
 {
@@ -18,61 +21,77 @@ namespace WebApp.ApiControllers._1._0
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ModelMarksController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IAppBLL _bll;
 
-        public ModelMarksController(AppDbContext context)
+        public ModelMarksController(IAppBLL bll)
         {
-            _context = context;
+            _bll = bll;
         }
 
         // GET: api/ModelMarks
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ModelMark>>> GetModelMarks()
         {
-            return await _context.ModelMarks.ToListAsync();
+            var modelMarks = (await _bll.ModelMarks.AllAsync())
+                .Select(bllEntity => new ModelMark()
+                {
+                    Id = bllEntity.Id,
+                    Mark = bllEntity.Mark,
+                    Model = bllEntity.Model,
+                }) ;
+            
+            return Ok(modelMarks);
         }
 
         // GET: api/ModelMarks/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ModelMark>> GetModelMark(int id)
+        public async Task<ActionResult<ModelMark>> GetModelMark(Guid id)
         {
-            var modelMark = await _context.ModelMarks.FindAsync(id);
+            var modelMark = await _bll.ModelMarks.FirstOrDefaultAsync(id, User.UserGuidId());
 
             if (modelMark == null)
             {
                 return NotFound();
             }
 
-            return modelMark;
+            return Ok(modelMark);
         }
 
         // PUT: api/ModelMarks/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutModelMark(Guid id, ModelMark modelMark)
+        public async Task<IActionResult> PutModelMark(Guid id, ModelMark modelMarkEditDTO)
         {
-            if (id != modelMark.Id)
+            if (id != modelMarkEditDTO.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(modelMark).State = EntityState.Modified;
+            var modelMark = await _bll.ModelMarks.FirstOrDefaultAsync(modelMarkEditDTO.Id, User.UserGuidId());
+            if (modelMark == null)
+            {
+                return BadRequest();
+            }
+
+            modelMark.Mark = modelMark.Mark;
+            modelMark.Model = modelMark.Model;
+
+            _bll.ModelMarks.Update(modelMark);
+
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _bll.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ModelMarkExists(id))
+                if (!await _bll.ModelMarks.ExistsAsync(id, User.UserGuidId()))
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+
+                throw;
             }
 
             return NoContent();
@@ -82,33 +101,36 @@ namespace WebApp.ApiControllers._1._0
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<ModelMark>> PostModelMark(ModelMark modelMark)
+        public async Task<ActionResult<ModelMark>> PostModelMark(ModelMarkCreate modelMarkCreateDTO)
         {
-            _context.ModelMarks.Add(modelMark);
-            await _context.SaveChangesAsync();
+            var modelMark = new BLL.App.DTO.ModelMark()
+            {
+                AppUserId = User.UserGuidId(),
+                Model = modelMarkCreateDTO.Model,
+                Mark = modelMarkCreateDTO.Mark,
+            };
 
-            return CreatedAtAction("GetModelMark", new { id = modelMark.Id }, modelMark);
+            _bll.ModelMarks.Add(modelMark);
+            await _bll.SaveChangesAsync();
+
+            return CreatedAtAction("GetModelMark", new {id = modelMark.Id}, modelMark);
         }
 
         // DELETE: api/ModelMarks/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ModelMark>> DeleteModelMark(int id)
+        public async Task<ActionResult<ModelMark>> DeleteModelMark(Guid id)
         {
-            var modelMark = await _context.ModelMarks.FindAsync(id);
+            var modelMark = await _bll.ModelMarks 
+                .FirstOrDefaultAsync(id, User.UserGuidId());
             if (modelMark == null)
             {
                 return NotFound();
             }
 
-            _context.ModelMarks.Remove(modelMark);
-            await _context.SaveChangesAsync();
+            _bll.ModelMarks.Remove(modelMark);
+            await _bll.SaveChangesAsync();
 
-            return modelMark;
-        }
-
-        private bool ModelMarkExists(Guid id)
-        {
-            return _context.ModelMarks.Any(e => e.Id == id);
+            return Ok(modelMark);
         }
     }
 }

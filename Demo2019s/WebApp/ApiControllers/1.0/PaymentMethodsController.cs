@@ -2,13 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.BLL.App;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DAL.App.EF;
-using Domain;
+using Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using PublicApi.DTO.v1;
+using PaymentMethod = Domain.PaymentMethod;
 
 namespace WebApp.ApiControllers._1._0
 {
@@ -18,61 +21,76 @@ namespace WebApp.ApiControllers._1._0
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class PaymentMethodsController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IAppBLL _bll;
 
-        public PaymentMethodsController(AppDbContext context)
+        public PaymentMethodsController(IAppBLL bll)
         {
-            _context = context;
+            _bll = bll;
         }
 
         // GET: api/PaymentMethods
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PaymentMethod>>> GetPaymentMethods()
         {
-            return await _context.PaymentMethods.ToListAsync();
+            var paymentMethod = (await _bll.PaymentMethods.AllAsync())
+                .Select(bllEntity => new PaymentMethod()
+                {
+                    Id = bllEntity.Id,
+                    PaymentMethodName = bllEntity.PaymentMethodName,
+                }) ;
+            
+            return Ok(paymentMethod);
         }
 
         // GET: api/PaymentMethods/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<PaymentMethod>> GetPaymentMethod(int id)
+        public async Task<ActionResult<PaymentMethod>> GetPaymentMethod(Guid id)
         {
-            var paymentMethod = await _context.PaymentMethods.FindAsync(id);
+            var paymentMethod = await _bll.PaymentMethods.FirstOrDefaultAsync(id, User.UserGuidId());
 
             if (paymentMethod == null)
             {
                 return NotFound();
             }
 
-            return paymentMethod;
+            return Ok(paymentMethod);
         }
 
         // PUT: api/PaymentMethods/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPaymentMethod(Guid id, PaymentMethod paymentMethod)
+        public async Task<IActionResult> PutPaymentMethod(Guid id, PaymentMethod paymentMethodEditDTO)
         {
-            if (id != paymentMethod.Id)
+            if (id != paymentMethodEditDTO.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(paymentMethod).State = EntityState.Modified;
+            var paymentMethod = await _bll.PaymentMethods.FirstOrDefaultAsync(paymentMethodEditDTO.Id, User.UserGuidId());
+            if (paymentMethod == null)
+            {
+                return BadRequest();
+            }
+
+            paymentMethodEditDTO.ChangedAt = paymentMethodEditDTO.ChangedAt;
+            paymentMethodEditDTO.CreatedAt = paymentMethodEditDTO.CreatedAt;
+
+            _bll.PaymentMethods.Update(paymentMethod);
+
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _bll.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PaymentMethodExists(id))
+                if (!await _bll.PaymentMethods.ExistsAsync(id, User.UserGuidId()))
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+
+                throw;
             }
 
             return NoContent();
@@ -82,33 +100,35 @@ namespace WebApp.ApiControllers._1._0
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<PaymentMethod>> PostPaymentMethod(PaymentMethod paymentMethod)
+        public async Task<ActionResult<PaymentMethod>> PostPaymentMethod(PaymentMethodCreate paymentMethodCreate)
         {
-            _context.PaymentMethods.Add(paymentMethod);
-            await _context.SaveChangesAsync();
+            var paymentMethod = new BLL.App.DTO.PaymentMethod()
+            {
+                AppUserId = User.UserGuidId(),
+                PaymentMethodName = paymentMethodCreate.PaymentMethodName,
+            };
 
-            return CreatedAtAction("GetPaymentMethod", new { id = paymentMethod.Id }, paymentMethod);
+            _bll.PaymentMethods.Add(paymentMethod);
+            await _bll.SaveChangesAsync();
+
+            return CreatedAtAction("GetPaymentMethod", new {id = paymentMethod.Id}, paymentMethod);
         }
 
         // DELETE: api/PaymentMethods/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<PaymentMethod>> DeletePaymentMethod(int id)
+        public async Task<ActionResult<PaymentMethod>> DeletePaymentMethod(Guid id)
         {
-            var paymentMethod = await _context.PaymentMethods.FindAsync(id);
+            var paymentMethod = await _bll.PaymentMethods 
+                .FirstOrDefaultAsync(id, User.UserGuidId());
             if (paymentMethod == null)
             {
                 return NotFound();
             }
 
-            _context.PaymentMethods.Remove(paymentMethod);
-            await _context.SaveChangesAsync();
+            _bll.PaymentMethods.Remove(paymentMethod);
+            await _bll.SaveChangesAsync();
 
-            return paymentMethod;
-        }
-
-        private bool PaymentMethodExists(Guid id)
-        {
-            return _context.PaymentMethods.Any(e => e.Id == id);
+            return Ok(paymentMethod);
         }
     }
 }

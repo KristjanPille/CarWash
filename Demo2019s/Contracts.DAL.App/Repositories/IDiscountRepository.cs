@@ -1,17 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Contracts.DAL.Base;
 using Contracts.DAL.Base.Repositories;
-using Discount = DAL.App.DTO.Discount;
+using DAL.App.DTO;
 
 namespace Contracts.DAL.App.Repositories
 {
-    public interface IDiscountRepository : IBaseRepository<Discount>
+    public interface IDiscountRepository : IDiscountRepository<Guid, Discount>, IBaseRepository<Discount>
     {
-        Task<IEnumerable<Discount>> AllAsync(Guid? userId = null);
-        Task<Discount> FirstOrDefaultAsync(Guid id, Guid? userId = null);
+    }
+
+    public interface IDiscountRepository<TKey, TDALEntity> : IBaseRepository<TKey,TDALEntity> 
+        where TDALEntity : class, IDomainBaseEntity<TKey>, new() 
+        where TKey : IEquatable<TKey>
+    {
+        Task<IEnumerable<TDALEntity>> AllAsync(Guid? userId = null);
+        Task<TDALEntity> FirstOrDefaultAsync(Guid id, Guid? userId = null);
 
         Task<bool> ExistsAsync(Guid id, Guid? userId = null);
         Task DeleteAsync(Guid id, Guid? userId = null);
+        
+        
+        // DTO methods
+        //Task<IEnumerable<DiscountDTO>> DTOAllAsync(Guid? userId = null);
+        //Task<DiscountDTO> DTOFirstOrDefaultAsync(Guid id, Guid? userId = null);
+        
     }
 }

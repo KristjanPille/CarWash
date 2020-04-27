@@ -1,9 +1,11 @@
-﻿using Contracts.BLL.Base.Services;
-using Domain;
+﻿using System;
+using BLL.App.DTO;
+using Contracts.DAL.App.Repositories;
+
 
 namespace Contracts.BLL.App.Services
 {
-    public interface IPersonCarService : IBaseEntityService<PersonCar>
+    public interface IPersonCarService: IPersonCarRepository<Guid, PersonCar>
     {
         
     }

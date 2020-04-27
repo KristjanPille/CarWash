@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.BLL.App;
 using Contracts.DAL.App;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,7 @@ using Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using PublicApi.DTO.v1;
+using CarType = PublicApi.DTO.v1.CarType;
 
 namespace WebApp.ApiControllers._1._0
 {
@@ -21,105 +23,113 @@ namespace WebApp.ApiControllers._1._0
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class CarTypesController : ControllerBase
     {
-        private readonly IAppUnitOfWork _uow;
+        private readonly IAppBLL _bll;
 
-        public CarTypesController(IAppUnitOfWork uow)
+        public CarTypesController(IAppBLL bll)
         {
-            _uow = uow;
+            _bll = bll;
         }
 
         // GET: api/CarTypes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CarTypeDTO>>> GetCarTypes()
+        public async Task<ActionResult<IEnumerable<CarType>>> GetCarTypes()
         {
-            return Ok(await _uow.CarTypes.DTOAllAsync(User.UserGuidId()));
+            var carTypes = (await _bll.CarTypes.AllAsync())
+                .Select(bllEntity => new CarType()
+                {
+                    Id = bllEntity.Id,
+                    Name= bllEntity.Name,
+                }) ;
+            
+            return Ok(carTypes);
         }
 
         // GET: api/CarTypes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CarTypeDTO>> GetCarType(Guid id)
+        public async Task<ActionResult<CarType>> GetCarType(Guid id)
         {
-            var carDTO = await _uow.CarTypes.DTOFirstOrDefaultAsync(id, User.UserGuidId());
+            var carType = await _bll.CarTypes.FirstOrDefaultAsync(id, User.UserGuidId());
 
-            if (carDTO == null)
+            if (carType == null)
             {
                 return NotFound();
             }
 
-            return Ok(carDTO);
-
+            return Ok(carType);
         }
 
         // PUT: api/CarTypes/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCarType(Guid id, CarTypeEditDTO carTypeEditDTO)
+        public async Task<IActionResult> PutCarType(Guid id, CarTypeEdit carTypeEditDTO)
         {
             if (id != carTypeEditDTO.Id)
             {
                 return BadRequest();
             }
 
-            var carType = await _uow.CarTypes.FirstOrDefaultAsync(carTypeEditDTO.Id, User.UserGuidId());
+            var carType = await _bll.CarTypes.FirstOrDefaultAsync(carTypeEditDTO.Id, User.UserGuidId());
             if (carType == null)
             {
                 return BadRequest();
             }
+
             carType.Name = carTypeEditDTO.Name;
 
-            _uow.CarTypes.Update(carType);
-            
+            _bll.CarTypes.Update(carType);
+
+
             try
             {
-                await _uow.SaveChangesAsync();
+                await _bll.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!await _uow.CarTypes.ExistsAsync(id, User.UserGuidId()))
+                if (!await _bll.CarTypes.ExistsAsync(id, User.UserGuidId()))
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+
+                throw;
             }
 
             return NoContent();
-
         }
 
         // POST: api/CarTypes
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<CarType>> PostCarType(CarTypeCreateDTO carTypeCreateDTO)
+        public async Task<ActionResult<CarType>> PostCarType(CarTypeCreate carTypeCreateDTO)
         {
-            var car = new CarType();
-            car.Name = carTypeCreateDTO.Name;
-            
-            _uow.CarTypes.Add(car);
-           
-            await _uow.SaveChangesAsync();
+            var carType = new BLL.App.DTO.CarType()
+            {
+                AppUserId = User.UserGuidId(),
+                Name = carTypeCreateDTO.Name,
+            };
 
-            return CreatedAtAction("GetCarType", new { id = car.Id }, car);
+            _bll.CarTypes.Add(carType);
+            await _bll.SaveChangesAsync();
 
+            return CreatedAtAction("GetcarType", new {id = carType.Id}, carType);
         }
 
         // DELETE: api/CarTypes/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<CarType>> DeleteCarType(Guid id)
         {
-            var car = await _uow.CarTypes.FirstOrDefaultAsync(id, User.UserGuidId());
-            if (car == null)
+            var carType = await _bll.CarTypes 
+                .FirstOrDefaultAsync(id, User.UserGuidId());
+            if (carType == null)
             {
                 return NotFound();
             }
 
-            _uow.CarTypes.Remove(car);
-            await _uow.SaveChangesAsync();
-            return Ok(car);
+            _bll.CarTypes.Remove(carType);
+            await _bll.SaveChangesAsync();
+
+            return Ok(carType);
 
         }
     }

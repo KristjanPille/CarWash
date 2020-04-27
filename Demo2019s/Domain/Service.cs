@@ -19,9 +19,9 @@ namespace Domain
     {
         [MaxLength(64)]
         public string NameOfService { get; set; } = default!;
-        
         public TKey CampaignId { get; set; }
         public ICollection<Campaign>? Campaign { get; set; }
+        
         public TKey AppUserId { get; set; }
         public TUser? AppUser { get; set; }
     }

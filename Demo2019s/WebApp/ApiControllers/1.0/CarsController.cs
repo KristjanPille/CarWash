@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.BLL.App;
 using Contracts.DAL.App;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,7 @@ using Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using PublicApi.DTO.v1;
+using Car = PublicApi.DTO.v1.Car;
 
 namespace WebApp.ApiControllers._1._0
 {
@@ -21,32 +23,39 @@ namespace WebApp.ApiControllers._1._0
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class CarsController : ControllerBase
     {
-        private readonly IAppUnitOfWork _uow;
+        private readonly IAppBLL _bll;
 
-        public CarsController(IAppUnitOfWork uow)
+        public CarsController(IAppBLL bll)
         {
-            _uow = uow;
+            _bll = bll;
         }
 
         // GET: api/Cars
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CarDTO>>> GetCars()
+        public async Task<ActionResult<IEnumerable<Car>>> GetCars()
         {
-            return Ok(await _uow.Cars.DTOAllAsync(User.UserGuidId()));
+            var cars = (await _bll.Cars.AllAsync())
+                .Select(bllEntity => new Car()
+                {
+                    Id = bllEntity.Id,
+                    LicenceNr = bllEntity.LiceneNr,
+                }) ;
+            
+            return Ok(cars);
         }
 
         // GET: api/Cars/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CarDTO>> GetCar(Guid id)
+        public async Task<ActionResult<Car>> GetCar(Guid id)
         {
-            var carDTO = await _uow.Cars.DTOFirstOrDefaultAsync(id, User.UserGuidId());
+            var car = await _bll.Cars.FirstOrDefaultAsync(id, User.UserGuidId());
 
-            if (carDTO == null)
+            if (car == null)
             {
                 return NotFound();
             }
 
-            return Ok(carDTO);
+            return Ok(car);
 
         }
 
@@ -54,37 +63,38 @@ namespace WebApp.ApiControllers._1._0
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCar(Guid id, CarEditDTO carEditDTO)
+        public async Task<IActionResult> PutCar(Guid id, CarEdit carEditDTO)
         {
             if (id != carEditDTO.Id)
             {
                 return BadRequest();
             }
 
-            var car = await _uow.Cars.FirstOrDefaultAsync(carEditDTO.Id, User.UserGuidId());
+            var car = await _bll.Cars.FirstOrDefaultAsync(carEditDTO.Id, User.UserGuidId());
             if (car == null)
             {
                 return BadRequest();
             }
-            car.LicenceNr = carEditDTO.LicenceNr;
 
-            _uow.Cars.Update(car);
-            
+            car.LiceneNr = carEditDTO.LicenceNr;
+
+            _bll.Cars.Update(car);
+
+
             try
             {
-                await _uow.SaveChangesAsync();
+                await _bll.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!await _uow.Cars.ExistsAsync(id, User.UserGuidId()))
+                if (!await _bll.Cars.ExistsAsync(id, User.UserGuidId()))
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+
+                throw;
             }
+
             return NoContent();
         }
 
@@ -92,32 +102,35 @@ namespace WebApp.ApiControllers._1._0
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Car>> PostCar(CarCreateDTO carCreateDTO)
+        public async Task<ActionResult<Car>> PostCar(CarCreate carCreateDTO)
         {
-            var car = new Car();
-            car.LicenceNr = carCreateDTO.LicenceNr;
-            car.AppUserId = User.UserGuidId();
-            
-            _uow.Cars.Add(car);
-           
-            await _uow.SaveChangesAsync();
+            var car = new BLL.App.DTO.Car()
+            {
+                AppUserId = User.UserGuidId(),
+                LiceneNr = carCreateDTO.LicenceNr,
+            };
 
-            return CreatedAtAction("GetCar", new { id = car.Id }, car);
+            _bll.Cars.Add(car);
+            await _bll.SaveChangesAsync();
+
+            return CreatedAtAction("GetCar", new {id = car.Id}, car);
+
         }
 
         // DELETE: api/Cars/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Car>> DeleteCar(Guid id)
         {
-            var animal = await _uow.Cars.FirstOrDefaultAsync(id, User.UserGuidId());
-            if (animal == null)
+            var car = await _bll.Cars.FirstOrDefaultAsync(id, User.UserGuidId());
+            if (car == null)
             {
                 return NotFound();
             }
 
-            _uow.Cars.Remove(animal);
-            await _uow.SaveChangesAsync();
-            return Ok(animal);
+            _bll.Cars.Remove(car);
+            await _bll.SaveChangesAsync();
+
+            return Ok(car);
 
         }
     }

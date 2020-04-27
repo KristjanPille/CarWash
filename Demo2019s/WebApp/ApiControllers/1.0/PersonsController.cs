@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 using Contracts.BLL.App;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Domain;
 using Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using PublicApi.DTO.v1;
-using Person = Domain.Person;
+using PersonCar = PublicApi.DTO.v1.PersonCar;
 
 namespace WebApp.ApiControllers._1._0
 {
@@ -34,7 +33,7 @@ namespace WebApp.ApiControllers._1._0
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Person>>> GetPersons()
         {
-            var owners = (await _bll.Persons.AllAsync(User.UserGuidId()))
+            var persons = (await _bll.Persons.AllAsync(User.UserGuidId()))
                 .Select(bllEntity => new Person()
                 {
                     Id = bllEntity.Id,
@@ -42,8 +41,7 @@ namespace WebApp.ApiControllers._1._0
                     LastName = bllEntity.LastName,
                 }) ;
             
-            return Ok(owners);
-
+            return Ok(persons);
         }
 
         /// <summary>
@@ -66,7 +64,6 @@ namespace WebApp.ApiControllers._1._0
             }
 
             return Ok(person);
-
         }
 
         // PUT: api/Persons/5

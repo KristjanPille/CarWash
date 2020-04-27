@@ -2,13 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.BLL.App;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DAL.App.EF;
-using Domain;
+using Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using PublicApi.DTO.v1;
+using IsInWash = Domain.IsInWash;
 
 namespace WebApp.ApiControllers._1._0
 {
@@ -16,63 +19,79 @@ namespace WebApp.ApiControllers._1._0
     [ApiVersion( "1.0" )]
     [Route("api/v{version:apiVersion}/[controller]")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class IsInWashsController : ControllerBase
+    public class IsInWashesController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IAppBLL _bll;
 
-        public IsInWashsController(AppDbContext context)
+        public IsInWashesController(IAppBLL bll)
         {
-            _context = context;
+            _bll = bll;
         }
 
         // GET: api/IsInWashs
         [HttpGet]
         public async Task<ActionResult<IEnumerable<IsInWash>>> GetIsInWashes()
         {
-            return await _context.IsInWashes.ToListAsync();
+            var isInWash = (await _bll.IsInWashes.AllAsync())
+                .Select(bllEntity => new IsInWash()
+                {
+                    Id = bllEntity.Id,
+                    From = bllEntity.From,
+                    To = bllEntity.To,
+                }) ;
+            
+            return Ok(isInWash);
         }
 
         // GET: api/IsInWashs/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<IsInWash>> GetIsInWash(int id)
+        public async Task<ActionResult<IsInWash>> GetIsInWash(Guid id)
         {
-            var isInWash = await _context.IsInWashes.FindAsync(id);
+            var isInWash = await _bll.IsInWashes.FirstOrDefaultAsync(id, User.UserGuidId());
 
             if (isInWash == null)
             {
                 return NotFound();
             }
 
-            return isInWash;
+            return Ok(isInWash);
         }
 
         // PUT: api/IsInWashs/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutIsInWash(Guid id, IsInWash isInWash)
+        public async Task<IActionResult> PutIsInWash(Guid id, IsInWash isInWashEdit)
         {
-            if (id != isInWash.Id)
+            if (id != isInWashEdit.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(isInWash).State = EntityState.Modified;
+            var isInWash = await _bll.IsInWashes.FirstOrDefaultAsync(isInWashEdit.Id, User.UserGuidId());
+            if (isInWash == null)
+            {
+                return BadRequest();
+            }
+
+            isInWash.From = isInWash.From;
+            isInWash.To = isInWash.To;
+
+            _bll.IsInWashes.Update(isInWash);
+
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _bll.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!IsInWashExists(id))
+                if (!await _bll.IsInWashes.ExistsAsync(id, User.UserGuidId()))
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+
+                throw;
             }
 
             return NoContent();
@@ -82,33 +101,36 @@ namespace WebApp.ApiControllers._1._0
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<IsInWash>> PostIsInWash(IsInWash isInWash)
+        public async Task<ActionResult<IsInWash>> PostIsInWash(IsInWashCreate isInWashCreateDTO)
         {
-            _context.IsInWashes.Add(isInWash);
-            await _context.SaveChangesAsync();
+            var isInWash = new BLL.App.DTO.IsInWash()
+            {
+                AppUserId = User.UserGuidId(),
+                From = isInWashCreateDTO.From,
+                To = isInWashCreateDTO.To,
+            };
 
-            return CreatedAtAction("GetIsInWash", new { id = isInWash.Id }, isInWash);
+            _bll.IsInWashes.Add(isInWash);
+            await _bll.SaveChangesAsync();
+
+            return CreatedAtAction("GetIsInWash", new {id = isInWash.Id}, isInWash);
         }
 
         // DELETE: api/IsInWashs/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<IsInWash>> DeleteIsInWash(int id)
+        public async Task<ActionResult<IsInWash>> DeleteIsInWash(Guid id)
         {
-            var isInWash = await _context.IsInWashes.FindAsync(id);
+            var isInWash = await _bll.IsInWashes 
+                .FirstOrDefaultAsync(id, User.UserGuidId());
             if (isInWash == null)
             {
                 return NotFound();
             }
 
-            _context.IsInWashes.Remove(isInWash);
-            await _context.SaveChangesAsync();
+            _bll.IsInWashes.Remove(isInWash);
+            await _bll.SaveChangesAsync();
 
-            return isInWash;
-        }
-
-        private bool IsInWashExists(Guid id)
-        {
-            return _context.IsInWashes.Any(e => e.Id == id);
+            return Ok(isInWash);
         }
     }
 }

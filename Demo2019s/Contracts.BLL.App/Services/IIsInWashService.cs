@@ -1,11 +1,11 @@
-﻿using BLL.App.DTO;
-using Contracts.BLL.Base.Services;
-using DAL.App.DTO;
+﻿using System;
+using Contracts.DAL.App.Repositories;
+using BLL.App.DTO;
 
 
 namespace Contracts.BLL.App.Services
 {
-    public interface IIsInWashService : IBaseEntityService<IsInWash>
+    public interface IIsInWashService: IIsInWashRepository<Guid, IsInWash>
     {
         
     }

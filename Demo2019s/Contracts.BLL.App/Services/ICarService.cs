@@ -1,11 +1,11 @@
-﻿using BLL.App.DTO;
-using Contracts.BLL.Base.Services;
-using DAL.App.DTO;
+﻿using System;
+using BLL.App.DTO;
+using Contracts.DAL.App.Repositories;
 
 
 namespace Contracts.BLL.App.Services
 {
-    public interface ICarService : IBaseEntityService<Car>
+    public interface ICarService: ICarRepository<Guid, Car>
     {
         
     }

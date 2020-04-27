@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.BLL.App;
 using Contracts.DAL.App;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,101 +24,114 @@ namespace WebApp.ApiControllers._1._0
     public class CampaignsController : ControllerBase
     {
        
-        private readonly IAppUnitOfWork _uow;
+        private readonly IAppBLL _bll;
 
-        public CampaignsController(IAppUnitOfWork uow)
+        public CampaignsController(IAppBLL bll)
         {
-            _uow = uow;
+            _bll = bll;
         }
 
         // GET: api/Campaigns
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Campaign>>> GetCampaigns()
         {
-            return Ok(await _uow.Campaigns.DTOAllAsync(User.UserGuidId()));
+            var campaigns = (await _bll.Campaigns.AllAsync())
+                .Select(bllEntity => new Campaign()
+                {
+                    Id = bllEntity.Id,
+                    NameOfCampaign = bllEntity.NameOfCampaign,
+                }) ;
+            
+            return Ok(campaigns);
         }
 
         // GET: api/Campaigns/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CampaignDTO>> GetCampaign(Guid id)
+        public async Task<ActionResult<Campaign>> GetCampaign(Guid id)
         {
-            var campaign = await _context.Campaigns
-                .Select(o => new CampaignDTO()
-                {
-                    NameOfCampaign = o.NameOfCampaign, Id = o.Id
-                }).FirstOrDefaultAsync(o => o.Id == id);
+            var campaign = await _bll.Campaigns.FirstOrDefaultAsync(id, User.UserGuidId());
 
             if (campaign == null)
             {
                 return NotFound();
             }
 
-            return campaign;
+            return Ok(campaign);
         }
 
         // PUT: api/Campaigns/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCampaign(Guid id, Campaign campaign)
+        public async Task<IActionResult> PutCampaign(Guid id, CampaignEdit campaignEditDTO)
         {
-            if (id != campaign.Id)
+            if (id != campaignEditDTO.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(campaign).State = EntityState.Modified;
+            var campaign = await _bll.Campaigns.FirstOrDefaultAsync(campaignEditDTO.Id, User.UserGuidId());
+            if (campaign == null)
+            {
+                return BadRequest();
+            }
+
+            campaign.NameOfCampaign = campaignEditDTO.NameOfCampaign;
+
+            _bll.Campaigns.Update(campaign);
+
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _bll.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CampaignExists(id))
+                if (!await _bll.Campaigns.ExistsAsync(id, User.UserGuidId()))
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+
+                throw;
             }
 
             return NoContent();
+
         }
 
         // POST: api/Campaigns
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Campaign>> PostCampaign(Campaign campaign)
+        public async Task<ActionResult<Campaign>> PostCampaign(CampaignCreate campaignCreateDTO)
         {
-            _context.Campaigns.Add(campaign);
-            await _context.SaveChangesAsync();
+            var campaign = new BLL.App.DTO.Campaign()
+            {
+                AppUserId = User.UserGuidId(),
+                NameOfCampaign = campaignCreateDTO.NameOfCampaign,
+            };
 
-            return CreatedAtAction("GetCampaign", new { id = campaign.Id }, campaign);
+            _bll.Campaigns.Add(campaign);
+            await _bll.SaveChangesAsync();
+
+            return CreatedAtAction("GetCampaign", new {id = campaign.Id}, campaign);
+
         }
 
         // DELETE: api/Campaigns/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Campaign>> DeleteCampaign(Guid id)
         {
-            var campaign = await _context.Campaigns.FindAsync(id);
+            var campaign = await _bll.Campaigns.FirstOrDefaultAsync(id, User.UserGuidId());
             if (campaign == null)
             {
                 return NotFound();
             }
 
-            _context.Campaigns.Remove(campaign);
-            await _context.SaveChangesAsync();
+            _bll.Campaigns.Remove(campaign);
+            await _bll.SaveChangesAsync();
 
-            return campaign;
-        }
-
-        private bool CampaignExists(Guid id)
-        {
-            return _context.Campaigns.Any(e => e.Id == id);
+            return Ok(campaign);
         }
     }
 }

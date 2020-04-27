@@ -2,13 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.BLL.App;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DAL.App.EF;
-using Domain;
+using Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using PublicApi.DTO.v1;
+using Discount = Domain.Discount;
 
 namespace WebApp.ApiControllers._1._0
 {
@@ -18,61 +21,75 @@ namespace WebApp.ApiControllers._1._0
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class DiscountsController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IAppBLL _bll;
 
-        public DiscountsController(AppDbContext context)
+        public DiscountsController(IAppBLL bll)
         {
-            _context = context;
+            _bll = bll;
         }
 
         // GET: api/Discounts
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Discount>>> GetDiscounts()
         {
-            return await _context.Discounts.ToListAsync();
+            var discount = (await _bll.Discounts.AllAsync())
+                .Select(bllEntity => new Discount()
+                {
+                    Id = bllEntity.Id,
+                    DiscountAmount = bllEntity.DiscountAmount,
+                }) ;
+            
+            return Ok(discount);
         }
 
         // GET: api/Discounts/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Discount>> GetDiscount(int id)
+        public async Task<ActionResult<Discount>> GetDiscount(Guid id)
         {
-            var discount = await _context.Discounts.FindAsync(id);
+            var discount = await _bll.Discounts.FirstOrDefaultAsync(id, User.UserGuidId());
 
             if (discount == null)
             {
                 return NotFound();
             }
 
-            return discount;
+            return Ok(discount);
         }
 
         // PUT: api/Discounts/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDiscount(Guid id, Discount discount)
+        public async Task<IActionResult> PutDiscount(Guid id, Discount discountEditDTO)
         {
-            if (id != discount.Id)
+            if (id != discountEditDTO.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(discount).State = EntityState.Modified;
+            var discount = await _bll.Discounts.FirstOrDefaultAsync(discountEditDTO.Id, User.UserGuidId());
+            if (discount == null)
+            {
+                return BadRequest();
+            }
+
+            discount.DiscountAmount = discountEditDTO.DiscountAmount;
+
+            _bll.Discounts.Update(discount);
+
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _bll.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!DiscountExists(id))
+                if (!await _bll.Discounts.ExistsAsync(id, User.UserGuidId()))
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+
+                throw;
             }
 
             return NoContent();
@@ -82,33 +99,35 @@ namespace WebApp.ApiControllers._1._0
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Discount>> PostDiscount(Discount discount)
+        public async Task<ActionResult<Discount>> PostDiscount(DiscountCreate discountCreateDTO)
         {
-            _context.Discounts.Add(discount);
-            await _context.SaveChangesAsync();
+            var discount = new BLL.App.DTO.Discount()
+            {
+                AppUserId = User.UserGuidId(),
+                DiscountAmount = discountCreateDTO.DiscountAmount,
+            };
 
-            return CreatedAtAction("GetDiscount", new { id = discount.Id }, discount);
+            _bll.Discounts.Add(discount);
+            await _bll.SaveChangesAsync();
+
+            return CreatedAtAction("GetDiscount", new {id = discount.Id}, discount);
         }
 
         // DELETE: api/Discounts/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Discount>> DeleteDiscount(int id)
+        public async Task<ActionResult<Discount>> DeleteDiscount(Guid id)
         {
-            var discount = await _context.Discounts.FindAsync(id);
+            var discount = await _bll.Discounts 
+                .FirstOrDefaultAsync(id, User.UserGuidId());
             if (discount == null)
             {
                 return NotFound();
             }
 
-            _context.Discounts.Remove(discount);
-            await _context.SaveChangesAsync();
+            _bll.Discounts.Remove(discount);
+            await _bll.SaveChangesAsync();
 
-            return discount;
-        }
-
-        private bool DiscountExists(Guid id)
-        {
-            return _context.Discounts.Any(e => e.Id == id);
+            return Ok(discount);
         }
     }
 }

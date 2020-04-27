@@ -33,7 +33,7 @@ namespace DAL.App.EF.Repositories
                         LastName = dbEntity.LastName,
                     })
                     .ToListAsync())
-                .Select(dbEntity => Mapper.Map<PersonDisplay,DAL.App.DTO.Person>(dbEntity));
+                .Select(dbEntity => Mapper.Map<PersonDisplay, DAL.App.DTO.Person>(dbEntity));
         }
 
         public async Task<DAL.App.DTO.Person> FirstOrDefaultAsync(Guid id, Guid? userId = null)

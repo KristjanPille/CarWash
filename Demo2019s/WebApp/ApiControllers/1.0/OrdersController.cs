@@ -2,13 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.BLL.App;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DAL.App.EF;
-using Domain;
+using Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using PublicApi.DTO.v1;
+using Order = Domain.Order;
 
 namespace WebApp.ApiControllers._1._0
 {
@@ -18,61 +21,74 @@ namespace WebApp.ApiControllers._1._0
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class OrdersController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IAppBLL _bll;
 
-        public OrdersController(AppDbContext context)
+        public OrdersController(IAppBLL bll)
         {
-            _context = context;
+            _bll = bll;
         }
-
         // GET: api/Orders
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
-            return await _context.Orders.ToListAsync();
+            var orders = (await _bll.Orders.AllAsync())
+                .Select(bllEntity => new Order()
+                {
+                    Id = bllEntity.Id,
+                    Comment = bllEntity.Comment,
+                }) ;
+            
+            return Ok(orders);
         }
 
         // GET: api/Orders/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Order>> GetOrder(int id)
+        public async Task<ActionResult<Order>> GetOrder(Guid id)
         {
-            var order = await _context.Orders.FindAsync(id);
+            var order = await _bll.Orders.FirstOrDefaultAsync(id, User.UserGuidId());
 
             if (order == null)
             {
                 return NotFound();
             }
 
-            return order;
+            return Ok(order);
         }
 
         // PUT: api/Orders/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutOrder(int id, Order order)
+        public async Task<IActionResult> PutOrder(Guid id, Order orderEditDTO)
         {
-            if (id != order.OderId)
+            if (id != orderEditDTO.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(order).State = EntityState.Modified;
+            var order = await _bll.Orders.FirstOrDefaultAsync(orderEditDTO.Id, User.UserGuidId());
+            if (order == null)
+            {
+                return BadRequest();
+            }
+
+            order.Comment = order.Comment;
+
+            _bll.Orders.Update(order);
+
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _bll.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!OrderExists(id))
+                if (!await _bll.Orders.ExistsAsync(id, User.UserGuidId()))
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+
+                throw;
             }
 
             return NoContent();
@@ -82,33 +98,35 @@ namespace WebApp.ApiControllers._1._0
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Order>> PostOrder(Order order)
+        public async Task<ActionResult<Order>> PostOrder(OrderCreate orderCreateDTO)
         {
-            _context.Orders.Add(order);
-            await _context.SaveChangesAsync();
+            var order = new BLL.App.DTO.Order()
+            {
+                AppUserId = User.UserGuidId(),
+                Comment = orderCreateDTO.Comment,
+            };
 
-            return CreatedAtAction("GetOrder", new { id = order.OderId }, order);
+            _bll.Orders.Add(order);
+            await _bll.SaveChangesAsync();
+
+            return CreatedAtAction("GetOrder", new {id = order.Id}, order);
         }
 
         // DELETE: api/Orders/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Order>> DeleteOrder(int id)
+        public async Task<ActionResult<Order>> DeleteOrder(Guid id)
         {
-            var order = await _context.Orders.FindAsync(id);
+            var order = await _bll.Orders 
+                .FirstOrDefaultAsync(id, User.UserGuidId());
             if (order == null)
             {
                 return NotFound();
             }
 
-            _context.Orders.Remove(order);
-            await _context.SaveChangesAsync();
+            _bll.Orders.Remove(order);
+            await _bll.SaveChangesAsync();
 
-            return order;
-        }
-
-        private bool OrderExists(int id)
-        {
-            return _context.Orders.Any(e => e.OderId == id);
+            return Ok(order);
         }
     }
 }

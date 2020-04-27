@@ -2,13 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.BLL.App;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DAL.App.EF;
-using Domain;
+using Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using PublicApi.DTO.v1;
+using Person = Domain.Person;
+using Service = Domain.Service;
 
 namespace WebApp.ApiControllers._1._0
  {
@@ -18,61 +22,75 @@ namespace WebApp.ApiControllers._1._0
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ServicesController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IAppBLL _bll;
 
-        public ServicesController(AppDbContext context)
+        public ServicesController(IAppBLL bll)
         {
-            _context = context;
+            _bll = bll;
         }
 
         // GET: api/Services
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Service>>> GetServices()
         {
-            return await _context.Services.ToListAsync();
+            var services = (await _bll.Services.AllAsync(User.UserGuidId()))
+                .Select(bllEntity => new Person()
+                {
+                    Id = bllEntity.Id,
+                    FirstName = bllEntity.NameOfService,
+                }) ;
+            
+            return Ok(services);
         }
 
         // GET: api/Services/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Service>> GetService(int id)
+        public async Task<ActionResult<Service>> GetService(Guid id)
         {
-            var service = await _context.Services.FindAsync(id);
+            var service = await _bll.Services.FirstOrDefaultAsync(id, User.UserGuidId());
 
             if (service == null)
             {
                 return NotFound();
             }
 
-            return service;
+            return Ok(service);
         }
 
         // PUT: api/Services/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutService(Guid id, Service service)
+        public async Task<IActionResult> PutService(Guid id, ServiceEdit serviceEditDTO)
         {
-            if (id != service.Id)
+            if (id != serviceEditDTO.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(service).State = EntityState.Modified;
+            var service = await _bll.Services.FirstOrDefaultAsync(serviceEditDTO.Id, User.UserGuidId());
+            if (service == null)
+            {
+                return BadRequest();
+            }
+
+            service.NameOfService = serviceEditDTO.NameOfService;
+
+            _bll.Services.Update(service);
+
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _bll.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ServiceExists(id))
+                if (!await _bll.Services.ExistsAsync(id, User.UserGuidId()))
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+
+                throw;
             }
 
             return NoContent();
@@ -82,33 +100,34 @@ namespace WebApp.ApiControllers._1._0
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Service>> PostService(Service service)
+        public async Task<ActionResult<Service>> PostService(ServiceCreate serviceCreateDTO)
         {
-            _context.Services.Add(service);
-            await _context.SaveChangesAsync();
+            var service = new BLL.App.DTO.Service()
+            {
+                AppUserId = User.UserGuidId(),
+                NameOfService = serviceCreateDTO.NameOfService,
+            };
 
-            return CreatedAtAction("GetService", new { id = service.Id }, service);
+            _bll.Services.Add(service);
+            await _bll.SaveChangesAsync();
+
+            return CreatedAtAction("GetService", new {id = service.Id}, service);
         }
 
         // DELETE: api/Services/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Service>> DeleteService(int id)
+        public async Task<ActionResult<Service>> DeleteService(Guid id)
         {
-            var service = await _context.Services.FindAsync(id);
+            var service = await _bll.Services.FirstOrDefaultAsync(id, User.UserGuidId());
             if (service == null)
             {
                 return NotFound();
             }
 
-            _context.Services.Remove(service);
-            await _context.SaveChangesAsync();
+            _bll.Services.Remove(service);
+            await _bll.SaveChangesAsync();
 
-            return service;
-        }
-
-        private bool ServiceExists(Guid id)
-        {
-            return _context.Services.Any(e => e.Id == id);
+            return Ok(service);
         }
     }
 }

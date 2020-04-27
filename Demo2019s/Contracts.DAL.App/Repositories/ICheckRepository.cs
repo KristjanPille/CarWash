@@ -1,17 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Contracts.DAL.Base;
 using Contracts.DAL.Base.Repositories;
-using Check = DAL.App.DTO.Check;
+using DAL.App.DTO;
 
 namespace Contracts.DAL.App.Repositories
 {
-    public interface ICheckRepository : IBaseRepository<Check>
+    public interface ICheckRepository : ICheckRepository<Guid, Check>, IBaseRepository<Check>
     {
-        Task<IEnumerable<Check>> AllAsync(Guid? userId = null);
-        Task<Check> FirstOrDefaultAsync(Guid id, Guid? userId = null);
+    }
+
+    public interface ICheckRepository<TKey, TDALEntity> : IBaseRepository<TKey,TDALEntity> 
+        where TDALEntity : class, IDomainBaseEntity<TKey>, new() 
+        where TKey : IEquatable<TKey>
+    {
+        Task<IEnumerable<TDALEntity>> AllAsync(Guid? userId = null);
+        Task<TDALEntity> FirstOrDefaultAsync(Guid id, Guid? userId = null);
 
         Task<bool> ExistsAsync(Guid id, Guid? userId = null);
         Task DeleteAsync(Guid id, Guid? userId = null);
+
     }
 }

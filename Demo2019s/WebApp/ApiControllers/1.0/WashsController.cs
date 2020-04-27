@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.BLL.App;
 using Contracts.DAL.App;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,7 @@ using Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using PublicApi.DTO.v1;
+using Wash = PublicApi.DTO.v1.Wash;
 
 namespace WebApp.ApiControllers._1._0
 {
@@ -21,89 +23,95 @@ namespace WebApp.ApiControllers._1._0
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class WashesController : ControllerBase
     {
-        private readonly IAppUnitOfWork _uow;
+        private readonly IAppBLL _bll;
 
-        public WashesController(IAppUnitOfWork uow)
+        public WashesController(IAppBLL bll)
         {
-            _uow = uow;
+            _bll = bll;
         }
 
         // GET: api/Washes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<WashDTO>>> GetWashes()
+        public async Task<ActionResult<IEnumerable<Wash>>> GetWashes()
         {
-            return Ok(await _uow.Washes.DTOAllAsync(User.UserGuidId()));
+            var washes = (await _bll.Washes.AllAsync(User.UserGuidId()))
+                .Select(bllEntity => new Wash()
+                {
+                    Id = bllEntity.Id,
+                    NameOfWashType = bllEntity.NameOfWashType,
+                });
+            
+            return Ok(washes);
         }
 
         // GET: api/Washes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<WashDTO>> GetWash(Guid id)
+        public async Task<ActionResult<Wash>> GetWash(Guid id)
         {
-            var carDTO = await _uow.Washes.DTOFirstOrDefaultAsync(id, User.UserGuidId());
+            var wash = await _bll.Washes.FirstOrDefaultAsync(id, User.UserGuidId());
 
-            if (carDTO == null)
+            if (wash == null)
             {
                 return NotFound();
             }
 
-            return Ok(carDTO);
-
+            return Ok(wash);
         }
 
         // PUT: api/Washes/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutWash(Guid id, WashEditDTO WashEditDTO)
+        public async Task<IActionResult> PutWash(Guid id, WashEdit WashEditDTO)
         {
             if (id != WashEditDTO.Id)
             {
                 return BadRequest();
             }
 
-            var Wash = await _uow.Washes.FirstOrDefaultAsync(WashEditDTO.Id, User.UserGuidId());
-            if (Wash == null)
+            var wash = await _bll.Washes.FirstOrDefaultAsync(WashEditDTO.Id, User.UserGuidId());
+            if (wash == null)
             {
                 return BadRequest();
             }
-            Wash.NameOfWashType = WashEditDTO.NameOfWashType;
 
-            _uow.Washes.Update(Wash);
-            
+            wash.NameOfWashType = WashEditDTO.NameOfWashType;
+
+            _bll.Washes.Update(wash);
+
             try
             {
-                await _uow.SaveChangesAsync();
+                await _bll.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!await _uow.Washes.ExistsAsync(id, User.UserGuidId()))
+                if (!await _bll.Washes.ExistsAsync(id, User.UserGuidId()))
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+
+                throw;
             }
 
             return NoContent();
-
         }
 
         // POST: api/Washes
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Wash>> PostWash(WashCreateDTO WashCreateDTO)
+        public async Task<ActionResult<Wash>> PostWash(WashCreate WashCreateDTO)
         {
-            var wash = new Wash();
-            wash.NameOfWashType = WashCreateDTO.NameOfWashType;
-            
-            _uow.Washes.Add(wash);
-           
-            await _uow.SaveChangesAsync();
+            var wash = new BLL.App.DTO.Wash()
+            {
+                AppUserId = User.UserGuidId(),
+                NameOfWashType = WashCreateDTO.NameOfWashType,
+            };
 
-            return CreatedAtAction("GetWash", new { id = wash.Id }, wash);
+            _bll.Washes.Add(wash);
+            await _bll.SaveChangesAsync();
+
+            return CreatedAtAction("GetWash", new {id = wash.Id}, wash);
 
         }
 
@@ -111,16 +119,16 @@ namespace WebApp.ApiControllers._1._0
         [HttpDelete("{id}")]
         public async Task<ActionResult<Wash>> DeleteWash(Guid id)
         {
-            var car = await _uow.Washes.FirstOrDefaultAsync(id, User.UserGuidId());
-            if (car == null)
+            var wash = await _bll.Washes.FirstOrDefaultAsync(id, User.UserGuidId());
+            if (wash == null)
             {
                 return NotFound();
             }
 
-            _uow.Washes.Remove(car);
-            await _uow.SaveChangesAsync();
-            return Ok(car);
+            _bll.Washes.Remove(wash);
+            await _bll.SaveChangesAsync();
 
+            return Ok(wash);
         }
     }
 }

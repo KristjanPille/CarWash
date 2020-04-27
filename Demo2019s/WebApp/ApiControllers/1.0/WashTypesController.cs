@@ -2,13 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.BLL.App;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DAL.App.EF;
-using Domain;
+using Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using PublicApi.DTO.v1;
+using WashType = Domain.WashType;
 
 namespace WebApp.ApiControllers._1._0
 {
@@ -18,61 +21,74 @@ namespace WebApp.ApiControllers._1._0
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class WashTypesController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IAppBLL _bll;
 
-        public WashTypesController(AppDbContext context)
+        public WashTypesController(IAppBLL bll)
         {
-            _context = context;
+            _bll = bll;
         }
 
         // GET: api/WashTypes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<WashType>>> GetWashTypes()
         {
-            return await _context.WashTypes.ToListAsync();
+            var washTypes = (await _bll.WashTypes.AllAsync(User.UserGuidId()))
+                .Select(bllEntity => new WashType()
+                {
+                    Id = bllEntity.Id,
+                    NameOfWash = bllEntity.NameOfWash,
+                });
+            
+            return Ok(washTypes);
         }
 
         // GET: api/WashTypes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<WashType>> GetWashType(int id)
+        public async Task<ActionResult<WashType>> GetWashType(Guid id)
         {
-            var washType = await _context.WashTypes.FindAsync(id);
+            var washType = await _bll.WashTypes.FirstOrDefaultAsync(id, User.UserGuidId());
 
             if (washType == null)
             {
                 return NotFound();
             }
 
-            return washType;
+            return Ok(washType);
         }
 
         // PUT: api/WashTypes/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutWashType(Guid id, WashType washType)
+        public async Task<IActionResult> PutWashType(Guid id, WashTypeEdit washTypeEditDTO)
         {
-            if (id != washType.Id)
+            if (id != washTypeEditDTO.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(washType).State = EntityState.Modified;
+            var washType = await _bll.WashTypes.FirstOrDefaultAsync(washTypeEditDTO.Id, User.UserGuidId());
+            if (washType == null)
+            {
+                return BadRequest();
+            }
+
+            washType.NameOfWash = washTypeEditDTO.NameOfWash;
+
+            _bll.WashTypes.Update(washType);
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _bll.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!WashTypeExists(id))
+                if (!await _bll.WashTypes.ExistsAsync(id, User.UserGuidId()))
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+
+                throw;
             }
 
             return NoContent();
@@ -82,33 +98,34 @@ namespace WebApp.ApiControllers._1._0
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<WashType>> PostWashType(WashType washType)
+        public async Task<ActionResult<WashType>> PostWashType(WashTypeCreate washTypeCreatedto)
         {
-            _context.WashTypes.Add(washType);
-            await _context.SaveChangesAsync();
+            var washType = new BLL.App.DTO.WashType()
+            {
+                AppUserId = User.UserGuidId(),
+                NameOfWash = washTypeCreatedto.NameOfWash,
+            };
 
-            return CreatedAtAction("GetWashType", new { id = washType.Id }, washType);
+            _bll.WashTypes.Add(washType);
+            await _bll.SaveChangesAsync();
+
+            return CreatedAtAction("GetWashType", new {id = washType.Id}, washType);
         }
 
         // DELETE: api/WashTypes/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<WashType>> DeleteWashType(int id)
+        public async Task<ActionResult<WashType>> DeleteWashType(Guid id)
         {
-            var washType = await _context.WashTypes.FindAsync(id);
+            var washType = await _bll.WashTypes.FirstOrDefaultAsync(id, User.UserGuidId());
             if (washType == null)
             {
                 return NotFound();
             }
 
-            _context.WashTypes.Remove(washType);
-            await _context.SaveChangesAsync();
+            _bll.WashTypes.Remove(washType);
+            await _bll.SaveChangesAsync();
 
-            return washType;
-        }
-
-        private bool WashTypeExists(Guid id)
-        {
-            return _context.WashTypes.Any(e => e.Id == id);
+            return Ok(washType);
         }
     }
 }

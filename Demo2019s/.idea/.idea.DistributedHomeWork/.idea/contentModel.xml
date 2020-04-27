@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\krist\.Rider2019.3\config\consoles\db" t="IncludeRecursive" />
-    <e p="C:\Users\krist\.Rider2019.3\config\extensions" t="IncludeRecursive" />
-    <e p="C:\Users\krist\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\krist\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_DistributedHomeWork.1277058304.00" t="ExcludeRecursive" />
+    <e p="C:\Users\krist\AppData\local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\krist\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_DistributedHomeWork.1277058304.00" t="ExcludeRecursive" />
+    <e p="C:\Users\krist\AppData\Roaming\JetBrains\Rider2020.1\consoles\db" t="IncludeRecursive" />
+    <e p="C:\Users\krist\AppData\Roaming\JetBrains\Rider2020.1\extensions" t="IncludeRecursive" />
     <e p="C:\Users\krist\icd0009-2019s\Demo2019s" t="IncludeFlat">
       <e p="_Solution Items" t="Include" />
       <e p="BLL" t="Include" />
@@ -22,29 +22,35 @@
         <e p="Services" t="Include">
           <e p="CampaignService.cs" t="Include" />
           <e p="CarService.cs" t="Include" />
-          <e p="CarTpeService.cs" t="Include" />
-          <e p="ICheckService.cs" t="Include" />
-          <e p="IDiscountService.cs" t="Include" />
-          <e p="IIsInWashService.cs" t="Include" />
-          <e p="IModelMarkService.cs" t="Include" />
-          <e p="IOrderService.cs" t="Include" />
-          <e p="IPaymentMehtodService.cs" t="Include" />
-          <e p="IPaymentService.cs" t="Include" />
-          <e p="IServiceService.cs" t="Include" />
-          <e p="IWashService.cs" t="Include" />
-          <e p="IWashTypeService.cs" t="Include" />
+          <e p="CarTypeService.cs" t="Include" />
+          <e p="CheckService.cs" t="Include" />
+          <e p="DiscountService.cs" t="Include" />
+          <e p="IsInWashService.cs" t="Include" />
+          <e p="ModelMarkService.cs" t="Include" />
+          <e p="OrderService.cs" t="Include" />
+          <e p="PaymentMehtodService.cs" t="Include" />
+          <e p="PaymentService.cs" t="Include" />
           <e p="PersonCarService.cs" t="Include" />
           <e p="PersonService.cs" t="Include" />
+          <e p="ServiceService.cs" t="Include" />
+          <e p="WashService.cs" t="Include" />
+          <e p="WashTypeService.cs" t="Include" />
         </e>
       </e>
       <e p="BLL.App.DTO" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="BLL.App.DTO.csproj" t="IncludeRecursive" />
+        <e p="Campaign.cs" t="Include" />
         <e p="Car.cs" t="Include" />
+        <e p="carType.cs" t="Include" />
+        <e p="Check.cs" t="Include" />
+        <e p="Discount.cs" t="Include" />
         <e p="Identity" t="Include">
           <e p="AppRole.cs" t="Include" />
           <e p="AppUser.cs" t="Include" />
         </e>
+        <e p="IsInWash.cs" t="Include" />
+        <e p="ModelMark.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netstandard2.1" t="Include">
@@ -52,8 +58,14 @@
             </e>
           </e>
         </e>
-        <e p="OwnerAnimal.cs" t="Include" />
+        <e p="Order.cs" t="Include" />
+        <e p="Payment.cs" t="Include" />
+        <e p="PaymentMethod.cs" t="Include" />
         <e p="Person.cs" t="Include" />
+        <e p="PersonCar.cs" t="Include" />
+        <e p="Service.cs" t="Include" />
+        <e p="Wash.cs" t="Include" />
+        <e p="WashType.cs" t="Include" />
       </e>
       <e p="BLL.Base" t="IncludeRecursive">
         <e p="BaseBLL.cs" t="Include" />
@@ -294,6 +306,7 @@
         </e>
         <e p="IsInWash.cs" t="Include" />
         <e p="ModelMark.cs" t="Include" />
+        <e p="MultiLangString.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netstandard2.1" t="Include">
@@ -307,6 +320,7 @@
         <e p="Person.cs" t="Include" />
         <e p="PersonCar.cs" t="Include" />
         <e p="Service.cs" t="Include" />
+        <e p="Translation.cs" t="Include" />
         <e p="Wash.cs" t="Include" />
         <e p="WashType.cs" t="Include" />
       </e>
@@ -330,9 +344,13 @@
         <e p="Campaigncs.cs" t="Include" />
         <e p="Car.cs" t="Include" />
         <e p="carType.cs" t="Include" />
+        <e p="Check.cs" t="Include" />
+        <e p="Discount.cs" t="Include" />
+        <e p="IsInWash.cs" t="Include" />
         <e p="Mappers" t="Include">
           <e p="DTOMapper.cs" t="Include" />
         </e>
+        <e p="ModelMark.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netstandard2.1" t="Include">
@@ -340,10 +358,15 @@
             </e>
           </e>
         </e>
+        <e p="Order.cs" t="Include" />
+        <e p="Payment.cs" t="Include" />
+        <e p="PaymentMethod.cs" t="Include" />
         <e p="Person.cs" t="Include" />
-        <e p="PersonCarDTO.cs" t="Include" />
+        <e p="PersonCar.cs" t="Include" />
         <e p="PublicApi.DTO.v1.csproj" t="IncludeRecursive" />
+        <e p="Service.cs" t="Include" />
         <e p="Wash.cs" t="Include" />
+        <e p="WashType.cs" t="Include" />
       </e>
       <e p="Resources" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />

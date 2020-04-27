@@ -5,11 +5,11 @@ using Contracts.DAL.Base;
 
 namespace BLL.App.DTO
 {
-    public class Animal : Animal<Guid>, IDomainBaseEntity
+    public class Car : Car<Guid>, IDomainBaseEntity
     {
     }
     
-    public class Animal<TKey> : IDomainBaseEntity<TKey>
+    public class Car<TKey> : IDomainBaseEntity<TKey>
     where TKey: IEquatable<TKey>
     {
         public TKey Id { get; set; } = default!;

@@ -2,13 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.BLL.App;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DAL.App.EF;
-using Domain;
+using Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using PublicApi.DTO.v1;
+using Check = PublicApi.DTO.v1.Check;
 
 namespace WebApp.ApiControllers._1._0
 {
@@ -18,61 +21,77 @@ namespace WebApp.ApiControllers._1._0
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ChecksController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IAppBLL _bll;
 
-        public ChecksController(AppDbContext context)
+        public ChecksController(IAppBLL bll)
         {
-            _context = context;
+            _bll = bll;
         }
 
         // GET: api/Checks
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Check>>> GetChecks()
         {
-            return await _context.Checks.ToListAsync();
+            var check = (await _bll.Checks.AllAsync())
+                .Select(bllEntity => new Check()
+                {
+                    Id = bllEntity.Id,
+                    Comment = bllEntity.Comment,
+                    Vat = bllEntity.Vat,
+                    AmountExcludeVat = bllEntity.AmountExcludeVat,
+                }) ;
+            
+            return Ok(check);
         }
 
         // GET: api/Checks/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Check>> GetCheck(int id)
+        public async Task<ActionResult<Check>> GetCheck(Guid id)
         {
-            var check = await _context.Checks.FindAsync(id);
+            var check = await _bll.Checks.FirstOrDefaultAsync(id, User.UserGuidId());
 
             if (check == null)
             {
                 return NotFound();
             }
 
-            return check;
+            return Ok(check);
         }
 
         // PUT: api/Checks/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCheck(Guid id, Check check)
+        public async Task<IActionResult> PutCheck(Guid id, CheckEdit checkEditDTO)
         {
-            if (id != check.Id)
+            if (id != checkEditDTO.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(check).State = EntityState.Modified;
+            var check = await _bll.Checks.FirstOrDefaultAsync(checkEditDTO.Id, User.UserGuidId());
+            if (check == null)
+            {
+                return BadRequest();
+            }
+
+            check.Comment = checkEditDTO.Comment;
+
+            _bll.Checks.Update(check);
+
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _bll.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CheckExists(id))
+                if (!await _bll.Checks.ExistsAsync(id, User.UserGuidId()))
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+
+                throw;
             }
 
             return NoContent();
@@ -82,33 +101,40 @@ namespace WebApp.ApiControllers._1._0
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Check>> PostCheck(Check check)
+        public async Task<ActionResult<Check>> PostCheck(CheckCreate checkcreateDTO)
         {
-            _context.Checks.Add(check);
-            await _context.SaveChangesAsync();
+            var check = new BLL.App.DTO.Check()
+            {
+                AppUserId = User.UserGuidId(),
+                Comment = checkcreateDTO.Comment,
+                Vat = checkcreateDTO.Vat,
+                AmountExcludeVat = checkcreateDTO.AmountExcludeVat,
+                AmountWithVat = checkcreateDTO.AmountWithVat,
+            };
 
-            return CreatedAtAction("GetCheck", new { id = check.Id }, check);
+            _bll.Checks.Add(check);
+            await _bll.SaveChangesAsync();
+
+            return CreatedAtAction("GetCheck", new {id = check.Id}, check);
         }
-
+        
+        
         // DELETE: api/Checks/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Check>> DeleteCheck(int id)
+        public async Task<ActionResult<Check>> DeleteCheck(Guid id)
         {
-            var check = await _context.Checks.FindAsync(id);
+            var check = await _bll.Checks 
+                .FirstOrDefaultAsync(id, User.UserGuidId());
             if (check == null)
             {
                 return NotFound();
             }
 
-            _context.Checks.Remove(check);
-            await _context.SaveChangesAsync();
+            _bll.Checks.Remove(check);
+            await _bll.SaveChangesAsync();
 
-            return check;
-        }
-
-        private bool CheckExists(Guid id)
-        {
-            return _context.Checks.Any(e => e.Id == id);
+            return Ok(check);
         }
     }
+    
 }

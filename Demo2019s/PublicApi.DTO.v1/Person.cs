@@ -12,7 +12,7 @@ namespace PublicApi.DTO.v1
         public string LastName { get; set; } = default!;
         [MinLength(1)] [MaxLength(64)] 
         public string Email { get; set; } 
-        [MinLength(1)] [MaxLength(64)] 
+        [MinLength(1)] [MaxLength(32)] 
         public int PhoneNr { get; set; }
     }
     

@@ -13,7 +13,6 @@ namespace DAL.App.EF
     public class AppDbContext : IdentityDbContext<AppUser, AppRole, Guid>
     {
         private IUserNameProvider _userNameProvider;
-        
         public DbSet<Person> Person { get; set; } = default!;
         public DbSet<Campaign> Campaigns { get; set; } = default!;
         public DbSet<Car> Cars { get; set; } = default!;
@@ -92,3 +91,4 @@ namespace DAL.App.EF
         }
     }
 }
+

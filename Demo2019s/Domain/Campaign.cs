@@ -14,9 +14,6 @@ namespace Domain
         where TKey : IEquatable<TKey>
         where TUser : AppUser<TKey>
     {
-        public int ServiceId { get; set; }
-        public Service? Service { get; set; }
-        
         public TKey AppUserId { get; set; } = default!;
         public TUser? AppUser { get; set; }
 

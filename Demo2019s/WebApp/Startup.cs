@@ -6,6 +6,7 @@ using BLL.App;
 using Contracts.BLL.App;
 using Contracts.DAL.App;
 using Contracts.DAL.App.Repositories;
+using Contracts.DAL.Base;
 using DAL.App.EF;
 using DAL.App.EF.Repositories;
 using Domain;
@@ -44,20 +45,25 @@ namespace WebApp
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("MsSqlConnection")));
-            services.AddScoped<IAppUnitOfWork, AppUnitOfWork>();
 
-            //services.AddScoped<IUserNameProvider, UserNameProvider>();
+            // add as a scoped dependency
+            services.AddScoped<IUserNameProvider, UserNameProvider>();
             services.AddScoped<IAppUnitOfWork, AppUnitOfWork>();
             services.AddScoped<IAppBLL, AppBLL>();
-            
-            
+
+
             services.AddIdentity<AppUser, AppRole>()
                 .AddDefaultUI()
-                .AddEntityFrameworkStores<AppDbContext>();
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+            
 
             services.AddControllersWithViews();
             services.AddRazorPages();
             
+            // makes httpcontext injectable - needed to resolve username in dal layer
+            services.AddHttpContextAccessor();
+
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsAllowAll",
@@ -68,7 +74,7 @@ namespace WebApp
                         builder.AllowAnyMethod();
                     });
             });
-            
+
             // =============== JWT support ===============
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // => remove default claims
             services

@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Service = DAL.App.DTO.Service;
 
 namespace WebApp.ViewModels
 {

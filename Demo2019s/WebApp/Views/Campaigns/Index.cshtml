@@ -1,4 +1,4 @@
-@model IEnumerable<DAL.App.DTO.Campaign>
+@model IEnumerable<BLL.App.DTO.Campaign>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,12 +13,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CampaignId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Service)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.NameOfCampaign)
             </th>
             <th></th>
@@ -27,12 +21,6 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CampaignId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Service!.NameOfService)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NameOfCampaign)
             </td>

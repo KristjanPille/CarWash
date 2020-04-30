@@ -67,7 +67,7 @@ namespace DAL.Base.EF.Mappers
                                     ((IEnumerable) value).Cast<object>()
                                     .Select(x => Convert.ChangeType((GetType()
                                         .GetMethod(nameof(Map))
-                                        ?.MakeGenericMethod(property.PropertyType)
+                                        .MakeGenericMethod(property.PropertyType)
                                         .Invoke(this, new[] {x})), property.PropertyType.GetGenericArguments()[0]))
                                     .ToList(), property.PropertyType)
                             );
@@ -76,10 +76,10 @@ namespace DAL.Base.EF.Mappers
 
                     property.SetValue(result, GetType()
                         .GetMethod(nameof(Map))
-                        ?.MakeGenericMethod(property.PropertyType)
+                        .MakeGenericMethod(property.PropertyType)
                         .Invoke(this, new[] {value}));
                 }
-            } 
+            }
 
             return result;
         }

@@ -1,11 +1,13 @@
 using System;
 using System.Threading.Tasks;
+using Contracts.BLL.App;
 using Contracts.DAL.App;
 using Microsoft.AspNetCore.Mvc;
 using Domain;
 using Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using WebApp.ViewModels;
 using Service = DAL.App.DTO.Service;
 
 namespace WebApp.Controllers
@@ -13,18 +15,20 @@ namespace WebApp.Controllers
     [Authorize(Roles = "User")]
     public class ServicesController : Controller
     {
-        private readonly IAppUnitOfWork _uow;
+        private readonly IAppBLL _bll;
 
-        public ServicesController(IAppUnitOfWork uow)
+        public ServicesController(IAppBLL bll)
         {
-            _uow = uow;
+            _bll = bll;
         }
 
         // GET: services
         public async Task<IActionResult> Index()
         {
-            var services = await _uow.Services.AllAsync(User.UserGuidId());
+            var services = await _bll.Services.AllAsync(User.UserGuidId());
+
             return View(services);
+
         }
 
         // GET: services/Details/5
@@ -35,13 +39,14 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var service = await _uow.Services.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            var service = await _bll.Services.FirstOrDefaultAsync(id.Value, User.UserGuidId());
             if (service == null)
             {
                 return NotFound();
             }
 
             return View(service);
+
         }
 
         // GET: services/Create
@@ -55,17 +60,18 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(DAL.App.DTO.Service service)
+        public async Task<IActionResult> Create(BLL.App.DTO.Service service)
         {
+            service.AppUserId = User.UserGuidId();
 
             if (ModelState.IsValid)
             {
-                _uow.Services.Add(service);
-                await _uow.SaveChangesAsync();
+                _bll.Services.Add(service);
+                await _bll.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(service);
 
+            return View(service);
         }
 
         // GET: services/Edit/5
@@ -76,11 +82,13 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var service = await _uow.Services.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            var service = await _bll.Services.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+
             if (service == null)
             {
                 return NotFound();
             }
+
             return View(service);
 
         }
@@ -90,8 +98,10 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, Service service)
+        public async Task<IActionResult> Edit(Guid id, BLL.App.DTO.Service service)
         {
+            service.AppUserId = User.UserGuidId();
+
             if (id != service.Id)
             {
                 return NotFound();
@@ -101,12 +111,12 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _uow.Services.Update(service);
-                    await _uow.SaveChangesAsync();
+                    _bll.Services.Update(service);
+                    await _bll.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await _uow.Services.ExistsAsync(id, User.UserGuidId()))
+                    if (! await _bll.Services.ExistsAsync(service.Id, User.UserGuidId()))
                     {
                         return NotFound();
                     }
@@ -115,8 +125,10 @@ namespace WebApp.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(service);
 
         }
@@ -129,13 +141,15 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var service = await _uow.Services.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            var service = await _bll.Services.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+
             if (service == null)
             {
                 return NotFound();
             }
 
             return View(service);
+
 
         }
 
@@ -144,9 +158,11 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            await _uow.Services.DeleteAsync(id, User.UserGuidId());
-            await _uow.SaveChangesAsync();
+            await _bll.Services.DeleteAsync(id, User.UserGuidId());
+            await _bll.SaveChangesAsync();
+            
             return RedirectToAction(nameof(Index));
+
         }
     }
 }

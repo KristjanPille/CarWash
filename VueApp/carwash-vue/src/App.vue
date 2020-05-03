@@ -1,41 +1,25 @@
 <template>
-<div>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <router-link to="" a class="navbar-brand">Home</router-link>
-                <button
-                class="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target=".navbar-collapse"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-                >
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/Identity/Account/Register">Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/Identity/Account/Login">Login</a>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Language
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/Home/SetLanguage?culture=en-GB&amp;returnUrl=%2F">English (United Kingdom)</a>
-                                <a class="dropdown-item" href="/Home/SetLanguage?culture=et-EE&amp;returnUrl=%2F">eesti (Eesti)</a>
-                            </div>
-                        </li>
-                    </ul>
-
-                    <ul class="navbar-nav flex-grow-1">
+    <div>
+        <header>
+            <nav
+                class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
+            >
+                <div class="container">
+                    <router-link to="/" class="navbar-brand">Home</router-link>
+                    <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target=".navbar-collapse"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                    >
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <Identity />
+                        <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <router-link to="/" a class="nav-link text-dark">Home</router-link>
                         </li>
@@ -86,15 +70,26 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/Washs/Create">Washes</a>
                         </li>
-                    </ul>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            <router-view />
-        </main>
+            </nav>
+        </header>
+        <div class="container">
+            <main role="main" class="pb-3">
+                <router-view />
+            </main>
+        </div>
     </div>
-</div>
 </template>
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import Identity from './components/Identity.vue'
+
+@Component({
+    components: {
+        Identity
+    }
+})
+export default class App extends Vue {}
+</script>

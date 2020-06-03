@@ -1,57 +1,31 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Contracts.DAL.App.Repositories;
-using DAL.Base.EF.Mappers;
+using DAL.App.DTO;
+using DAL.App.EF.Mappers;
 using DAL.Base.EF.Repositories;
-using Domain;
 using Microsoft.EntityFrameworkCore;
-using ModelMark = DAL.App.DTO.ModelMark;
 
 namespace DAL.App.EF.Repositories
 {
-    public class ModelMarkRepository : EFBaseRepository<AppDbContext, Domain.ModelMark, DAL.App.DTO.ModelMark>, IModelMarkRepository
+    public class ModelMarkRepository :
+        EFBaseRepository<AppDbContext, Domain.App.Identity.AppUser, Domain.App.ModelMark, DAL.App.DTO.ModelMark>,
+        IModelMarkRepository
     {
-        public ModelMarkRepository(AppDbContext dbContext) : base(dbContext, new BaseDALMapper<Domain.ModelMark, DAL.App.DTO.ModelMark>())
+        public ModelMarkRepository(AppDbContext repoDbContext) : base(repoDbContext,
+            new DALMapper<Domain.App.ModelMark, DTO.ModelMark>())
         {
         }
-        public async Task<IEnumerable<ModelMark>> AllAsync(Guid? userId = null)
+
+        public virtual async Task<IEnumerable<DTO.ModelMark>> GetAllAsync(Guid gpsSessionId, Guid? userId = null, bool noTracking = true)
         {
-            if (userId == null)
-            {
-                return await base.AllAsync(); // base is not actually needed, using it for clarity
-            }
-
-            return (await RepoDbSet.Where(o => o.AppUserId == userId)
-                .ToListAsync()).Select(domainEntity => Mapper.Map(domainEntity));
-        }
-
-        public async Task<DTO.ModelMark> FirstOrDefaultAsync(Guid id, Guid? userId = null)
-        {
-            var query = RepoDbSet.Where(a => a.Id == id).AsQueryable();
-            if (userId != null)
-            {
-                query = query.Where(a => a.AppUserId == userId);
-            }
-
-            return Mapper.Map(await query.FirstOrDefaultAsync());
-        }
-
-        public async Task<bool> ExistsAsync(Guid id, Guid? userId = null)
-        {
-            if (userId == null)
-            {
-                return await RepoDbSet.AnyAsync(a => a.Id == id);
-            }
-
-            return await RepoDbSet.AnyAsync(a => a.Id == id && a.AppUserId == userId);
-        }
-
-        public async Task DeleteAsync(Guid id, Guid? userId = null)
-        {
-            var Discount = await FirstOrDefaultAsync(id, userId);
-            base.Remove(Discount);
+            var query = PrepareQuery(userId, noTracking);
+            query = query.Where(e => e.Id == gpsSessionId);
+            var domainEntities = await query.ToListAsync();
+            var result = domainEntities.Select(e => Mapper.Map(e));
+            return result;
         }
     }
 }

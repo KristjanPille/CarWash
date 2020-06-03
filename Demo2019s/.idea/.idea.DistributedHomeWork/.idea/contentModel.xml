@@ -2,16 +2,34 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="C:\Users\krist\AppData\local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\krist\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_DistributedHomeWork.1277058304.00" t="ExcludeRecursive" />
+    <e p="C:\Users\krist\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_DistributedHomeWork.-1078464245.00" t="ExcludeRecursive" />
     <e p="C:\Users\krist\AppData\Roaming\JetBrains\Rider2020.1\consoles\db" t="IncludeRecursive" />
     <e p="C:\Users\krist\AppData\Roaming\JetBrains\Rider2020.1\extensions" t="IncludeRecursive" />
-    <e p="C:\Users\krist\icd0009-2019s\Demo2019s" t="IncludeFlat">
+    <e p="C:\Users\krist\AppData\Roaming\JetBrains\Rider2020.1\scratches" t="IncludeRecursive" />
+    <e p="C:\Users\krist\OneDrive\Töölaud\Demo2019s" t="IncludeFlat">
+      <e p=".gitignore" t="Include" />
       <e p="_Solution Items" t="Include" />
       <e p="BLL" t="Include" />
       <e p="BLL.App" t="IncludeRecursive">
         <e p="AppBLL.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="BLL.App.csproj" t="IncludeRecursive" />
+        <e p="Mappers" t="Include">
+          <e p="BLLMapper.cs" t="Include" />
+          <e p="CampaignServiceMapper.cs" t="Include" />
+          <e p="CarServiceMapper.cs" t="Include" />
+          <e p="CarTypeServiceMapper.cs" t="Include" />
+          <e p="CheckServiceMapper.cs" t="Include" />
+          <e p="DiscountServiceMapper.cs" t="Include" />
+          <e p="IsInServiceServiceMapper.cs" t="Include" />
+          <e p="LangStrServiceMapper.cs" t="Include" />
+          <e p="LangStrTranslationServiceMapper.cs" t="Include" />
+          <e p="ModelMarkServiceMapper.cs" t="Include" />
+          <e p="OrderServiceMapper.cs" t="Include" />
+          <e p="PaymentMethodServiceMapper.cs" t="Include" />
+          <e p="PaymentServiceMapper.cs" t="Include" />
+          <e p="ServiceServiceMapper.cs" t="Include" />
+        </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netstandard2.1" t="Include">
@@ -22,19 +40,15 @@
         <e p="Services" t="Include">
           <e p="CampaignService.cs" t="Include" />
           <e p="CarService.cs" t="Include" />
-          <e p="CarTypeService.cs" t="Include" />
           <e p="CheckService.cs" t="Include" />
-          <e p="DiscountService.cs" t="Include" />
-          <e p="IsInWashService.cs" t="Include" />
+          <e p="IsInServiceService.cs" t="Include" />
+          <e p="LangStrService.cs" t="Include" />
+          <e p="LangStrTranslationService.cs" t="Include" />
           <e p="ModelMarkService.cs" t="Include" />
           <e p="OrderService.cs" t="Include" />
           <e p="PaymentMehtodService.cs" t="Include" />
           <e p="PaymentService.cs" t="Include" />
-          <e p="PersonCarService.cs" t="Include" />
-          <e p="PersonService.cs" t="Include" />
           <e p="ServiceService.cs" t="Include" />
-          <e p="WashService.cs" t="Include" />
-          <e p="WashTypeService.cs" t="Include" />
         </e>
       </e>
       <e p="BLL.App.DTO" t="IncludeRecursive">
@@ -49,7 +63,9 @@
           <e p="AppRole.cs" t="Include" />
           <e p="AppUser.cs" t="Include" />
         </e>
-        <e p="IsInWash.cs" t="Include" />
+        <e p="IsInService.cs" t="Include" />
+        <e p="LangStr.cs" t="Include" />
+        <e p="LangStrTranslation.cs" t="Include" />
         <e p="ModelMark.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -61,18 +77,14 @@
         <e p="Order.cs" t="Include" />
         <e p="Payment.cs" t="Include" />
         <e p="PaymentMethod.cs" t="Include" />
-        <e p="Person.cs" t="Include" />
-        <e p="PersonCar.cs" t="Include" />
         <e p="Service.cs" t="Include" />
-        <e p="Wash.cs" t="Include" />
-        <e p="WashType.cs" t="Include" />
       </e>
       <e p="BLL.Base" t="IncludeRecursive">
         <e p="BaseBLL.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="BLL.Base.csproj" t="IncludeRecursive" />
         <e p="Mappers" t="Include">
-          <e p="BaseBLLMapper.cs" t="Include" />
+          <e p="BaseMapper.cs" t="Include" />
           <e p="IdentityMapper.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -91,6 +103,21 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="Contracts.BLL.App.csproj" t="IncludeRecursive" />
         <e p="IAppBLL.cs" t="Include" />
+        <e p="Mappers" t="Include">
+          <e p="CampaignServiceMapper.cs" t="Include" />
+          <e p="CarServiceMapper.cs" t="Include" />
+          <e p="CarTypeServiceMapper.cs" t="Include" />
+          <e p="CheckServiceMapper.cs" t="Include" />
+          <e p="DiscountServiceMapper.cs" t="Include" />
+          <e p="IIsInServiceServiceMapper.cs" t="Include" />
+          <e p="ILangStrServiceMapper.cs" t="Include" />
+          <e p="ILangStrTranslationServiceMapper.cs" t="Include" />
+          <e p="ModelMarkServiceMapper.cs" t="Include" />
+          <e p="OrderServiceMapper.cs" t="Include" />
+          <e p="PaymentMethodServiceMapper.cs" t="Include" />
+          <e p="PaymentServiceMapper.cs" t="Include" />
+          <e p="ServiceServiceMapper.cs" t="Include" />
+        </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netstandard2.1" t="Include">
@@ -101,19 +128,16 @@
         <e p="Services" t="Include">
           <e p="ICampaignService.cs" t="Include" />
           <e p="ICarService.cs" t="Include" />
-          <e p="ICarTypeService.cs" t="Include" />
           <e p="ICheckService.cs" t="Include" />
           <e p="IDiscountService.cs" t="Include" />
-          <e p="IIsInWashService.cs" t="Include" />
+          <e p="IIsInServiceService.cs" t="Include" />
+          <e p="ILangStrService.cs" t="Include" />
+          <e p="ILangStrTranslationService.cs" t="Include" />
           <e p="IModelMarkService.cs" t="Include" />
           <e p="IOrderService.cs" t="Include" />
           <e p="IPaymentMehtodService.cs" t="Include" />
           <e p="IPaymentService.cs" t="Include" />
-          <e p="IPersonCarService.cs" t="Include" />
-          <e p="IPersonService.cs" t="Include" />
           <e p="IServiceService.cs" t="Include" />
-          <e p="IWashService.cs" t="Include" />
-          <e p="IWashTypeService.cs" t="Include" />
         </e>
       </e>
       <e p="Contracts.BLL.Base" t="IncludeRecursive">
@@ -131,6 +155,7 @@
           </e>
         </e>
         <e p="Services" t="Include">
+          <e p="IBaseEntityService.cs" t="Include" />
           <e p="IBaseService.cs" t="Include" />
         </e>
       </e>
@@ -147,39 +172,44 @@
         </e>
         <e p="Repositories" t="Include">
           <e p="ICampaignRepository.cs" t="Include" />
+          <e p="ICampaignRepositoryCustom.cs" t="Include" />
           <e p="ICarRepository.cs" t="Include" />
-          <e p="ICarTypeRepository.cs" t="Include" />
+          <e p="ICarRepositoryCustom.cs" t="Include" />
           <e p="ICheckRepository.cs" t="Include" />
+          <e p="ICheckRepositoryCustom.cs" t="Include" />
           <e p="IDiscountRepository.cs" t="Include" />
-          <e p="IIsInWashRepository.cs" t="Include" />
+          <e p="IDiscountRepositoryCustom.cs" t="Include" />
+          <e p="IIsInServiceRepository.cs" t="Include" />
+          <e p="IIsInServiceRepositoryCustom.cs" t="Include" />
+          <e p="ILangStrRepository.cs" t="Include" />
+          <e p="ILangStrRepositoryCustom.cs" t="Include" />
+          <e p="ILangStrTranslationRepository.cs" t="Include" />
+          <e p="ILangStrTranslationRepositoryCustom.cs" t="Include" />
           <e p="IModelMarkRepository.cs" t="Include" />
+          <e p="IModelMarkRepositoryCustom.cs" t="Include" />
           <e p="IOrderRepository.cs" t="Include" />
+          <e p="IOrderRepositoryCustom.cs" t="Include" />
           <e p="IPaymentMethodRepository.cs" t="Include" />
+          <e p="IPaymentMethodRepositoryCustom.cs" t="Include" />
           <e p="IPaymentRepository.cs" t="Include" />
-          <e p="IPersonCarRepository.cs" t="Include" />
-          <e p="IPersonRepository.cs" t="Include" />
+          <e p="IPaymentRepositoryCustom.cs" t="Include" />
           <e p="IServiceRepository.cs" t="Include" />
-          <e p="IWashRepository.cs" t="Include" />
-          <e p="IWashTypeRepository.cs" t="Include" />
+          <e p="IServiceRepositoryCustom.cs" t="Include" />
         </e>
       </e>
       <e p="Contracts.DAL.Base" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="Contracts.DAL.Base.csproj" t="IncludeRecursive" />
+        <e p="IBaseEntityTracker.cs" t="Include" />
         <e p="IBaseUnitOfWork.cs" t="Include" />
-        <e p="IDomainBaseEntity.cs" t="Include" />
-        <e p="IDomainEntityBaseMetadata.cs" t="Include" />
-        <e p="IDomainEntityMetaData.cs" t="Include" />
-        <e p="IDomainEntityUser.cs" t="Include" />
         <e p="IUserNameProvider.cs" t="Include" />
         <e p="Mappers" t="Include">
-          <e p="IBaseDALMapper.cs" t="Include" />
+          <e p="IBaseMapper.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netstandard2.1" t="Include">
               <e p="Contracts.DAL.Base.AssemblyInfo.cs" t="Include" />
-              <e p="Contracts.DAL.Base.csprojAssemblyReference.cache" t="Include" />
             </e>
           </e>
         </e>
@@ -200,7 +230,9 @@
           <e p="AppRole.cs" t="Include" />
           <e p="AppUser.cs" t="Include" />
         </e>
-        <e p="IsInWash.cs" t="Include" />
+        <e p="IsInService.cs" t="Include" />
+        <e p="LangStr.cs" t="Include" />
+        <e p="LangStrTranslation.cs" t="Include" />
         <e p="ModelMark.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -212,11 +244,7 @@
         <e p="Order.cs" t="Include" />
         <e p="Payment.cs" t="Include" />
         <e p="PaymentMethod.cs" t="Include" />
-        <e p="Person.cs" t="Include" />
-        <e p="PersonCar.cs" t="Include" />
         <e p="Service.cs" t="Include" />
-        <e p="Wash.cs" t="Include" />
-        <e p="WashType.cs" t="Include" />
       </e>
       <e p="DAL.App.EF" t="IncludeRecursive">
         <e p="AppDbContext.cs" t="Include" />
@@ -226,9 +254,12 @@
         <e p="Helpers" t="Include">
           <e p="DataInitializers.cs" t="Include" />
         </e>
+        <e p="Mappers" t="Include">
+          <e p="DALMapper.cs" t="Include" />
+        </e>
         <e p="Migrations" t="Include">
-          <e p="20200428172335_InitialDbCreation.cs" t="Include" />
-          <e p="20200428172335_InitialDbCreation.Designer.cs" t="Include" />
+          <e p="20200524155949_InitialDbCreation.cs" t="Include" />
+          <e p="20200524155949_InitialDbCreation.Designer.cs" t="Include" />
           <e p="AppDbContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -241,28 +272,25 @@
         <e p="Repositories" t="Include">
           <e p="CampaignRepository.cs" t="Include" />
           <e p="CarRepository.cs" t="Include" />
-          <e p="CarTypeRepository.cs" t="Include" />
           <e p="CheckRepository.cs" t="Include" />
-          <e p="DiscountRepository.cs" t="Include" />
-          <e p="IsInWashRepository.cs" t="Include" />
+          <e p="IsInServiceRepository.cs" t="Include" />
+          <e p="LangStrRepository.cs" t="Include" />
+          <e p="LangStrTranslationRepository.cs" t="Include" />
           <e p="ModelMarkRepository.cs" t="Include" />
           <e p="OrderRepository.cs" t="Include" />
           <e p="PaymentMethodRepository.cs" t="Include" />
           <e p="PaymentRepository.cs" t="Include" />
-          <e p="PersonCarRepository.cs" t="Include" />
-          <e p="PersonRepository.cs" t="Include" />
           <e p="ServiceRepository.cs" t="Include" />
-          <e p="WashRepository.cs" t="Include" />
-          <e p="WashTypeRepository.cs" t="Include" />
         </e>
       </e>
       <e p="DAL.Base" t="IncludeRecursive">
         <e p="BaseUnitOfWork.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="DAL.Base.csproj" t="IncludeRecursive" />
-        <e p="DomainBaseEntity.cs" t="Include" />
-        <e p="DomainEntityBaseMetadata.cs" t="Include" />
-        <e p="DomainEntityMetaData.cs" t="Include" />
+        <e p="Mappers" t="Include">
+          <e p="BaseMapper.cs" t="Include" />
+          <e p="IdentityMapper.cs" t="Include" />
+        </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netstandard2.1" t="Include">
@@ -275,10 +303,6 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="DAL.Base.EF.csproj" t="IncludeRecursive" />
         <e p="EFBaseUnitOfWork.cs" t="Include" />
-        <e p="Mappers" t="Include">
-          <e p="BaseDALMapper.cs" t="Include" />
-          <e p="IdentityMapper.cs" t="Include" />
-        </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netstandard2.1" t="Include">
@@ -292,48 +316,72 @@
       </e>
       <e p="Directory.Build.props" t="Include" />
       <e p="DistributedHomeWork.sln" t="IncludeFlat" />
-      <e p="Domain" t="IncludeRecursive">
+      <e p="Domain" t="Include">
+        <e p="Contracts.Domain" t="IncludeRecursive">
+          <e p="bin" t="ExcludeRecursive" />
+          <e p="Contracts.Domain.csproj" t="IncludeRecursive" />
+          <e p="IDomainEntityId.cs" t="Include" />
+          <e p="IDomainEntityMetaData.cs" t="Include" />
+          <e p="IDomainEntityUser.cs" t="Include" />
+          <e p="obj" t="ExcludeRecursive">
+            <e p="Debug" t="Include">
+              <e p="netstandard2.1" t="Include">
+                <e p="Contracts.Domain.AssemblyInfo.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+        </e>
+        <e p="Domain.Base" t="IncludeRecursive">
+          <e p="bin" t="ExcludeRecursive" />
+          <e p="Domain.Base.csproj" t="IncludeRecursive" />
+          <e p="DomainEntityId.cs" t="Include" />
+          <e p="DomainEntityIdMetadata.cs" t="Include" />
+          <e p="DomainEntityIdMetadataUser.cs" t="Include" />
+          <e p="DomainEntityIdUser.cs" t="Include" />
+          <e p="obj" t="ExcludeRecursive">
+            <e p="Debug" t="Include">
+              <e p="netstandard2.1" t="Include">
+                <e p="Domain.Base.AssemblyInfo.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="Domain.App" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="Campaign.cs" t="Include" />
         <e p="Car.cs" t="Include" />
-        <e p="carType.cs" t="Include" />
         <e p="Check.cs" t="Include" />
-        <e p="Discount.cs" t="Include" />
-        <e p="Domain.csproj" t="IncludeRecursive" />
+        <e p="Domain.App.csproj" t="IncludeRecursive" />
         <e p="Identity" t="Include">
           <e p="AppRole.cs" t="Include" />
           <e p="AppUser.cs" t="Include" />
         </e>
-        <e p="IsInWash.cs" t="Include" />
+        <e p="IsInService.cs" t="Include" />
+        <e p="LangStr.cs" t="Include" />
+        <e p="LangStrTranslation.cs" t="Include" />
         <e p="ModelMark.cs" t="Include" />
-        <e p="MultiLangString.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netstandard2.1" t="Include">
-              <e p="Domain.AssemblyInfo.cs" t="Include" />
+              <e p="Domain.App.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
         </e>
         <e p="Order.cs" t="Include" />
         <e p="Payment.cs" t="Include" />
         <e p="PaymentMethod.cs" t="Include" />
-        <e p="Person.cs" t="Include" />
-        <e p="PersonCar.cs" t="Include" />
         <e p="Service.cs" t="Include" />
-        <e p="Translation.cs" t="Include" />
-        <e p="Wash.cs" t="Include" />
-        <e p="WashType.cs" t="Include" />
       </e>
+      <e p="DTO" t="Include" />
       <e p="extensions" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
-        <e p="DataInitializer.cs" t="Include" />
         <e p="Extensions.csproj" t="IncludeRecursive" />
         <e p="IdentityExtensions.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netstandard2.1" t="Include">
               <e p="Extensions.AssemblyInfo.cs" t="Include" />
-              <e p="Extensions.csprojAssemblyReference.cache" t="Include" />
             </e>
           </e>
         </e>
@@ -341,15 +389,30 @@
       <e p="packages" t="ExcludeRecursive" />
       <e p="PublicApi.DTO.v1" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
-        <e p="Campaigncs.cs" t="Include" />
+        <e p="Campaign.cs" t="Include" />
         <e p="Car.cs" t="Include" />
-        <e p="carType.cs" t="Include" />
         <e p="Check.cs" t="Include" />
-        <e p="Discount.cs" t="Include" />
-        <e p="IsInWash.cs" t="Include" />
-        <e p="Mappers" t="Include">
-          <e p="DTOMapper.cs" t="Include" />
+        <e p="Identity" t="Include">
+          <e p="AppRole.cs" t="Include" />
+          <e p="AppUser.cs" t="Include" />
+          <e p="JwtResponseDTO.cs" t="Include" />
+          <e p="LoginDTO.cs" t="Include" />
+          <e p="RegisterDTO.cs" t="Include" />
         </e>
+        <e p="IsInService.cs" t="Include" />
+        <e p="Mappers" t="Include">
+          <e p="BaseMapper.cs" t="Include" />
+          <e p="CampaignMapper.cs" t="Include" />
+          <e p="CarMapper.cs" t="Include" />
+          <e p="CheckMapper.cs" t="Include" />
+          <e p="IsInServiceMapper.cs" t="Include" />
+          <e p="ModelMarkMapper.cs" t="Include" />
+          <e p="OrderMapper.cs" t="Include" />
+          <e p="PaymentMapper.cs" t="Include" />
+          <e p="PaymentMethodMapper.cs" t="Include" />
+          <e p="ServiceMapper.cs" t="Include" />
+        </e>
+        <e p="MessageDTO.cs" t="Include" />
         <e p="ModelMark.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -361,12 +424,8 @@
         <e p="Order.cs" t="Include" />
         <e p="Payment.cs" t="Include" />
         <e p="PaymentMethod.cs" t="Include" />
-        <e p="Person.cs" t="Include" />
-        <e p="PersonCar.cs" t="Include" />
         <e p="PublicApi.DTO.v1.csproj" t="IncludeRecursive" />
         <e p="Service.cs" t="Include" />
-        <e p="Wash.cs" t="Include" />
-        <e p="WashType.cs" t="Include" />
       </e>
       <e p="Resources" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
@@ -405,70 +464,125 @@
       <e p="WebApp" t="IncludeRecursive">
         <e p="ApiControllers" t="Include">
           <e p="1.0" t="Include">
-            <e p="CampaignsController.cs" t="Include" />
-            <e p="CarsController.cs" t="Include" />
-            <e p="CarTypesController.cs" t="Include" />
-            <e p="ChecksController.cs" t="Include" />
-            <e p="DiscountsController.cs" t="Include" />
             <e p="Identity" t="Include">
               <e p="AccountController.cs" t="Include" />
             </e>
-            <e p="IsInWashsController.cs" t="Include" />
-            <e p="ModelMarksController.cs" t="Include" />
-            <e p="OrdersController.cs" t="Include" />
-            <e p="PaymentMethodsController.cs" t="Include" />
-            <e p="PaymentsController.cs" t="Include" />
-            <e p="PersonCarsController.cs" t="Include" />
-            <e p="PersonsController.cs" t="Include" />
-            <e p="ServicesController.cs" t="Include" />
-            <e p="WashsController.cs" t="Include" />
-            <e p="WashTypesController.cs" t="Include" />
           </e>
-          <e p="1.1" t="Include">
-            <e p="PersonsController.cs" t="Include" />
-          </e>
+          <e p="CampaignsController.cs" t="Include" />
+          <e p="CarsController.cs" t="Include" />
+          <e p="ChecksController.cs" t="Include" />
+          <e p="IsInServicesController.cs" t="Include" />
+          <e p="ModelMarksController.cs" t="Include" />
+          <e p="OrdersController.cs" t="Include" />
+          <e p="PaymentMethodsController.cs" t="Include" />
+          <e p="PaymentsController.cs" t="Include" />
+          <e p="ServicesController.cs" t="Include" />
         </e>
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
         <e p="Areas" t="Include">
           <e p="Admin" t="Include">
             <e p="Controllers" t="Include">
-              <e p="HomeController.cs" t="Include" />
-            </e>
-            <e p="viewmodels" t="Include" />
-            <e p="Views" t="Include">
-              <e p="_ViewImports.cshtml" t="Include" />
-              <e p="_ViewStart.cshtml" t="Include" />
-              <e p="Home" t="Include">
-                <e p="Index.cshtml" t="Include" />
-              </e>
-              <e p="Shared" t="Include">
-                <e p="_Layout.cshtml" t="Include" />
-              </e>
-            </e>
-          </e>
-          <e p="Client" t="Include">
-            <e p="Controllers" t="Include">
-              <e p="HomeController.cs" t="Include" />
+              <e p="CampaignsController.cs" t="Include" />
+              <e p="CarsController.cs" t="Include" />
+              <e p="ChecksController.cs" t="Include" />
+              <e p="IsInServicesController.cs" t="Include" />
+              <e p="LangStrsController.cs" t="Include" />
+              <e p="LangStrTranslationsController.cs" t="Include" />
+              <e p="ModelMarksController.cs" t="Include" />
+              <e p="OrdersController.cs" t="Include" />
+              <e p="PaymentMethodsController.cs" t="Include" />
+              <e p="PaymentsController.cs" t="Include" />
+              <e p="ServicesController.cs" t="Include" />
             </e>
             <e p="viewmodels" t="Include">
-              <e p="PersonCreateEditViewModel.cs" t="Include" />
+              <e p="LangStrIndexViewModel.cs" t="Include" />
             </e>
             <e p="Views" t="Include">
               <e p="_ViewImports.cshtml" t="Include" />
               <e p="_ViewStart.cshtml" t="Include" />
-              <e p="Home" t="Include">
+              <e p="Campaigns" t="Include">
+                <e p="Create.cshtml" t="Include" />
+                <e p="Delete.cshtml" t="Include" />
+                <e p="Details.cshtml" t="Include" />
+                <e p="Edit.cshtml" t="Include" />
                 <e p="Index.cshtml" t="Include" />
               </e>
-              <e p="Shared" t="Include">
-                <e p="_Layout.cshtml" t="Include" />
+              <e p="Cars" t="Include">
+                <e p="Create.cshtml" t="Include" />
+                <e p="Delete.cshtml" t="Include" />
+                <e p="Details.cshtml" t="Include" />
+                <e p="Edit.cshtml" t="Include" />
+                <e p="Index.cshtml" t="Include" />
+              </e>
+              <e p="Checks" t="Include">
+                <e p="Create.cshtml" t="Include" />
+                <e p="Delete.cshtml" t="Include" />
+                <e p="Details.cshtml" t="Include" />
+                <e p="Edit.cshtml" t="Include" />
+                <e p="Index.cshtml" t="Include" />
+              </e>
+              <e p="IsInServices" t="Include">
+                <e p="Create.cshtml" t="Include" />
+                <e p="Delete.cshtml" t="Include" />
+                <e p="Details.cshtml" t="Include" />
+                <e p="Edit.cshtml" t="Include" />
+                <e p="Index.cshtml" t="Include" />
+              </e>
+              <e p="LangStrs" t="Include">
+                <e p="Create.cshtml" t="Include" />
+                <e p="Delete.cshtml" t="Include" />
+                <e p="Details.cshtml" t="Include" />
+                <e p="Edit.cshtml" t="Include" />
+                <e p="Index.cshtml" t="Include" />
+              </e>
+              <e p="LangStrTranslations" t="Include">
+                <e p="Create.cshtml" t="Include" />
+                <e p="Delete.cshtml" t="Include" />
+                <e p="Details.cshtml" t="Include" />
+                <e p="Edit.cshtml" t="Include" />
+                <e p="Index.cshtml" t="Include" />
+              </e>
+              <e p="ModelMarks" t="Include">
+                <e p="Create.cshtml" t="Include" />
+                <e p="Delete.cshtml" t="Include" />
+                <e p="Details.cshtml" t="Include" />
+                <e p="Edit.cshtml" t="Include" />
+                <e p="Index.cshtml" t="Include" />
+              </e>
+              <e p="Orders" t="Include">
+                <e p="Create.cshtml" t="Include" />
+                <e p="Delete.cshtml" t="Include" />
+                <e p="Details.cshtml" t="Include" />
+                <e p="Edit.cshtml" t="Include" />
+                <e p="Index.cshtml" t="Include" />
+              </e>
+              <e p="PaymentMethods" t="Include">
+                <e p="Create.cshtml" t="Include" />
+                <e p="Delete.cshtml" t="Include" />
+                <e p="Details.cshtml" t="Include" />
+                <e p="Edit.cshtml" t="Include" />
+                <e p="Index.cshtml" t="Include" />
+              </e>
+              <e p="Payments" t="Include">
+                <e p="Create.cshtml" t="Include" />
+                <e p="Delete.cshtml" t="Include" />
+                <e p="Details.cshtml" t="Include" />
+                <e p="Edit.cshtml" t="Include" />
+                <e p="Index.cshtml" t="Include" />
+              </e>
+              <e p="Services" t="Include">
+                <e p="Create.cshtml" t="Include" />
+                <e p="Delete.cshtml" t="Include" />
+                <e p="Details.cshtml" t="Include" />
+                <e p="Edit.cshtml" t="Include" />
+                <e p="Index.cshtml" t="Include" />
               </e>
             </e>
           </e>
           <e p="Identity" t="Include">
             <e p="IdentityHostingStartup.cs" t="Include" />
             <e p="Pages" t="Include">
-              <e p="_Layout.cshtml" t="Include" />
               <e p="_ValidationScriptsPartial.cshtml" t="Include" />
               <e p="_ViewImports.cshtml" t="Include" />
               <e p="_ViewStart.cshtml" t="Include" />
@@ -536,6 +650,8 @@
                 <e p="Register.cshtml.cs" t="Include" />
                 <e p="RegisterConfirmation.cshtml" t="Include" />
                 <e p="RegisterConfirmation.cshtml.cs" t="Include" />
+                <e p="ResendEmailConfirmation.cshtml" t="Include" />
+                <e p="ResendEmailConfirmation.cshtml.cs" t="Include" />
                 <e p="ResetPassword.cshtml" t="Include" />
                 <e p="ResetPassword.cshtml.cs" t="Include" />
                 <e p="ResetPasswordConfirmation.cshtml" t="Include" />
@@ -547,26 +663,22 @@
           </e>
         </e>
         <e p="bin" t="ExcludeRecursive" />
+        <e p="ConfigureSwaggerOptions.cs" t="Include" />
         <e p="Controllers" t="Include">
           <e p="CampaignsController.cs" t="Include" />
           <e p="CarsController.cs" t="Include" />
-          <e p="CarTypesController.cs" t="Include" />
           <e p="ChecksController.cs" t="Include" />
-          <e p="DiscountsController.cs" t="Include" />
           <e p="HomeController.cs" t="Include" />
-          <e p="IsInWashsController.cs" t="Include" />
+          <e p="IsInServicesController.cs" t="Include" />
+          <e p="LangStrsController.cs" t="Include" />
+          <e p="LangStrTranslationsController.cs" t="Include" />
           <e p="ModelMarksController.cs" t="Include" />
           <e p="OrdersController.cs" t="Include" />
           <e p="PaymentMethodsController.cs" t="Include" />
           <e p="PaymentsController.cs" t="Include" />
-          <e p="PersonCarsController.cs" t="Include" />
-          <e p="PersonsController.cs" t="Include" />
           <e p="ServicesController.cs" t="Include" />
-          <e p="WashsController.cs" t="Include" />
-          <e p="WashTypesController.cs" t="Include" />
         </e>
         <e p="Helpers" t="Include">
-          <e p="ConfigureSwaggerOptions.cs" t="Include" />
           <e p="UserNameProvider.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -586,29 +698,12 @@
         <e p="ScaffoldingReadMe.txt" t="Include" />
         <e p="Startup.cs" t="Include" />
         <e p="viewmodels" t="Include">
-          <e p="CampaignCreateEditViewModel.cs" t="Include" />
-          <e p="CarCreateEditViewModel.cs" t="Include" />
-          <e p="CarTypeCreateEditViewModel.cs" t="Include" />
-          <e p="CheckCreateEditViewModel.cs" t="Include" />
-          <e p="DiscountCreateEditViewModel.cs" t="Include" />
           <e p="ErrorViewModel.cs" t="Include" />
-          <e p="IsInWashCreateEditViewModel.cs" t="Include" />
-          <e p="ModelMarkCreateEditViewModel.cs" t="Include" />
-          <e p="OrderCreateEditViewModel.cs" t="Include" />
-          <e p="PaymentCreateEditViewModel.cs" t="Include" />
-          <e p="PaymentMethodCreateEditViewModel.cs" t="Include" />
-          <e p="PersonCarCreateEditViewModel.cs" t="Include" />
-          <e p="PersonCreateEditViewModel.cs" t="Include" />
-          <e p="ServiceCreateEditViewModel.cs" t="Include" />
-          <e p="WashCreateEditViewModel.cs" t="Include" />
-          <e p="WashTypeCreateEditViewModel.cs" t="Include" />
         </e>
         <e p="Views" t="Include">
           <e p="_ViewImports.cshtml" t="Include" />
           <e p="_ViewStart.cshtml" t="Include" />
           <e p="Campaigns" t="Include">
-            <e p="_CreateEdit.cshtml" t="Include" />
-            <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
@@ -616,17 +711,6 @@
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="Cars" t="Include">
-            <e p="_CreateEdit.cshtml" t="Include" />
-            <e p="_DetailsDelete.cshtml" t="Include" />
-            <e p="Create.cshtml" t="Include" />
-            <e p="Delete.cshtml" t="Include" />
-            <e p="Details.cshtml" t="Include" />
-            <e p="Edit.cshtml" t="Include" />
-            <e p="Index.cshtml" t="Include" />
-          </e>
-          <e p="CarTypes" t="Include">
-            <e p="_CreateEdit.cshtml" t="Include" />
-            <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
@@ -634,17 +718,6 @@
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="Checks" t="Include">
-            <e p="_CreateEdit.cshtml" t="Include" />
-            <e p="_DetailsDelete.cshtml" t="Include" />
-            <e p="Create.cshtml" t="Include" />
-            <e p="Delete.cshtml" t="Include" />
-            <e p="Details.cshtml" t="Include" />
-            <e p="Edit.cshtml" t="Include" />
-            <e p="Index.cshtml" t="Include" />
-          </e>
-          <e p="Discounts" t="Include">
-            <e p="_CreateEdit.cshtml" t="Include" />
-            <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
@@ -655,9 +728,21 @@
             <e p="Index.cshtml" t="Include" />
             <e p="Privacy.cshtml" t="Include" />
           </e>
-          <e p="IsInWashs" t="Include">
-            <e p="_CreateEdit.cshtml" t="Include" />
-            <e p="_DetailsDelete.cshtml" t="Include" />
+          <e p="IsInServices" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="Delete.cshtml" t="Include" />
+            <e p="Details.cshtml" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+          </e>
+          <e p="LangStrs" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="Delete.cshtml" t="Include" />
+            <e p="Details.cshtml" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+          </e>
+          <e p="LangStrTranslations" t="Include">
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
@@ -665,8 +750,6 @@
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="ModelMarks" t="Include">
-            <e p="_CreateEdit.cshtml" t="Include" />
-            <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
@@ -674,8 +757,6 @@
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="Orders" t="Include">
-            <e p="_CreateEdit.cshtml" t="Include" />
-            <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
@@ -683,8 +764,6 @@
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="PaymentMethods" t="Include">
-            <e p="_CreateEdit.cshtml" t="Include" />
-            <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
@@ -692,26 +771,6 @@
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="Payments" t="Include">
-            <e p="_CreateEdit.cshtml" t="Include" />
-            <e p="_DetailsDelete.cshtml" t="Include" />
-            <e p="Create.cshtml" t="Include" />
-            <e p="Delete.cshtml" t="Include" />
-            <e p="Details.cshtml" t="Include" />
-            <e p="Edit.cshtml" t="Include" />
-            <e p="Index.cshtml" t="Include" />
-          </e>
-          <e p="PersonCars" t="Include">
-            <e p="_CreateEdit.cshtml" t="Include" />
-            <e p="_DetailsDelete.cshtml" t="Include" />
-            <e p="Create.cshtml" t="Include" />
-            <e p="Delete.cshtml" t="Include" />
-            <e p="Details.cshtml" t="Include" />
-            <e p="Edit.cshtml" t="Include" />
-            <e p="Index.cshtml" t="Include" />
-          </e>
-          <e p="Persons" t="Include">
-            <e p="_CreateEdit.cshtml" t="Include" />
-            <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
@@ -719,8 +778,6 @@
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="Services" t="Include">
-            <e p="_CreateEdit.cshtml" t="Include" />
-            <e p="_DetailsDelete.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
@@ -729,37 +786,23 @@
           </e>
           <e p="Shared" t="Include">
             <e p="_LanguageSelection.cshtml" t="Include" />
+            <e p="_LanguageSelection.cshtml.cs" t="Include" />
             <e p="_Layout.cshtml" t="Include" />
             <e p="_LoginPartial.cshtml" t="Include" />
             <e p="_ValidationScriptsPartial.cshtml" t="Include" />
             <e p="Error.cshtml" t="Include" />
           </e>
-          <e p="Washs" t="Include">
-            <e p="_CreateEdit.cshtml" t="Include" />
-            <e p="_DetailsDelete.cshtml" t="Include" />
-            <e p="Create.cshtml" t="Include" />
-            <e p="Delete.cshtml" t="Include" />
-            <e p="Details.cshtml" t="Include" />
-            <e p="Edit.cshtml" t="Include" />
-            <e p="Index.cshtml" t="Include" />
-          </e>
-          <e p="WashTypes" t="Include">
-            <e p="_CreateEdit.cshtml" t="Include" />
-            <e p="_DetailsDelete.cshtml" t="Include" />
-            <e p="Create.cshtml" t="Include" />
-            <e p="Delete.cshtml" t="Include" />
-            <e p="Details.cshtml" t="Include" />
-            <e p="Edit.cshtml" t="Include" />
-            <e p="Index.cshtml" t="Include" />
-          </e>
         </e>
         <e p="WebApp.csproj" t="IncludeRecursive" />
         <e p="wwwroot" t="Include">
           <e p="css" t="Include">
+            <e p="dark-mode.css" t="Include" />
             <e p="site.css" t="Include" />
           </e>
           <e p="favicon.ico" t="Include" />
           <e p="js" t="Include">
+            <e p="dark-mode-switch.js" t="Include" />
+            <e p="dark-mode-switch.min.js" t="Include" />
             <e p="site.js" t="Include" />
           </e>
           <e p="lib" t="Include">

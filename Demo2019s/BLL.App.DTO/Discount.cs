@@ -1,24 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using BLL.App.DTO.Identity;
-using Contracts.DAL.Base;
+using System.Text.Json.Serialization;
+using Contracts.Domain;
 
 namespace BLL.App.DTO
 {
-    public class Discount : Discount<Guid>, IDomainBaseEntity
-    {
-    }
-    
-    public class Discount<TKey> : IDomainBaseEntity<TKey>
-        where TKey: IEquatable<TKey>
-    {
-        public TKey Id { get; set; } = default!;
-        
-        public int DiscountAmount { get; set; } = default!;
-        
+    public class Discount : IDomainEntityId
+    { 
+        public Guid Id { get; set; }
 
-        public TKey AppUserId { get; set; } = default!;
-        public AppUser<TKey>? AppUser { get; set; }
+        public Guid AppUserId { get; set; }
+        [JsonIgnore]
+        public AppUser? AppUser { get; set; }
+
+        public int DiscountAmount { get; set; } = default!;
     }
-    
 }

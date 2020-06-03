@@ -1,57 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
+﻿﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Contracts.DAL.App.Repositories;
-using DAL.Base.EF.Mappers;
+using Contracts.DAL.Base.Mappers;
+using DAL.App.DTO;
+using DAL.App.EF.Mappers;
 using DAL.Base.EF.Repositories;
+using DAL.Base.Mappers;
 using Domain;
 using Microsoft.EntityFrameworkCore;
-using Check = DAL.App.DTO.Check;
 
 namespace DAL.App.EF.Repositories
 {
-    public class CheckRepository : EFBaseRepository<AppDbContext, Domain.Check, DAL.App.DTO.Check>, ICheckRepository
+    public class CheckRepository :
+        EFBaseRepository<AppDbContext, Domain.App.Identity.AppUser, Domain.App.Check, DAL.App.DTO.Check>,
+        ICheckRepository
     {
-        public CheckRepository(AppDbContext dbContext) : base(dbContext, new BaseDALMapper<Domain.Check, DAL.App.DTO.Check>())
+        public CheckRepository(AppDbContext repoDbContext) : base(repoDbContext,
+            new DALMapper<Domain.App.Check, DTO.Check>())
         {
         }
-        public async Task<IEnumerable<Check>> AllAsync(Guid? userId = null)
+
+        public override async Task<IEnumerable<Check>> GetAllAsync(object? userId = null, bool noTracking = true)
         {
-            if (userId == null)
-            {
-                return await base.AllAsync(); // base is not actually needed, using it for clarity
-            }
+            var query = PrepareQuery(userId, noTracking);
+            query = query
+                .Include(l => l.Comment);
 
-            return (await RepoDbSet.Where(o => o.AppUserId == userId)
-                .ToListAsync()).Select(domainEntity => Mapper.Map(domainEntity));
-        }
-
-        public async Task<DTO.Check> FirstOrDefaultAsync(Guid id, Guid? userId = null)
-        {
-            var query = RepoDbSet.Where(a => a.Id == id).AsQueryable();
-            if (userId != null)
-            {
-                query = query.Where(a => a.AppUserId == userId);
-            }
-
-            return Mapper.Map(await query.FirstOrDefaultAsync());
-        }
-
-        public async Task<bool> ExistsAsync(Guid id, Guid? userId = null)
-        {
-            if (userId == null)
-            {
-                return await RepoDbSet.AnyAsync(a => a.Id == id);
-            }
-
-            return await RepoDbSet.AnyAsync(a => a.Id == id && a.AppUserId == userId);
-        }
-
-        public async Task DeleteAsync(Guid id, Guid? userId = null)
-        {
-            var Check = await FirstOrDefaultAsync(id, userId);
-            base.Remove(Check);
+            var domainEntities = await query.ToListAsync();
+            var result = domainEntities.Select(e => Mapper.Map(e));
+            return result;
         }
     }
 }

@@ -1,16 +1,28 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using Contracts.DAL.Base;
+using Contracts.Domain;
 
 namespace BLL.App.DTO.Identity
 {
-    public class AppUser : AppUser<Guid>
+    public class AppUser : IDomainEntityId
     {
-    }
+        public Guid Id { get; set; }
 
-    public class AppUser<TKey>
-        where TKey : IEquatable<TKey>
-    {
-        public TKey Id { get; set; } = default!;
-        public virtual string FirstName { get; set; } = default!;
-        public virtual string LastName { get; set; } = default!;
+        public string Email { get; set; } = default!;
+        public string UserName { get; set; } = default!;
+        
+        [MinLength(1)]
+        [MaxLength(128)]
+        [Required]
+        public string FirstName { get; set; } = default!;
+
+        [MinLength(1)]
+        [MaxLength(128)]
+        [Required]
+        public string LastName { get; set; } = default!;
+
+        public string FirstLastName => FirstName + " " + LastName;
+        public string LastFirstName => LastName + " " + FirstName;
     }
 }

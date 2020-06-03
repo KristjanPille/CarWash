@@ -1,12 +1,10 @@
-﻿using System;
-using BLL.App.DTO;
+﻿using Contracts.BLL.Base.Services;
 using Contracts.DAL.App.Repositories;
-
+using Discount = BLL.App.DTO.Discount;
 
 namespace Contracts.BLL.App.Services
 {
-    public interface IDiscountService: IDiscountRepository<Guid, Discount>
+    public interface IDiscountService : IBaseEntityService<Discount>, IDiscountRepositoryCustom<Discount>
     {
-        
     }
 }

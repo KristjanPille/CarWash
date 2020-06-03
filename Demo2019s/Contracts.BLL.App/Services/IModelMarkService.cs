@@ -1,12 +1,10 @@
-﻿using System;
-using BLL.App.DTO;
+﻿using Contracts.BLL.Base.Services;
 using Contracts.DAL.App.Repositories;
-
+using ModelMark = BLL.App.DTO.ModelMark;
 
 namespace Contracts.BLL.App.Services
 {
-    public interface IModelMarkService: IModelMarkRepository<Guid, ModelMark>
+    public interface IModelMarkService : IBaseEntityService<ModelMark>, IModelMarkRepositoryCustom<ModelMark>
     {
-        
     }
 }

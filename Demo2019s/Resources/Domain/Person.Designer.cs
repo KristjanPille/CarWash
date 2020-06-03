@@ -39,7 +39,7 @@ namespace Resources.Domain {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resources.Domain.Person", typeof(Person).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resources.Domain.App.Person", typeof(Person).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

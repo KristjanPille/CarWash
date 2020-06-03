@@ -1,35 +1,34 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using Contracts.DAL.App;
 using Microsoft.AspNetCore.Mvc;
-using Domain;
-using Extensions;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using WebApp.ViewModels;
-using Order = DAL.App.DTO.Order;
+using DAL.App.EF;
+using Domain.App;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApp.Controllers
 {
-    [Authorize(Roles = "User")]
+    [Authorize]
     public class OrdersController : Controller
     {
-        private readonly IAppUnitOfWork _uow;
+        private readonly AppDbContext _context;
 
-        public OrdersController(IAppUnitOfWork uow)
+        public OrdersController(AppDbContext context)
         {
-            _uow = uow;
+            _context = context;
         }
 
-        // GET: orders
+        // GET: Orders
         public async Task<IActionResult> Index()
         {
-            var orders = await _uow.Orders.AllAsync(User.UserGuidId());
-            return View(orders);
-
+            var appDbContext = _context.Orders.Include(o => o.AppUser);
+            return View(await appDbContext.ToListAsync());
         }
 
-        // GET: orders/Details/5
+        // GET: Orders/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -37,7 +36,9 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var order = await _uow.Orders.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            var order = await _context.Orders
+                .Include(o => o.AppUser)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (order == null)
             {
                 return NotFound();
@@ -46,31 +47,36 @@ namespace WebApp.Controllers
             return View(order);
         }
 
-        // GET: orders/Create
+        // GET: Orders/Create
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
-            var vm = new OrderCreateEditViewModel();
-            return View(vm);
+            ViewData["AppUserId"] = new SelectList(_context.Users, "Id", "FirstName");
+            ViewData["NameId"] = new SelectList(_context.LangStrs, "Id", "Id");
+            return View();
         }
 
-        // POST: orders/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Orders/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(OrderCreateEditViewModel vm)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Create([Bind("NameId,DateAndTime,ServiceId,Comment,AppUserId,CreatedBy,CreatedAt,ChangedBy,ChangedAt,Id")] Order order)
         {
             if (ModelState.IsValid)
             {
-                _uow.Orders.Add(vm.Order);
-                await _uow.SaveChangesAsync();
+                order.Id = Guid.NewGuid();
+                _context.Add(order);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(vm);
-
+            ViewData["AppUserId"] = new SelectList(_context.Users, "Id", "FirstName", order.AppUserId);
+            return View(order);
         }
 
-        // GET: orders/Edit/5
+        // GET: Orders/Edit/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -78,21 +84,22 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var order = await _uow.Orders.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            var order = await _context.Orders.FindAsync(id);
             if (order == null)
             {
                 return NotFound();
             }
+            ViewData["AppUserId"] = new SelectList(_context.Users, "Id", "FirstName", order.AppUserId);
             return View(order);
-
         }
 
-        // POST: orders/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Orders/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, Order order)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Edit(Guid id, [Bind("NameId,DateAndTime,ServiceId,Comment,AppUserId,CreatedBy,CreatedAt,ChangedBy,ChangedAt,Id")] Order order)
         {
             if (id != order.Id)
             {
@@ -103,12 +110,12 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _uow.Orders.Update(order);
-                    await _uow.SaveChangesAsync();
+                    _context.Update(order);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await _uow.Orders.ExistsAsync(id, User.UserGuidId()))
+                    if (!OrderExists(order.Id))
                     {
                         return NotFound();
                     }
@@ -119,11 +126,12 @@ namespace WebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AppUserId"] = new SelectList(_context.Users, "Id", "FirstName", order.AppUserId);
             return View(order);
-
         }
 
-        // GET: orders/Delete/5
+        // GET: Orders/Delete/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -131,25 +139,32 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var order = await _uow.Orders.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            var order = await _context.Orders
+                .Include(o => o.AppUser)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (order == null)
             {
                 return NotFound();
             }
 
             return View(order);
-
         }
 
-        // POST: orders/Delete/5
+        // POST: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            await _uow.Orders.DeleteAsync(id, User.UserGuidId());
-            await _uow.SaveChangesAsync();
+            var order = await _context.Orders.FindAsync(id);
+            _context.Orders.Remove(order);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
+        private bool OrderExists(Guid id)
+        {
+            return _context.Orders.Any(e => e.Id == id);
+        }
     }
 }

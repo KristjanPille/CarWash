@@ -1,36 +1,34 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using Contracts.DAL.App;
 using Microsoft.AspNetCore.Mvc;
-using Domain;
-using Extensions;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using WebApp.ViewModels;
-using Check = DAL.App.DTO.Check;
+using DAL.App.EF;
+using Domain.App;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApp.Controllers
 {
-    [Authorize(Roles = "User")]
+    [Authorize]
     public class ChecksController : Controller
     {
-        private readonly IAppUnitOfWork _uow;
+        private readonly AppDbContext _context;
 
-        public ChecksController(IAppUnitOfWork uow)
+        public ChecksController(AppDbContext context)
         {
-            _uow = uow;
+            _context = context;
         }
 
-        // GET: checks
+        // GET: Checks
         public async Task<IActionResult> Index()
         {
-            var checks = await _uow.Checks.AllAsync(User.UserGuidId());
-            return View(checks);
-
+            var appDbContext = _context.Checks.Include(c => c.AppUser).Include(c => c.Service);
+            return View(await appDbContext.ToListAsync());
         }
 
-        // GET: checks/Details/5
+        // GET: Checks/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -38,7 +36,10 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var check = await _uow.Checks.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            var check = await _context.Checks
+                .Include(c => c.AppUser)
+                .Include(c => c.Service)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (check == null)
             {
                 return NotFound();
@@ -46,40 +47,37 @@ namespace WebApp.Controllers
 
             return View(check);
         }
-
-        // GET: checks/Create
-        public async Task<IActionResult> Create()
+        [Authorize(Roles = "admin")]
+        // GET: Checks/Create
+        public IActionResult Create()
         {
-            var vm = new CheckCreateEditViewModel();
-            
-            vm.PersonSelectList = new SelectList(await _uow.Persons.AllAsync(User.UserGuidId()), nameof(Person.Id),
-                nameof(Person.FirstName));
-            vm.WashSelectList = new SelectList(await _uow.Washes.AllAsync(User.UserGuidId()), nameof(Wash.Id),
-                nameof(Wash.NameOfWashType));
-            return View(vm);
+            ViewData["AppUserId"] = new SelectList(_context.Users, "Id", "FirstName");
+            ViewData["NameId"] = new SelectList(_context.LangStrs, "Id", "Id");
+            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "NameOfService");
+            return View();
         }
 
-        // POST: checks/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Checks/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CheckCreateEditViewModel vm)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Create([Bind("NameId,ServiceId,DateTimeCheck,AmountExcludeVat,Vat,Comment,AppUserId,CreatedBy,CreatedAt,ChangedBy,ChangedAt,Id")] Check check)
         {
             if (ModelState.IsValid)
             {
-                _uow.Checks.Add(vm.Check);
-                await _uow.SaveChangesAsync();
+                check.Id = Guid.NewGuid();
+                _context.Add(check);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            vm.PersonSelectList = new SelectList(await _uow.Persons.AllAsync(User.UserGuidId()), nameof(Person.Id),
-                nameof(Person.FirstName));
-            vm.WashSelectList = new SelectList(await _uow.Washes.AllAsync(User.UserGuidId()), nameof(Wash.Id),
-                nameof(Wash.NameOfWashType));
-            return View(vm);
+            ViewData["AppUserId"] = new SelectList(_context.Users, "Id", "FirstName", check.AppUserId);
+            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "NameOfService", check.ServiceId);
+            return View(check);
         }
-
-        // GET: checks/Edit/5
+[Authorize(Roles = "admin")]
+        // GET: Checks/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -87,21 +85,23 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var check = await _uow.Checks.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            var check = await _context.Checks.FindAsync(id);
             if (check == null)
             {
                 return NotFound();
             }
+            ViewData["AppUserId"] = new SelectList(_context.Users, "Id", "FirstName", check.AppUserId);
+            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "NameOfService", check.ServiceId);
             return View(check);
-
         }
 
-        // POST: checks/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Checks/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, Check check)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Edit(Guid id, [Bind("NameId,ServiceId,DateTimeCheck,AmountExcludeVat,Vat,Comment,AppUserId,CreatedBy,CreatedAt,ChangedBy,ChangedAt,Id")] Check check)
         {
             if (id != check.Id)
             {
@@ -112,12 +112,12 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _uow.Checks.Update(check);
-                    await _uow.SaveChangesAsync();
+                    _context.Update(check);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await _uow.Checks.ExistsAsync(id, User.UserGuidId()))
+                    if (!CheckExists(check.Id))
                     {
                         return NotFound();
                     }
@@ -128,11 +128,13 @@ namespace WebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AppUserId"] = new SelectList(_context.Users, "Id", "FirstName", check.AppUserId);
+            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "NameOfService", check.ServiceId);
             return View(check);
-
         }
 
-        // GET: checks/Delete/5
+        // GET: Checks/Delete/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -140,25 +142,33 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var check = await _uow.Checks.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            var check = await _context.Checks
+                .Include(c => c.AppUser)
+                .Include(c => c.Service)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (check == null)
             {
                 return NotFound();
             }
 
             return View(check);
-
         }
 
-        // POST: checks/Delete/5
+        // POST: Checks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            await _uow.Checks.DeleteAsync(id, User.UserGuidId());
-            await _uow.SaveChangesAsync();
+            var check = await _context.Checks.FindAsync(id);
+            _context.Checks.Remove(check);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        [Authorize(Roles = "admin")]
+        private bool CheckExists(Guid id)
+        {
+            return _context.Checks.Any(e => e.Id == id);
+        }
     }
 }

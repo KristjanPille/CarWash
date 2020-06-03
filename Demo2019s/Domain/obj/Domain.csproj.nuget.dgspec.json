@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Domain.csproj": {}
+    "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Domain\\Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj": {
+    "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj",
+        "projectUniqueName": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj",
         "projectName": "Contracts.DAL.Base",
-        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj",
+        "projectPath": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj",
         "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\obj\\",
+        "outputPath": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Contracts.DAL.Base\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet",
@@ -67,14 +67,14 @@
         }
       }
     },
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj": {
+    "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\DAL.Base\\DAL.Base.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj",
+        "projectUniqueName": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\DAL.Base\\DAL.Base.csproj",
         "projectName": "DAL.Base",
-        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj",
+        "projectPath": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\DAL.Base\\DAL.Base.csproj",
         "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\obj\\",
+        "outputPath": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\DAL.Base\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet",
@@ -95,8 +95,8 @@
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj"
+              "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj": {
+                "projectPath": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj"
               }
             }
           }
@@ -138,14 +138,14 @@
         }
       }
     },
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Domain.csproj": {
+    "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Domain.csproj",
+        "projectPath": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\obj\\",
+        "outputPath": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet",
@@ -166,11 +166,11 @@
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj"
+              "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\DAL.Base\\DAL.Base.csproj": {
+                "projectPath": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\DAL.Base\\DAL.Base.csproj"
               },
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj"
+              "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Resources\\Resources.csproj": {
+                "projectPath": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Resources\\Resources.csproj"
               }
             }
           }
@@ -212,14 +212,14 @@
         }
       }
     },
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj": {
+    "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Resources\\Resources.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj",
+        "projectUniqueName": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Resources\\Resources.csproj",
         "projectName": "Resources",
-        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj",
+        "projectPath": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Resources\\Resources.csproj",
         "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\obj\\",
+        "outputPath": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Resources\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet",

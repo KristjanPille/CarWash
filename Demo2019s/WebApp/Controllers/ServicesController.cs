@@ -1,37 +1,32 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using Contracts.BLL.App;
-using Contracts.DAL.App;
 using Microsoft.AspNetCore.Mvc;
-using Domain;
-using Extensions;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using WebApp.ViewModels;
-using Service = DAL.App.DTO.Service;
+using DAL.App.EF;
+using Domain.App;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApp.Controllers
 {
-    [Authorize(Roles = "User")]
     public class ServicesController : Controller
     {
-        private readonly IAppBLL _bll;
+        private readonly AppDbContext _context;
 
-        public ServicesController(IAppBLL bll)
+        public ServicesController(AppDbContext context)
         {
-            _bll = bll;
+            _context = context;
         }
 
-        // GET: services
+        // GET: Services
         public async Task<IActionResult> Index()
         {
-            var services = await _bll.Services.AllAsync(User.UserGuidId());
-
-            return View(services);
-
+            return View(await _context.Services.ToListAsync());
         }
 
-        // GET: services/Details/5
+        // GET: Services/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -39,42 +34,45 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var service = await _bll.Services.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            var service = await _context.Services
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (service == null)
             {
                 return NotFound();
             }
 
             return View(service);
-
         }
 
-        // GET: services/Create
+        // GET: Services/Create
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
+            ViewData["CampaignId"] = new SelectList(_context.Campaigns, "Id", "NameOfCampaign");
             return View();
         }
 
-        // POST: services/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Services/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(BLL.App.DTO.Service service)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Create([Bind("NameOfService,PriceOfService, CampaignId, CreatedBy,CreatedAt,ChangedBy,ChangedAt,Id")] Service service)
         {
-            service.AppUserId = User.UserGuidId();
-
             if (ModelState.IsValid)
             {
-                _bll.Services.Add(service);
-                await _bll.SaveChangesAsync();
+                service.Id = Guid.NewGuid();
+                _context.Add(service);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-
+            ViewData["CampaignId"] = new SelectList(_context.Campaigns, "Id", "PaymentMethodName", service.CampaignId);
             return View(service);
         }
 
-        // GET: services/Edit/5
+        // GET: Services/Edit/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -82,26 +80,23 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var service = await _bll.Services.FirstOrDefaultAsync(id.Value, User.UserGuidId());
-
+            var service = await _context.Services.FindAsync(id);
             if (service == null)
             {
                 return NotFound();
             }
-
+            ViewData["CampaignId"] = new SelectList(_context.Campaigns, "Id", "NameOfCampaign");
             return View(service);
-
         }
 
-        // POST: services/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Services/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, BLL.App.DTO.Service service)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Edit(Guid id, [Bind("NameOfService,PriceOfService,CreatedBy,CreatedAt,ChangedBy,ChangedAt,Id")] Service service)
         {
-            service.AppUserId = User.UserGuidId();
-
             if (id != service.Id)
             {
                 return NotFound();
@@ -111,12 +106,12 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _bll.Services.Update(service);
-                    await _bll.SaveChangesAsync();
+                    _context.Update(service);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (! await _bll.Services.ExistsAsync(service.Id, User.UserGuidId()))
+                    if (!ServiceExists(service.Id))
                     {
                         return NotFound();
                     }
@@ -125,15 +120,14 @@ namespace WebApp.Controllers
                         throw;
                     }
                 }
-
                 return RedirectToAction(nameof(Index));
             }
-
+            ViewData["CampaignId"] = new SelectList(_context.Campaigns, "Id", "NameOfCampaign");
             return View(service);
-
         }
 
-        // GET: services/Delete/5
+        // GET: Services/Delete/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -141,28 +135,31 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var service = await _bll.Services.FirstOrDefaultAsync(id.Value, User.UserGuidId());
-
+            var service = await _context.Services
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (service == null)
             {
                 return NotFound();
             }
 
             return View(service);
-
-
         }
 
-        // POST: services/Delete/5
+        // POST: Services/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            await _bll.Services.DeleteAsync(id, User.UserGuidId());
-            await _bll.SaveChangesAsync();
-            
+            var service = await _context.Services.FindAsync(id);
+            _context.Services.Remove(service);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-
+        }
+        [Authorize(Roles = "admin")]
+        private bool ServiceExists(Guid id)
+        {
+            return _context.Services.Any(e => e.Id == id);
         }
     }
 }

@@ -1,4 +1,4 @@
-@model IEnumerable<BLL.App.DTO.Service>
+@model IEnumerable<Domain.App.Service>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,7 +16,22 @@
                 @Html.DisplayNameFor(model => model.NameOfService)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CampaignId)
+                @Html.DisplayNameFor(model => model.Campaign.NameOfCampaign)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PriceOfService)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ChangedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ChangedAt)
             </th>
             <th></th>
         </tr>
@@ -28,7 +43,22 @@
                 @Html.DisplayFor(modelItem => item.NameOfService)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CampaignId)
+                @Html.DisplayFor(modelItem => item.Campaign.NameOfCampaign)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PriceOfService)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChangedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChangedAt)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

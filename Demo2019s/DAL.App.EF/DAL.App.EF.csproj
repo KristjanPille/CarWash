@@ -12,10 +12,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Contracts.DAL.App\Contracts.DAL.App.csproj" />
+        <ProjectReference Include="..\Contracts.DAL.App\Contracts.DAL.App.csproj" />
+        <ProjectReference Include="..\Domain\Contracts.Domain\Contracts.Domain.csproj" />
       <ProjectReference Include="..\DAL.App.DTO\DAL.App.DTO.csproj" />
       <ProjectReference Include="..\DAL.Base.EF\DAL.Base.EF.csproj" />
-      <ProjectReference Include="..\Domain\Domain.csproj" />
+      <ProjectReference Include="..\Domain.App\Domain.App.csproj" />
     </ItemGroup>
 
 </Project>

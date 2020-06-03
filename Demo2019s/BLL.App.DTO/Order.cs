@@ -1,25 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using BLL.App.DTO.Identity;
-using Contracts.DAL.Base;
+using Contracts.Domain;
 
 namespace BLL.App.DTO
 {
-    public class Order : Order<Guid>, IDomainBaseEntity
-    {
-    }
-    
-    public class Order<TKey> : IDomainBaseEntity<TKey>
-        where TKey: IEquatable<TKey>
-    {
-        public TKey Id { get; set; } = default!;
+    public class Order : IDomainEntityId
+    { 
+        public Guid Id { get; set; }
+        
+        public Guid AppUserId { get; set; }
         
         public string Comment { get; set; } = default!;
         public DateTime DateAndTime { get; set; }
-        
-
-        public TKey AppUserId { get; set; } = default!;
-        public AppUser<TKey>? AppUser { get; set; }
     }
-    
 }

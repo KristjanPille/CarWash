@@ -1,7 +1,8 @@
+#pragma warning disable 1591
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using Domain.Identity;
+using Domain.App.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -25,14 +26,13 @@ namespace WebApp.Areas.Identity.Pages.Account.Manage
             _logger = logger;
         }
 
-        [BindProperty]
-        public InputModel Input { get; set; }
+        [BindProperty] public InputModel Input { get; set; } = default!;
 
         public class InputModel
         {
             [Required]
             [DataType(DataType.Password)]
-            public string Password { get; set; }
+            public string Password { get; set; } = default!;
         }
 
         public bool RequirePassword { get; set; }

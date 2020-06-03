@@ -1,22 +1,15 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Contracts.Domain;
 
 namespace PublicApi.DTO.v1
 {
-    public class ModelMark : ModelMarkEdit
-    {
-  
-    }
-    
-    public class ModelMarkCreate
-    {
-        public string Mark { get; set; } = default!;
-        public string Model { get; set; } = default!;
-    }
-    
-    public class ModelMarkEdit : ModelMarkCreate
+    public class ModelMark : IDomainEntityId
     {
         public Guid Id { get; set; }
+        
+        public string Mark { get; set; } = default!;
+        
+        public string Model { get; set; } = default!;
     }
-    
 }

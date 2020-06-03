@@ -1,7 +1,7 @@
-﻿namespace Contracts.DAL.Base
+namespace Contracts.DAL.Base
 {
     public interface IUserNameProvider
     {
-        string CurrentUserName { get;  }
+        string CurrentUserName { get; }
     }
 }

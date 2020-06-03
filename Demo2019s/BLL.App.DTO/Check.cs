@@ -1,19 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using BLL.App.DTO.Identity;
-using Contracts.DAL.Base;
+using System.Text.Json.Serialization;
+using Contracts.Domain;
 
 namespace BLL.App.DTO
 {
-    public class Check : Check<Guid>, IDomainBaseEntity
-    {
-    }
-    
-    public class Check<TKey> : IDomainBaseEntity<TKey>
-        where TKey: IEquatable<TKey>
-    {
-        public TKey Id { get; set; } = default!;
-        
+    public class Check : IDomainEntityId
+    { 
+        public Guid Id { get; set; }
+
+        public Guid AppUserId { get; set; }
+        [JsonIgnore]
+        public AppUser? AppUser { get; set; }
+
         public virtual string NameOfCheck { get; set; } = default!;
         
         public int AmountExcludeVat { get; set; }
@@ -23,10 +22,5 @@ namespace BLL.App.DTO
         public int Vat { get; set; }
         
         public string Comment { get; set; }  = default!;
-        
-
-        public TKey AppUserId { get; set; } = default!;
-        public AppUser<TKey>? AppUser { get; set; }
     }
-    
 }

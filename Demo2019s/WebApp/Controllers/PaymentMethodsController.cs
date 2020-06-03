@@ -1,34 +1,34 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using Contracts.DAL.App;
 using Microsoft.AspNetCore.Mvc;
-using Domain;
-using Extensions;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using PaymentMethod = DAL.App.DTO.PaymentMethod;
+using DAL.App.EF;
+using Domain.App;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApp.Controllers
 {
-    [Authorize(Roles = "User")]
+    [Authorize]
     public class PaymentMethodsController : Controller
     {
-        private readonly IAppUnitOfWork _uow;
+        private readonly AppDbContext _context;
 
-        public PaymentMethodsController(IAppUnitOfWork uow)
+        public PaymentMethodsController(AppDbContext context)
         {
-            _uow = uow;
+            _context = context;
         }
 
-        // GET: paymentMethods
+        // GET: PaymentMethods
         public async Task<IActionResult> Index()
         {
-            var paymentMethods = await _uow.PaymentMethods.AllAsync(User.UserGuidId());
-            return View(paymentMethods);
-
+            var appDbContext = _context.PaymentMethods;
+            return View(await appDbContext.ToListAsync());
         }
 
-        // GET: paymentMethods/Details/5
+        // GET: PaymentMethods/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -36,7 +36,8 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var paymentMethod = await _uow.PaymentMethods.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            var paymentMethod = await _context.PaymentMethods
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (paymentMethod == null)
             {
                 return NotFound();
@@ -45,31 +46,34 @@ namespace WebApp.Controllers
             return View(paymentMethod);
         }
 
-        // GET: paymentMethods/Create
+        // GET: PaymentMethods/Create
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
+            ViewData["NameId"] = new SelectList(_context.LangStrs, "Id", "Id");
             return View();
         }
 
-        // POST: paymentMethods/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: PaymentMethods/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(DAL.App.DTO.PaymentMethod paymentMethod)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Create([Bind("NameId,PaymentMethodName,CreatedBy,CreatedAt,ChangedBy,ChangedAt,Id")] PaymentMethod paymentMethod)
         {
-
             if (ModelState.IsValid)
             {
-                _uow.PaymentMethods.Add(paymentMethod);
-                await _uow.SaveChangesAsync();
+                paymentMethod.Id = Guid.NewGuid();
+                _context.Add(paymentMethod);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(paymentMethod);
-
         }
 
-        // GET: paymentMethods/Edit/5
+        // GET: PaymentMethods/Edit/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -77,21 +81,21 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var paymentMethod = await _uow.PaymentMethods.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            var paymentMethod = await _context.PaymentMethods.FindAsync(id);
             if (paymentMethod == null)
             {
                 return NotFound();
             }
             return View(paymentMethod);
-
         }
 
-        // POST: paymentMethods/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: PaymentMethods/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, PaymentMethod paymentMethod)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Edit(Guid id, [Bind("PaymentMethodName,CreatedBy,CreatedAt,ChangedBy,ChangedAt,Id")] PaymentMethod paymentMethod)
         {
             if (id != paymentMethod.Id)
             {
@@ -102,12 +106,12 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _uow.PaymentMethods.Update(paymentMethod);
-                    await _uow.SaveChangesAsync();
+                    _context.Update(paymentMethod);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await _uow.PaymentMethods.ExistsAsync(id, User.UserGuidId()))
+                    if (!PaymentMethodExists(paymentMethod.Id))
                     {
                         return NotFound();
                     }
@@ -119,10 +123,10 @@ namespace WebApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(paymentMethod);
-
         }
 
-        // GET: paymentMethods/Delete/5
+        // GET: PaymentMethods/Delete/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -130,24 +134,31 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var paymentMethod = await _uow.PaymentMethods.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            var paymentMethod = await _context.PaymentMethods
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (paymentMethod == null)
             {
                 return NotFound();
             }
 
             return View(paymentMethod);
-
         }
 
-        // POST: paymentMethods/Delete/5
+        // POST: PaymentMethods/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            await _uow.PaymentMethods.DeleteAsync(id, User.UserGuidId());
-            await _uow.SaveChangesAsync();
+            var paymentMethod = await _context.PaymentMethods.FindAsync(id);
+            _context.PaymentMethods.Remove(paymentMethod);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+        [Authorize(Roles = "admin")]
+        private bool PaymentMethodExists(Guid id)
+        {
+            return _context.PaymentMethods.Any(e => e.Id == id);
         }
     }
 }

@@ -1,57 +1,74 @@
-﻿using System;
+﻿﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Contracts.DAL.Base;
-using Domain;
-using Domain.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Contracts.Domain;
+using Domain.App;
+using Domain.App.Identity;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+ 
 namespace DAL.App.EF
 {
-    public class AppDbContext : IdentityDbContext<AppUser, AppRole, Guid>
+    // ReSharper disable once ClassNeverInstantiated.Global
+    public class AppDbContext : IdentityDbContext<AppUser, AppRole, Guid>, IBaseEntityTracker
     {
-        private IUserNameProvider _userNameProvider;
-        public DbSet<Person> Person { get; set; } = default!;
+        private readonly IUserNameProvider _userNameProvider;
+
         public DbSet<Campaign> Campaigns { get; set; } = default!;
         public DbSet<Car> Cars { get; set; } = default!;
-        public DbSet<CarType> CarTypes { get; set; } = default!;
         public DbSet<Check> Checks { get; set; } = default!;
-        public DbSet<Discount> Discounts { get; set; } = default!;
-        public DbSet<IsInWash> IsInWashes { get; set; } = default!;
+        public DbSet<IsInService> IsInServices { get; set; } = default!;
         public DbSet<ModelMark> ModelMarks { get; set; } = default!;
         public DbSet<Order> Orders { get; set; } = default!;
         public DbSet<PaymentMethod> PaymentMethods { get; set; } = default!;
         public DbSet<Payment> Payments { get; set; } = default!;
-        public DbSet<PersonCar> PersonCars { get; set; } = default!;
         public DbSet<Service> Services { get; set; } = default!;
-        public DbSet<Wash> Washes { get; set; } = default!;
-        public DbSet<WashType> WashTypes { get; set; } = default!;
 
+        public DbSet<LangStr> LangStrs { get; set; } = default!;
+        public DbSet<LangStrTranslation> LangStrTranslation { get; set; } = default!;
 
-        public AppDbContext(DbContextOptions<AppDbContext> options, IUserNameProvider userNameProvider)
-            : base(options)
+        private readonly Dictionary<IDomainEntityId<Guid>, IDomainEntityId<Guid>> _entityTracker =
+            new Dictionary<IDomainEntityId<Guid>, IDomainEntityId<Guid>>();
+
+        public AppDbContext(DbContextOptions<AppDbContext> options, IUserNameProvider userNameProvider) : base(options)
         {
             _userNameProvider = userNameProvider;
+        }
+
+        public void AddToEntityTracker(IDomainEntityId<Guid> internalEntity, IDomainEntityId<Guid> externalEntity)
+        {
+            _entityTracker.Add(internalEntity, externalEntity);
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
+            // disable cascade delete
             foreach (var relationship in builder.Model
                 .GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
+            
+
+            // enable cascade delete on LangStr->LangStrTranslations
+            builder.Entity<LangStr>()
+                .HasMany(s => s.Translations)
+                .WithOne(l => l.LangStr!)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<LangStrTranslation>().HasIndex(i => new {i.Culture, i.LangStrId}).IsUnique();
         }
 
         private void SaveChangesMetadataUpdate()
         {
             // update the state of ef tracked objects
             ChangeTracker.DetectChanges();
-            
+
             var markedAsAdded = ChangeTracker.Entries().Where(x => x.State == EntityState.Added);
             foreach (var entityEntry in markedAsAdded)
             {
@@ -78,17 +95,28 @@ namespace DAL.App.EF
             }
         }
 
+        private void UpdateTrackedEntities()
+        {
+            foreach (var (key, value) in _entityTracker)
+            {
+                value.Id = key.Id;
+            }
+        }
+
         public override int SaveChanges()
         {
             SaveChangesMetadataUpdate();
-            return base.SaveChanges();
+            var result = base.SaveChanges();
+            UpdateTrackedEntities();
+            return result;
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             SaveChangesMetadataUpdate();
-            return base.SaveChangesAsync(cancellationToken);
+            var result = base.SaveChangesAsync(cancellationToken);
+            UpdateTrackedEntities();
+            return result;
         }
     }
 }
-

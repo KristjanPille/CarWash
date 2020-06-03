@@ -1,8 +1,9 @@
+#pragma warning disable 1591
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Domain.Identity;
+using Domain.App.Identity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -23,14 +24,14 @@ namespace WebApp.Areas.Identity.Pages.Account.Manage
             _signInManager = signInManager;
         }
 
-        public IList<UserLoginInfo> CurrentLogins { get; set; }
+        public IList<UserLoginInfo> CurrentLogins { get; set; } = default!;
 
-        public IList<AuthenticationScheme> OtherLogins { get; set; }
+        public IList<AuthenticationScheme> OtherLogins { get; set; } = default!;
 
         public bool ShowRemoveButton { get; set; }
 
         [TempData]
-        public string StatusMessage { get; set; }
+        public string? StatusMessage { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -48,7 +49,7 @@ namespace WebApp.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
-        public async Task<IActionResult> OnPostRemoveLoginAsync(string loginProvider, string? providerKey)
+        public async Task<IActionResult> OnPostRemoveLoginAsync(string loginProvider, string providerKey)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)

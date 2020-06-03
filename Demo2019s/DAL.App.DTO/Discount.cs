@@ -1,28 +1,20 @@
 ﻿using System;
-using Contracts.DAL.Base;
-using DAL.App.DTO.Identity;
-
+using Contracts.Domain;
 
 namespace DAL.App.DTO
 {
-    public class Discount : Discount<Guid>, IDomainBaseEntity
+    public class Discount: IDomainEntityId
     {
-    }
-    
-    public class Discount<TKey> : IDomainBaseEntity<TKey>
-        where TKey: IEquatable<TKey>
-    {
-        public TKey Id { get; set; } = default!;
-
-        public TKey CheckId { get; set; }
+        public Guid Id { get; set; }
+        
+        public Guid CheckId { get; set; }
         public Check? Check { get; set; }
         
-        public TKey DiscountAmount { get; set; }
+        public double DiscountAmount { get; set; }
         
-        public TKey WashId { get; set; }
-        public Wash? Wash { get; set; }
+        public Guid ServiceId { get; set; }
+        public Service? Service { get; set; }
 
-        public TKey AppUserId { get; set; } = default!;
-        public AppUser<TKey>? AppUser { get; set; }
+
     }
 }

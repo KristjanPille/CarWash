@@ -1,22 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Contracts.DAL.Base;
-using DAL.App.DTO.Identity;
+using Contracts.Domain;
 
 namespace DAL.App.DTO
 {
-    public class CarType : CarType<Guid>, IDomainBaseEntity
+    public class CarType: IDomainEntityId
     {
-    }
-    
-    public class CarType<TKey> : IDomainBaseEntity<TKey>
-        where TKey: IEquatable<TKey>
-    {
-        public TKey Id { get; set; } = default!;
+        public Guid Id { get; set; }
 
         [MaxLength(64)] public string Name { get; set; } = default!;
-
-        public TKey AppUserId { get; set; } = default!;
-        public AppUser<TKey>? AppUser { get; set; }
+        public ICollection<Car>? Cars{ get; set; }
     }
 }

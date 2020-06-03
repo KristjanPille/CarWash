@@ -1,35 +1,34 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using Contracts.DAL.App;
 using Microsoft.AspNetCore.Mvc;
-using Domain;
-using Extensions;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using WebApp.ViewModels;
-using ModelMark = DAL.App.DTO.ModelMark;
+using DAL.App.EF;
+using Domain.App;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApp.Controllers
 {
-    [Authorize(Roles = "User")]
     public class ModelMarksController : Controller
     {
-        private readonly IAppUnitOfWork _uow;
+        private readonly AppDbContext _context;
 
-        public ModelMarksController(IAppUnitOfWork uow)
+        public ModelMarksController(AppDbContext context)
         {
-            _uow = uow;
+            _context = context;
         }
 
-        // GET: modelMarks
+        // GET: ModelMarks
+          [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var modelMarks = await _uow.ModelMarks.AllAsync(User.UserGuidId());
-            return View(modelMarks);
-
+            return View(await _context.ModelMarks.ToListAsync());
         }
 
-        // GET: modelMarks/Details/5
+        // GET: ModelMarks/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -37,7 +36,8 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var modelMark = await _uow.ModelMarks.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            var modelMark = await _context.ModelMarks
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (modelMark == null)
             {
                 return NotFound();
@@ -46,31 +46,33 @@ namespace WebApp.Controllers
             return View(modelMark);
         }
 
-        // GET: modelMarks/Create
+        // GET: ModelMarks/Create
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
-            var vm = new ModelMarkCreateEditViewModel();
-            return View(vm);
+            return View();
         }
 
-        // POST: modelMarks/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: ModelMarks/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ModelMarkCreateEditViewModel vm)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Create([Bind("Mark,Model,CreatedBy,CreatedAt,ChangedBy,ChangedAt,Id")] ModelMark modelMark)
         {
             if (ModelState.IsValid)
             {
-                _uow.ModelMarks.Add(vm.ModelMark);
-                await _uow.SaveChangesAsync();
+                modelMark.Id = Guid.NewGuid();
+                _context.Add(modelMark);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(vm);
-
+            return View(modelMark);
         }
 
-        // GET: modelMarks/Edit/5
+        // GET: ModelMarks/Edit/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -78,21 +80,21 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var modelMark = await _uow.ModelMarks.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            var modelMark = await _context.ModelMarks.FindAsync(id);
             if (modelMark == null)
             {
                 return NotFound();
             }
             return View(modelMark);
-
         }
 
-        // POST: modelMarks/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: ModelMarks/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, ModelMark modelMark)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Edit(Guid id, [Bind("Mark,Model,CreatedBy,CreatedAt,ChangedBy,ChangedAt,Id")] ModelMark modelMark)
         {
             if (id != modelMark.Id)
             {
@@ -103,12 +105,12 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _uow.ModelMarks.Update(modelMark);
-                    await _uow.SaveChangesAsync();
+                    _context.Update(modelMark);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await _uow.ModelMarks.ExistsAsync(id, User.UserGuidId()))
+                    if (!ModelMarkExists(modelMark.Id))
                     {
                         return NotFound();
                     }
@@ -120,10 +122,10 @@ namespace WebApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(modelMark);
-
         }
 
-        // GET: modelMarks/Delete/5
+        // GET: ModelMarks/Delete/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -131,25 +133,31 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var modelMark = await _uow.ModelMarks.FirstOrDefaultAsync(id.Value, User.UserGuidId());
+            var modelMark = await _context.ModelMarks
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (modelMark == null)
             {
                 return NotFound();
             }
 
             return View(modelMark);
-
         }
 
-        // POST: modelMarks/Delete/5
+        // POST: ModelMarks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            await _uow.ModelMarks.DeleteAsync(id, User.UserGuidId());
-            await _uow.SaveChangesAsync();
+            var modelMark = await _context.ModelMarks.FindAsync(id);
+            _context.ModelMarks.Remove(modelMark);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        [Authorize(Roles = "admin")]
+        private bool ModelMarkExists(Guid id)
+        {
+            return _context.ModelMarks.Any(e => e.Id == id);
+        }
     }
 }

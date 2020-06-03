@@ -1031,11 +1031,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Domain.csproj",
+      "projectUniqueName": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Domain\\Domain.csproj",
       "projectName": "Domain",
-      "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Domain.csproj",
+      "projectPath": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Domain\\Domain.csproj",
       "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\obj\\",
+      "outputPath": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet",
@@ -1056,11 +1056,11 @@
       "frameworks": {
         "netstandard2.1": {
           "projectReferences": {
-            "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj": {
-              "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj"
+            "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\DAL.Base\\DAL.Base.csproj": {
+              "projectPath": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\DAL.Base\\DAL.Base.csproj"
             },
-            "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj": {
-              "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj"
+            "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Resources\\Resources.csproj": {
+              "projectPath": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Resources\\Resources.csproj"
             }
           }
         }

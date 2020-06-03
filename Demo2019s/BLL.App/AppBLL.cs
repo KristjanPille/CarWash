@@ -8,54 +8,41 @@ namespace BLL.App
 {
     public class AppBLL : BaseBLL<IAppUnitOfWork>, IAppBLL
     {
-        public AppBLL(IAppUnitOfWork unitOfWork) : base(unitOfWork)
+        public AppBLL(IAppUnitOfWork uow) : base(uow)
         {
         }
 
-        public IPersonService Persons =>
-            GetService<IPersonService>(() => new PersonService(UnitOfWork));
-
         public ICarService Cars =>
-            GetService<ICarService>(() => new Services.CarService(UnitOfWork));
-
-        public IPersonCarService PersonCars =>
-            GetService<IPersonCarService>(() => new PersonCarService(UnitOfWork));
+            GetService<ICarService>(() => new Services.CarService(UOW));
 
         public ICampaignService Campaigns =>
-            GetService<ICampaignService>(() => new CampaignService(UnitOfWork));
+            GetService<ICampaignService>(() => new CampaignService(UOW));
 
-        public ICarTypeService CarTypes =>
-            GetService<ICarTypeService>(() => new CarTypeService(UnitOfWork));
-        
         public ICheckService Checks =>
-            GetService<ICheckService>(() => new CheckService(UnitOfWork));
-        
-        public IDiscountService Discounts =>
-            GetService<IDiscountService>(() => new DiscountService(UnitOfWork));
-        
-        public IIsInWashService IsInWashes =>
-            GetService<IsInWashService>(() => new IsInWashService(UnitOfWork));
+            GetService<ICheckService>(() => new CheckService(UOW));
+
+        public IIsInServiceService IsInServices =>
+            GetService<IIsInServiceService>(() => new IsInServiceService(UOW));
 
         public IModelMarkService ModelMarks =>
-            GetService<ModelMarkService>(() => new ModelMarkService(UnitOfWork));
+            GetService<ModelMarkService>(() => new ModelMarkService(UOW));
 
         public IOrderService Orders =>
-            GetService<OrderService>(() => new OrderService(UnitOfWork));
+            GetService<OrderService>(() => new OrderService(UOW));
 
         public IPaymentMethodService PaymentMethods =>
-            GetService<PaymentMethodService>(() => new PaymentMethodService(UnitOfWork));
+            GetService<PaymentMethodService>(() => new PaymentMethodService(UOW));
 
         public IPaymentService Payments =>
-            GetService<PaymentService>(() => new PaymentService(UnitOfWork));
+            GetService<PaymentService>(() => new PaymentService(UOW));
         
         public IServiceService Services =>
-            GetService<ServiceService>(() => new ServiceService(UnitOfWork));
+            GetService<ServiceService>(() => new ServiceService(UOW));
+        
+        public ILangStrService LangStrs =>
+            GetService<ILangStrService>(() => new LangStrService(UOW));
 
-        public IWashService Washes =>
-            GetService<WashService>(() => new WashService(UnitOfWork));
-
-
-        public IWashTypeService WashTypes =>
-            GetService<WashTypeService>(() => new WashTypeService(UnitOfWork));
+        public ILangStrTranslationService LangStrTranslation =>
+            GetService<ILangStrTranslationService>(() => new LangStrTranslationService(UOW));
     }
 }

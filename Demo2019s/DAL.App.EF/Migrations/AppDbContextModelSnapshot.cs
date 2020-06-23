@@ -653,7 +653,7 @@ namespace DAL.App.EF.Migrations
             modelBuilder.Entity("Domain.App.Car", b =>
                 {
                     b.HasOne("Domain.App.Identity.AppUser", "AppUser")
-                        .WithMany()
+                        .WithMany("Cars")
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();

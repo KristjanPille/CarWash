@@ -1,10 +1,10 @@
 ﻿{
   "version": "1.0.0",
   "restore": {
-    "projectUniqueName": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\WebApp\\WebApp.csproj",
+    "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\WebApp\\WebApp.csproj",
     "projectName": "WebApp",
-    "projectPath": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\WebApp\\WebApp.csproj",
-    "outputPath": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\WebApp\\obj\\",
+    "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\WebApp\\WebApp.csproj",
+    "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\WebApp\\obj\\",
     "projectStyle": "PackageReference",
     "fallbackFolders": [
       "C:\\Microsoft\\Xamarin\\NuGet",
@@ -20,20 +20,20 @@
     "frameworks": {
       "netcoreapp3.1": {
         "projectReferences": {
-          "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\BLL.App\\BLL.App.csproj": {
-            "projectPath": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\BLL.App\\BLL.App.csproj"
+          "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App\\BLL.App.csproj": {
+            "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App\\BLL.App.csproj"
           },
-          "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Contracts.BLL.App\\Contracts.BLL.App.csproj": {
-            "projectPath": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Contracts.BLL.App\\Contracts.BLL.App.csproj"
+          "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.BLL.App\\Contracts.BLL.App.csproj": {
+            "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.BLL.App\\Contracts.BLL.App.csproj"
           },
-          "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\DAL.App.EF\\DAL.App.EF.csproj": {
-            "projectPath": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\DAL.App.EF\\DAL.App.EF.csproj"
+          "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.EF\\DAL.App.EF.csproj": {
+            "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.EF\\DAL.App.EF.csproj"
           },
-          "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Extensions\\Extensions.csproj": {
-            "projectPath": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\Extensions\\Extensions.csproj"
+          "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Extensions\\Extensions.csproj": {
+            "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Extensions\\Extensions.csproj"
           },
-          "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj": {
-            "projectPath": "C:\\Users\\krist\\OneDrive\\Töölaud\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj"
+          "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj": {
+            "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj"
           }
         }
       }

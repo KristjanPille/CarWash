@@ -24,5 +24,17 @@ namespace PublicApi.DTO.v1.Identity
         [MaxLength(128)]
         [Required]
         public string LastName { get; set; } = default!;
+        
+        [MinLength(1)]
+        [MaxLength(128)]
+        [Required]
+        public string Model { get; set; } = default!;
+        
+        [MinLength(1)]
+        [MaxLength(128)]
+        [Required]
+        public string Mark { get; set; } = default!;
+        
+        public int CarSize { get; set; } = default!;
     }
 }

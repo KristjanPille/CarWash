@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="C:\Users\krist\AppData\local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\krist\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_DistributedHomeWork.-1078464245.00" t="ExcludeRecursive" />
+    <e p="C:\Users\krist\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_DistributedHomeWork.1277058304.00" t="ExcludeRecursive" />
     <e p="C:\Users\krist\AppData\Roaming\JetBrains\Rider2020.1\consoles\db" t="IncludeRecursive" />
     <e p="C:\Users\krist\AppData\Roaming\JetBrains\Rider2020.1\extensions" t="IncludeRecursive" />
     <e p="C:\Users\krist\AppData\Roaming\JetBrains\Rider2020.1\scratches" t="IncludeRecursive" />
-    <e p="C:\Users\krist\OneDrive\Töölaud\Demo2019s" t="IncludeFlat">
+    <e p="C:\Users\krist\icd0009-2019s\Demo2019s" t="IncludeFlat">
       <e p=".gitignore" t="Include" />
       <e p="_Solution Items" t="Include" />
       <e p="BLL" t="Include" />
@@ -17,6 +17,7 @@
         <e p="Mappers" t="Include">
           <e p="BLLMapper.cs" t="Include" />
           <e p="CampaignServiceMapper.cs" t="Include" />
+          <e p="CarModelMarkServiceMapper.cs" t="Include" />
           <e p="CarServiceMapper.cs" t="Include" />
           <e p="CarTypeServiceMapper.cs" t="Include" />
           <e p="CheckServiceMapper.cs" t="Include" />
@@ -56,6 +57,7 @@
         <e p="BLL.App.DTO.csproj" t="IncludeRecursive" />
         <e p="Campaign.cs" t="Include" />
         <e p="Car.cs" t="Include" />
+        <e p="CarModelMark.cs" t="Include" />
         <e p="carType.cs" t="Include" />
         <e p="Check.cs" t="Include" />
         <e p="Discount.cs" t="Include" />
@@ -258,8 +260,8 @@
           <e p="DALMapper.cs" t="Include" />
         </e>
         <e p="Migrations" t="Include">
-          <e p="20200524155949_InitialDbCreation.cs" t="Include" />
-          <e p="20200524155949_InitialDbCreation.Designer.cs" t="Include" />
+          <e p="20200611080110_InitialDbCreation.cs" t="Include" />
+          <e p="20200611080110_InitialDbCreation.Designer.cs" t="Include" />
           <e p="AppDbContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -391,6 +393,7 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="Campaign.cs" t="Include" />
         <e p="Car.cs" t="Include" />
+        <e p="CarModelMark.cs" t="Include" />
         <e p="Check.cs" t="Include" />
         <e p="Identity" t="Include">
           <e p="AppRole.cs" t="Include" />
@@ -468,6 +471,7 @@
               <e p="AccountController.cs" t="Include" />
             </e>
           </e>
+          <e p="AppUsersController.cs" t="Include" />
           <e p="CampaignsController.cs" t="Include" />
           <e p="CarsController.cs" t="Include" />
           <e p="ChecksController.cs" t="Include" />

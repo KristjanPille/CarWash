@@ -106,12 +106,27 @@ namespace WebApp.ApiControllers._1._0.Identity
                 return NotFound(new MessageDTO("User already registered!"));
             }
 
+            var modelMark = new Domain.App.ModelMark()
+            {
+                Model = dto.Model,
+                Mark = dto.Mark
+            };
+
             appUser = new Domain.App.Identity.AppUser()
             {
                 Email = dto.Email,
                 UserName = dto.Email,
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
+                Cars = new[]
+                {
+                    new Domain.App.Car()
+                    {
+                        ModelMark = modelMark,
+                        ModelMarkId = modelMark.Id,
+                        CarSize = dto.CarSize
+                    }
+                }
             };
             var result = await _userManager.CreateAsync(appUser, dto.Password);
             if (result.Succeeded)

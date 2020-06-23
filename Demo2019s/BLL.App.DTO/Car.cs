@@ -10,10 +10,6 @@ namespace BLL.App.DTO
     { 
         public Guid Id { get; set; }
 
-        public Guid AppUserId { get; set; }
-        [JsonIgnore]
-        public AppUser? AppUser { get; set; }
-
         public Guid ModelMarkId { get; set; }
         public ModelMark ModelMark { get; set; } = default!;
        

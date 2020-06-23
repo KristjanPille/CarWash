@@ -8,8 +8,7 @@ using DAL.App.EF;
 
 namespace BLL.App.Services
 {
-    public class CampaignService :
-        BaseEntityService<IAppUnitOfWork, ICampaignRepository, ICampaignServiceMapper,
+    public class CampaignService : BaseEntityService<IAppUnitOfWork, ICampaignRepository, ICampaignServiceMapper,
             DAL.App.DTO.Campaign, BLL.App.DTO.Campaign>, ICampaignService
     {
         public CampaignService(IAppUnitOfWork uow) : base(uow, uow.Campaigns,

@@ -20,6 +20,8 @@ namespace Domain.App.Identity
 
         public string FirstLastName => FirstName + " " + LastName;
         public string LastFirstName => LastName + " " + FirstName;
+        
+        public ICollection<Car>? Cars { get; set; }
 
     }
 }

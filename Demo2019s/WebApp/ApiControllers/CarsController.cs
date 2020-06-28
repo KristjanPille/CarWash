@@ -46,7 +46,8 @@ namespace WebApp.ApiControllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<V1DTO.Car>))]
         public async Task<ActionResult<IEnumerable<V1DTO.Car>>> GetCars()
         {
-            return Ok((await _bll.Cars.GetAllAsync()).Select(e => _mapper.Map(e)));
+            //Gets User specific cars
+            return Ok((await _bll.Cars.GetAllAsync()).Select(e => _mapper.Map(e)).Where(e => e.AppUserId == User.UserId()));
         }
 
         /// <summary>
@@ -62,9 +63,9 @@ namespace WebApp.ApiControllers
         { 
             BLL.App.DTO.Car car = await _bll.Cars.FirstOrDefaultAsync(id);
 
-            if (!car.AppUserId.Equals(User.UserId()))
+            if (!await _bll.Cars.ExistsAsync(car.Id, User.UserId()))
             {
-                return BadRequest(new V1DTO.MessageDTO($"Cant access this resource"));
+                return NotFound(new V1DTO.MessageDTO($"Current user does not have car with this id {id}, userId:{User.UserId()}"));
             }
 
             return Ok((await _bll.Cars.GetAllAsync()).Select(e => _mapper.Map(e)).Where(e => e.Id == id));
@@ -86,7 +87,7 @@ namespace WebApp.ApiControllers
         {
             if (!await _bll.Cars.ExistsAsync(car.Id, User.UserId()))
             {
-                return NotFound(new V1DTO.MessageDTO($"Current user does not have car with this id {id}, userId:{User.UserId()}, carId: {car.Id}"));
+                return NotFound(new V1DTO.MessageDTO($"Current user does not have car with this id {id}, userId:{User.UserId()}"));
             }
             
             var modelMarkId = await _bll.ModelMarks.GetModelMarkId(car);
@@ -148,9 +149,9 @@ namespace WebApp.ApiControllers
             var car =
                 await _bll.Cars.FirstOrDefaultAsync(id);
 
-            if (!car.AppUserId.Equals(User.UserId()))
+            if (!await _bll.Cars.ExistsAsync(car.Id, User.UserId()))
             {
-                return BadRequest(new V1DTO.MessageDTO($"Cant access this resource"));
+                return NotFound(new V1DTO.MessageDTO($"Current user does not have car with this id {id}, userId:{User.UserId()}"));
             }
             
             if (car == null)

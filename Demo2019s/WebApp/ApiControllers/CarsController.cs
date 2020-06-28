@@ -26,7 +26,7 @@ namespace WebApp.ApiControllers
     public class CarsController : ControllerBase
     {
         private readonly IAppBLL _bll;
-        private readonly CarMapper _mapper = new CarMapper();
+        private readonly CarsMapper _mapper = new CarsMapper();
 
         /// <summary>
         /// Constructor
@@ -58,16 +58,16 @@ namespace WebApp.ApiControllers
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(V1DTO.Car))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]
-        public async Task<ActionResult<Car>> GetCar(Guid id)
-        {
-            var car = await _bll.Cars.FirstOrDefaultAsync(id);
+        public async Task<ActionResult<V1DTO.Car>> GetCar(Guid id)
+        { 
+            BLL.App.DTO.Car car = await _bll.Cars.FirstOrDefaultAsync(id);
 
-            if (car == null)
+            if (!car.AppUserId.Equals(User.UserId()))
             {
-                return NotFound(new V1DTO.MessageDTO($"car with id {id} not found"));
+                return BadRequest(new V1DTO.MessageDTO($"Cant access this resource"));
             }
 
-            return Ok(car);
+            return Ok((await _bll.Cars.GetAllAsync()).Select(e => _mapper.Map(e)).Where(e => e.Id == id));
         }
 
         /// <summary>
@@ -148,6 +148,11 @@ namespace WebApp.ApiControllers
             var car =
                 await _bll.Cars.FirstOrDefaultAsync(id);
 
+            if (!car.AppUserId.Equals(User.UserId()))
+            {
+                return BadRequest(new V1DTO.MessageDTO($"Cant access this resource"));
+            }
+            
             if (car == null)
             {
                 return NotFound(new V1DTO.MessageDTO($"Car with id {id} not found!"));

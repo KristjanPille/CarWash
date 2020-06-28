@@ -8,6 +8,9 @@ namespace DAL.App.DTO
     {
         public Guid Id { get; set; }
         public string NameOfCampaign { get; set; } = default!;
+        
         public string Description { get; set; } = default!;
+        
+        public double DiscountAmount { get; set; } = default!;
     }
 }

@@ -24,8 +24,8 @@ namespace DAL.App.EF.Repositories
         public override async Task<IEnumerable<Campaign>> GetAllAsync(object? userId = null, bool noTracking = true)
         {
             var query = PrepareQuery(userId, noTracking);
-            query = query
-                .Include(l => l.NameOfCampaign);
+            //query = query
+            //    .Include(l => l.NameOfCampaign);
 
             var domainEntities = await query.ToListAsync();
             var result = domainEntities.Select(e => Mapper.Map(e));

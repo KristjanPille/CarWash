@@ -39,7 +39,7 @@ namespace WebApp.ApiControllers
         // GET: api/campaigns
         [HttpGet]
         [Produces("application/json")]
-        public async Task<ActionResult<IEnumerable<Campaign>>> Getcampaigns()
+        public async Task<ActionResult<IEnumerable<PublicApi.DTO.v1.Campaign>>> Getcampaigns()
         {
             return Ok((await _bll.Campaigns.GetAllAsync()).Select(e => _mapper.Map(e)));
         }
@@ -47,7 +47,7 @@ namespace WebApp.ApiControllers
         // GET: api/campaigns/5
         [HttpGet("{id}")]
         [Produces("application/json")]
-        public async Task<ActionResult<Campaign>> Getcampaign(Guid id)
+        public async Task<ActionResult<PublicApi.DTO.v1.Campaign>> Getcampaign(Guid id)
         {
             var campaign= await _bll.Campaigns.FirstOrDefaultAsync(id);
 

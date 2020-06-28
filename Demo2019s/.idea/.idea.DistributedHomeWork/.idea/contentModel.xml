@@ -400,6 +400,7 @@
         </e>
         <e p="IsInService.cs" t="Include" />
         <e p="Mappers" t="Include">
+          <e p="AppUserMapper.cs" t="Include" />
           <e p="BaseMapper.cs" t="Include" />
           <e p="CampaignMapper.cs" t="Include" />
           <e p="CarMapper.cs" t="Include" />

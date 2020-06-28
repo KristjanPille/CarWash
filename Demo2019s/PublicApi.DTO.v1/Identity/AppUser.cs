@@ -11,8 +11,7 @@ namespace PublicApi.DTO.v1.Identity
         public Guid Id { get; set; }
 
         public string Email { get; set; } = default!;
-        public string UserName { get; set; } = default!;
-        
+
         [MinLength(1)]
         [MaxLength(128)]
         [Required]
@@ -22,10 +21,6 @@ namespace PublicApi.DTO.v1.Identity
         [MaxLength(128)]
         [Required]
         public string LastName { get; set; } = default!;
-
-        public string FirstLastName => FirstName + " " + LastName;
-        public string LastFirstName => LastName + " " + FirstName;
         
-        public ICollection<Car>? Cars { get; set; }
     }
 }

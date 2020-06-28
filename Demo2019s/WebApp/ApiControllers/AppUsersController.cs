@@ -1,18 +1,16 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DAL.App.EF;
-using Domain.App;
 using Domain.App.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using PublicApi.DTO.v1.Mappers;
+using V1DTO=PublicApi.DTO.v1;
 
 namespace WebApp.ApiControllers
 {
@@ -25,6 +23,7 @@ namespace WebApp.ApiControllers
     {
         private readonly AppDbContext _context;
         private readonly UserManager<AppUser> _userManager;
+        private readonly AppUserMapper _mapper = new AppUserMapper();
 
         public AppUsersController(AppDbContext context, UserManager<AppUser> userManager)
         {
@@ -43,7 +42,7 @@ namespace WebApp.ApiControllers
 
         // GET: api/AppUsers/appUser
         [HttpGet("appuser")]
-        public async Task<ActionResult<AppUser>> GetAppUser()
+        public async Task<ActionResult<PublicApi.DTO.v1.Identity.AppUser>> GetAppUser()
         {
             var appUser = await _userManager.FindByEmailAsync(User.Identity.Name);
 
@@ -51,22 +50,28 @@ namespace WebApp.ApiControllers
             {
                 return NotFound();
             }
-
-            return appUser;
+            
+            return _mapper.Map(appUser);
         }
 
         // PUT: api/AppUsers/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAppUser(Guid id, AppUser appUser)
+        public async Task<IActionResult> PutAppUser(Guid id, PublicApi.DTO.v1.Identity.AppUser appUser)
         {
             if (id != appUser.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(appUser).State = EntityState.Modified;
+            var domainAppUser = await _context.Users.FindAsync(id);
+
+            domainAppUser.Email = appUser.Email;
+            domainAppUser.FirstName = appUser.FirstName;
+            domainAppUser.LastName = appUser.FirstName;
+
+            _context.Entry(domainAppUser).State = EntityState.Modified;
 
             try
             {
@@ -103,6 +108,11 @@ namespace WebApp.ApiControllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<AppUser>> DeleteAppUser(Guid id)
         {
+            if (!User.IsInRole("admin"))
+            {
+                return BadRequest(new V1DTO.MessageDTO("Not allowed!"));
+            }
+            
             var appUser = await _context.Users.FindAsync(id);
             if (appUser == null)
             {

@@ -5,20 +5,20 @@ using System.Threading.Tasks;
 using Contracts.BLL.App;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using DAL.App.EF;
 using Domain.App;
 using Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using PublicApi.DTO.v1.Mappers;
-using V1DTO=PublicApi.DTO.v1;
+using ModelMark = BLL.App.DTO.ModelMark;
+using V1DTO = PublicApi.DTO.v1;
 
 namespace WebApp.ApiControllers
-{    /// <summary>
+{
+    /// <summary>
     /// Cars
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -27,7 +27,7 @@ namespace WebApp.ApiControllers
     {
         private readonly IAppBLL _bll;
         private readonly CarMapper _mapper = new CarMapper();
-        
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -35,12 +35,14 @@ namespace WebApp.ApiControllers
         {
             _bll = bll;
         }
+
         /// <summary>
         /// get all the Cars
         /// </summary>
         /// <returns>Array of Cars</returns>
         [HttpGet]
         [Produces("application/json")]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<V1DTO.Car>))]
         public async Task<ActionResult<IEnumerable<V1DTO.Car>>> GetCars()
         {
@@ -65,11 +67,11 @@ namespace WebApp.ApiControllers
                 return NotFound(new V1DTO.MessageDTO($"car with id {id} not found"));
             }
 
-            return Ok(_mapper.Map( car));
+            return Ok(car);
         }
-        
+
         /// <summary>
-        /// Update the GpsSession
+        /// Update Car
         /// </summary>
         /// <param name="id">Session Id</param>
         /// <param name="car">car object</param>
@@ -82,23 +84,25 @@ namespace WebApp.ApiControllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(V1DTO.MessageDTO))]
         public async Task<IActionResult> PutCar(Guid id, V1DTO.Car car)
         {
-            if (id != car.Id)
-            {
-                return BadRequest(new V1DTO.MessageDTO("Id and car.id do not match"));
-            }
-
             if (!await _bll.Cars.ExistsAsync(car.Id, User.UserId()))
             {
-                return NotFound(new V1DTO.MessageDTO($"Current user does not have car with this id {id}"));
+                return NotFound(new V1DTO.MessageDTO($"Current user does not have car with this id {id}, userId:{User.UserId()}, carId: {car.Id}"));
             }
+            
+            var modelMarkId = await _bll.ModelMarks.GetModelMarkId(car);
+            var modelMark = await _bll.ModelMarks.FirstOrDefaultAsync(modelMarkId);
 
             car.AppUserId = User.UserId();
-            await _bll.Cars.UpdateAsync(_mapper.Map(car));
-            await _bll.SaveChangesAsync();
+
+            var bllEntity = _mapper.Map(car);
+            bllEntity.ModelMarkId = modelMark.Id;
             
+            await _bll.Cars.UpdateAsync(bllEntity);
+            await _bll.SaveChangesAsync();
+
             return NoContent();
         }
-        
+
         /// <summary>
         /// Post the new Car
         /// </summary>
@@ -113,8 +117,15 @@ namespace WebApp.ApiControllers
         {
             car.AppUserId = User.UserId();
             var bllEntity = _mapper.Map(car);
-            
+
+            //modelmark cant be created has to found in db.
+            var modelMarkId = await _bll.ModelMarks.GetModelMarkId(car);
+            var modelMark = await _bll.ModelMarks.FirstOrDefaultAsync(modelMarkId);
+
+            bllEntity.ModelMarkId = modelMark.Id;
+
             _bll.Cars.Add(bllEntity);
+
             await _bll.SaveChangesAsync();
             car.Id = bllEntity.Id;
 
@@ -122,7 +133,7 @@ namespace WebApp.ApiControllers
                 new {id = car.Id, version = HttpContext.GetRequestedApiVersion()?.ToString() ?? "0"},
                 car);
         }
-        
+
         /// <summary>
         /// Delete the Car
         /// </summary>
@@ -134,17 +145,15 @@ namespace WebApp.ApiControllers
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]
         public async Task<ActionResult<Car>> DeleteCar(Guid id)
         {
-            var userIdTKey = User.IsInRole("admin") ? null : (Guid?) User.UserId();
-
             var car =
-                await _bll.Cars.FirstOrDefaultAsync(id, userIdTKey);
-            
+                await _bll.Cars.FirstOrDefaultAsync(id);
+
             if (car == null)
             {
                 return NotFound(new V1DTO.MessageDTO($"Car with id {id} not found!"));
             }
 
-            await _bll.Cars.RemoveAsync(car, userIdTKey);
+            await _bll.Cars.RemoveAsync(car);
             await _bll.SaveChangesAsync();
 
             return Ok(car);

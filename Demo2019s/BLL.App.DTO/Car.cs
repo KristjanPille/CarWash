@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using BLL.App.DTO.Identity;
 using System.Text.Json.Serialization;
+using BLL.App.DTO.Identity;
 using Contracts.Domain;
 
 namespace BLL.App.DTO
@@ -10,9 +9,16 @@ namespace BLL.App.DTO
     { 
         public Guid Id { get; set; }
 
-        public Guid ModelMarkId { get; set; }
-        public ModelMark ModelMark { get; set; } = default!;
+        public Guid? ModelMarkId { get; set; }
+        
+        [JsonIgnore]
+        public ModelMark? ModelMark { get; set; }
        
         public int? CarSize{ get; set; } = default!;
+        
+        public Guid AppUserId { get; set; }
+  
+        [JsonIgnore]
+        public AppUser? AppUser { get; set; }
     }
 }

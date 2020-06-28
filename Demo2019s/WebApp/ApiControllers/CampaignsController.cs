@@ -17,8 +17,9 @@ namespace WebApp.ApiControllers
 {    /// <summary>
     /// campaigns Api Controller
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public class CampaignsController : ControllerBase
@@ -52,7 +53,7 @@ namespace WebApp.ApiControllers
 
             if (campaign== null)
             {
-                return NotFound(new V1DTO.MessageDTO("campaignnot found"));
+                return NotFound(new V1DTO.MessageDTO("campaign not found"));
             }
 
             return Ok(_mapper.Map(campaign));

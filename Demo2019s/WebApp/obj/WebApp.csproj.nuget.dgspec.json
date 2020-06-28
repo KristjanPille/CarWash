@@ -1,42 +1,38 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\WebApp\\WebApp.csproj": {}
+    "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\WebApp\\WebApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj": {
+    "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj",
+        "projectUniqueName": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj",
         "projectName": "BLL.App.DTO",
-        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj",
-        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\obj\\",
+        "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj",
+        "packagesPath": "C:\\Users\\kristjan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\kristjan\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj"
               },
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain.App\\Domain.App.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain.App\\Domain.App.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain.App\\Domain.App.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain.App\\Domain.App.csproj"
               }
             }
           }
@@ -68,45 +64,44 @@
         }
       }
     },
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App\\BLL.App.csproj": {
+    "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\BLL.App\\BLL.App.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App\\BLL.App.csproj",
+        "projectUniqueName": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\BLL.App\\BLL.App.csproj",
         "projectName": "BLL.App",
-        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App\\BLL.App.csproj",
-        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App\\obj\\",
+        "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\BLL.App\\BLL.App.csproj",
+        "packagesPath": "C:\\Users\\kristjan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\BLL.App\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\kristjan\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj"
               },
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.Base\\BLL.Base.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.Base\\BLL.Base.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\BLL.Base\\BLL.Base.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\BLL.Base\\BLL.Base.csproj"
               },
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.BLL.App\\Contracts.BLL.App.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.BLL.App\\Contracts.BLL.App.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.BLL.App\\Contracts.BLL.App.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.BLL.App\\Contracts.BLL.App.csproj"
               },
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.EF\\DAL.App.EF.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.EF\\DAL.App.EF.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.App.EF\\DAL.App.EF.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.App.EF\\DAL.App.EF.csproj"
+              },
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj"
               }
             }
           }
@@ -138,39 +133,35 @@
         }
       }
     },
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.Base\\BLL.Base.csproj": {
+    "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\BLL.Base\\BLL.Base.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.Base\\BLL.Base.csproj",
+        "projectUniqueName": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\BLL.Base\\BLL.Base.csproj",
         "projectName": "BLL.Base",
-        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.Base\\BLL.Base.csproj",
-        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.Base\\obj\\",
+        "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\BLL.Base\\BLL.Base.csproj",
+        "packagesPath": "C:\\Users\\kristjan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\BLL.Base\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\kristjan\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.BLL.Base\\Contracts.BLL.Base.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.BLL.Base\\Contracts.BLL.Base.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.BLL.Base\\Contracts.BLL.Base.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.BLL.Base\\Contracts.BLL.Base.csproj"
               },
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj"
               }
             }
           }
@@ -202,42 +193,38 @@
         }
       }
     },
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.BLL.App\\Contracts.BLL.App.csproj": {
+    "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.BLL.App\\Contracts.BLL.App.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.BLL.App\\Contracts.BLL.App.csproj",
+        "projectUniqueName": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.BLL.App\\Contracts.BLL.App.csproj",
         "projectName": "Contracts.BLL.App",
-        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.BLL.App\\Contracts.BLL.App.csproj",
-        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.BLL.App\\obj\\",
+        "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.BLL.App\\Contracts.BLL.App.csproj",
+        "packagesPath": "C:\\Users\\kristjan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.BLL.App\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\kristjan\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.BLL.Base\\Contracts.BLL.Base.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.BLL.Base\\Contracts.BLL.Base.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.BLL.Base\\Contracts.BLL.Base.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.BLL.Base\\Contracts.BLL.Base.csproj"
               },
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.App\\Contracts.DAL.App.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.App\\Contracts.DAL.App.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.DAL.App\\Contracts.DAL.App.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.DAL.App\\Contracts.DAL.App.csproj"
               },
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain.App\\Domain.App.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain.App\\Domain.App.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain.App\\Domain.App.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain.App\\Domain.App.csproj"
               }
             }
           }
@@ -269,39 +256,35 @@
         }
       }
     },
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.BLL.Base\\Contracts.BLL.Base.csproj": {
+    "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.BLL.Base\\Contracts.BLL.Base.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.BLL.Base\\Contracts.BLL.Base.csproj",
+        "projectUniqueName": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.BLL.Base\\Contracts.BLL.Base.csproj",
         "projectName": "Contracts.BLL.Base",
-        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.BLL.Base\\Contracts.BLL.Base.csproj",
-        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.BLL.Base\\obj\\",
+        "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.BLL.Base\\Contracts.BLL.Base.csproj",
+        "packagesPath": "C:\\Users\\kristjan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.BLL.Base\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\kristjan\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj"
               },
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj"
               }
             }
           }
@@ -333,39 +316,41 @@
         }
       }
     },
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.App\\Contracts.DAL.App.csproj": {
+    "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.DAL.App\\Contracts.DAL.App.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.App\\Contracts.DAL.App.csproj",
+        "projectUniqueName": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.DAL.App\\Contracts.DAL.App.csproj",
         "projectName": "Contracts.DAL.App",
-        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.App\\Contracts.DAL.App.csproj",
-        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.App\\obj\\",
+        "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.DAL.App\\Contracts.DAL.App.csproj",
+        "packagesPath": "C:\\Users\\kristjan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.DAL.App\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\kristjan\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj"
               },
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.DTO\\DAL.App.DTO.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.DTO\\DAL.App.DTO.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj"
+              },
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.App.DTO\\DAL.App.DTO.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.App.DTO\\DAL.App.DTO.csproj"
+              },
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj"
               }
             }
           }
@@ -397,36 +382,32 @@
         }
       }
     },
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj": {
+    "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj",
+        "projectUniqueName": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj",
         "projectName": "Contracts.DAL.Base",
-        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj",
-        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\obj\\",
+        "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj",
+        "packagesPath": "C:\\Users\\kristjan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\kristjan\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj"
               }
             }
           }
@@ -464,36 +445,32 @@
         }
       }
     },
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.DTO\\DAL.App.DTO.csproj": {
+    "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.App.DTO\\DAL.App.DTO.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.DTO\\DAL.App.DTO.csproj",
+        "projectUniqueName": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.App.DTO\\DAL.App.DTO.csproj",
         "projectName": "DAL.App.DTO",
-        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.DTO\\DAL.App.DTO.csproj",
-        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.DTO\\obj\\",
+        "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.App.DTO\\DAL.App.DTO.csproj",
+        "packagesPath": "C:\\Users\\kristjan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.App.DTO\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\kristjan\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj"
               }
             }
           }
@@ -506,6 +483,12 @@
       },
       "frameworks": {
         "netstandard2.1": {
+          "dependencies": {
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[4.7.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -525,48 +508,47 @@
         }
       }
     },
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.EF\\DAL.App.EF.csproj": {
+    "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.App.EF\\DAL.App.EF.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.EF\\DAL.App.EF.csproj",
+        "projectUniqueName": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.App.EF\\DAL.App.EF.csproj",
         "projectName": "DAL.App.EF",
-        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.EF\\DAL.App.EF.csproj",
-        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.EF\\obj\\",
+        "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.App.EF\\DAL.App.EF.csproj",
+        "packagesPath": "C:\\Users\\kristjan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.App.EF\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\kristjan\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.App\\Contracts.DAL.App.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.App\\Contracts.DAL.App.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.DAL.App\\Contracts.DAL.App.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.DAL.App\\Contracts.DAL.App.csproj"
               },
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.DTO\\DAL.App.DTO.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.DTO\\DAL.App.DTO.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.App.DTO\\DAL.App.DTO.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.App.DTO\\DAL.App.DTO.csproj"
               },
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base.EF\\DAL.Base.EF.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base.EF\\DAL.Base.EF.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.Base.EF\\DAL.Base.EF.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.Base.EF\\DAL.Base.EF.csproj"
               },
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain.App\\Domain.App.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain.App\\Domain.App.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain.App\\Domain.App.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain.App\\Domain.App.csproj"
               },
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj"
+              },
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj"
               }
             }
           }
@@ -612,36 +594,32 @@
         }
       }
     },
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base.EF\\DAL.Base.EF.csproj": {
+    "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.Base.EF\\DAL.Base.EF.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base.EF\\DAL.Base.EF.csproj",
+        "projectUniqueName": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.Base.EF\\DAL.Base.EF.csproj",
         "projectName": "DAL.Base.EF",
-        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base.EF\\DAL.Base.EF.csproj",
-        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base.EF\\obj\\",
+        "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.Base.EF\\DAL.Base.EF.csproj",
+        "packagesPath": "C:\\Users\\kristjan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.Base.EF\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\kristjan\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj"
               }
             }
           }
@@ -679,39 +657,35 @@
         }
       }
     },
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj": {
+    "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj",
+        "projectUniqueName": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj",
         "projectName": "DAL.Base",
-        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj",
-        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\obj\\",
+        "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj",
+        "packagesPath": "C:\\Users\\kristjan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.Base\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\kristjan\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj"
               },
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj"
               }
             }
           }
@@ -753,45 +727,41 @@
         }
       }
     },
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain.App\\Domain.App.csproj": {
+    "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain.App\\Domain.App.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain.App\\Domain.App.csproj",
+        "projectUniqueName": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain.App\\Domain.App.csproj",
         "projectName": "Domain.App",
-        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain.App\\Domain.App.csproj",
-        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain.App\\obj\\",
+        "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain.App\\Domain.App.csproj",
+        "packagesPath": "C:\\Users\\kristjan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain.App\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\kristjan\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj"
               },
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj"
               },
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Domain.Base\\Domain.Base.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Domain.Base\\Domain.Base.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Domain.Base\\Domain.Base.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Domain.Base\\Domain.Base.csproj"
               },
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj"
               }
             }
           }
@@ -833,29 +803,25 @@
         }
       }
     },
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj": {
+    "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj",
         "projectName": "Contracts.Domain",
-        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj",
-        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\obj\\",
+        "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj",
+        "packagesPath": "C:\\Users\\kristjan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\kristjan\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -896,36 +862,32 @@
         }
       }
     },
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Domain.Base\\Domain.Base.csproj": {
+    "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Domain.Base\\Domain.Base.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Domain.Base\\Domain.Base.csproj",
+        "projectUniqueName": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Domain.Base\\Domain.Base.csproj",
         "projectName": "Domain.Base",
-        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Domain.Base\\Domain.Base.csproj",
-        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Domain.Base\\obj\\",
+        "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Domain.Base\\Domain.Base.csproj",
+        "packagesPath": "C:\\Users\\kristjan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Domain.Base\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\kristjan\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj"
               }
             }
           }
@@ -967,29 +929,25 @@
         }
       }
     },
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Extensions\\Extensions.csproj": {
+    "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Extensions\\Extensions.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Extensions\\Extensions.csproj",
+        "projectUniqueName": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Extensions\\Extensions.csproj",
         "projectName": "Extensions",
-        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Extensions\\Extensions.csproj",
-        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Extensions\\obj\\",
+        "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Extensions\\Extensions.csproj",
+        "packagesPath": "C:\\Users\\kristjan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Extensions\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\kristjan\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -1034,39 +992,35 @@
         }
       }
     },
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj": {
+    "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj",
+        "projectUniqueName": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj",
         "projectName": "PublicApi.DTO.v1",
-        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj",
-        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\obj\\",
+        "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj",
+        "packagesPath": "C:\\Users\\kristjan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\kristjan\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\BLL.App.DTO\\BLL.App.DTO.csproj"
               },
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain.App\\Domain.App.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Domain.App\\Domain.App.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain.App\\Domain.App.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain.App\\Domain.App.csproj"
               }
             }
           }
@@ -1104,29 +1058,25 @@
         }
       }
     },
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj": {
+    "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj",
+        "projectUniqueName": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj",
         "projectName": "Resources",
-        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj",
-        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Resources\\obj\\",
+        "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Resources\\Resources.csproj",
+        "packagesPath": "C:\\Users\\kristjan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Resources\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\kristjan\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -1161,48 +1111,44 @@
         }
       }
     },
-    "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\WebApp\\WebApp.csproj": {
+    "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\WebApp\\WebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\WebApp\\WebApp.csproj",
+        "projectUniqueName": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\WebApp\\WebApp.csproj",
         "projectName": "WebApp",
-        "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\WebApp\\WebApp.csproj",
-        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\WebApp\\obj\\",
+        "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\WebApp\\WebApp.csproj",
+        "packagesPath": "C:\\Users\\kristjan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\WebApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\kristjan\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App\\BLL.App.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\BLL.App\\BLL.App.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\BLL.App\\BLL.App.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\BLL.App\\BLL.App.csproj"
               },
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.BLL.App\\Contracts.BLL.App.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Contracts.BLL.App\\Contracts.BLL.App.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.BLL.App\\Contracts.BLL.App.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.BLL.App\\Contracts.BLL.App.csproj"
               },
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.EF\\DAL.App.EF.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\DAL.App.EF\\DAL.App.EF.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.App.EF\\DAL.App.EF.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.App.EF\\DAL.App.EF.csproj"
               },
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Extensions\\Extensions.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\Extensions\\Extensions.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Extensions\\Extensions.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Extensions\\Extensions.csproj"
               },
-              "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj": {
-                "projectPath": "C:\\Users\\krist\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj"
+              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj": {
+                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj"
               }
             }
           }

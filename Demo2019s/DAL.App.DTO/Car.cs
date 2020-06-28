@@ -1,5 +1,7 @@
 ﻿using System;
 using Contracts.Domain;
+using DAL.App.DTO.Identity;
+using System.Text.Json.Serialization;
 
 namespace DAL.App.DTO
 {
@@ -8,6 +10,8 @@ namespace DAL.App.DTO
         public Guid Id { get; set; }
         
         public Guid ModelMarkId { get; set; }
+        
+        [JsonIgnore]
         public ModelMark? ModelMark { get; set; }
 
         /* 1-3
@@ -16,5 +20,9 @@ namespace DAL.App.DTO
          3=> Bigger suv
         */
         public int? CarSize{ get; set; } = default!;
+        
+        public Guid AppUserId { get; set; }
+        [JsonIgnore]
+        public AppUser? AppUser { get; set; }
     }
 }

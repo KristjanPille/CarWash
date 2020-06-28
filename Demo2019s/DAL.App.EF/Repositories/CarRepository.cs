@@ -1,4 +1,5 @@
-﻿﻿using System.Collections.Generic;
+﻿﻿using System;
+ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Contracts.DAL.App.Repositories;
@@ -7,9 +8,10 @@ using DAL.App.EF.Mappers;
 using DAL.Base.EF.Repositories;
 using DAL.Base.Mappers;
 using Microsoft.EntityFrameworkCore;
+ using ModelMark = BLL.App.DTO.ModelMark;
 
 
-namespace DAL.App.EF.Repositories
+ namespace DAL.App.EF.Repositories
 {
     public class CarRepository :
         EFBaseRepository<AppDbContext, Domain.App.Identity.AppUser, Domain.App.Car, DAL.App.DTO.Car>,
@@ -24,20 +26,11 @@ namespace DAL.App.EF.Repositories
         {
             var query = PrepareQuery(userId, noTracking);
             query = query
-                .Include(g => g.AppUser);
+                .Include(g => g.AppUser)
+                .Include(g => g.ModelMark);
             var domainItems = await query.ToListAsync();
             var result = domainItems.Select(e => Mapper.Map(e));
             return result;
-        }
-
-        public virtual async Task<IEnumerable<Car>> GetAllForViewAsync()
-        {
-            return await RepoDbSet
-                .Select(a => new Car()
-                {
-                    Id = a.Id,
-                    CarSize = a.CarSize,
-                }).ToListAsync();
         }
     }
 }

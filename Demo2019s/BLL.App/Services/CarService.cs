@@ -1,10 +1,12 @@
-﻿using BLL.App.Mappers;
+﻿using System;
+using System.Threading.Tasks;
+using BLL.App.Mappers;
 using BLL.Base.Services;
 using Contracts.BLL.App.Mappers;
 using Contracts.BLL.App.Services;
 using Contracts.DAL.App;
 using Contracts.DAL.App.Repositories;
-using DAL.App.EF;
+using Car = PublicApi.DTO.v1.Car;
 
 namespace BLL.App.Services
 {

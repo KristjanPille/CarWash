@@ -24,18 +24,6 @@ export class App {
     { route: ['account/register'], name: 'account-register', moduleId: 
     PLATFORM.moduleName('views/account/register'), nav: false, title: 'Register' },
 
-    { route: ['persons', 'persons/index'], name: 'persons-index', moduleId: PLATFORM.moduleName('views/persons/index'), nav: true, title: 'persons' },
-    { route: ['persons/details/:id?'], name: 'persons-details', moduleId: PLATFORM.moduleName('views/persons/details'), nav: false, title: 'persons Details' },
-    { route: ['persons/edit/:id?'], name: 'persons-edit', moduleId: PLATFORM.moduleName('views/persons/edit'), nav: false, title: 'persons Edit' },
-    { route: ['persons/delete/:id?'], name: 'persons-delete', moduleId: PLATFORM.moduleName('views/persons/delete'), nav: false, title: 'persons Delete' },
-    { route: ['persons/create'], name: 'persons-create', moduleId: PLATFORM.moduleName('views/persons/create'), nav: false, title: 'persons Create' },
-
-    { route: ['personcars', 'personcars/index'], name: 'personcars-index', moduleId: PLATFORM.moduleName('views/personcars/index'), nav: true, title: 'personcars' },
-    { route: ['personcars/details/:id?'], name: 'personcars-details', moduleId: PLATFORM.moduleName('views/personcars/details'), nav: false, title: 'personcars Details' },
-    { route: ['personcars/edit/:id?'], name: 'personcars-edit', moduleId: PLATFORM.moduleName('views/personcars/edit'), nav: false, title: 'personcars Edit' },
-    { route: ['personcars/delete/:id?'], name: 'personcars-delete', moduleId: PLATFORM.moduleName('views/personcars/delete'), nav: false, title: 'personcars Delete' },
-    { route: ['personcars/create'], name: 'personcars-create', moduleId: PLATFORM.moduleName('views/personcars/create'), nav: false, title: 'personcars Create' },
-
 
     { route: ['campaigns', 'Campaigns/index'], name: 'campaigns-index', moduleId:
     PLATFORM.moduleName('views/campaigns/index'), nav: true, title: 'Campaigns' },
@@ -59,16 +47,6 @@ export class App {
     { route: ['Cars/edit/:id?'], name: 'Cars-edit', moduleId:
     PLATFORM.moduleName('views/Cars/edit'), nav: false, title: 'Cars Edit' },
 
-    { route: ['CarTypes', 'CarTypes/index'], name: 'CarTypes-index', moduleId:
-    PLATFORM.moduleName('views/CarTypes/index'), nav: true, title: 'CarTypes' },
-    { route: ['CarTypes/details/:id'], name: 'CarTypes-details', moduleId:
-    PLATFORM.moduleName('views/CarTypes/details'), nav: false, title: 'CarTypes Details' }, 
-    { route: ['CarTypes/create'], name: 'CarTypes-create', moduleId: 
-    PLATFORM.moduleName('views/CarTypes/create'), nav: false, title: 'CarTypes Create' },
-    { route: ['CarTypes/delete/:id?'], name: 'CarTypes-delete', moduleId:
-    PLATFORM.moduleName('views/CarTypes/delete'), nav: false, title: 'CarTypes Delete' },
-    { route: ['CarTypes/edit/:id?'], name: 'CarTypes-edit', moduleId:
-    PLATFORM.moduleName('views/CarTypes/edit'), nav: false, title: 'CarTypes Edit' }, 
 
     { route: ['Washes', 'Washes/index'], name: 'Washes-index', moduleId: 
     PLATFORM.moduleName('views/Washes/index'), nav: true, title: 'Washes' },
@@ -82,17 +60,11 @@ export class App {
     PLATFORM.moduleName('views/Washes/create'), nav: false, title: 'Washes Create' },
 
 
-    { route: ['Checks', 'Checks/index'], name: 'home', moduleId:
-    PLATFORM.moduleName('views/Checks/index'), nav: true, title: 'Checks' }, 
-
     { route: ['Discounts', 'Discounts/index'], name: 'home', moduleId:
     PLATFORM.moduleName('views/Discounts/index'), nav: true, title: 'Discounts' }, 
 
     { route: ['IsInWashes', 'IsInWashes/index'], name: 'home', moduleId:
     PLATFORM.moduleName('views/IsInWashes/index'), nav: true, title: 'IsInWashes' }, 
-
-    { route: ['ModelMarks', 'ModelMarks/index'], name: 'home', moduleId:
-    PLATFORM.moduleName('views/ModelMarks/index'), nav: true, title: 'ModelMarks' }, 
 
     { route: ['Orders', 'Orders/index'], name: 'home', moduleId:
     PLATFORM.moduleName('views/Orders/index'), nav: true, title: 'Orders' }, 

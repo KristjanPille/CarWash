@@ -9,6 +9,8 @@ export class AccountRegister {
     private password: string = "";
     private _firstname: string = "";
     private _lastname: string = "";
+    private _model: string = "";
+    private _mark: string = "";
     private confirmPassword: string = "";
 
 
@@ -22,6 +24,14 @@ export class AccountRegister {
     
     submit(): void {
         if(this.password==null){
+            alert('1');
+            return
+        }
+        if(this._model==null){
+            alert('1');
+            return
+        }
+        if(this._mark==null){
             alert('1');
             return
         }
@@ -47,10 +57,12 @@ export class AccountRegister {
             return
         }
 
-      this.accountService.register(this._email, this.password, this._firstname, this._lastname)
+      this.accountService.register(this._email, this.password, this._firstname, this._lastname, this._mark, this._model)
       .then(response => {
-        if (response.statusCode !== undefined) {
-        this.appState.jwt = response.data!.token;
+        console.log("okei")
+        console.log(response.token);
+        if (response !== undefined) {
+        this.appState.jwt = response.token;
           this.router.navigateToRoute('home');
         }
       });

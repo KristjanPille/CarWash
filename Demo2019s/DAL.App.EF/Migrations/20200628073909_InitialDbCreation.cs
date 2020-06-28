@@ -281,7 +281,7 @@ namespace DAL.App.EF.Migrations
                     ChangedAt = table.Column<DateTime>(nullable: false),
                     AppUserId = table.Column<Guid>(nullable: false),
                     ModelMarkId = table.Column<Guid>(nullable: false),
-                    CarSize = table.Column<int>(nullable: true)
+                    CarSize = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

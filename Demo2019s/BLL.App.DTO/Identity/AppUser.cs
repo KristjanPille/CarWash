@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Contracts.DAL.Base;
 using Contracts.Domain;
@@ -24,5 +25,7 @@ namespace BLL.App.DTO.Identity
 
         public string FirstLastName => FirstName + " " + LastName;
         public string LastFirstName => LastName + " " + FirstName;
+        
+        public ICollection<Car>? Cars { get; set; }
     }
 }

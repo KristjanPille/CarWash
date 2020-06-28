@@ -14,6 +14,6 @@ namespace Domain.App
          2=> Mid Sized car
          3=> Bigger suv
         */
-        public int? CarSize{ get; set; } = default!;
+        public int CarSize{ get; set; } = default!;
     }
 }

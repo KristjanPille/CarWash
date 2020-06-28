@@ -18,7 +18,7 @@ namespace WebApp.ApiControllers
     /// <summary>
     /// GPS locations received from gps handheld-s
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -38,12 +38,13 @@ namespace WebApp.ApiControllers
         
 
         /// <summary>
-        /// get all the IsInServices
+        /// Get all IsInServices
         /// </summary>
-        /// <returns>Array of IsInServices</returns>
+        /// <returns>List of available GpsLocationTypes</returns>
         [HttpGet]
         [AllowAnonymous]
         [Produces("application/json")]
+        [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<V1DTO.IsInService>))]
         public async Task<ActionResult<IEnumerable<IsInService>>> GetIsInServices()
         {
@@ -60,14 +61,13 @@ namespace WebApp.ApiControllers
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(V1DTO.IsInService))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]
-        [HttpGet("{id}")]
         public async Task<ActionResult<IsInService>> GetIsInService(Guid id)
         {
             var inService = await _bll.IsInServices.FirstOrDefaultAsync(id);
 
             if (inService == null)
             {
-                return NotFound(new V1DTO.MessageDTO("inService not found"));
+                return NotFound(new V1DTO.MessageDTO("isInService not found"));
             }
 
             return Ok(_mapper.Map(inService));
@@ -86,14 +86,14 @@ namespace WebApp.ApiControllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(V1DTO.MessageDTO))]
-        public async Task<IActionResult> PutIsInService(Guid id, V1DTO.IsInService inService)
+        public async Task<IActionResult> PutIsInService(Guid id, V1DTO.IsInService isInService)
         {
-            if (id != inService.Id)
+            if (id != isInService.Id)
             {
                 return BadRequest(new V1DTO.MessageDTO("id and gpsLocationType.id do not match"));
             }
 
-            await _bll.IsInServices.UpdateAsync(_mapper.Map(inService));
+            await _bll.IsInServices.UpdateAsync(_mapper.Map(isInService));
             await _bll.SaveChangesAsync();
 
             return NoContent();
@@ -109,16 +109,16 @@ namespace WebApp.ApiControllers
         [Produces("application/json")]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(V1DTO.IsInService))]
-        public async Task<ActionResult<IsInService>> PostIsInService(V1DTO.IsInService inService)
+        public async Task<ActionResult<IsInService>> PostIsInService(V1DTO.IsInService isInService)
         {
-            var bllEntity = _mapper.Map(inService);
+            var bllEntity = _mapper.Map(isInService);
             _bll.IsInServices.Add(bllEntity);
             await _bll.SaveChangesAsync();
-            inService.Id = bllEntity.Id;
+            isInService.Id = bllEntity.Id;
 
             return CreatedAtAction("GetIsInService",
-                new {id = inService.Id, version = HttpContext.GetRequestedApiVersion()?.ToString() ?? "0"},
-                inService);
+                new {id = isInService.Id, version = HttpContext.GetRequestedApiVersion()?.ToString() ?? "0"},
+                isInService);
         }
 
         /// <summary>

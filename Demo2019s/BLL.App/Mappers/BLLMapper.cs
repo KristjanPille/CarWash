@@ -1,8 +1,5 @@
 using AutoMapper;
-using BLL.App.DTO;
 using BLL.Base.Mappers;
-using Car = Domain.App.Car;
-using ModelMark = Domain.App.ModelMark;
 
 namespace BLL.App.Mappers
 {
@@ -16,10 +13,16 @@ namespace BLL.App.Mappers
             MapperConfigurationExpression.CreateMap<DAL.App.DTO.Campaign, BLL.App.DTO.Campaign>();
             MapperConfigurationExpression.CreateMap<BLL.App.DTO.Campaign, DAL.App.DTO.Campaign>();
             
-            MapperConfigurationExpression.CreateMap<Car, CarModelMark>();
-            MapperConfigurationExpression.CreateMap<ModelMark, CarModelMark>();
+            MapperConfigurationExpression.CreateMap<BLL.App.DTO.Car, DAL.App.DTO.Car>();
+            MapperConfigurationExpression.CreateMap<DAL.App.DTO.Car, BLL.App.DTO.Car>();
             
-            
+            MapperConfigurationExpression.CreateMap<DAL.App.DTO.ModelMark, BLL.App.DTO.ModelMark>();
+            MapperConfigurationExpression.CreateMap<BLL.App.DTO.ModelMark, DAL.App.DTO.ModelMark>();
+
+
+            MapperConfigurationExpression.CreateMap<DAL.App.DTO.Identity.AppUser, BLL.App.DTO.Identity.AppUser>();
+
+
             Mapper = new Mapper(new MapperConfiguration(MapperConfigurationExpression));
         }
     }

@@ -105,7 +105,6 @@ namespace WebApp
                 {
                     new CultureInfo("en-GB"),
                     new CultureInfo("et-EE"),
-                    new CultureInfo("ru-RU"),
                 };
                 // datetime and currency support
                 options.SupportedCultures = supportedCultures;

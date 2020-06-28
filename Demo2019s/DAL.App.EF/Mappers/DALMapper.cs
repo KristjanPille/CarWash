@@ -13,9 +13,9 @@ namespace DAL.App.EF.Mappers
             MapperConfigurationExpression.CreateMap<Domain.App.Identity.AppUser, DAL.App.DTO.Identity.AppUser>();
             MapperConfigurationExpression.CreateMap<Domain.App.Campaign, DAL.App.DTO.Campaign>();
             
-            MapperConfigurationExpression.CreateMap<Domain.App.Car, DAL.App.DTO.Car>();
-            MapperConfigurationExpression.CreateMap<DAL.App.DTO.Car, Domain.App.Car>();
-            
+            MapperConfigurationExpression.CreateMap<Domain.App.ModelMark, DAL.App.DTO.ModelMark>();
+            MapperConfigurationExpression.CreateMap<DAL.App.DTO.ModelMark, Domain.App.ModelMark>();
+
             Mapper = new Mapper(new MapperConfiguration(MapperConfigurationExpression));
         }
     }

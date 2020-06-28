@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using Contracts.Domain;
 
 namespace DAL.App.DTO
@@ -9,6 +10,7 @@ namespace DAL.App.DTO
         public DateTime DateAndTime { get; set; }
         
         public Guid ServiceId { get; set; }
+        [JsonIgnore]
         public Service? Service { get; set; }
 
         

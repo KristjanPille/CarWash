@@ -12,6 +12,8 @@ export class CarsCreate {
 
 
     _LicenceNr = "";
+    _Mark = "";
+    _Model = "";
 
     constructor(private carService: CarService, private router: Router) {
 
@@ -28,7 +30,7 @@ export class CarsCreate {
     onSubmit(event: Event) {
         console.log(event);
         this.carService
-            .createCar({ LicenceNr: this._LicenceNr })
+            .createCar({ LicenceNr: this._LicenceNr, Mark: this._Mark, Model: this._Model })
             .then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {

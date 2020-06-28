@@ -64,7 +64,7 @@ namespace DAL.App.EF.Migrations
                     b.Property<Guid>("AppUserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("CarSize")
+                    b.Property<int>("CarSize")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ChangedAt")

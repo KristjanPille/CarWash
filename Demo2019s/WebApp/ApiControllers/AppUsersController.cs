@@ -54,26 +54,6 @@ namespace WebApp.ApiControllers
 
             return appUser;
         }
-        
-        // GET: api/AppUsers/cars
-        [HttpGet("cars")]
-        public async Task<ICollection<PublicApi.DTO.v1.CarModelMark>> GetCarModelMarks()
-        {
-            var carModelMarksList = new ArrayList();
-            
-            var appUser = await _userManager.FindByEmailAsync(User.Identity.Name);
-
-            var user = _userManager.Users.Include(q => q.Cars).
-                FirstOrDefault(u => u == appUser);
-
-            var cars = user.Cars;
-
-            if (cars != null)
-                foreach (var car in cars)
-                {
-                    var model = Mapper.MergeInto<PublicApi.DTO.v1.CarModelMark>(car);
-                }
-        }
 
         // PUT: api/AppUsers/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for

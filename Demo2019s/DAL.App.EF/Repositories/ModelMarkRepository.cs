@@ -7,8 +7,9 @@ using DAL.App.DTO;
 using DAL.App.EF.Mappers;
 using DAL.Base.EF.Repositories;
 using Microsoft.EntityFrameworkCore;
+ using Car = PublicApi.DTO.v1.Car;
 
-namespace DAL.App.EF.Repositories
+ namespace DAL.App.EF.Repositories
 {
     public class ModelMarkRepository :
         EFBaseRepository<AppDbContext, Domain.App.Identity.AppUser, Domain.App.ModelMark, DAL.App.DTO.ModelMark>,
@@ -26,6 +27,14 @@ namespace DAL.App.EF.Repositories
             var domainEntities = await query.ToListAsync();
             var result = domainEntities.Select(e => Mapper.Map(e));
             return result;
+        }
+
+        public async Task<ModelMark> FindModelMarkFromCarDTO(Car car)
+        {
+            var modelMark = await RepoDbSet.AsNoTracking()
+                .FirstOrDefaultAsync(a => a.Mark == car.Mark && a.Model == car.Model);
+            
+            return Mapper.Map(modelMark);
         }
     }
 }

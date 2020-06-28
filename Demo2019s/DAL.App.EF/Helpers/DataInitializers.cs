@@ -82,8 +82,6 @@ using Microsoft.EntityFrameworkCore;
             }
 
             context.SaveChanges();
-
-   
             
             var modelMarks = new ModelMark[]
             {
@@ -96,25 +94,25 @@ using Microsoft.EntityFrameworkCore;
                 new ModelMark()
                 {
                     Mark =  "Audi",
-                    Model = "A1",
+                    Model = "A2",
                     Id = new Guid("00000000-0000-0000-0000-000000000128"),
                 },
                 new ModelMark()
                 {
                     Mark =  "Audi",
-                    Model = "A2",
+                    Model = "A3",
                     Id = new Guid("00000000-0000-0000-0000-000000000129"),
                 },
                 new ModelMark()
                 {
                     Mark =  "Audi",
-                    Model = "A3",
+                    Model = "A4",
                     Id = new Guid("00000000-0000-0000-0000-000000000130"),
                 },
                 new ModelMark()
                 {
                     Mark =  "Audi",
-                    Model = "A4",
+                    Model = "A5",
                     Id = new Guid("00000000-0000-0000-0000-000000000131"),
                 },
             };
@@ -124,6 +122,27 @@ using Microsoft.EntityFrameworkCore;
                 if (!context.ModelMarks.Any(l => l.Id == modelMark.Id))
                 {
                     context.ModelMarks.Add(modelMark);
+                }
+            }
+
+            context.SaveChanges();
+            
+            var cars = new Car[]
+            {
+                new Car()
+                {
+                    Id = new Guid("00000000-0000-0000-0000-000000000135"),
+                    AppUserId = new Guid("00000000-0000-0000-0000-000000000134"),
+                    CarSize =  2,
+                    ModelMarkId = modelMarks[0].Id
+                },
+            };
+            
+            foreach (var car in cars)
+            {
+                if (!context.Cars.Any(l => l.Id == car.Id))
+                {
+                    context.Cars.Add(car);
                 }
             }
 

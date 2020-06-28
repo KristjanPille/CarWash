@@ -15,8 +15,9 @@ namespace WebApp.ApiControllers
 {    /// <summary>
     /// ModelMarks Api Controller
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public class ModelMarksController : ControllerBase

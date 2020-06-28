@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace Contracts.DAL.Base.Mappers
 {
     public interface IBaseMapper<TLeftObject, TRightObject>

@@ -1,5 +1,6 @@
 ﻿namespace Contracts.BLL.Base.Mappers
 {
+    //Not used as of now, implementation of DAL mapper is used instead
     public interface IBaseBLLMapper<TInObject, TOutObject>
         where TOutObject : class, new()
         where TInObject : class, new()

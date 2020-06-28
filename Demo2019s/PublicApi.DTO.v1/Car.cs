@@ -7,13 +7,14 @@ using AppUser = Domain.App.Identity.AppUser;
 
 namespace PublicApi.DTO.v1
 {
+    //Car Size calculated in bll
     public class Car : IDomainEntityId
     { 
        public Guid Id { get; set; }
-       
-       public Guid ModelMarkId { get; set; }
-       
-       public int? CarSize{ get; set; } = default!;
+
+       //Create ModelMark from these in bll layer
+       public string Mark { get; set; } = default!;
+       public string Model { get; set; } = default!;
        
        public Guid AppUserId { get; set; }
     }

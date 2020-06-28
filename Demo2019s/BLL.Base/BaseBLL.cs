@@ -11,8 +11,7 @@ namespace BLL.Base
     {
         // ReSharper disable once MemberCanBePrivate.Global
         protected readonly TUnitOfWork UOW;
- 
-
+        
 
         private readonly Dictionary<Type, object> _serviceCache = new Dictionary<Type, object>();
 
@@ -26,16 +25,17 @@ namespace BLL.Base
             return UOW.SaveChangesAsync();
         }
 
-        public TService GetService<TService>(Func<TService> serviceCreationMethod) where TService : class
+        public TService GetService<TService>(Func<TService> serviceCreationMethod) 
+            where TService : class
         {
-            if (_serviceCache.TryGetValue(typeof(TService), out var repo))
+            if (_serviceCache.TryGetValue(typeof(TService), out var service))
             {
-                return (TService) repo;
+                return (TService) service;
             }
 
-            var newRepoInstance = serviceCreationMethod();
-            _serviceCache.Add(typeof(TService), newRepoInstance);
-            return newRepoInstance;
+            var newServiceInstance = serviceCreationMethod();
+            _serviceCache.Add(typeof(TService), newServiceInstance);
+            return newServiceInstance;
         }
     }
 }

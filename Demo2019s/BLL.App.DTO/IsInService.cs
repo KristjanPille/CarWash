@@ -6,11 +6,13 @@ namespace BLL.App.DTO
     public class IsInService : IDomainEntityId
     { 
         public Guid Id { get; set; }
+        
+        public Guid CarId { get; set; } = default!;
 
-        public Guid AppUserId { get; set; }
+        public Guid ServiceId { get; set; } = default!;
         
-        public TimeSpan From { get; set; }
+        public DateTime From { get; set; }
         
-        public TimeSpan To { get; set; }
+        public DateTime To { get; set; }
     }
 }

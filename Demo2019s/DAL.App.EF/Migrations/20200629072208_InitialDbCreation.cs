@@ -222,7 +222,7 @@ namespace DAL.App.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
+                name: "Services",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -230,18 +230,17 @@ namespace DAL.App.EF.Migrations
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     ChangedBy = table.Column<string>(maxLength: 256, nullable: true),
                     ChangedAt = table.Column<DateTime>(nullable: false),
-                    AppUserId = table.Column<Guid>(nullable: false),
-                    DateAndTime = table.Column<DateTime>(nullable: false),
-                    ServiceId = table.Column<Guid>(nullable: false),
-                    Comment = table.Column<string>(nullable: true)
+                    NameOfService = table.Column<string>(maxLength: 64, nullable: false),
+                    PriceOfService = table.Column<double>(nullable: false),
+                    CampaignId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.PrimaryKey("PK_Services", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orders_AspNetUsers_AppUserId",
-                        column: x => x.AppUserId,
-                        principalTable: "AspNetUsers",
+                        name: "FK_Services_Campaigns_CampaignId",
+                        column: x => x.CampaignId,
+                        principalTable: "Campaigns",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -301,37 +300,6 @@ namespace DAL.App.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Services",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
-                    CreatedAt = table.Column<DateTime>(nullable: false),
-                    ChangedBy = table.Column<string>(maxLength: 256, nullable: true),
-                    ChangedAt = table.Column<DateTime>(nullable: false),
-                    NameOfService = table.Column<string>(maxLength: 64, nullable: false),
-                    PriceOfService = table.Column<double>(nullable: false),
-                    CampaignId = table.Column<Guid>(nullable: true),
-                    OrderId = table.Column<Guid>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Services", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Services_Campaigns_CampaignId",
-                        column: x => x.CampaignId,
-                        principalTable: "Campaigns",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Services_Orders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Orders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Checks",
                 columns: table => new
                 {
@@ -358,6 +326,37 @@ namespace DAL.App.EF.Migrations
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Checks_Services_ServiceId",
+                        column: x => x.ServiceId,
+                        principalTable: "Services",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    ChangedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    ChangedAt = table.Column<DateTime>(nullable: false),
+                    AppUserId = table.Column<Guid>(nullable: false),
+                    DateAndTime = table.Column<DateTime>(nullable: false),
+                    ServiceId = table.Column<Guid>(nullable: false),
+                    Comment = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_Services_ServiceId",
                         column: x => x.ServiceId,
                         principalTable: "Services",
                         principalColumn: "Id",
@@ -519,6 +518,11 @@ namespace DAL.App.EF.Migrations
                 column: "AppUserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Orders_ServiceId",
+                table: "Orders",
+                column: "ServiceId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Payments_AppUserId",
                 table: "Payments",
                 column: "AppUserId");
@@ -537,11 +541,6 @@ namespace DAL.App.EF.Migrations
                 name: "IX_Services_CampaignId",
                 table: "Services",
                 column: "CampaignId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Services_OrderId",
-                table: "Services",
-                column: "OrderId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -568,6 +567,9 @@ namespace DAL.App.EF.Migrations
                 name: "LangStrTranslation");
 
             migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
                 name: "Payments");
 
             migrationBuilder.DropTable(
@@ -589,16 +591,13 @@ namespace DAL.App.EF.Migrations
                 name: "ModelMarks");
 
             migrationBuilder.DropTable(
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
                 name: "Services");
 
             migrationBuilder.DropTable(
                 name: "Campaigns");
-
-            migrationBuilder.DropTable(
-                name: "Orders");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
         }
     }
 }

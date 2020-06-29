@@ -65,7 +65,8 @@ namespace WebApp.ApiControllers
                 return NotFound(new V1DTO.MessageDTO($"Service with id {id} not found"));
             }
 
-            return Ok(_mapper.Map(service));
+            //Applies discount if available
+            return Ok(_mapper.Map(await _bll.Services.ApplyDiscount(service)));
         }
         
         /// <summary>
@@ -77,6 +78,7 @@ namespace WebApp.ApiControllers
         [HttpPut("{id}")]
         [Produces("application/json")]
         [Consumes("application/json")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(V1DTO.MessageDTO))]
@@ -106,11 +108,11 @@ namespace WebApp.ApiControllers
         [HttpPost]
         [Produces("application/json")]
         [Consumes("application/json")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(V1DTO.Service))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(V1DTO.MessageDTO))]
         public async Task<ActionResult<Service>> PostService(V1DTO.Service service)
         {
-            service.AppUserId = User.UserId();
             var bllEntity = _mapper.Map(service);
             
             _bll.Services.Add(bllEntity);
@@ -127,6 +129,7 @@ namespace WebApp.ApiControllers
         /// </summary>
         /// <param name="id">Session Id to delete.</param>
         /// <returns>GpSession just deleted</returns>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [HttpDelete("{id}")]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(V1DTO.Service))]

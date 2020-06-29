@@ -64,6 +64,7 @@ namespace WebApp.ApiControllers
         [Produces("application/json")]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(V1DTO.MessageDTO))]
         public async Task<IActionResult> PutModelMark(Guid id, V1DTO.ModelMark modelMark)

@@ -9,8 +9,8 @@ namespace Domain.App
     {
         public DateTime DateAndTime { get; set; } = default!;
         
-        public Guid ServiceId { get; set; }
-        public ICollection<Service>? Services { get; set; }
+        public Guid ServiceId { get; set; } = default!;
+        public Service? Service { get; set; }
         
         public string? Comment { get; set; }
     }

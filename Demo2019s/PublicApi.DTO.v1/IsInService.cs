@@ -8,7 +8,14 @@ namespace PublicApi.DTO.v1
 {
     public class IsInService : IDomainEntityId
     {
-        public Guid CarId { get; set; } = default!;
         public Guid Id { get; set; }
+
+        public Guid CarId { get; set; } = default!;
+
+        public Guid ServiceId { get; set; } = default!;
+
+        public DateTime From { get; set; } = default!;
+
+        public DateTime To { get; set; } = default!;
     }
 }

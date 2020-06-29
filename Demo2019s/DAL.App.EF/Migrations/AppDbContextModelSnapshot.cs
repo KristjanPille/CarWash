@@ -428,6 +428,8 @@ namespace DAL.App.EF.Migrations
 
                     b.HasIndex("AppUserId");
 
+                    b.HasIndex("ServiceId");
+
                     b.ToTable("Orders");
                 });
 
@@ -534,17 +536,12 @@ namespace DAL.App.EF.Migrations
                         .HasColumnType("nvarchar(64)")
                         .HasMaxLength(64);
 
-                    b.Property<Guid?>("OrderId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<double>("PriceOfService")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CampaignId");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("Services");
                 });
@@ -711,6 +708,12 @@ namespace DAL.App.EF.Migrations
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("Domain.App.Service", "Service")
+                        .WithMany()
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.App.Payment", b =>
@@ -739,11 +742,6 @@ namespace DAL.App.EF.Migrations
                     b.HasOne("Domain.App.Campaign", "Campaign")
                         .WithMany()
                         .HasForeignKey("CampaignId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Domain.App.Order", null)
-                        .WithMany("Services")
-                        .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

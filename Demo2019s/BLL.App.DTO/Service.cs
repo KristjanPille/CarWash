@@ -8,14 +8,13 @@ namespace BLL.App.DTO
     public class Service : IDomainEntityId
     { 
         public Guid Id { get; set; }
-        
-        public Guid AppUserId { get; set; }
 
+        public string NameOfService { get; set; } = default!;
+        
         public double PriceOfService { get; set; } = default!;
         
         public Campaign? Campaign { get; set; }
         
-        public Guid? CampaignId { get; set; }
-
+        public Guid CampaignId { get; set; }
     }
 }

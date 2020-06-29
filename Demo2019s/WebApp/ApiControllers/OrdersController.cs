@@ -128,6 +128,7 @@ namespace WebApp.ApiControllers
         /// <returns>GpSession just deleted</returns>
         [HttpDelete("{id}")]
         [Produces("application/json")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(V1DTO.Order))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]
         public async Task<ActionResult<Order>> DeleteOrder(Guid id)

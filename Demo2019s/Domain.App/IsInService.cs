@@ -8,7 +8,7 @@ namespace Domain.App
         public Guid CarId { get; set; } = default!;
         public Car? Car { get; set; }
 
-        public Guid ServiceId { get; set; }
+        public Guid ServiceId { get; set; } = default!;
         public Service? Service { get; set; }
         
         public TimeSpan From { get; set; }

@@ -7,6 +7,8 @@ namespace DAL.App.DTO
 {
     public class Order : IDomainEntityId
     {
+        public Guid Id { get; set; }
+        
         public DateTime DateAndTime { get; set; }
         
         public Guid ServiceId { get; set; }
@@ -15,6 +17,5 @@ namespace DAL.App.DTO
 
         
         public string Comment { get; set; } = default!;
-        public Guid Id { get; set; }
     }
 }

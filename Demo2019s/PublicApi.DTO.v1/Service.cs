@@ -14,6 +14,5 @@ namespace PublicApi.DTO.v1
 
         public double PriceOfService { get; set; } = default!;
         
-        public Guid AppUserId { get; set; }
     }
 }

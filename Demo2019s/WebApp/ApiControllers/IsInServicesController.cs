@@ -104,7 +104,6 @@ namespace WebApp.ApiControllers
         /// </summary>
         /// <param name="isInService">IsInService object</param>
         /// <returns>created IsInService object</returns>
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [HttpPost]
         [Produces("application/json")]
         [Consumes("application/json")]

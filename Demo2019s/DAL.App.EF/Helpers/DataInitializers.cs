@@ -51,6 +51,7 @@ using Microsoft.EntityFrameworkCore;
                 {
                     NameOfService =  "VäliPesu",
                     PriceOfService = 20,
+                    CampaignId = new Guid("00000000-0000-0000-0000-000000000001"),
                     Id = new Guid("00000000-0000-0000-0000-000000000123")
                 },
                 new Service()
@@ -115,6 +116,37 @@ using Microsoft.EntityFrameworkCore;
                     Model = "A5",
                     Id = new Guid("00000000-0000-0000-0000-000000000131"),
                 },
+                
+                new ModelMark()
+                {
+                    Mark =  "Bmw",
+                    Model = "x1",
+                    Id = new Guid("00000000-0000-0000-0000-000000000132"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Bmw",
+                    Model = "x2",
+                    Id = new Guid("00000000-0000-0000-0000-000000000133"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Bmw",
+                    Model = "3 series",
+                    Id = new Guid("00000000-0000-0000-0000-000000000134"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Bmw",
+                    Model = "4 series",
+                    Id = new Guid("00000000-0000-0000-0000-000000000135"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Bmw",
+                    Model = "x5",
+                    Id = new Guid("00000000-0000-0000-0000-000000000136"),
+                },
             };
             
             foreach (var modelMark in modelMarks)
@@ -131,8 +163,8 @@ using Microsoft.EntityFrameworkCore;
             {
                 new Car()
                 {
-                    Id = new Guid("00000000-0000-0000-0000-000000000135"),
-                    AppUserId = new Guid("00000000-0000-0000-0000-000000000134"),
+                    Id = new Guid("00000000-0000-0000-0000-000000000137"),
+                    AppUserId = new Guid("00000000-0000-0000-0000-000000000139"),
                     CarSize =  2,
                     ModelMarkId = modelMarks[0].Id
                 },
@@ -179,7 +211,7 @@ using Microsoft.EntityFrameworkCore;
 
             var users = new (string name, string password, string firstName, string lastName, Guid Id)[]
             {
-                ("juss@gmail.com", "Password123+", "Juss", "Jussike", new Guid("00000000-0000-0000-0000-000000000134")),
+                ("juss@gmail.com", "Password123+", "Juss", "Jussike", new Guid("00000000-0000-0000-0000-000000000139")),
             };
 
             foreach (var userInfo in users)

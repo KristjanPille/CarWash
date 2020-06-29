@@ -53,7 +53,7 @@ namespace WebApp.ApiControllers
 
             if (campaign== null)
             {
-                return NotFound(new V1DTO.MessageDTO("campaign not found"));
+                return NotFound(new V1DTO.MessageDTO("Campaign not found"));
             }
 
             return Ok(_mapper.Map(campaign));
@@ -65,6 +65,7 @@ namespace WebApp.ApiControllers
         [HttpPut("{id}")]
         [Produces("application/json")]
         [Consumes("application/json")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(V1DTO.MessageDTO))]

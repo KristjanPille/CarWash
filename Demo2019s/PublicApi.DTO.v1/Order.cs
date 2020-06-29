@@ -10,7 +10,14 @@ namespace PublicApi.DTO.v1
         public DateTime DateAndTime { get; set; }
         
         public Guid ServiceId { get; set; }
+
+        //Get the name of service from bll layer
+        public string NameOfTheService { get; set; } = default!;
         
+        //Get the price of service from bll layer
+        //Takes into consideration the campaign
+        public double PriceOfService { get; set; } = default!;
+
         public string? Comment { get; set; }
         
         public Guid AppUserId { get; set; }

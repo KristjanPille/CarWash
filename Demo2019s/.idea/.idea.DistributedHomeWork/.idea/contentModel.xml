@@ -256,8 +256,8 @@
           <e p="DALMapper.cs" t="Include" />
         </e>
         <e p="Migrations" t="Include">
-          <e p="20200628073909_InitialDbCreation.cs" t="Include" />
-          <e p="20200628073909_InitialDbCreation.Designer.cs" t="Include" />
+          <e p="20200629072208_InitialDbCreation.cs" t="Include" />
+          <e p="20200629072208_InitialDbCreation.Designer.cs" t="Include" />
           <e p="AppDbContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -389,7 +389,6 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="Campaign.cs" t="Include" />
         <e p="Car.cs" t="Include" />
-        <e p="CarModelMark.cs" t="Include" />
         <e p="Check.cs" t="Include" />
         <e p="Identity" t="Include">
           <e p="AppRole.cs" t="Include" />

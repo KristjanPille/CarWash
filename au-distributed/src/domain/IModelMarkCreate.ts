@@ -1,4 +1,4 @@
-export interface ICarCreate {
+export interface IModelMarkCreate {
     Mark: string
     Model: string
 }

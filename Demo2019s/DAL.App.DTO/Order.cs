@@ -14,8 +14,5 @@ namespace DAL.App.DTO
         public Guid ServiceId { get; set; }
         [JsonIgnore]
         public Service? Service { get; set; }
-
-        
-        public string Comment { get; set; } = default!;
     }
 }

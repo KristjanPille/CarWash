@@ -9,12 +9,14 @@ namespace DAL.App.DTO
     {
         public Guid Id { get; set; }
         
+        public double PriceOfService { get; set; } = default!;
+        
         public string NameOfService { get; set; } = default!;
+        
+        public string? Description { get; set; }
         
         [JsonIgnore]
         public Campaign? Campaign { get; set; }
         public Guid CampaignId { get; set; }
-
-        public double PriceOfService { get; set; } = default!;
     }
 }

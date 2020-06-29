@@ -3076,6 +3076,7 @@
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
           "BLL.App.DTO": "1.0.0",
+          "DAL.App.DTO": "1.0.0",
           "Domain.App": "1.0.0",
           "System.ComponentModel.Annotations": "4.7.0"
         },

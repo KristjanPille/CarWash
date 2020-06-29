@@ -1,7 +1,7 @@
 import { autoinject } from 'aurelia-framework';
 import { RouteConfig, NavigationInstruction, Router } from 'aurelia-router';
-import { WashService } from 'service/wash-service';
-import { IWash } from 'domain/IWash';
+import { ServiceService } from 'service/service-service';
+import { IServiceCreate } from 'domain/IServiceCreate';
 import { IAlertData } from 'types/IAlertData';
 import { AlertType } from 'types/AlertType';
 
@@ -10,9 +10,11 @@ export class WashesCreate {
     private _alert: IAlertData | null = null;
 
 
-    _nameOfWashType = "";
+    _NameOfService = "";
+    _Description = "";
+    _PriceOfService = 0;
 
-    constructor(private washService: WashService, private router: Router) {
+    constructor(private ServiceService: ServiceService, private router: Router) {
 
     }
 
@@ -26,13 +28,13 @@ export class WashesCreate {
 
     onSubmit(event: Event) {
         console.log(event);
-        this.washService
-            .createWash({ nameOfWashType: this._nameOfWashType })
+        this.ServiceService
+            .createService({ NameOfService: this._NameOfService, Description: this._Description, PriceOfService: this._PriceOfService })
             .then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
-                        this.router.navigateToRoute('Washes-index', {});
+                        this.router.navigateToRoute('Services-index', {});
                     } else {
                         // show error message
                         this._alert = {

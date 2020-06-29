@@ -1,38 +1,40 @@
 import { autoinject } from 'aurelia-framework';
 import { RouteConfig, NavigationInstruction, Router } from 'aurelia-router';
-import { WashService } from 'service/wash-service';
-import { IWash } from 'domain/IWash';
+import { ServiceService } from 'service/service-service';
+import { IService } from 'domain/IService';
 import { IAlertData } from 'types/IAlertData';
 import { AlertType } from 'types/AlertType';
-import { IWashCreate } from 'domain/IWashCreate';
 
 @autoinject
-export class WashesEdit {
+export class CampaignsDelete {
     private _alert: IAlertData | null = null;
 
-    private _Wash?: IWash;
+    private _wash?: IService;
 
-    constructor(private washService: WashService, private router: Router) {
+    constructor(private ServiceService: ServiceService, private router: Router) {
+
     }
 
     attached() {
+
     }
 
     activate(params: any, routeConfig: RouteConfig, navigationInstruction: NavigationInstruction) {
         console.log(params);
         if (params.id && typeof (params.id) == 'string') {
-            this.washService.getWash(params.id).then(
+            this.ServiceService.getService(params.id).then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
-                        this._Wash = response.data!;
+                        this._wash = response.data!;
                     } else {
                         // show error message
                         this._alert = {
                             message: response.statusCode.toString() + ' - ' + response.errorMessage,
                             type: AlertType.Danger,
                             dismissable: true,
-                        }
+                        };
+                        this._wash = undefined;
                     }
                 }
             );
@@ -40,14 +42,13 @@ export class WashesEdit {
     }
 
     onSubmit(event: Event) {
-        console.log(event);
-        this.washService
-            .updateWash(this._Wash!)
+        this.ServiceService
+            .deleteService(this._wash!.id)
             .then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
-                        this.router.navigateToRoute('Washes-index', {});
+                        this.router.navigateToRoute('Services-index', {});
                     } else {
                         // show error message
                         this._alert = {
@@ -58,7 +59,6 @@ export class WashesEdit {
                     }
                 }
             );
-
         event.preventDefault();
     }
 }

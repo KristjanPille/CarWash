@@ -16,9 +16,7 @@
           <e p="BLLMapper.cs" t="Include" />
           <e p="CampaignServiceMapper.cs" t="Include" />
           <e p="CarServiceMapper.cs" t="Include" />
-          <e p="CarTypeServiceMapper.cs" t="Include" />
           <e p="CheckServiceMapper.cs" t="Include" />
-          <e p="DiscountServiceMapper.cs" t="Include" />
           <e p="IsInServiceServiceMapper.cs" t="Include" />
           <e p="LangStrServiceMapper.cs" t="Include" />
           <e p="LangStrTranslationServiceMapper.cs" t="Include" />
@@ -256,8 +254,8 @@
           <e p="DALMapper.cs" t="Include" />
         </e>
         <e p="Migrations" t="Include">
-          <e p="20200629072208_InitialDbCreation.cs" t="Include" />
-          <e p="20200629072208_InitialDbCreation.Designer.cs" t="Include" />
+          <e p="20200629145142_InitialDbCreation.cs" t="Include" />
+          <e p="20200629145142_InitialDbCreation.Designer.cs" t="Include" />
           <e p="AppDbContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -405,13 +403,16 @@
           <e p="CarMapper.cs" t="Include" />
           <e p="CheckMapper.cs" t="Include" />
           <e p="IsInServiceMapper.cs" t="Include" />
+          <e p="MarkMapper.cs" t="Include" />
           <e p="ModelMarkMapper.cs" t="Include" />
           <e p="OrderMapper.cs" t="Include" />
           <e p="PaymentMapper.cs" t="Include" />
           <e p="PaymentMethodMapper.cs" t="Include" />
           <e p="ServiceMapper.cs" t="Include" />
         </e>
+        <e p="MarkDTO.cs" t="Include" />
         <e p="MessageDTO.cs" t="Include" />
+        <e p="ModelDTO.cs" t="Include" />
         <e p="ModelMark.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">

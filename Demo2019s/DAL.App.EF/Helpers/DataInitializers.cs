@@ -51,6 +51,7 @@ using Microsoft.EntityFrameworkCore;
                 {
                     NameOfService =  "VäliPesu",
                     PriceOfService = 20,
+                    Description = "Kiire välipesu, Leotus, käsipesu, porimattide puhastus",
                     CampaignId = new Guid("00000000-0000-0000-0000-000000000001"),
                     Id = new Guid("00000000-0000-0000-0000-000000000123")
                 },
@@ -63,6 +64,7 @@ using Microsoft.EntityFrameworkCore;
                 new Service()
                 {
                     NameOfService =  "Premium Välipesu",
+                    Description = "Põhjalik välipesu, Leotus, velgede, rataste ning rattakoobaste pesu, käsipesu, porimattide puhastus, ustevahede pesu ning kuivatamine",
                     PriceOfService = 40,
                     Id = new Guid("00000000-0000-0000-0000-000000000125")
                 },
@@ -132,13 +134,13 @@ using Microsoft.EntityFrameworkCore;
                 new ModelMark()
                 {
                     Mark =  "Bmw",
-                    Model = "3 series",
+                    Model = "3",
                     Id = new Guid("00000000-0000-0000-0000-000000000134"),
                 },
                 new ModelMark()
                 {
                     Mark =  "Bmw",
-                    Model = "4 series",
+                    Model = "4",
                     Id = new Guid("00000000-0000-0000-0000-000000000135"),
                 },
                 new ModelMark()

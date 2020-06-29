@@ -1,21 +1,20 @@
 import { autoinject } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
-import { ICar } from 'domain/ICar';
-import { IFetchResponse } from 'types/IFetchResponse';
-import { ICarCreate } from 'domain/ICarCreate';
 import { AppState } from 'state/app-state';
-import { ICarEdit } from 'domain/ICarEdit';
+import { IFetchResponse } from 'types/IFetchResponse';
+import { IService } from 'domain/IService';
+import { IServiceEdit } from 'domain/IServiceEdit';
+import { IServiceCreate } from 'domain/IServiceCreate';
 
 @autoinject
-export class CarService {
+export class ServiceService {
     constructor(private appState: AppState, private httpClient: HttpClient) {
         this.httpClient.baseUrl = this.appState.baseUrl;
     }
 
-    private readonly _baseUrl = 'Cars';
+    private readonly _baseUrl = 'Services';
 
-
-    async getCars(): Promise<IFetchResponse<ICar[]>> {
+    async getServices(): Promise<IFetchResponse<IService[]>> {
         try {
             const response = await this.httpClient
                 .fetch(this._baseUrl, {
@@ -26,7 +25,7 @@ export class CarService {
                 });
             // happy case
             if (response.status >= 200 && response.status < 300) {
-                const data = (await response.json()) as ICar[];
+                const data = (await response.json()) as IService[];
                 return {
                     statusCode: response.status,
                     data: data
@@ -47,8 +46,7 @@ export class CarService {
         }
     }
 
-
-    async getCar(id: string): Promise<IFetchResponse<ICar>> {
+    async getService(id: string): Promise<IFetchResponse<IService>> {
         try {
             const response = await this.httpClient
                 .fetch(this._baseUrl + '/' + id, {
@@ -59,7 +57,7 @@ export class CarService {
                 });
 
             if (response.status >= 200 && response.status < 300) {
-                const data = (await response.json()) as ICar;
+                const data = (await response.json()) as IService;
                 return {
                     statusCode: response.status,
                     data: data
@@ -79,40 +77,10 @@ export class CarService {
         }
     }
 
-    async updateCar(car: ICarEdit): Promise<IFetchResponse<string>> {
+    async createService(Service: IServiceCreate): Promise<IFetchResponse<string>> {
         try {
             const response = await this.httpClient
-                .put(this._baseUrl + '/' + car.id, JSON.stringify(car), {
-                    cache: 'no-store',
-                    headers: {
-                        authorization: "Bearer " + this.appState.jwt
-                    }
-                });
-
-            if (response.status >= 200 && response.status < 300) {
-                return {
-                    statusCode: response.status
-                    // no data
-                }
-            }
-            return {
-                statusCode: response.status,
-                errorMessage: response.statusText
-            }
-        }
-        catch (reason) {
-            return {
-                statusCode: 0,
-                errorMessage: JSON.stringify(reason)
-            }
-        }
-    }
-
-
-    async createCar(car: ICarCreate): Promise<IFetchResponse<string>> {
-        try {
-            const response = await this.httpClient
-                .post(this._baseUrl, JSON.stringify(car), {
+                .post(this._baseUrl, JSON.stringify(Service), {
                     cache: 'no-store',
                     headers: {
                         authorization: "Bearer " + this.appState.jwt
@@ -139,7 +107,36 @@ export class CarService {
         }
     }
 
-    async deleteCar(id: string): Promise<IFetchResponse<string>> {
+    async updateService(Service: IServiceEdit): Promise<IFetchResponse<string>> {
+        try {
+            const response = await this.httpClient
+                .put(this._baseUrl + '/' + Service.id, JSON.stringify(Service), {
+                    cache: 'no-store',
+                    headers: {
+                        authorization: "Bearer " + this.appState.jwt
+                    }
+                });
+
+            if (response.status >= 200 && response.status < 300) {
+                return {
+                    statusCode: response.status
+                    // no data
+                }
+            }
+            return {
+                statusCode: response.status,
+                errorMessage: response.statusText
+            }
+        }
+        catch (reason) {
+            return {
+                statusCode: 0,
+                errorMessage: JSON.stringify(reason)
+            }
+        }
+    }
+
+    async deleteService(id: string): Promise<IFetchResponse<string>> {
 
         try {
             const response = await this.httpClient
@@ -168,4 +165,5 @@ export class CarService {
             }
         }
     }
+
 }

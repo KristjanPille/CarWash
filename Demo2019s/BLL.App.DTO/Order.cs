@@ -8,8 +8,7 @@ namespace BLL.App.DTO
         public Guid Id { get; set; }
         
         public Guid AppUserId { get; set; }
-        
-        public string Comment { get; set; } = default!;
+
         public DateTime DateAndTime { get; set; }
         
         public Guid ServiceId { get; set; } = default!;

@@ -12,6 +12,6 @@ namespace Domain.App
         public Guid ServiceId { get; set; } = default!;
         public Service? Service { get; set; }
         
-        public string? Comment { get; set; }
+        //public string? Comment { get; set; }
     }
 }

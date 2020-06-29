@@ -232,6 +232,7 @@ namespace DAL.App.EF.Migrations
                     ChangedAt = table.Column<DateTime>(nullable: false),
                     NameOfService = table.Column<string>(maxLength: 64, nullable: false),
                     PriceOfService = table.Column<double>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
                     CampaignId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
@@ -343,8 +344,7 @@ namespace DAL.App.EF.Migrations
                     ChangedAt = table.Column<DateTime>(nullable: false),
                     AppUserId = table.Column<Guid>(nullable: false),
                     DateAndTime = table.Column<DateTime>(nullable: false),
-                    ServiceId = table.Column<Guid>(nullable: false),
-                    Comment = table.Column<string>(nullable: true)
+                    ServiceId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {

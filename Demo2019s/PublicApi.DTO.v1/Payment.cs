@@ -7,9 +7,7 @@ namespace PublicApi.DTO.v1
     {
         public Guid Id { get; set; }
 
-        public Guid PaymentMethodId { get; set; } = default!;
-
-        public Check? Check { get; set; }
+        public double AmountToPay { get; set; }
         
         public DateTime? TimeOfPayment { get; set; }
     }

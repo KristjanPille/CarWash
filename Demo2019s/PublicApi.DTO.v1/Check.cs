@@ -15,8 +15,6 @@ namespace PublicApi.DTO.v1
         public double AmountExcludeVat { get; set; }
         
         public double Vat { get; set; }
-        
-        public string Comment { get; set; }  = default!;
         public Guid AppUserId { get; set; }
     }
 

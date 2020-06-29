@@ -18,8 +18,6 @@ namespace PublicApi.DTO.v1
         //Takes into consideration the campaign
         public double PriceOfService { get; set; } = default!;
 
-        public string? Comment { get; set; }
-        
         public Guid AppUserId { get; set; }
     }
 }

@@ -11,6 +11,8 @@ export class CampaignsCreate {
 
 
     _NameOfCampaign = "";
+    _Description = "";
+    _DiscountAmount = 0;
 
     constructor(private campaignService: CampaignService, private router: Router) {
 
@@ -27,7 +29,7 @@ export class CampaignsCreate {
     onSubmit(event: Event) {
         console.log(event);
         this.campaignService
-            .createCampaign({ NameOfCampaign: this._NameOfCampaign })
+            .createCampaign({ NameOfCampaign: this._NameOfCampaign, Description: this._Description, DiscountAmount: this._DiscountAmount })
             .then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {

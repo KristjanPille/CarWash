@@ -1,54 +1,31 @@
 import { autoinject } from 'aurelia-framework';
 import { RouteConfig, NavigationInstruction, Router } from 'aurelia-router';
-import { WashService } from 'service/wash-service';
-import { IWash } from 'domain/IWash';
+import { ServiceService } from 'service/service-service';
+import { IService } from 'domain/IService';
 import { IAlertData } from 'types/IAlertData';
 import { AlertType } from 'types/AlertType';
+import { IServiceCreate } from 'domain/IServiceCreate';
 
 @autoinject
-export class CampaignsDelete {
+export class WashesEdit {
     private _alert: IAlertData | null = null;
 
-    private _wash?: IWash;
+    private _Service?: IService;
 
-    constructor(private WashService: WashService, private router: Router) {
-
+    constructor(private serviceService: ServiceService, private router: Router) {
     }
 
     attached() {
-
     }
 
     activate(params: any, routeConfig: RouteConfig, navigationInstruction: NavigationInstruction) {
         console.log(params);
         if (params.id && typeof (params.id) == 'string') {
-            this.WashService.getWash(params.id).then(
+            this.serviceService.getService(params.id).then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
-                        this._wash = response.data!;
-                    } else {
-                        // show error message
-                        this._alert = {
-                            message: response.statusCode.toString() + ' - ' + response.errorMessage,
-                            type: AlertType.Danger,
-                            dismissable: true,
-                        };
-                        this._wash = undefined;
-                    }
-                }
-            );
-        }
-    }
-
-    onSubmit(event: Event) {
-        this.WashService
-            .deleteWash(this._wash!.id)
-            .then(
-                response => {
-                    if (response.statusCode >= 200 && response.statusCode < 300) {
-                        this._alert = null;
-                        this.router.navigateToRoute('Washes-index', {});
+                        this._Service = response.data!;
                     } else {
                         // show error message
                         this._alert = {
@@ -59,6 +36,29 @@ export class CampaignsDelete {
                     }
                 }
             );
+        }
+    }
+
+    onSubmit(event: Event) {
+        console.log(event);
+        this.serviceService
+            .updateService(this._Service!)
+            .then(
+                response => {
+                    if (response.statusCode >= 200 && response.statusCode < 300) {
+                        this._alert = null;
+                        this.router.navigateToRoute('Services-index', {});
+                    } else {
+                        // show error message
+                        this._alert = {
+                            message: response.statusCode.toString() + ' - ' + response.errorMessage,
+                            type: AlertType.Danger,
+                            dismissable: true,
+                        }
+                    }
+                }
+            );
+
         event.preventDefault();
     }
 }

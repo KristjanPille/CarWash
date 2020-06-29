@@ -48,20 +48,16 @@ export class App {
     PLATFORM.moduleName('views/Cars/edit'), nav: false, title: 'Cars Edit' },
 
 
-    { route: ['Washes', 'Washes/index'], name: 'Washes-index', moduleId: 
-    PLATFORM.moduleName('views/Washes/index'), nav: true, title: 'Washes' },
-    { route: ['Washes/details/:id?'], name: 'Washes-details', moduleId: 
-    PLATFORM.moduleName('views/Washes/details'), nav: false, title: 'Washes Details' },
-    { route: ['Washes/edit/:id?'], name: 'Washes-edit', moduleId: 
-    PLATFORM.moduleName('views/Washes/edit'), nav: false, title: 'Washes Edit' },
-    { route: ['Washes/delete/:id?'], name: 'Washes-delete', moduleId: 
-    PLATFORM.moduleName('views/Washes/delete'), nav: false, title: 'Washes Delete' },
-    { route: ['Washes/create'], name: 'Washes-create', moduleId: 
-    PLATFORM.moduleName('views/Washes/create'), nav: false, title: 'Washes Create' },
-
-
-    { route: ['Discounts', 'Discounts/index'], name: 'home', moduleId:
-    PLATFORM.moduleName('views/Discounts/index'), nav: true, title: 'Discounts' }, 
+    { route: ['Services', 'Services/index'], name: 'Services-index', moduleId:
+    PLATFORM.moduleName('views/Services/index'), nav: true, title: 'Services' },
+    { route: ['Services/details/:id?'], name: 'Services-details', moduleId:
+    PLATFORM.moduleName('views/Services/details'), nav: false, title: 'Services Details' },
+    { route: ['Services/edit/:id?'], name: 'Services-edit', moduleId:
+    PLATFORM.moduleName('views/Services/edit'), nav: false, title: 'Services Edit' },
+    { route: ['Services/delete/:id?'], name: 'Services-delete', moduleId:
+    PLATFORM.moduleName('views/Services/delete'), nav: false, title: 'Services Delete' },
+    { route: ['Services/create'], name: 'Services-create', moduleId:
+    PLATFORM.moduleName('views/Services/create'), nav: false, title: 'Services Create' },
 
     { route: ['IsInWashes', 'IsInWashes/index'], name: 'home', moduleId:
     PLATFORM.moduleName('views/IsInWashes/index'), nav: true, title: 'IsInWashes' }, 

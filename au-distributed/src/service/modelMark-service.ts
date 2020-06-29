@@ -1,20 +1,21 @@
 import { autoinject } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
-import { AppState } from 'state/app-state';
 import { IFetchResponse } from 'types/IFetchResponse';
-import { IWash } from 'domain/IWash';
-import { IWashEdit } from 'domain/IWashEdit';
-import { IWashCreate } from 'domain/IWashCreate';
+import { IModelMarkCreate } from 'domain/IModelMarkCreate';
+import { AppState } from 'state/app-state';
+import { IModelMarkEdit } from 'domain/IModelMarkEdit';
+import {IModelMark} from "../domain/IModelMark";
 
 @autoinject
-export class WashService {
+export class ModelMarkservice {
     constructor(private appState: AppState, private httpClient: HttpClient) {
         this.httpClient.baseUrl = this.appState.baseUrl;
     }
 
-    private readonly _baseUrl = 'Washes';
+    private readonly _baseUrl = 'ModelMarks';
 
-    async getWashes(): Promise<IFetchResponse<IWash[]>> {
+
+    async getModelMarks(): Promise<IFetchResponse<IModelMark[]>> {
         try {
             const response = await this.httpClient
                 .fetch(this._baseUrl, {
@@ -25,7 +26,7 @@ export class WashService {
                 });
             // happy case
             if (response.status >= 200 && response.status < 300) {
-                const data = (await response.json()) as IWash[];
+                const data = (await response.json()) as IModelMark[];
                 return {
                     statusCode: response.status,
                     data: data
@@ -46,7 +47,8 @@ export class WashService {
         }
     }
 
-    async getWash(id: string): Promise<IFetchResponse<IWash>> {
+
+    async getModelMark(id: string): Promise<IFetchResponse<IModelMark>> {
         try {
             const response = await this.httpClient
                 .fetch(this._baseUrl + '/' + id, {
@@ -57,7 +59,7 @@ export class WashService {
                 });
 
             if (response.status >= 200 && response.status < 300) {
-                const data = (await response.json()) as IWash;
+                const data = (await response.json()) as IModelMark;
                 return {
                     statusCode: response.status,
                     data: data
@@ -77,10 +79,40 @@ export class WashService {
         }
     }
 
-    async createWash(Wash: IWashCreate): Promise<IFetchResponse<string>> {
+    async updateModelMark(ModelMark: IModelMarkEdit): Promise<IFetchResponse<string>> {
         try {
             const response = await this.httpClient
-                .post(this._baseUrl, JSON.stringify(Wash), {
+                .put(this._baseUrl + '/' + ModelMark.Id, JSON.stringify(ModelMark), {
+                    cache: 'no-store',
+                    headers: {
+                        authorization: "Bearer " + this.appState.jwt
+                    }
+                });
+
+            if (response.status >= 200 && response.status < 300) {
+                return {
+                    statusCode: response.status
+                    // no data
+                }
+            }
+            return {
+                statusCode: response.status,
+                errorMessage: response.statusText
+            }
+        }
+        catch (reason) {
+            return {
+                statusCode: 0,
+                errorMessage: JSON.stringify(reason)
+            }
+        }
+    }
+
+
+    async createModelMark(ModelMark: IModelMarkCreate): Promise<IFetchResponse<string>> {
+        try {
+            const response = await this.httpClient
+                .post(this._baseUrl, JSON.stringify(ModelMark), {
                     cache: 'no-store',
                     headers: {
                         authorization: "Bearer " + this.appState.jwt
@@ -107,10 +139,11 @@ export class WashService {
         }
     }
 
-    async updateWash(Wash: IWashEdit): Promise<IFetchResponse<string>> {
+    async deleteModelMark(id: string): Promise<IFetchResponse<string>> {
+
         try {
             const response = await this.httpClient
-                .put(this._baseUrl + '/' + Wash.id, JSON.stringify(Wash), {
+                .delete(this._baseUrl + '/' + id, null, {
                     cache: 'no-store',
                     headers: {
                         authorization: "Bearer " + this.appState.jwt
@@ -135,35 +168,4 @@ export class WashService {
             }
         }
     }
-
-    async deleteWash(id: string): Promise<IFetchResponse<string>> {
-
-        try {
-            const response = await this.httpClient
-            .delete(this._baseUrl + '/' + id, null, {
-                cache: 'no-store',
-                headers: {
-                    authorization: "Bearer " + this.appState.jwt
-                }
-            });
-
-            if (response.status >= 200 && response.status < 300) {
-                return {
-                    statusCode: response.status
-                    // no data
-                }
-            }
-            return {
-                statusCode: response.status,
-                errorMessage: response.statusText
-            }
-        }
-        catch (reason) {
-            return {
-                statusCode: 0,
-                errorMessage: JSON.stringify(reason)
-            }
-        }
-    }
-
 }

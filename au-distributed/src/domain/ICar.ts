@@ -1,4 +1,5 @@
 export interface ICar {
     id: string;
-    LicenceNr: string
+    Mark: string
+    Model: string
 }

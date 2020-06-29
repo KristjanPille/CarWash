@@ -14,5 +14,6 @@ namespace PublicApi.DTO.v1
 
         public double PriceOfService { get; set; } = default!;
         
+        public string? Description { get; set; }
     }
 }

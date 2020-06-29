@@ -1,0 +1,35 @@
+<template>
+    <require from="../../components/alert"></require>
+
+    <alert alert-data.bind="_alert"></alert>
+    
+    <h1>Create</h1>
+    <h4>Wash</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form submit.trigger="onSubmit($event)">
+                <div class="form-group">
+                    <label class="control-label" for="nameOfService">Service</label>
+                    <input class="form-control" type="text" id="nameOfService" maxlength="32" value.bind="_NameOfService" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="description">Service</label>
+                    <input class="form-control" type="text" id="description" maxlength="32" value.bind="_Description" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="priceOfService">Service</label>
+                    <input class="form-control" type="text" id="priceOfService" maxlength="32" value.bind="_PriceOfService" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a route-href="route: Services-index; params.bind: { }">Back to List</a>
+    </div>
+
+</template>

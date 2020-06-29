@@ -1,5 +1,6 @@
 using AutoMapper;
 using BLL.Base.Mappers;
+using PublicApi.DTO.v1;
 
 namespace BLL.App.Mappers
 {
@@ -18,6 +19,11 @@ namespace BLL.App.Mappers
             
             MapperConfigurationExpression.CreateMap<DAL.App.DTO.ModelMark, BLL.App.DTO.ModelMark>();
             MapperConfigurationExpression.CreateMap<BLL.App.DTO.ModelMark, DAL.App.DTO.ModelMark>();
+            
+            MapperConfigurationExpression.CreateMap<BLL.App.DTO.ModelMark, ModelDTO>();
+            
+            MapperConfigurationExpression.CreateMap<BLL.App.DTO.ModelMark, MarkDTO>();
+            MapperConfigurationExpression.CreateMap<MarkDTO, BLL.App.DTO.ModelMark>();
 
 
             MapperConfigurationExpression.CreateMap<DAL.App.DTO.Identity.AppUser, BLL.App.DTO.Identity.AppUser>();

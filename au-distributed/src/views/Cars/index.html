@@ -8,7 +8,10 @@
         <thead>
             <tr>
                 <th>
-                    LicenceNr
+                    Mark
+                </th>
+                <th>
+                    Model
                 </th>
                 <th></th>
             </tr>
@@ -16,7 +19,10 @@
         <tbody>
             <tr repeat.for="car of _cars">
                 <td>
-                    ${car.licenceNr}
+                    ${car.mark}
+                </td>
+                <td>
+                    ${car.model}
                 </td>
                 <td>
                     <a route-href="route: Cars-edit; params.bind: { id: car.id }">Edit</a> |
@@ -25,4 +31,5 @@
                 </td>
 
             </tr>
+        </table>
 </template>

@@ -24,7 +24,8 @@ namespace WebApp.ApiControllers
     {
         private readonly IAppBLL _bll;
         private readonly ModelMarkMapper _mapper = new ModelMarkMapper();
-        
+        private readonly MarkMapper _markMapper = new MarkMapper();
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -41,7 +42,27 @@ namespace WebApp.ApiControllers
         {
             return Ok((await _bll.ModelMarks.GetAllAsync()).Select(e => _mapper.Map(e)));
         }
-
+        
+        // GET: api/Marks
+        [HttpGet]
+        [Route("Marks")]
+        [Produces("application/json")]
+        public async Task<ActionResult<IEnumerable<V1DTO.MarkDTO>>> GetMarks()
+        {
+            var marks = (await _bll.ModelMarks.GetMarks());
+            return Ok(marks.Select(e => _markMapper.Map(e)));
+        }
+        
+        // GET: api/Models
+        [Route("Models")]
+        [Produces("application/json")]
+        public async Task<ActionResult<IEnumerable<V1DTO.ModelDTO>>> GetMarkSpecificModels(string mark)
+        {
+            return Ok( await _bll.ModelMarks.GetMarkModels(mark));
+        }
+        
+        
+        // get first marks getMarks than from id get models
         // GET: api/ModelMarks/5
         [HttpGet("{id}")]
         [Produces("application/json")]
@@ -51,7 +72,7 @@ namespace WebApp.ApiControllers
 
             if (modelMark== null)
             {
-                return NotFound(new V1DTO.MessageDTO("ModelMarknot found"));
+                return NotFound(new V1DTO.MessageDTO("ModelMark not found"));
             }
 
             return Ok(_mapper.Map(modelMark));

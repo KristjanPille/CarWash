@@ -6,14 +6,34 @@
     <h1>Create</h1>
     <h4>Car</h4>
     <hr />
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                Mark
+            </th>
+            <th>
+                Model
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr repeat.for="modeMark of _modelMarks">
+            <td>
+                ${modeMark.mark}
+            </td>
+            <td>
+                ${modeMark.model}
+            </td>
+        </tr>
+    </table>
     <div class="row">
         <div class="col-md-4">
             <form submit.trigger="onSubmit($event)">
                 <div class="form-group">
-                    <label class="control-label" for="LicenceNr">LicenceNr</label>
-                    <input class="form-control" type="text" id="LicenceNr" maxlength="64" value.bind="_LicenceNr" />
 
-                    <label class="control-label" for="LicenceNr">Mark</label>
+                    <label class="control-label" for="Mark">Mark</label>
                     <input class="form-control" type="text" id="Mark" maxlength="64" value.bind="_Mark" />
 
                     <label class="control-label" for="Model">Model</label>

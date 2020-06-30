@@ -3,50 +3,37 @@
 
     <alert alert-data.bind="_alert"></alert>
     
-    <h1>Create</h1>
-    <h4>Car</h4>
+    <h1>Add New Car</h1>
     <hr />
-    <table class="table">
-        <thead>
-        <tr>
-            <th>
-                Mark
-            </th>
-            <th>
-                Model
-            </th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr repeat.for="modeMark of _modelMarks">
-            <td>
-                ${modeMark.mark}
-            </td>
-            <td>
-                ${modeMark.model}
-            </td>
-        </tr>
-    </table>
-    <div class="row">
-        <div class="col-md-4">
-            <form submit.trigger="onSubmit($event)">
-                <div class="form-group">
-
-                    <label class="control-label" for="Mark">Mark</label>
-                    <input class="form-control" type="text" id="Mark" maxlength="64" value.bind="_Mark" />
-
-                    <label class="control-label" for="Model">Model</label>
-                    <input class="form-control" type="text" id="Model" maxlength="64" value.bind="_Model" />
-                </div>
-
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                </div>
-            </form>
+    <form submit.trigger="onSubmit($event)">
+    <p>
+        <label>
+            Select Mark:<br>
+            <select value.bind="selectedMark" change.delegate="getModels(selectedMark.mark)">
+                <option model.bind="null">Choose...</option>
+                <option repeat.for="mark of _marks"
+                        model.bind="mark">
+                    ${mark.mark}
+                </option>
+            </select>
+        </label>
+    </p>
+    <p>
+    <label>
+        Select Model:<br>
+        <select value.bind="selectedModel" change.delegate="createModel(selectedModel.model)">
+            <option model.bind="null">Choose...</option>
+            <option repeat.for="model of _models"
+                    model.bind="model">
+                ${model.model}
+            </option>
+        </select>
+    </label>
+    </p>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
         </div>
-    </div>
-
+    </form>
     <div>
         <a route-href="route: Cars-index; params.bind: { }">Back to List</a>
     </div>

@@ -68,32 +68,31 @@ namespace WebApp.ApiControllers
                 return NotFound(new V1DTO.MessageDTO($"Current user does not have car with this id {id}, userId:{User.UserId()}"));
             }
 
-            return Ok((await _bll.Cars.GetAllAsync()).Select(e => _mapper.Map(e)).Where(e => e.Id == id));
+            return Ok((await _bll.Cars.GetAllAsync()).Select(e => _mapper.Map(e)).Where(e => e.Id == id).Last());
         }
 
         /// <summary>
         /// Update Car
         /// </summary>
-        /// <param name="id">Session Id</param>
+        /// <param name="id">car Id</param>
         /// <param name="car">car object</param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        [Produces("application/json")]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(V1DTO.MessageDTO))]
         public async Task<IActionResult> PutCar(Guid id, V1DTO.Car car)
         {
-            if (!await _bll.Cars.ExistsAsync(car.Id, User.UserId()))
+            car.AppUserId = User.UserId();
+
+            if (id != car.Id)
             {
-                return NotFound(new V1DTO.MessageDTO($"Current user does not have car with this id {id}, userId:{User.UserId()}"));
+                return BadRequest(new V1DTO.MessageDTO("id and car.id do not match"));
             }
             
             var modelMarkId = await _bll.ModelMarks.GetModelMarkId(car);
             var modelMark = await _bll.ModelMarks.FirstOrDefaultAsync(modelMarkId);
-
-            car.AppUserId = User.UserId();
 
             var bllEntity = _mapper.Map(car);
             bllEntity.ModelMarkId = modelMark.Id;

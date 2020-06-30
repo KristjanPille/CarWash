@@ -211,9 +211,9 @@ using Microsoft.EntityFrameworkCore;
             }
 
 
-            var users = new (string name, string password, string firstName, string lastName, Guid Id)[]
+            var users = new (string name, string password, string firstName, string lastName, string PhoneNumber, Guid Id)[]
             {
-                ("juss@gmail.com", "Password123+", "Juss", "Jussike", new Guid("00000000-0000-0000-0000-000000000139")),
+                ("juss@gmail.com", "Password123+", "Juss", "Jussike", "1234567890", new Guid("00000000-0000-0000-0000-000000000139")),
             };
 
             foreach (var userInfo in users)
@@ -228,6 +228,7 @@ using Microsoft.EntityFrameworkCore;
                         UserName = userInfo.name,
                         FirstName = userInfo.firstName,
                         LastName = userInfo.lastName,
+                        PhoneNumber = userInfo.PhoneNumber,
                         EmailConfirmed = true
                     };
                     var result = userManager.CreateAsync(user, userInfo.password).Result;

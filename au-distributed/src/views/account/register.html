@@ -9,21 +9,44 @@
             <input class="form-control" type="email" id="email" name="email" value.bind="_email" />
           </div>
           <div class="form-group">
-            <label for="email">First name</label>
+            <label for="firstname">First name</label>
             <input class="form-control" type="firstname" id="firstname" name="firstname" value.bind="_firstname" />
           </div>
           <div class="form-group">
-            <label for="email">Last name</label>
+            <label for="lastname">Last name</label>
             <input class="form-control" type="lastname" id="lastname" name="lastname" value.bind="_lastname" />
           </div>
           <div class="form-group">
-            <label for="mark">Mark</label>
-            <input class="form-control" type="mark" id="mark" name="mark" value.bind="_mark" />
+              <label for="phoneNr">Phone Number</label>
+              <input class="form-control" type="lastname" id="phoneNr" name="phoneNr" value.bind="_phoneNr" />
           </div>
-          <div class="form-group">
-            <label for="model">Model</label>
-            <input class="form-control" type="model" id="model" name="model" value.bind="_model" />
-          </div>
+            <p>
+                <label>
+                    Select Mark:<br>
+                    <select value.bind="selectedMark" change.delegate="getModels(selectedMark.mark)">
+                        <option model.bind="null">Choose...</option>
+                        <option repeat.for="mark of _marks"
+                                model.bind="mark">
+                            ${mark.mark}
+                        </option>
+                    </select>
+                </label>
+            </p>
+            <p>
+                <label>
+                    Select Model:<br>
+                    <select value.bind="selectedModel" change.delegate="createModel(selectedModel.model)">
+                        <option model.bind="null">Choose...</option>
+                        <option repeat.for="model of _models"
+                                model.bind="model">
+                            ${model.model}
+                        </option>
+                    </select>
+                </label>
+            </p>
+
+
+
           <div class="form-group">
             <label for="password">Password</label>
             <input class="form-control" type="password" id="password"  name="password"
@@ -41,4 +64,3 @@
     </div>
   
   </template>
-  

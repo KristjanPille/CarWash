@@ -69,6 +69,7 @@ namespace WebApp.ApiControllers._1._0.Identity
                 var jwt = IdentityExtensions.GenerateJWT(
                     claimsPrincipal.Claims
                         .Append(new Claim(ClaimTypes.GivenName, appUser.FirstName))
+                        .Append(new Claim(ClaimTypes.MobilePhone, appUser.PhoneNumber))
                         .Append(new Claim(ClaimTypes.Surname, appUser.LastName)),
                     _configuration["JWT:SigningKey"],
                     _configuration["JWT:Issuer"],
@@ -78,7 +79,7 @@ namespace WebApp.ApiControllers._1._0.Identity
                 return Ok(new JwtResponseDTO()
                 {
                     Token = jwt, Status = $"User {appUser.Email} logged in.", FirstName = appUser.FirstName,
-                    LastName = appUser.LastName
+                    LastName = appUser.LastName, PhoneNumber = appUser.PhoneNumber
                 });
             }
 
@@ -118,6 +119,7 @@ namespace WebApp.ApiControllers._1._0.Identity
                 UserName = dto.Email,
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
+                PhoneNumber = dto.PhoneNumber,
                 Cars = new[]
                 {
                     new Domain.App.Car()
@@ -140,6 +142,7 @@ namespace WebApp.ApiControllers._1._0.Identity
                     var jwt = IdentityExtensions.GenerateJWT(
                         claimsPrincipal.Claims
                             .Append(new Claim(ClaimTypes.GivenName, appUser.FirstName))
+                            .Append(new Claim(ClaimTypes.MobilePhone, appUser.PhoneNumber))
                             .Append(new Claim(ClaimTypes.Surname, appUser.LastName)),
                         _configuration["JWT:SigningKey"],
                         _configuration["JWT:Issuer"],
@@ -149,7 +152,7 @@ namespace WebApp.ApiControllers._1._0.Identity
                     return Ok(new JwtResponseDTO()
                     {
                         Token = jwt, Status = $"User {user.Email} created and logged in.",
-                        FirstName = appUser.FirstName, LastName = appUser.LastName
+                        FirstName = appUser.FirstName, LastName = appUser.LastName, PhoneNumber = appUser.PhoneNumber
                     });
                 }
 

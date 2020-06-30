@@ -25,6 +25,7 @@ namespace WebApp.ApiControllers
         private readonly IAppBLL _bll;
         private readonly ModelMarkMapper _mapper = new ModelMarkMapper();
         private readonly MarkMapper _markMapper = new MarkMapper();
+        private readonly ModelMapper _modelMapper = new ModelMapper();
 
         /// <summary>
         /// Constructor
@@ -37,6 +38,7 @@ namespace WebApp.ApiControllers
 
         // GET: api/ModelMarks
         [HttpGet]
+        [AllowAnonymous]
         [Produces("application/json")]
         public async Task<ActionResult<IEnumerable<ModelMark>>> GetModelMarks()
         {
@@ -46,6 +48,7 @@ namespace WebApp.ApiControllers
         // GET: api/Marks
         [HttpGet]
         [Route("Marks")]
+        [AllowAnonymous]
         [Produces("application/json")]
         public async Task<ActionResult<IEnumerable<V1DTO.MarkDTO>>> GetMarks()
         {
@@ -53,12 +56,15 @@ namespace WebApp.ApiControllers
             return Ok(marks.Select(e => _markMapper.Map(e)));
         }
         
-        // GET: api/Models
-        [Route("Models")]
+        // GET: api/Models/{mark}
+        [Route("Models/{mark}")]
+        [AllowAnonymous]
         [Produces("application/json")]
         public async Task<ActionResult<IEnumerable<V1DTO.ModelDTO>>> GetMarkSpecificModels(string mark)
         {
-            return Ok( await _bll.ModelMarks.GetMarkModels(mark));
+            var models = await _bll.ModelMarks.GetMarkModels(mark);
+            
+            return Ok( models.Select(e => _modelMapper.Map(e)) );
         }
         
         

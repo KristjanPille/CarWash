@@ -26,6 +26,11 @@ namespace PublicApi.DTO.v1.Identity
         public string LastName { get; set; } = default!;
         
         [MinLength(1)]
+        [MaxLength(20)]
+        [Required]
+        public string PhoneNumber { get; set; } = default!;
+        
+        [MinLength(1)]
         [MaxLength(128)]
         [Required]
         public string Model { get; set; } = default!;

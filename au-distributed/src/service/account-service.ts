@@ -47,13 +47,14 @@ export class AccountService {
         }
     }
 
-    async register(user: string, password: string, firstname: string, lastname:string, model:string, mark:string): Promise<any> {
+    async register(user: string, password: string, firstname: string, lastname:string, phoneNumber:string, model:string, mark:string): Promise<any> {
         let url = this.appState.baseUrl + "account/register";
         let registerDTO = {
           email: user,
           password: password,
           firstname: firstname,
           lastname: lastname,
+          phoneNumber: phoneNumber,
           model: model,
           mark: mark
         }

@@ -79,7 +79,8 @@ export class CarService {
         }
     }
 
-    async updateCar(car: ICarEdit): Promise<IFetchResponse<string>> {
+    async updateCar(car: ICar): Promise<IFetchResponse<string>> {
+        console.log(JSON.stringify(car))
         try {
             const response = await this.httpClient
                 .put(this._baseUrl + '/' + car.id, JSON.stringify(car), {
@@ -110,6 +111,7 @@ export class CarService {
 
 
     async createCar(car: ICarCreate): Promise<IFetchResponse<string>> {
+        console.log(car)
         try {
             const response = await this.httpClient
                 .post(this._baseUrl, JSON.stringify(car), {

@@ -5,6 +5,8 @@ import { IModelMarkCreate } from 'domain/IModelMarkCreate';
 import { AppState } from 'state/app-state';
 import { IModelMarkEdit } from 'domain/IModelMarkEdit';
 import {IModelMark} from "../domain/IModelMark";
+import {IModel} from "../domain/IModel";
+import {IMark} from "../domain/IMark";
 
 @autoinject
 export class ModelMarkservice {
@@ -15,10 +17,10 @@ export class ModelMarkservice {
     private readonly _baseUrl = 'ModelMarks';
 
 
-    async getModelMarks(): Promise<IFetchResponse<IModelMark[]>> {
+    async getMarks(): Promise<IFetchResponse<IMark[]>> {
         try {
             const response = await this.httpClient
-                .fetch(this._baseUrl, {
+                .fetch(this._baseUrl + "/Marks", {
                     cache: "no-store",
                     headers: {
                         authorization: "Bearer " + this.appState.jwt
@@ -26,7 +28,39 @@ export class ModelMarkservice {
                 });
             // happy case
             if (response.status >= 200 && response.status < 300) {
-                const data = (await response.json()) as IModelMark[];
+                const data = (await response.json()) as IMark[];
+                return {
+                    statusCode: response.status,
+                    data: data
+                }
+            }
+
+            // something went wrong
+            return {
+                statusCode: response.status,
+                errorMessage: response.statusText
+            }
+
+        } catch (reason) {
+            return {
+                statusCode: 0,
+                errorMessage: JSON.stringify(reason)
+            }
+        }
+    }
+
+    async getModels(mark: string): Promise<IFetchResponse<IModel[]>> {
+        try {
+            const response = await this.httpClient
+                .fetch(this._baseUrl + "/Models/" + mark, {
+                    cache: "no-store",
+                    headers: {
+                        authorization: "Bearer " + this.appState.jwt
+                    }
+                });
+            // happy case
+            if (response.status >= 200 && response.status < 300) {
+                const data = (await response.json()) as IModel[];
                 return {
                     statusCode: response.status,
                     data: data

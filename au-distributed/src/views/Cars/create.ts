@@ -1,17 +1,17 @@
-import { CarsIndex } from './index';
 import { autoinject } from 'aurelia-framework';
 import { RouteConfig, NavigationInstruction, Router } from 'aurelia-router';
 import { CarService } from 'service/car-service';
 import { IAlertData } from 'types/IAlertData';
 import { AlertType } from 'types/AlertType';
 import {ModelMarkservice} from "../../service/modelMark-service";
-import {ICar} from "../../domain/ICar";
-import {IModelMark} from "../../domain/IModelMark";
+import {IMark} from "../../domain/IMark";
+import {IModel} from "../../domain/IModel";
 
 @autoinject
 export class CarsCreate {
     private _alert: IAlertData | null = null;
-    private _modelMarks: IModelMark[] = [];
+    private _marks: IMark[] = [];
+    private _models: IModel[] = [];
     _Mark = "";
     _Model = "";
 
@@ -20,11 +20,11 @@ export class CarsCreate {
     }
 
     attached() {
-        this.modelMarkService.getModelMarks().then(
+        this.modelMarkService.getMarks().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;
-                    this._modelMarks = response.data!;
+                    this._marks = response.data!;
                 } else {
                     // show error message
                     this._alert = {
@@ -34,19 +34,40 @@ export class CarsCreate {
                     }
                 }
             }
-        );
+        )
     }
 
     activate(params: any, routeConfig: RouteConfig, navigationInstruction: NavigationInstruction) {
 
     }
 
+    getModels(mark: string){
+        this._Mark = mark;
+        this.modelMarkService.getModels(mark).then(
+            response => {
+                if (response.statusCode >= 200 && response.statusCode < 300) {
+                    this._alert = null;
+                    this._models = response.data!;
+                } else {
+                    // show error message
+                    this._alert = {
+                        message: response.statusCode.toString() + ' - ' + response.errorMessage,
+                        type: AlertType.Danger,
+                        dismissable: true,
+                    }
+                }
+            }
+        )
+    }
+
+    createModel(model: string){
+        this._Model = model;
+    }
 
     onSubmit(event: Event) {
         console.log(event);
-
         this.carService
-            .createCar({Mark: this._Mark, Model: this._Model })
+            .createCar({mark: this._Mark, model: this._Model })
             .then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
@@ -65,5 +86,6 @@ export class CarsCreate {
 
         event.preventDefault();
     }
+
 
 }

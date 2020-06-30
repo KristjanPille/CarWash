@@ -2,29 +2,40 @@
     <h1>Index</h1>
 
     <p>
-        <a route-href="route: Service-create; params.bind: {}">Create New</a>
+        <a route-href="route: campaigns-create; params.bind: {}">Create New</a>
     </p>
     <table class="table">
         <thead>
-            <tr>
-                <th>
-                    Service
-                </th>
-                <th></th>
-            </tr>
+        <tr>
+            <th>
+                nameOfService
+            </th>
+            <th>
+                priceOfService
+            </th>
+            <th>
+                description
+            </th>
+        </tr>
         </thead>
         <tbody>
-            <tr repeat.for="service of _services">
-                <td>
-                    ${service.nameOfService}
-                    ${service.description}
-                    ${service.priceOfService}
-                </td>
-                <td>
-                    <a route-href="route: Washes-edit; params.bind: { id: service.id }">Edit</a> |
-                    <a route-href="route: Washes-details; params.bind: { id: service.id }">Details</a> |
-                    <a route-href="route: Washes-delete; params.bind: { id: service.id }">Delete</a>
-                </td>
+        <tr repeat.for="service of _services">
+            <td>
+                ${service.nameOfService}
+            </td>
+            <td>
+                ${service.priceOfService}
+            </td>
+            <td>
+                ${service.description}
+            </td>
+            <td>
+                <a route-href="route: service-edit; params.bind: { id: service.id }">Edit</a> |
+                <a route-href="route: service-details; params.bind: { id: service.id }">Details</a> |
+                <a route-href="route: service-delete; params.bind: { id: service.id }">Delete</a>
+            </td>
 
-            </tr>
+        </tr>
+        </tbody>
+    </table>
 </template>

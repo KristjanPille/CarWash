@@ -23,6 +23,8 @@ export class App {
     PLATFORM.moduleName('views/account/login'), nav: false, title: 'Login' },
     { route: ['account/register'], name: 'account-register', moduleId: 
     PLATFORM.moduleName('views/account/register'), nav: false, title: 'Register' },
+    { route: ['account/account'], name: 'account-index', moduleId:
+    PLATFORM.moduleName('views/account/account'), nav: false, title: 'Your Account' },
 
 
     { route: ['campaigns', 'Campaigns/index'], name: 'campaigns-index', moduleId:
@@ -36,16 +38,15 @@ export class App {
     { route: ['campaigns/edit/:id?'], name: 'campaigns-edit', moduleId:
     PLATFORM.moduleName('views/campaigns/edit'), nav: false, title: 'Campaigns Edit' },
 
+
     { route: ['Cars', 'Cars/index'], name: 'Cars-index', moduleId:
-    PLATFORM.moduleName('views/Cars/index'), nav: true, title: 'Cars' }, 
-    { route: ['Cars/details/:id'], name: 'Cars-details', moduleId:
-    PLATFORM.moduleName('views/Cars/details'), nav: false, title: 'Car Details' }, 
-    { route: ['Cars/create'], name: 'Cars-create', moduleId: 
-    PLATFORM.moduleName('views/Cars/create'), nav: false, title: 'Cars Create' },
+    PLATFORM.moduleName('views/Cars/index'), nav: true, title: 'Your Cars'},
+    { route: ['Cars/create'], name: 'Cars-create', moduleId:
+    PLATFORM.moduleName('views/Cars/create'), nav: false, title: 'Add new Car' },
     { route: ['Cars/delete/:id?'], name: 'Cars-delete', moduleId:
     PLATFORM.moduleName('views/Cars/delete'), nav: false, title: 'Cars Delete' },
     { route: ['Cars/edit/:id?'], name: 'Cars-edit', moduleId:
-    PLATFORM.moduleName('views/Cars/edit'), nav: false, title: 'Cars Edit' },
+    PLATFORM.moduleName('views/Cars/edit'), nav: false, title: 'Edit Car' },
 
 
     { route: ['Services', 'Services/index'], name: 'Services-index', moduleId:
@@ -59,23 +60,18 @@ export class App {
     { route: ['Services/create'], name: 'Services-create', moduleId:
     PLATFORM.moduleName('views/Services/create'), nav: false, title: 'Services Create' },
 
-    { route: ['IsInWashes', 'IsInWashes/index'], name: 'home', moduleId:
-    PLATFORM.moduleName('views/IsInWashes/index'), nav: true, title: 'IsInWashes' }, 
+    { route: ['IsInServices', 'IsInServices/index'], name: 'home', moduleId:
+    PLATFORM.moduleName('views/IsInServices/index'), nav: false, title: 'IsInServices' },
 
     { route: ['Orders', 'Orders/index'], name: 'home', moduleId:
-    PLATFORM.moduleName('views/Orders/index'), nav: true, title: 'Orders' }, 
+    PLATFORM.moduleName('views/Orders/index'), nav: false, title: 'Orders' },
 
     { route: ['PaymentMethods', 'PaymentMethods/index'], name: 'home', moduleId:
-    PLATFORM.moduleName('views/PaymentMethods/index'), nav: true, title: 'PaymentMethods' }, 
+    PLATFORM.moduleName('views/PaymentMethods/index'), nav: false, title: 'PaymentMethods' },
 
     { route: ['Payments', 'Payments/index'], name: 'home', moduleId:
-    PLATFORM.moduleName('views/Payments/index'), nav: true, title: 'Payments' }, 
+    PLATFORM.moduleName('views/Payments/index'), nav: false, title: 'Payments' },
 
-    { route: ['Shared', 'Shared/index'], name: 'home', moduleId:
-    PLATFORM.moduleName('views/Shared/index'), nav: true, title: 'Shared' }, 
-
-    { route: ['WashTypes', 'WashTypes/index'], name: 'home', moduleId:
-    PLATFORM.moduleName('views/WashTypes/index'), nav: true, title: 'WashTypes' }, 
   ]);
   config.mapUnknownRoutes('views/home/index');
   }

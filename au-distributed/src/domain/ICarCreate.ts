@@ -1,4 +1,4 @@
 export interface ICarCreate {
-    Mark: string
-    Model: string
+    mark: string
+    model: string
 }

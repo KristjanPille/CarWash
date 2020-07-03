@@ -1,5 +1,6 @@
 export interface IServiceCreate {
     NameOfService: string
-    Description: string
+    description: string
     PriceOfService: number
+    duration: number
 }

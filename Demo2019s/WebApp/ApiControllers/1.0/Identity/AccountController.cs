@@ -70,6 +70,7 @@ namespace WebApp.ApiControllers._1._0.Identity
                     claimsPrincipal.Claims
                         .Append(new Claim(ClaimTypes.GivenName, appUser.FirstName))
                         .Append(new Claim(ClaimTypes.MobilePhone, appUser.PhoneNumber))
+                        .Append(new Claim(ClaimTypes.Sid, appUser.Id.ToString()))
                         .Append(new Claim(ClaimTypes.Surname, appUser.LastName)),
                     _configuration["JWT:SigningKey"],
                     _configuration["JWT:Issuer"],
@@ -79,7 +80,7 @@ namespace WebApp.ApiControllers._1._0.Identity
                 return Ok(new JwtResponseDTO()
                 {
                     Token = jwt, Status = $"User {appUser.Email} logged in.", FirstName = appUser.FirstName,
-                    LastName = appUser.LastName, PhoneNumber = appUser.PhoneNumber
+                    LastName = appUser.LastName, PhoneNumber = appUser.PhoneNumber, AppUserId = appUser.Id.ToString()
                 });
             }
 
@@ -126,7 +127,6 @@ namespace WebApp.ApiControllers._1._0.Identity
                     {
                         ModelMark = modelMark,
                         ModelMarkId = modelMark.Id,
-                        CarSize = dto.CarSize
                     }
                 }
             };
@@ -152,7 +152,7 @@ namespace WebApp.ApiControllers._1._0.Identity
                     return Ok(new JwtResponseDTO()
                     {
                         Token = jwt, Status = $"User {user.Email} created and logged in.",
-                        FirstName = appUser.FirstName, LastName = appUser.LastName, PhoneNumber = appUser.PhoneNumber
+                        FirstName = appUser.FirstName, LastName = appUser.LastName, PhoneNumber = appUser.PhoneNumber, AppUserId = appUser.Id.ToString()
                     });
                 }
 

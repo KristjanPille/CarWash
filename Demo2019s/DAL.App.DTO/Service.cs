@@ -15,6 +15,8 @@ namespace DAL.App.DTO
         
         public string? Description { get; set; }
         
+        public int? Duration { get; set; }
+        
         [JsonIgnore]
         public Campaign? Campaign { get; set; }
         public Guid CampaignId { get; set; }

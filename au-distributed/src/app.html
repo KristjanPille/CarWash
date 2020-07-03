@@ -19,7 +19,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link text-dark"
-                           route-href="route: Services-index; params.bind: {}">Services</a>
+                           route-href="route: Services; params.bind: {}">Services</a>
                     </li>
 
                     <li if.bind="appState.jwt != null" class="nav-item dropdown">
@@ -35,7 +35,7 @@
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Your Account</a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a href="#" class="dropdown-item">Settings</a>
+                            <a route-href="route: account-index; params.bind: { userId }" class="dropdown-item">Settings</a>
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-item" click.delegate="logoutOnClick()">Logout</a>
                         </div>

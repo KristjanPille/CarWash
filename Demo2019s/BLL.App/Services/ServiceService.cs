@@ -7,6 +7,7 @@ using Contracts.BLL.App.Services;
 using Contracts.DAL.App;
 using Contracts.DAL.App.Repositories;
 using DAL.App.DTO;
+using Car = BLL.App.DTO.Car;
 using Service = BLL.App.DTO.Service;
 
 namespace BLL.App.Services
@@ -33,5 +34,17 @@ namespace BLL.App.Services
             
             return service;
         }
+
+        public async Task<double> GetServicePrice(PublicApi.DTO.v1.Car car, Guid serviceId)
+        {
+            var service = await UOW.Services.FirstOrDefaultAsync(serviceId);
+
+            var bllcar = await UOW.Cars.FirstOrDefaultAsync(car.Id);
+            
+            var modelMark = await UOW.ModelMarks.FirstOrDefaultAsync(bllcar.ModelMarkId);
+
+            return service.PriceOfService + (modelMark.ModelMarkSize * 1.5);
+        }
+        
     }
 }

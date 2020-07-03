@@ -70,6 +70,23 @@ namespace WebApp.ApiControllers
         }
         
         /// <summary>
+        /// Get prices of services according to car size
+        /// </summary>
+        /// <param name="car">car</param>
+        /// <param name="serviceId">car</param>
+        /// <returns>Services prices</returns>
+        [Route("ServicePrice/{serviceId}")]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(V1DTO.Service))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]
+        public async Task<ActionResult<double>> GetServicesPrices(Guid serviceId, V1DTO.Car car)
+        {
+            var servicePrice = await _bll.Services.GetServicePrice(car, serviceId);
+            
+            return Ok(servicePrice);
+        }
+        
+        /// <summary>
         /// Update the GpsSession
         /// </summary>
         /// <param name="id">Session Id</param>

@@ -31,15 +31,6 @@ namespace WebApp.ApiControllers
             _userManager = userManager;
         }
 
-        // GET: api/AppUsers
-        [HttpGet]
-        public async Task<ActionResult<AppUser>> GetUsers()
-        {
-            var user = await _userManager.FindByEmailAsync(User.Identity.Name);
-
-            return user;
-        }
-
         // GET: api/AppUsers/appUser
         [HttpGet("appuser")]
         public async Task<ActionResult<PublicApi.DTO.v1.Identity.AppUser>> GetAppUser()
@@ -69,7 +60,8 @@ namespace WebApp.ApiControllers
 
             domainAppUser.Email = appUser.Email;
             domainAppUser.FirstName = appUser.FirstName;
-            domainAppUser.LastName = appUser.FirstName;
+            domainAppUser.LastName = appUser.LastName;
+            domainAppUser.PhoneNumber = appUser.PhoneNumber;
 
             _context.Entry(domainAppUser).State = EntityState.Modified;
 

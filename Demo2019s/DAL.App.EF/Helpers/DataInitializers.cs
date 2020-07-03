@@ -50,8 +50,9 @@ using Microsoft.EntityFrameworkCore;
                 new Service()
                 {
                     NameOfService =  "VäliPesu",
-                    PriceOfService = 20,
-                    Description = "Kiire välipesu, Leotus, käsipesu, porimattide puhastus",
+                    PriceOfService = 25,
+                    Description = "Leotus, käsipesu, porimattide puhastus",
+                    Duration = 30,
                     CampaignId = new Guid("00000000-0000-0000-0000-000000000001"),
                     Id = new Guid("00000000-0000-0000-0000-000000000123")
                 },
@@ -59,6 +60,8 @@ using Microsoft.EntityFrameworkCore;
                 {
                     NameOfService =  "SisePesu",
                     PriceOfService = 20,
+                    Description = "Kuiv puhastus, aknaklaaside puhastus seest, porimattide puhastus",
+                    Duration = 60,
                     Id = new Guid("00000000-0000-0000-0000-000000000124")
                 },
                 new Service()
@@ -66,12 +69,15 @@ using Microsoft.EntityFrameworkCore;
                     NameOfService =  "Premium Välipesu",
                     Description = "Põhjalik välipesu, Leotus, velgede, rataste ning rattakoobaste pesu, käsipesu, porimattide puhastus, ustevahede pesu ning kuivatamine",
                     PriceOfService = 40,
+                    Duration = 60,
                     Id = new Guid("00000000-0000-0000-0000-000000000125")
                 },
                 new Service()
                 {
                     NameOfService =  "Premium Sisepesu",
-                    PriceOfService = 40,
+                    PriceOfService = 45,
+                    Description = "Kõikide salongi ja pagasiruumi pindade märgkoristus, Salongi ja pagasiruumi puhastamine tolmuimeja ja suruõhuga, Kõikide klaaside puhastamine seestpoolt, Põrandamattide puhastamine",
+                    Duration = 120,
                     Id = new Guid("00000000-0000-0000-0000-000000000126")
                 },
             };
@@ -92,30 +98,35 @@ using Microsoft.EntityFrameworkCore;
                 {
                     Mark =  "Audi",
                     Model = "A1",
+                    ModelMarkSize = 1,
                     Id = new Guid("00000000-0000-0000-0000-000000000127"),
                 },
                 new ModelMark()
                 {
                     Mark =  "Audi",
                     Model = "A2",
+                    ModelMarkSize = 1,
                     Id = new Guid("00000000-0000-0000-0000-000000000128"),
                 },
                 new ModelMark()
                 {
                     Mark =  "Audi",
                     Model = "A3",
+                    ModelMarkSize = 1,
                     Id = new Guid("00000000-0000-0000-0000-000000000129"),
                 },
                 new ModelMark()
                 {
                     Mark =  "Audi",
                     Model = "A4",
+                    ModelMarkSize = 2,
                     Id = new Guid("00000000-0000-0000-0000-000000000130"),
                 },
                 new ModelMark()
                 {
                     Mark =  "Audi",
                     Model = "A5",
+                    ModelMarkSize = 2,
                     Id = new Guid("00000000-0000-0000-0000-000000000131"),
                 },
                 
@@ -123,30 +134,35 @@ using Microsoft.EntityFrameworkCore;
                 {
                     Mark =  "Bmw",
                     Model = "x1",
+                    ModelMarkSize = 1,
                     Id = new Guid("00000000-0000-0000-0000-000000000132"),
                 },
                 new ModelMark()
                 {
                     Mark =  "Bmw",
                     Model = "x2",
+                    ModelMarkSize = 1,
                     Id = new Guid("00000000-0000-0000-0000-000000000133"),
                 },
                 new ModelMark()
                 {
                     Mark =  "Bmw",
                     Model = "3",
+                    ModelMarkSize = 1,
                     Id = new Guid("00000000-0000-0000-0000-000000000134"),
                 },
                 new ModelMark()
                 {
                     Mark =  "Bmw",
                     Model = "4",
+                    ModelMarkSize = 2,
                     Id = new Guid("00000000-0000-0000-0000-000000000135"),
                 },
                 new ModelMark()
                 {
                     Mark =  "Bmw",
                     Model = "x5",
+                    ModelMarkSize = 3,
                     Id = new Guid("00000000-0000-0000-0000-000000000136"),
                 },
             };
@@ -167,7 +183,6 @@ using Microsoft.EntityFrameworkCore;
                 {
                     Id = new Guid("00000000-0000-0000-0000-000000000137"),
                     AppUserId = new Guid("00000000-0000-0000-0000-000000000139"),
-                    CarSize =  2,
                     ModelMarkId = modelMarks[0].Id
                 },
             };

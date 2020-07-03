@@ -20,7 +20,6 @@ export class CarsDelete {
     }
 
     activate(params: any, routeConfig: RouteConfig, navigationInstruction: NavigationInstruction) {
-        console.log(params);
         if (params.id && typeof (params.id) == 'string') {
             this.carService.getCar(params.id).then(
                 response => {

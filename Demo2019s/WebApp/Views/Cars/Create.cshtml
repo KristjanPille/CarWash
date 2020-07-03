@@ -13,11 +13,6 @@
         <form asp-action="Create">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="CarSize" class="control-label"></label>
-                <input asp-for="CarSize" class="form-control" />
-                <span asp-validation-for="CarSize" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                       <label asp-for="ModelMarkId" class="control-label"></label>
                       <select asp-for="ModelMarkId" class ="form-control" asp-items="ViewBag.ModelMarkId"></select>
                   </div>

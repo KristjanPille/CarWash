@@ -13,6 +13,9 @@ namespace PublicApi.DTO.v1.Identity
         public string FirstName { get; set; }  = default!;
         [Required]
         public string LastName { get; set; }  = default!;
+        [Required]
         public string PhoneNumber { get; set; }  = default!;
+        [Required]
+        public string AppUserId { get; set; }  = default!;
     }
 }

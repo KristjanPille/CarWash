@@ -19,8 +19,7 @@
         <div class="col-sm-12 col-md-6 col-xl-4">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.CarSize)</h5>
-                    
+
                     @if (SignInManager.IsSignedIn(User) && User.IsInRole("admin"))
                     {
                         <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.Id">Edit</a>

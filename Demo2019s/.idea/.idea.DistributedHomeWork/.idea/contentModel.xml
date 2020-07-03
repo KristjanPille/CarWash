@@ -254,8 +254,8 @@
           <e p="DALMapper.cs" t="Include" />
         </e>
         <e p="Migrations" t="Include">
-          <e p="20200630193209_InitialDbCreation.cs" t="Include" />
-          <e p="20200630193209_InitialDbCreation.Designer.cs" t="Include" />
+          <e p="20200702095940_InitialDbCreation.cs" t="Include" />
+          <e p="20200702095940_InitialDbCreation.Designer.cs" t="Include" />
           <e p="AppDbContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">

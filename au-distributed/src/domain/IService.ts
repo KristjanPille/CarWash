@@ -1,6 +1,7 @@
 export interface IService {
     id: string;
-    NameOfService: string
-    Description: string
-    PriceOfService: number
+    nameOfService: string
+    description: string
+    priceOfService: number
+    duration: number
 }

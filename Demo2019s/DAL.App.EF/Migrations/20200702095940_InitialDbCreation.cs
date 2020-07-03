@@ -35,14 +35,14 @@ namespace DAL.App.EF.Migrations
                     PasswordHash = table.Column<string>(nullable: true),
                     SecurityStamp = table.Column<string>(nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(maxLength: 128, nullable: false),
-                    LastName = table.Column<string>(maxLength: 128, nullable: false),
-                    PhoneNumber = table.Column<string>(maxLength: 20, nullable: false)
+                    LastName = table.Column<string>(maxLength: 128, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -92,7 +92,8 @@ namespace DAL.App.EF.Migrations
                     ChangedBy = table.Column<string>(maxLength: 256, nullable: true),
                     ChangedAt = table.Column<DateTime>(nullable: false),
                     Mark = table.Column<string>(nullable: false),
-                    Model = table.Column<string>(nullable: false)
+                    Model = table.Column<string>(nullable: false),
+                    ModelMarkSize = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -233,6 +234,7 @@ namespace DAL.App.EF.Migrations
                     NameOfService = table.Column<string>(maxLength: 64, nullable: false),
                     PriceOfService = table.Column<double>(nullable: false),
                     Description = table.Column<string>(nullable: true),
+                    Duration = table.Column<int>(nullable: true),
                     CampaignId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
@@ -280,8 +282,7 @@ namespace DAL.App.EF.Migrations
                     ChangedBy = table.Column<string>(maxLength: 256, nullable: true),
                     ChangedAt = table.Column<DateTime>(nullable: false),
                     AppUserId = table.Column<Guid>(nullable: false),
-                    ModelMarkId = table.Column<Guid>(nullable: false),
-                    CarSize = table.Column<int>(nullable: false)
+                    ModelMarkId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {

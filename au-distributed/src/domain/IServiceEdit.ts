@@ -3,4 +3,5 @@ export interface IServiceEdit {
     NameOfService: string
     Description: string
     PriceOfService: number
+    duration: number
 }

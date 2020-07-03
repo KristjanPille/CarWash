@@ -3,6 +3,7 @@ import { AppState } from 'state/app-state';
 import { HttpClient, json } from 'aurelia-fetch-client';
 import { IFetchResponse } from 'types/IFetchResponse';
 import { ILoginResponse } from 'domain/ILoginResponse';
+import {IAccount} from "../domain/IAccount";
 
 export var log = LogManager.getLogger('IdentityService');
 
@@ -13,7 +14,69 @@ export class AccountService {
         private httpClient: HttpClient) {
         this.httpClient.baseUrl = this.appState.baseUrl;
     }
-    
+    private readonly _baseUrl = 'appusers';
+
+    async updateAccount(account: IAccount): Promise<IFetchResponse<string>> {
+        try {
+            console.log(this._baseUrl + '/' + account.id)
+            const response = await this.httpClient
+                .put(this._baseUrl + '/' + account.id, JSON.stringify(account), {
+                    cache: 'no-store',
+                    headers: {
+                        authorization: "Bearer " + this.appState.jwt
+                    }
+                });
+
+            if (response.status >= 200 && response.status < 300) {
+                return {
+                    statusCode: response.status
+                    // no data
+                }
+            }
+            return {
+                statusCode: response.status,
+                errorMessage: response.statusText
+            }
+        }
+        catch (reason) {
+            return {
+                statusCode: 0,
+                errorMessage: JSON.stringify(reason)
+            }
+        }
+    }
+
+    async getUser(): Promise<IFetchResponse<IAccount>> {
+        try {
+            const response = await this.httpClient
+                .fetch(this._baseUrl + '/appuser', {
+                    cache: "no-store",
+                    headers: {
+                        authorization: "Bearer " + this.appState.jwt
+                    }
+                });
+
+            if (response.status >= 200 && response.status < 300) {
+                const data = (await response.json()) as IAccount;
+                return {
+
+                    statusCode: response.status,
+                    data: data
+                }
+            }
+
+            return {
+                statusCode: response.status,
+                errorMessage: response.statusText
+            }
+
+        } catch (reason) {
+            return {
+                statusCode: 0,
+                errorMessage: JSON.stringify(reason)
+            }
+        }
+    }
 
     async login(email: string, password: string): Promise<IFetchResponse<ILoginResponse>> {
         try {

@@ -5,6 +5,8 @@ import { IFetchResponse } from 'types/IFetchResponse';
 import { IService } from 'domain/IService';
 import { IServiceEdit } from 'domain/IServiceEdit';
 import { IServiceCreate } from 'domain/IServiceCreate';
+import {ICar} from "../domain/ICar";
+import {IsInServiceService} from "./isInService-service";
 
 @autoinject
 export class ServiceService {
@@ -153,6 +155,66 @@ export class ServiceService {
                     // no data
                 }
             }
+            return {
+                statusCode: response.status,
+                errorMessage: response.statusText
+            }
+        }
+        catch (reason) {
+            return {
+                statusCode: 0,
+                errorMessage: JSON.stringify(reason)
+            }
+        }
+    }
+
+    async getPriceOfService(car: ICar, serviceId: string): Promise<IFetchResponse<number>> {
+        try {
+            const response = await this.httpClient
+                .post(this._baseUrl + "/ServicePrice/" + serviceId, JSON.stringify(car), {
+                    cache: 'no-store',
+                    headers: {
+                        authorization: "Bearer " + this.appState.jwt
+                    }
+                })
+            if (response.status >= 200 && response.status < 300) {
+                const data = (await response.json()) as number;
+                return {
+                    statusCode: response.status,
+                    data: data
+                }
+            }
+
+            return {
+                statusCode: response.status,
+                errorMessage: response.statusText
+            }
+        }
+        catch (reason) {
+            return {
+                statusCode: 0,
+                errorMessage: JSON.stringify(reason)
+            }
+        }
+    }
+
+    async createNewIsInService(isInServiceService: IsInServiceService): Promise<IFetchResponse<string>> {
+        try {
+            const response = await this.httpClient
+                .post('IsInServices/', JSON.stringify(isInServiceService), {
+                    cache: 'no-store',
+                    headers: {
+                        authorization: "Bearer " + this.appState.jwt
+                    }
+                })
+
+            if (response.status >= 200 && response.status < 300) {
+                return {
+                    statusCode: response.status
+                    // no data
+                }
+            }
+
             return {
                 statusCode: response.status,
                 errorMessage: response.statusText

@@ -9,13 +9,11 @@ namespace BLL.App.DTO
     { 
         public Guid Id { get; set; }
 
-        public Guid? ModelMarkId { get; set; }
+        public Guid ModelMarkId { get; set; }
         
         [JsonIgnore]
         public ModelMark? ModelMark { get; set; }
-       
-        public int? CarSize{ get; set; } = default!;
-        
+
         public Guid AppUserId { get; set; }
   
         [JsonIgnore]

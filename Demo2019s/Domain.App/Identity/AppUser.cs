@@ -17,11 +17,6 @@ namespace Domain.App.Identity
         [MaxLength(128)]
         [Required]
         public string LastName { get; set; } = default!;
-        
-        [MinLength(1)]
-        [MaxLength(20)]
-        [Required]
-        public string PhoneNumber { get; set; } = default!;
 
         public string FirstLastName => FirstName + " " + LastName;
         public string LastFirstName => LastName + " " + FirstName;

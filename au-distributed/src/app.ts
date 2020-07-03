@@ -1,14 +1,44 @@
 import { autoinject, PLATFORM } from 'aurelia-framework';
-import { Router, RouterConfiguration } from 'aurelia-router';
+import {NavigationInstruction, RouteConfig, Router, RouterConfiguration} from 'aurelia-router';
 import { AppState } from 'state/app-state';
+
+import {AccountService} from "./service/account-service";
+import {IAccount} from "./domain/IAccount";
+import {ICar} from "./domain/ICar";
+import {IFetchResponse} from "./types/IFetchResponse";
+import {AlertType} from "./types/AlertType";
+import {IAlertData} from "./types/IAlertData";
 
 @autoinject
 export class App {
+  private _alert: IAlertData | null = null;
   router?: Router;
+  private userId: string = "";
+  private _account?: IAccount;
 
-  constructor(private appState: AppState) {
-
+  constructor(private appState: AppState, private accountService: AccountService) {
   }
+
+    attached() {
+        if (this.appState.jwt != null){
+            this.accountService.getUser().then(
+                response => {
+                    if (response.statusCode >= 200 && response.statusCode < 300) {
+                        this._alert = null;
+                        this._account = response.data!;
+                        this.userId = this._account.id
+                    } else {
+                        // show error message
+                        this._alert = {
+                            message: response.statusCode.toString() + ' - ' + response.errorMessage,
+                            type: AlertType.Danger,
+                            dismissable: true,
+                        }
+                    }
+                }
+            )
+        }
+    }
 
   configureRouter(config: RouterConfiguration, router: Router): void { 
   this.router = router;
@@ -48,19 +78,7 @@ export class App {
     { route: ['Cars/edit/:id?'], name: 'Cars-edit', moduleId:
     PLATFORM.moduleName('views/Cars/edit'), nav: false, title: 'Edit Car' },
 
-
-    { route: ['Services', 'Services/index'], name: 'Services-index', moduleId:
-    PLATFORM.moduleName('views/Services/index'), nav: true, title: 'Services' },
-    { route: ['Services/details/:id?'], name: 'Services-details', moduleId:
-    PLATFORM.moduleName('views/Services/details'), nav: false, title: 'Services Details' },
-    { route: ['Services/edit/:id?'], name: 'Services-edit', moduleId:
-    PLATFORM.moduleName('views/Services/edit'), nav: false, title: 'Services Edit' },
-    { route: ['Services/delete/:id?'], name: 'Services-delete', moduleId:
-    PLATFORM.moduleName('views/Services/delete'), nav: false, title: 'Services Delete' },
-    { route: ['Services/create'], name: 'Services-create', moduleId:
-    PLATFORM.moduleName('views/Services/create'), nav: false, title: 'Services Create' },
-
-    { route: ['IsInServices', 'IsInServices/index'], name: 'home', moduleId:
+    { route: ['IsInServices', 'IsInServices/index'], name: 'Services', moduleId:
     PLATFORM.moduleName('views/IsInServices/index'), nav: false, title: 'IsInServices' },
 
     { route: ['Orders', 'Orders/index'], name: 'home', moduleId:

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.App.EF.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200630193209_InitialDbCreation")]
+    [Migration("20200702095940_InitialDbCreation")]
     partial class InitialDbCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,9 +65,6 @@ namespace DAL.App.EF.Migrations
 
                     b.Property<Guid>("AppUserId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("CarSize")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("ChangedAt")
                         .HasColumnType("datetime2");
@@ -224,9 +221,7 @@ namespace DAL.App.EF.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
@@ -391,6 +386,9 @@ namespace DAL.App.EF.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ModelMarkSize")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("ModelMarks");
@@ -534,6 +532,9 @@ namespace DAL.App.EF.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Duration")
+                        .HasColumnType("int");
 
                     b.Property<string>("NameOfService")
                         .IsRequired()

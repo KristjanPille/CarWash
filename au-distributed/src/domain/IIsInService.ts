@@ -1,10 +1,7 @@
 export interface IIsInService {
-    id: string;
-    nameOfWashType: string
+    carId: string
+    serviceId: string
 
-    CarId: number
-    ServiceId: number
-
-    From: string
-    To: string
+    from: string
+    to: string
 }

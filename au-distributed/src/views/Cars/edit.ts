@@ -67,7 +67,6 @@ export class CarsEdit {
     }
 
     activate(params: any, routeConfig: RouteConfig, navigationInstruction: NavigationInstruction) {
-        console.log(params);
         if (params.id && typeof (params.id) == 'string') {
             this.carService.getCar(params.id).then(
                 response => {
@@ -93,7 +92,6 @@ export class CarsEdit {
     }
 
     onSubmit(event: Event) {
-        console.log(event);
         this.carService
             .updateCar(this._car!)
             .then(

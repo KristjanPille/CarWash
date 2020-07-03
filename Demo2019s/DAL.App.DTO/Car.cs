@@ -14,13 +14,6 @@ namespace DAL.App.DTO
         [JsonIgnore]
         public ModelMark? ModelMark { get; set; }
 
-        /* 1-3
-         1=> Small hatchback
-         2=> Mid Sized car
-         3=> Bigger suv
-        */
-        public int? CarSize{ get; set; } = default!;
-        
         public Guid AppUserId { get; set; }
         [JsonIgnore]
         public AppUser? AppUser { get; set; }

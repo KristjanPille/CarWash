@@ -14,6 +14,8 @@ namespace BLL.App.DTO
         public string? Description { get; set; }
         public double PriceOfService { get; set; } = default!;
         
+        public int? Duration { get; set; }
+        
         public Campaign? Campaign { get; set; }
         
         public Guid CampaignId { get; set; }

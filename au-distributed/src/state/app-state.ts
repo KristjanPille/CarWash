@@ -1,3 +1,6 @@
+import {JwtDecode} from "aurelia-plugins-jwt-decode/dist/amd/aurelia-plugins-jwt-decode";
+import {options} from "jest-cli/build/cli/args";
+
 export class AppState {
     constructor(){
     }
@@ -9,6 +12,10 @@ export class AppState {
     // https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
     get jwt():string | null {
         return localStorage.getItem('jwt');
+    }
+
+    get decodedJwt():string | null {
+        return JwtDecode.decode(localStorage.getItem('jwt'));
     }
 
     set jwt(value: string | null){

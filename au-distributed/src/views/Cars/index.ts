@@ -6,7 +6,7 @@ import { AlertType } from 'types/AlertType';
 
 @autoinject
 export class CarsIndex{
-    private _cars: ICar[] = [];
+   private _cars: ICar[] = [];
    private _alert: IAlertData | null = null;
 
 

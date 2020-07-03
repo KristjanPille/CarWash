@@ -14,7 +14,8 @@ namespace Domain.App
         public double PriceOfService { get; set; } = default!;
         
         public string? Description { get; set; }
-        
+        public int? Duration { get; set; }
+
         public Campaign? Campaign { get; set; }
         public Guid? CampaignId { get; set; }
     }

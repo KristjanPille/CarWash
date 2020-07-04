@@ -2,10 +2,8 @@ import { autoinject } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { AppState } from 'state/app-state';
 import { IFetchResponse } from 'types/IFetchResponse';
-import { IService } from 'domain/IService';
-import { IServiceEdit } from 'domain/IServiceEdit';
-import { IServiceCreate } from 'domain/IServiceCreate';
 import {ICar} from "../domain/ICar";
+import {IIsInService} from "../domain/IIsInService";
 
 @autoinject
 export class IsInServiceService {
@@ -13,31 +11,32 @@ export class IsInServiceService {
         this.httpClient.baseUrl = this.appState.baseUrl;
     }
 
-    private readonly _baseUrl = 'Services';
+    private readonly _baseUrl = 'IsInServices';
 
-    async createNewIsInService(isInServiceService: IsInServiceService): Promise<IFetchResponse<string>> {
+    async getIsInServices(): Promise<IFetchResponse<IIsInService[]>> {
         try {
             const response = await this.httpClient
-                .post(this._baseUrl, JSON.stringify(isInServiceService), {
-                    cache: 'no-store',
+                .fetch(this._baseUrl, {
+                    cache: "no-store",
                     headers: {
                         authorization: "Bearer " + this.appState.jwt
                     }
-                })
-
+                });
+            // happy case
             if (response.status >= 200 && response.status < 300) {
+                const data = (await response.json()) as IIsInService[];
                 return {
-                    statusCode: response.status
-                    // no data
+                    statusCode: response.status,
+                    data: data
                 }
             }
-
+            // something went wrong
             return {
                 statusCode: response.status,
                 errorMessage: response.statusText
             }
-        }
-        catch (reason) {
+
+        } catch (reason) {
             return {
                 statusCode: 0,
                 errorMessage: JSON.stringify(reason)

@@ -81,11 +81,8 @@ export class App {
     { route: ['IsInServices', 'IsInServices/index'], name: 'Services', moduleId:
     PLATFORM.moduleName('views/IsInServices/index'), nav: false, title: 'IsInServices' },
 
-    { route: ['Orders', 'Orders/index'], name: 'home', moduleId:
+    { route: ['Orders', 'Orders/index'], name: 'orders-index', moduleId:
     PLATFORM.moduleName('views/Orders/index'), nav: false, title: 'Orders' },
-
-    { route: ['PaymentMethods', 'PaymentMethods/index'], name: 'home', moduleId:
-    PLATFORM.moduleName('views/PaymentMethods/index'), nav: false, title: 'PaymentMethods' },
 
     { route: ['Payments', 'Payments/index'], name: 'home', moduleId:
     PLATFORM.moduleName('views/Payments/index'), nav: false, title: 'Payments' },

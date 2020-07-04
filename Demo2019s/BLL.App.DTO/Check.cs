@@ -9,18 +9,21 @@ namespace BLL.App.DTO
     { 
         public Guid Id { get; set; }
 
+        public Guid ServiceId { get; set; }
+        [JsonIgnore]
+        public Service? Service { get; set; }
+        
+        public Guid CarId { get; set; }
+        [JsonIgnore]
+        public Car? Car { get; set; }
+        
         public Guid AppUserId { get; set; }
         [JsonIgnore]
         public AppUser? AppUser { get; set; }
-
-        public virtual string NameOfCheck { get; set; } = default!;
         
-        public int AmountExcludeVat { get; set; }
+        public DateTime DateTimeCheck { get; set; }
         
-        public int AmountWithVat { get; set; }
-        
-        public int Vat { get; set; }
-        
-        public string Comment { get; set; }  = default!;
+        public double AmountExcludeVat { get; set; }
+        public double Vat { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace Domain.App
         [JsonIgnore]
         public Service? Service { get; set; }
         
-        public TimeSpan From { get; set; }
-        public TimeSpan To { get; set; }
+        public DateTime From { get; set; }
+        public DateTime To { get; set; }
     }
 }

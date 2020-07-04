@@ -65,7 +65,6 @@ export class CarsCreate {
     }
 
     onSubmit(event: Event) {
-        console.log(event);
         this.carService
             .createCar({mark: this._Mark, model: this._Model })
             .then(

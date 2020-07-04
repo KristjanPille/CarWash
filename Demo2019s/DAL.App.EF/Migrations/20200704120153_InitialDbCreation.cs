@@ -312,10 +312,10 @@ namespace DAL.App.EF.Migrations
                     ChangedAt = table.Column<DateTime>(nullable: false),
                     AppUserId = table.Column<Guid>(nullable: false),
                     ServiceId = table.Column<Guid>(nullable: false),
+                    CarId = table.Column<Guid>(nullable: false),
                     DateTimeCheck = table.Column<DateTime>(nullable: false),
                     AmountExcludeVat = table.Column<double>(nullable: false),
-                    Vat = table.Column<double>(nullable: false),
-                    Comment = table.Column<string>(nullable: false)
+                    Vat = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -327,37 +327,13 @@ namespace DAL.App.EF.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_Checks_Cars_CarId",
+                        column: x => x.CarId,
+                        principalTable: "Cars",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Checks_Services_ServiceId",
-                        column: x => x.ServiceId,
-                        principalTable: "Services",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Orders",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
-                    CreatedAt = table.Column<DateTime>(nullable: false),
-                    ChangedBy = table.Column<string>(maxLength: 256, nullable: true),
-                    ChangedAt = table.Column<DateTime>(nullable: false),
-                    AppUserId = table.Column<Guid>(nullable: false),
-                    DateAndTime = table.Column<DateTime>(nullable: false),
-                    ServiceId = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Orders_AspNetUsers_AppUserId",
-                        column: x => x.AppUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Orders_Services_ServiceId",
                         column: x => x.ServiceId,
                         principalTable: "Services",
                         principalColumn: "Id",
@@ -375,8 +351,8 @@ namespace DAL.App.EF.Migrations
                     ChangedAt = table.Column<DateTime>(nullable: false),
                     CarId = table.Column<Guid>(nullable: false),
                     ServiceId = table.Column<Guid>(nullable: false),
-                    From = table.Column<TimeSpan>(nullable: false),
-                    To = table.Column<TimeSpan>(nullable: false)
+                    From = table.Column<DateTime>(nullable: false),
+                    To = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -396,6 +372,43 @@ namespace DAL.App.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    ChangedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    ChangedAt = table.Column<DateTime>(nullable: false),
+                    AppUserId = table.Column<Guid>(nullable: false),
+                    DateAndTime = table.Column<DateTime>(nullable: false),
+                    ServiceId = table.Column<Guid>(nullable: false),
+                    CarId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_Cars_CarId",
+                        column: x => x.CarId,
+                        principalTable: "Cars",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_Services_ServiceId",
+                        column: x => x.ServiceId,
+                        principalTable: "Services",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Payments",
                 columns: table => new
                 {
@@ -407,8 +420,15 @@ namespace DAL.App.EF.Migrations
                     AppUserId = table.Column<Guid>(nullable: false),
                     PaymentMethodId = table.Column<Guid>(nullable: false),
                     CheckId = table.Column<Guid>(nullable: false),
+                    CarId = table.Column<Guid>(nullable: false),
+                    ServiceId = table.Column<Guid>(nullable: false),
                     PaymentAmount = table.Column<double>(nullable: false),
-                    TimeOfPayment = table.Column<DateTime>(nullable: false)
+                    TimeOfPayment = table.Column<DateTime>(nullable: false),
+                    PayPalEmail = table.Column<string>(nullable: true),
+                    CreditCardNumber = table.Column<string>(nullable: true),
+                    ExpMonth = table.Column<string>(nullable: true),
+                    ExpYear = table.Column<string>(nullable: true),
+                    CVV = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -417,6 +437,12 @@ namespace DAL.App.EF.Migrations
                         name: "FK_Payments_AspNetUsers_AppUserId",
                         column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Payments_Cars_CarId",
+                        column: x => x.CarId,
+                        principalTable: "Cars",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -429,6 +455,12 @@ namespace DAL.App.EF.Migrations
                         name: "FK_Payments_PaymentMethods_PaymentMethodId",
                         column: x => x.PaymentMethodId,
                         principalTable: "PaymentMethods",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Payments_Services_ServiceId",
+                        column: x => x.ServiceId,
+                        principalTable: "Services",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -488,6 +520,11 @@ namespace DAL.App.EF.Migrations
                 column: "AppUserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Checks_CarId",
+                table: "Checks",
+                column: "CarId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Checks_ServiceId",
                 table: "Checks",
                 column: "ServiceId");
@@ -519,6 +556,11 @@ namespace DAL.App.EF.Migrations
                 column: "AppUserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Orders_CarId",
+                table: "Orders",
+                column: "CarId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_ServiceId",
                 table: "Orders",
                 column: "ServiceId");
@@ -529,6 +571,11 @@ namespace DAL.App.EF.Migrations
                 column: "AppUserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Payments_CarId",
+                table: "Payments",
+                column: "CarId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Payments_CheckId",
                 table: "Payments",
                 column: "CheckId");
@@ -537,6 +584,11 @@ namespace DAL.App.EF.Migrations
                 name: "IX_Payments_PaymentMethodId",
                 table: "Payments",
                 column: "PaymentMethodId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payments_ServiceId",
+                table: "Payments",
+                column: "ServiceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Services_CampaignId",
@@ -577,9 +629,6 @@ namespace DAL.App.EF.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Cars");
-
-            migrationBuilder.DropTable(
                 name: "LangStrs");
 
             migrationBuilder.DropTable(
@@ -589,13 +638,16 @@ namespace DAL.App.EF.Migrations
                 name: "PaymentMethods");
 
             migrationBuilder.DropTable(
-                name: "ModelMarks");
+                name: "Cars");
+
+            migrationBuilder.DropTable(
+                name: "Services");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Services");
+                name: "ModelMarks");
 
             migrationBuilder.DropTable(
                 name: "Campaigns");

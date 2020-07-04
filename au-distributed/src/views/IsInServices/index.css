@@ -18,9 +18,12 @@
 }
 td.time{
     background-color:forestgreen;
+    opacity: 0.9;
 }
 td.time:hover{
     background-color:orange;
+    transition: all 1s;
+    animation-timing-function: linear;
     cursor:pointer;
 }
 
@@ -57,6 +60,6 @@ html {
     font-size: small;
 }
 
-td.selected {
-    background-color: red;
-}
+
+
+

@@ -7,6 +7,7 @@ import { IServiceEdit } from 'domain/IServiceEdit';
 import { IServiceCreate } from 'domain/IServiceCreate';
 import {ICar} from "../domain/ICar";
 import {IsInServiceService} from "./isInService-service";
+import {IIsInService} from "../domain/IIsInService";
 
 @autoinject
 export class ServiceService {
@@ -198,10 +199,11 @@ export class ServiceService {
         }
     }
 
-    async createNewIsInService(isInServiceService: IsInServiceService): Promise<IFetchResponse<string>> {
+    async createNewIsInService(isInService: IIsInService): Promise<IFetchResponse<string>> {
         try {
+            console.log(isInService)
             const response = await this.httpClient
-                .post('IsInServices/', JSON.stringify(isInServiceService), {
+                .post('isinservices', JSON.stringify(isInService), {
                     cache: 'no-store',
                     headers: {
                         authorization: "Bearer " + this.appState.jwt

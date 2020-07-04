@@ -45,6 +45,34 @@ using Microsoft.EntityFrameworkCore;
 
             context.SaveChanges();
             
+            var paymentMethods = new PaymentMethod[]
+            {
+                new PaymentMethod()
+                {
+                    PaymentMethodName =  "PayPal",
+                    Id = new Guid("00000000-0000-0000-0000-000000000140")
+                },
+                new PaymentMethod()
+                {
+                    PaymentMethodName =  "Credit Card",
+                    Id = new Guid("00000000-0000-0000-0000-000000000141")
+                },
+                new PaymentMethod()
+                {
+                    PaymentMethodName =  "At the spot",
+                    Id = new Guid("00000000-0000-0000-0000-000000000142")
+                },
+            };
+            foreach (var paymentMethod in paymentMethods)
+            {
+                if (!context.PaymentMethods.Any(l => l.Id == paymentMethod.Id))
+                {
+                    context.PaymentMethods.Add(paymentMethod);
+                }
+            }
+
+            context.SaveChanges();
+            
             var services = new Service[]
             {
                 new Service()

@@ -17,6 +17,9 @@ using DAL.Base.Mappers;
             MapperConfigurationExpression.CreateMap<Domain.App.ModelMark, DAL.App.DTO.ModelMark>();
             MapperConfigurationExpression.CreateMap<DAL.App.DTO.ModelMark, Domain.App.ModelMark>();
             
+            MapperConfigurationExpression.CreateMap<Domain.App.IsInService, DAL.App.DTO.IsInService>();
+            MapperConfigurationExpression.CreateMap<DAL.App.DTO.IsInService, Domain.App.IsInService>();
+            
             MapperConfigurationExpression.CreateMap<BLL.App.DTO.ModelMark, MarkDTO>();
             MapperConfigurationExpression.CreateMap<MarkDTO, BLL.App.DTO.ModelMark>();
 

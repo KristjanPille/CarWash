@@ -117,8 +117,7 @@ namespace WebApp.ApiControllers
         {
             car.AppUserId = User.UserId();
             var bllEntity = _mapper.Map(car);
-
-            //modelmark cant be created has to found in db.
+            
             var modelMarkId = await _bll.ModelMarks.GetModelMarkId(car);
             var modelMark = await _bll.ModelMarks.FirstOrDefaultAsync(modelMarkId);
 

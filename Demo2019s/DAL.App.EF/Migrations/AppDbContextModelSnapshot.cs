@@ -102,16 +102,15 @@ namespace DAL.App.EF.Migrations
                     b.Property<Guid>("AppUserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("CarId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("ChangedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ChangedBy")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
-
-                    b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -132,6 +131,8 @@ namespace DAL.App.EF.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
+
+                    b.HasIndex("CarId");
 
                     b.HasIndex("ServiceId");
 
@@ -270,14 +271,14 @@ namespace DAL.App.EF.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<TimeSpan>("From")
-                        .HasColumnType("time");
+                    b.Property<DateTime>("From")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("ServiceId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<TimeSpan>("To")
-                        .HasColumnType("time");
+                    b.Property<DateTime>("To")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -401,6 +402,9 @@ namespace DAL.App.EF.Migrations
                     b.Property<Guid>("AppUserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("CarId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("ChangedAt")
                         .HasColumnType("datetime2");
 
@@ -425,6 +429,8 @@ namespace DAL.App.EF.Migrations
 
                     b.HasIndex("AppUserId");
 
+                    b.HasIndex("CarId");
+
                     b.HasIndex("ServiceId");
 
                     b.ToTable("Orders");
@@ -437,6 +443,12 @@ namespace DAL.App.EF.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("AppUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("CVV")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("CarId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("ChangedAt")
@@ -456,10 +468,25 @@ namespace DAL.App.EF.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
+                    b.Property<string>("CreditCardNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExpMonth")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExpYear")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PayPalEmail")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("PaymentAmount")
                         .HasColumnType("float");
 
                     b.Property<Guid>("PaymentMethodId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ServiceId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("TimeOfPayment")
@@ -469,9 +496,13 @@ namespace DAL.App.EF.Migrations
 
                     b.HasIndex("AppUserId");
 
+                    b.HasIndex("CarId");
+
                     b.HasIndex("CheckId");
 
                     b.HasIndex("PaymentMethodId");
+
+                    b.HasIndex("ServiceId");
 
                     b.ToTable("Payments");
                 });
@@ -673,6 +704,12 @@ namespace DAL.App.EF.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Domain.App.Car", "Car")
+                        .WithMany()
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Domain.App.Service", "Service")
                         .WithMany()
                         .HasForeignKey("ServiceId")
@@ -712,6 +749,12 @@ namespace DAL.App.EF.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Domain.App.Car", "Car")
+                        .WithMany()
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Domain.App.Service", "Service")
                         .WithMany()
                         .HasForeignKey("ServiceId")
@@ -727,6 +770,12 @@ namespace DAL.App.EF.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Domain.App.Car", "Car")
+                        .WithMany()
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Domain.App.Check", "Check")
                         .WithMany()
                         .HasForeignKey("CheckId")
@@ -736,6 +785,12 @@ namespace DAL.App.EF.Migrations
                     b.HasOne("Domain.App.PaymentMethod", "PaymentMethod")
                         .WithMany()
                         .HasForeignKey("PaymentMethodId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.App.Service", "Service")
+                        .WithMany()
+                        .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

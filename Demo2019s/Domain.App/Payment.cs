@@ -24,7 +24,7 @@ namespace Domain.App
         public Service? Service { get; set; }
         
         public double PaymentAmount { get; set; } = default!;
-        public DateTime TimeOfPayment { get; set; }
+        public DateTime? TimeOfPayment { get; set; }
 
         public string? PayPalEmail { get; set; }
         

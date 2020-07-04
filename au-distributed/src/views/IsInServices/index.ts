@@ -15,7 +15,6 @@ export class IsInServicesIndex{
     private _cars: ICar[] = [];
     private _isInServices: IIsInService[] = [];
     private _alert: IAlertData | null = null;
-    private e: any;
     test = "nice"
     private _car?: ICar;
     private _isInService?: IIsInService;
@@ -30,6 +29,7 @@ export class IsInServicesIndex{
     private FifthDay: any;
     private weekdays: any;
     private clickedCell = 0;
+    private selectedServiceIndex = 0;
 
     constructor(private serviceService: ServiceService, private carService: CarService, private isInServiceService: IsInServiceService, private router: Router){
         this.weekdays =new Array(7);
@@ -179,13 +179,16 @@ export class IsInServicesIndex{
                 this._selectedDate = date;
             }
 
-            if (confirm("Did you select correct date?")) {
-                if(this._service){
-                    // @ts-ignore
-                    document.getElementById(this.clickedCell).style.backgroundColor = 'red';
-                    this.createIsInService();
+            if (this._car){
+                if (confirm("Did you select correct date?")) {
+                    if(this._service){
+                        // @ts-ignore
+                        document.getElementById(this.clickedCell).style.backgroundColor = 'red';
+                        this.createIsInService();
+                    }
                 }
             } else {
+                confirm("Select car first")
             }
         }
     }
@@ -193,6 +196,7 @@ export class IsInServicesIndex{
 
     getServicePrice(id: string, serviceIndex: number){
         if (this._car) {
+            this.selectedServiceIndex = serviceIndex
             this.serviceService.getPriceOfService(this._car, id).then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
@@ -234,7 +238,7 @@ export class IsInServicesIndex{
                     response => {
                         if (response.statusCode >= 200 && response.statusCode < 300) {
                             this._alert = null;
-                            this.router.navigateToRoute('orders-index', {});
+                            this.router.navigateToRoute('payments-index', {car: this._car, service: this._service});
                         } else {
                             // show error message
                             this._alert = {

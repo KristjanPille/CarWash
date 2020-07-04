@@ -81,11 +81,11 @@ export class App {
     { route: ['IsInServices', 'IsInServices/index'], name: 'Services', moduleId:
     PLATFORM.moduleName('views/IsInServices/index'), nav: false, title: 'IsInServices' },
 
-    { route: ['Orders', 'Orders/index'], name: 'orders-index', moduleId:
-    PLATFORM.moduleName('views/Orders/index'), nav: false, title: 'Orders' },
-
-    { route: ['Payments', 'Payments/index'], name: 'home', moduleId:
+    { route: ['Payments', 'Payments/index/:carId/:serviceId/:PaymentAmount'], name: 'payments-index', moduleId:
     PLATFORM.moduleName('views/Payments/index'), nav: false, title: 'Payments' },
+
+    { route: ['Orders', 'Orders/index'], name: 'Order-Index', moduleId:
+    PLATFORM.moduleName('views/Orders/index'), nav: false, title: 'Orders' },
 
   ]);
   config.mapUnknownRoutes('views/home/index');

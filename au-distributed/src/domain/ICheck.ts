@@ -1,8 +1,8 @@
 export interface ICheck {
     id: string;
+    ServiceId: string
+    CarId: string
     DateTimeCheck: string
     AmountExcludeVat: number
-    DiscountAmount: number
-    Vat: number
-    Comment: string
+    Vat: string
 }

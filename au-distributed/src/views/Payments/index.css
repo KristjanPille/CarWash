@@ -1,7 +1,7 @@
-body {
+body.index {
     font-family: Arial;
     font-size: 17px;
-    padding: 8px;
+    padding: 1px;
 }
 
 * {
@@ -39,7 +39,7 @@ body {
 
 .orderContainer {
     background-color: #f2f2f2;
-    padding: 5px 20px 15px 20px;
+    padding: 5px 10px 15px 20px;
     border: 1px solid lightgrey;
     border-radius: 3px;
 }

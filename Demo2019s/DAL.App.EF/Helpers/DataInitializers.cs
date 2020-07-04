@@ -57,11 +57,6 @@ using Microsoft.EntityFrameworkCore;
                     PaymentMethodName =  "Credit Card",
                     Id = new Guid("00000000-0000-0000-0000-000000000141")
                 },
-                new PaymentMethod()
-                {
-                    PaymentMethodName =  "At the spot",
-                    Id = new Guid("00000000-0000-0000-0000-000000000142")
-                },
             };
             foreach (var paymentMethod in paymentMethods)
             {
@@ -161,14 +156,14 @@ using Microsoft.EntityFrameworkCore;
                 new ModelMark()
                 {
                     Mark =  "Bmw",
-                    Model = "x1",
+                    Model = "X1",
                     ModelMarkSize = 1,
                     Id = new Guid("00000000-0000-0000-0000-000000000132"),
                 },
                 new ModelMark()
                 {
                     Mark =  "Bmw",
-                    Model = "x2",
+                    Model = "X2",
                     ModelMarkSize = 1,
                     Id = new Guid("00000000-0000-0000-0000-000000000133"),
                 },
@@ -189,7 +184,7 @@ using Microsoft.EntityFrameworkCore;
                 new ModelMark()
                 {
                     Mark =  "Bmw",
-                    Model = "x5",
+                    Model = "X5",
                     ModelMarkSize = 3,
                     Id = new Guid("00000000-0000-0000-0000-000000000136"),
                 },

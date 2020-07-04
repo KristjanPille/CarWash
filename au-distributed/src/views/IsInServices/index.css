@@ -5,6 +5,7 @@
 
 .table-bordered{
     max-width: 600px;
+
     table-layout: fixed;
 }
 

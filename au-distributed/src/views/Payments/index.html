@@ -1,3 +1,60 @@
 <template>
-    Home Index
+    <body class="index">
+    <require from="./index.css"></require>
+    <div class="row">
+        <div class="col-75">
+            <div class="orderContainer">
+                <form submit.trigger="onSubmit($event)">
+
+                    <div class="row">
+                        <div class="col-50">
+                            <h3>Check out</h3>
+                            <select class="custom-select" value.bind="selectedPaymentMethod" change.delegate="paymentSelect(selectedPaymentMethod)">
+                                <option model.bind="null">Choose...</option>
+                                <option repeat.for="paymentMethod of _paymentMethods"
+                                        model.bind="paymentMethod.paymentMethodName">
+                                    ${paymentMethod.paymentMethodName}
+                                </option>
+                            </select>
+                            <hr>
+                            <div id="card">
+                            <label for="ccnum">Card number</label>
+                            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
+                            <label for="expmonth">Expiry Month</label>
+                            <input type="text" id="expmonth" name="expmonth" placeholder="September">
+                            <div class="row">
+                                <div class="col-50">
+                                    <label for="expyear">Expiry Year</label>
+                                    <input type="text" id="expyear" name="expyear" placeholder="2020">
+                                </div>
+                                <div class="col-50">
+                                    <label for="cvv">Security code</label>
+                                    <input type="text" id="cvv" name="cvv" placeholder="123">
+                                </div>
+                            </div>
+                            </div>
+
+                            <div id="paypal" style="display: none">
+                                <label for="ccnum">PayPal Email</label>
+                                <input type="text" name="cardnumber" placeholder="example.example@gmail.com">
+                            </div>
+                        </div>
+
+                    </div>
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </form>
+            </div>
+        </div>
+        <div class="col-25">
+            <div class="orderContainer">
+                <h4>${service.nameOfService}<span class="price" style="color:black"><i class="fa fa-shopping-cart"></i></span></h4>
+                <p>Price of Service:<span class="price" style="color:black"><b>${service.priceOfService}€</b></span></p>
+                <p>Duration:<span class="price" style="color:black"><b>${service.duration}min</b></span></p>
+                <p>Selected car:<span class="price" style="color:black"><b>${car.mark} ${car.model}</b></span></p>
+                <hr>
+                <p>Total(including VAT)<span class="price" style="color:black"><b>${PaymentAmountWithVAT}€</b></span></p>
+            </div>
+        </div>
+    </div>
+    </body>
 </template>

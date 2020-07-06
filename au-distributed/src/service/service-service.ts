@@ -49,10 +49,10 @@ export class ServiceService {
         }
     }
 
-    async getService(id: string): Promise<IFetchResponse<IService>> {
+    async getService(serviceId: string, priceOfService: number): Promise<IFetchResponse<IService>> {
         try {
             const response = await this.httpClient
-                .fetch(this._baseUrl + '/' + id, {
+                .fetch(this._baseUrl + '/' + serviceId+ '/' + priceOfService, {
                     cache: "no-store",
                     headers: {
                         authorization: "Bearer " + this.appState.jwt
@@ -201,7 +201,6 @@ export class ServiceService {
 
     async createNewIsInService(isInService: IIsInService): Promise<IFetchResponse<string>> {
         try {
-            console.log(isInService)
             const response = await this.httpClient
                 .post('isinservices', JSON.stringify(isInService), {
                     cache: 'no-store',

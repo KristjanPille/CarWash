@@ -45,4 +45,36 @@ export class IsInServiceService {
     }
 
 
+    async getIsInService(id: string): Promise<IFetchResponse<IIsInService>> {
+        try {
+            const response = await this.httpClient
+                .fetch(this._baseUrl + '/' + id, {
+                    cache: "no-store",
+                    headers: {
+                        authorization: "Bearer " + this.appState.jwt
+                    }
+                });
+
+            if (response.status >= 200 && response.status < 300) {
+                const data = (await response.json()) as IIsInService;
+                return {
+                    statusCode: response.status,
+                    data: data
+                }
+            }
+
+            return {
+                statusCode: response.status,
+                errorMessage: response.statusText
+            }
+
+        } catch (reason) {
+            return {
+                statusCode: 0,
+                errorMessage: JSON.stringify(reason)
+            }
+        }
+    }
+
+
 }

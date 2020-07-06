@@ -50,23 +50,24 @@ namespace WebApp.ApiControllers
         /// <summary>
         /// Get a single Service
         /// </summary>
-        /// <param name="id">Service Id</param>
+        /// <param name="serviceId">Service Id</param>
+        /// <param name="priceOfService">price of service</param>
         /// <returns>Service object</returns>
-        [HttpGet("{id}")]
+        [HttpGet("{serviceId}/{priceOfService}")]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(V1DTO.Service))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]
-        public async Task<ActionResult<Service>> GetService(Guid id)
+        public async Task<ActionResult<Service>> GetService(Guid serviceId, double priceOfService)
         {
-            var service = await _bll.Services.FirstOrDefaultAsync(id);
+            var service = await _bll.Services.FirstOrDefaultAsync(serviceId);
 
             if (service == null)
             {
-                return NotFound(new V1DTO.MessageDTO($"Service with id {id} not found"));
+                return NotFound(new V1DTO.MessageDTO($"Service with id {serviceId} not found"));
             }
 
             //Applies discount if available
-            return Ok(_mapper.Map(await _bll.Services.ApplyDiscount(service)));
+            return Ok(_mapper.Map(await _bll.Services.ApplyDiscount(service, priceOfService)));
         }
         
         /// <summary>

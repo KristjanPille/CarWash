@@ -1,10 +1,106 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<template>
+    <body class="index">
+    <require from="./index.css"></require>
+        <div class="col-75">
+            <div class="active">
+                <table class="table table-bordered">
+                    <div class="row">
+                        <div class="col-50">
+                            <h3>Upcoming services</h3>
+                            <thead>
+                            <tr>
+                                <th>
+                                    From
+                                </th>
+                                <th>
+                                    To
+                                </th>
+                                <th>
+                                    Car
+                                </th>
+                                <th>
+                                    Service Name
+                                </th>
+                                <th>
+                                    Price of service
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr repeat.for="order of newOrders">
+                                <td>
+                                    ${order.from}
+                                </td>
+                                <td>
+                                    ${order.to}
+                                </td>
+                                <td>
+                                    ${getCar(order.carId)}
+                                    ${mark} ${model}
+                                </td>
+                                <td>
+                                    ${getServiceName(order.serviceId)}
+                                </td>
+                                <td>
+                                    ${getServicePrice(order.serviceId, order.carId)}
+                                    ${price}€
+                                </td>
+                            </tr>
+                            </tbody>
+                        </div>
+                    </div>
+                </table>
+            </div>
+        <div class="old">
+            <table class="table table-bordered">
+                <div class="row">
+                    <div class="col-50">
+                        <h3>Past services</h3>
+                        <thead>
+                        <tr>
+                            <th>
+                                From
+                            </th>
+                            <th>
+                                To
+                            </th>
+                            <th>
+                                Car
+                            </th>
+                            <th>
+                                Service Name
+                            </th>
+                            <th>
+                                Price of service
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr repeat.for="order of oldOrders">
+                            <td>
+                                ${order.from}
+                            </td>
+                            <td>
+                                ${order.to}
+                            </td>
+                            <td>
+                                ${getCar(order.carId)}
+                                ${mark} ${model}
+                            </td>
+                            <td>
+                                ${getServiceName(order.serviceId)}
+                            </td>
+                            <td>
+                                ${getServicePrice(order.serviceId, order.carId)}
+                                ${price}€
+                            </td>
+                        </tr>
+                        </tbody>
+                    </div>
+                </div>
+            </table>
+        </div>
+        </div>
+    </div>
+    </body>
+</template>

@@ -42,7 +42,7 @@ namespace WebApp.ApiControllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<V1DTO.Order>))]
         public async Task<ActionResult<IEnumerable<V1DTO.Order>>> GetOrders()
         {
-            return Ok((await _bll.Orders.GetAllAsync()).Select(e => _mapper.Map(e)));
+            return Ok((await _bll.Orders.GetAllAsync()).Select(e => _mapper.Map(e)).Where(e => e.AppUserId == User.UserId()));
         }
 
         /// <summary>

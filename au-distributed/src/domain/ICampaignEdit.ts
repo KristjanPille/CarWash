@@ -1,6 +1,6 @@
 export interface ICampaignEdit {
     id: string;
-    NameOfCampaign: string
-    Description: string
-    DiscountAmount: number
+    nameOfCampaign: string
+    description: string
+    discountAmount: number
 }

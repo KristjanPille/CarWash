@@ -1,41 +1,54 @@
 <template>
-    <h1>Index</h1>
+    <body>
+    <require from="../../nissan.css"></require>
+    <require from="./create.css"></require>
 
-    <p>
-        <a route-href="route: campaigns-create; params.bind: {}">Create New</a>
-    </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    NameOfCampaign
-                </th>
-                <th>
-                    Description
-                </th>
-                <th>
-                    DiscountAmount
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr repeat.for="campaign of _campaigns">
-                <td>
-                    ${campaign.nameOfCampaign}
-                </td>
-                <td>
-                    ${campaign.description}
-                </td>
-                <td>
-                    ${campaign.discountAmount}
-                </td>
-                <td>
-                    <a route-href="route: campaigns-edit; params.bind: { id: campaign.id }">Edit</a> |
-                    <a route-href="route: campaigns-details; params.bind: { id: campaign.id }">Details</a> |
-                    <a route-href="route: campaigns-delete; params.bind: { id: campaign.id }">Delete</a>
-                </td>
+    <div class="create">
+        <div class="row">
+            <div class="col-75">
+                <div class="orderContainer">
+                    <h2>Active Campaigns</h2>
+                    <form submit.trigger="onSubmit($event)">
+                        <div class="row">
+                            <div class="col-50">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            NameOfCampaign
+                                        </th>
+                                        <th>
+                                            Description
+                                        </th>
+                                        <th>
+                                            DiscountAmount
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr repeat.for="campaign of _campaigns">
+                                        <td>
+                                            ${campaign.nameOfCampaign}
+                                        </td>
+                                        <td>
+                                            ${campaign.description}
+                                        </td>
+                                        <td>
+                                            ${campaign.discountAmount}
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
-            </tr>
-        </tbody>
-    </table>
+
+
+</div>
+    </body>
+
 </template>

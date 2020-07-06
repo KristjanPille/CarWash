@@ -6,14 +6,19 @@ import {autoinject} from "aurelia-framework";
 import {CarService} from "../../service/car-service";
 import {ICar} from "../../domain/ICar";
 import {IIsInService} from "../../domain/IIsInService";
-import {Router} from "aurelia-router";
+import {NavigationInstruction, RouteConfig, Router} from "aurelia-router";
 import {IsInServiceService} from "../../service/isInService-service";
+import {ICampaign} from "../../domain/ICampaign";
+import {CampaignService} from "../../service/campaign-service";
+import {ICampaignDummy} from "../../domain/ICampaignDummy";
 
 @autoinject
 export class IsInServicesIndex{
     private _services: IService[] = [];
     private _cars: ICar[] = [];
+    private _campaigns: ICampaign[] = [];
     private _isInServices: IIsInService[] = [];
+    private _bookedID: number[] = [];
     private _alert: IAlertData | null = null;
     test = "nice"
     private _car?: ICar;
@@ -30,16 +35,36 @@ export class IsInServicesIndex{
     private weekdays: any;
     private clickedCell = 0;
     private selectedServiceIndex = 0;
+    private campaignDiscount: any;
 
-    constructor(private serviceService: ServiceService, private carService: CarService, private isInServiceService: IsInServiceService, private router: Router){
+    constructor(private serviceService: ServiceService, private carService: CarService,  private campaignService: CampaignService, private isInServiceService: IsInServiceService, private router: Router){
         this.weekdays =new Array(7);
-        this.weekdays[0]="Monday";
-        this.weekdays[1]="Tuesday";
-        this.weekdays[2]="Wednesday";
-        this.weekdays[3]="Thursday";
-        this.weekdays[4]="Friday";
-        this.weekdays[5]="Saturday";
-        this.weekdays[6]="Sunday";
+        this.weekdays[0]="Sunday";
+        this.weekdays[1]="Monday";
+        this.weekdays[2]="Tuesday";
+        this.weekdays[3]="Wednesday";
+        this.weekdays[4]="Thursday";
+        this.weekdays[5]="Friday";
+        this.weekdays[6]="Saturday";
+    }
+
+    activate(params: any, routeConfig: RouteConfig, navigationInstruction: NavigationInstruction) {
+        this.campaignService.getCampaigns().then(
+            response => {
+                if (response.statusCode >= 200 && response.statusCode < 300) {
+                    this._alert = null;
+                    this._campaigns = response.data!;
+                    this.makeActiveServicesRed();
+                } else {
+                    // show error message
+                    this._alert = {
+                        message: response.statusCode.toString() + ' - ' + response.errorMessage,
+                        type: AlertType.Danger,
+                        dismissable: true,
+                    }
+                }
+            }
+        )
     }
 
     attached() {
@@ -124,17 +149,19 @@ export class IsInServicesIndex{
             ID += hour * 10;
             if(document.getElementById(ID.toString())){
                 // @ts-ignore
-                document.getElementById(ID.toString()).style.backgroundColor = 'red';
+                document.getElementById(ID.toString()).style.backgroundColor = 'orangered';
                 // @ts-ignore
-                document.getElementById(ID.toString()).style.opacity = 0.7;
+                document.getElementById(ID.toString()).style.opacity = 0.6;
+                this._bookedID.push(ID)
             }
             for (let i = 0; i < resultInMinutes / 30; i++) {
                 ID += 5;
                 if(document.getElementById(ID.toString())){
                     // @ts-ignore
-                    document.getElementById(ID.toString()).style.backgroundColor = 'red';
+                    document.getElementById(ID.toString()).style.backgroundColor = 'orangered';
                     // @ts-ignore
-                    document.getElementById(ID.toString()).style.opacity = 0.7;
+                    document.getElementById(ID.toString()).style.opacity = 0.6;
+                    this._bookedID.push(ID)
                 }
             }
         }
@@ -153,44 +180,114 @@ export class IsInServicesIndex{
         this.ThirdDay.setDate(new Date().getDate() + 2);
         this.FourthDay.setDate(new Date().getDate() + 3);
         this.FifthDay.setDate(new Date().getDate() + 4);
-
     }
+
 
     serviceSelect(service: IService){
         this._service = service;
+    }
+
+    checkForCampaign(serviceId: string){
+        let service = this._services.find(m => m.id == serviceId);
+        if(service != null){
+            if(service.campaignId != '00000000-0000-0000-0000-000000000000'){
+                let campaign = this._campaigns.find(c => c.id == service!.campaignId)
+                let campaignService = this._services.find(s => s.id == service!.id)
+                if (campaign) {
+                    return 'Discount: ' + '-' + campaign!.discountAmount * 100 + '%';
+                }
+
+            }
+        }
+    }
+
+
+
+    canMakeReservation(date: Date, hour: number, minute: number, clickedCell: number, clickedCellsID: number[]){
+        let serviceCells = [];
+
+        let copiedDate = new Date(date.getTime());
+        let copiedDateFrom = new Date(date.getTime());
+        if (this._service){
+            copiedDate.setMinutes(copiedDateFrom.getMinutes() + this._service!.duration)
+            copiedDateFrom.setMinutes(copiedDateFrom.getMinutes())
+
+            let ID = 0;
+            let fromDate = copiedDateFrom;
+            let toDate = copiedDate!
+            let difference = toDate.getTime() - fromDate.getTime();
+            let resultInMinutes = Math.round(difference / 60000);
+            if (fromDate.getDay() == this.SecondDay.getDay()) {
+                ID += 1
+            } else if (fromDate.getDay() == this.ThirdDay.getDay()) {
+                ID += 2
+            } else if (fromDate.getDay() == this.FourthDay.getDay()) {
+                ID += 3
+            } else if (fromDate.getDay() == this.FifthDay.getDay()) {
+                ID += 4
+            }
+            //Now add to ID hours minutes
+            hour = fromDate.getHours() - 9
+            if (fromDate.getMinutes() == 30) {
+                ID += 5
+            }
+            ID += hour * 10;
+            if(document.getElementById(ID.toString())){
+                serviceCells.push(ID);
+            }
+            for (let i = 0; i < resultInMinutes / 30; i++) {
+                ID += 5;
+                if(document.getElementById(ID.toString())){
+                    serviceCells.push(ID);
+                }
+            }
+            if (!serviceCells.some(v => clickedCellsID.includes(v))){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        return false;
     }
 
     getServiceTime(date: Date, hour: number, minute: number, clickedCell: number){
         let clickedCellsID = [];
         for (let i = 0; i < 73; i++) {
             // @ts-ignore
-            if(document.getElementById(i.toString()).style.backgroundColor == 'red'){
+            if(document.getElementById(i.toString()).style.backgroundColor == 'orangered'){
                 clickedCellsID.push(i)
             }
         }
-        if(!clickedCellsID.includes(clickedCell)){
-            this.clickedCell = clickedCell;
-            if(minute != 0){
-                date.setHours(hour, minute,0,0 );
-                this._selectedDate = date;
-            }
-            else {
-                date.setHours(hour, 0, 0, 0);
-                this._selectedDate = date;
-            }
-
-            if (this._car){
-                if (confirm("Did you select correct date?")) {
-                    if(this._service){
-                        // @ts-ignore
-                        document.getElementById(this.clickedCell).style.backgroundColor = 'red';
-                        this.createIsInService();
-                    }
+            if(!clickedCellsID.includes(clickedCell)){
+                this.clickedCell = clickedCell;
+                if(minute != 0){
+                    date.setHours(hour, minute,0,0 );
+                    this._selectedDate = date;
                 }
-            } else {
+                else {
+                    date.setHours(hour, 0, 0, 0);
+                    this._selectedDate = date;
+                }
+                if (this.canMakeReservation(date, hour, minute, clickedCell, clickedCellsID)) {
+                    if (this._car) {
+                        if (confirm("Did you select correct date?")) {
+                            if (this._service) {
+                                // @ts-ignore
+                                document.getElementById(this.clickedCell).style.backgroundColor = 'orangered';
+                                // @ts-ignore
+                                document.getElementById(this.clickedCell).style.opacity = 0.6;
+
+                                this.createIsInService();
+                            }
+                        }
+                    }
+                }else {
+                    confirm("Selected time Overlaps with another Service, or you haven´t selected car")
+                }
+            }else {
                 confirm("Select car first")
             }
-        }
     }
 
 
@@ -230,41 +327,42 @@ export class IsInServicesIndex{
         this.sendIsInService();
     }
 
+
+
     sendIsInService(){
+        let service = this._services.find(s => s.id == this._service!.id)
+
+        if(service != null){
+            if(service.campaignId != '00000000-0000-0000-0000-000000000000'){
+                let campaign = this._campaigns.find(c => c.id == service!.campaignId)
+                let campaignService = this._services.find(s => s.id == service!.id)
+                if (campaign) {
+                    console.log(campaign)
+                    service.priceOfService = service.priceOfService * (1 - campaign!.discountAmount)
+                }
+
+            }
+        }
+
         if (this._isInService){
-            this.serviceService
-                .createNewIsInService(this._isInService!)
-                .then(
-                    response => {
-                        if (response.statusCode >= 200 && response.statusCode < 300) {
-                            this._alert = null;
-                            this.router.navigateToRoute('payments-index', {car: this._car, service: this._service});
-                        } else {
-                            // show error message
-                            this._alert = {
-                                message: response.statusCode.toString() + ' - ' + response.errorMessage,
-                                type: AlertType.Danger,
-                                dismissable: true,
-                            }
-                        }
-                    }
-                );
+            this.router.navigateToRoute('payments-index', {car: this._car, service: service, isInService: this._isInService});
+
         }
     }
 
 
-    colorChanger(id: string){
+    colorChanger(id: string, priceOfService: number){
         if(this._car){
             //Selects current service also
             for (let i = 0; i < this._services.length; i++) {
                 // @ts-ignore
-                document.getElementById(this._services[i].id).style.backgroundColor = 'white';
+                document.getElementById(this._services[i].id).style.backgroundColor = 'orange';
             }
             // @ts-ignore
             document.getElementById(id).style.backgroundColor = 'red';
             // @ts-ignore
             document.getElementById(id).style.transition = 'all 1s';
-            this.serviceService.getService(id).then(
+            this.serviceService.getService(id, priceOfService).then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;

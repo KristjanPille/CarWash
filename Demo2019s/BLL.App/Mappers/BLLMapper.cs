@@ -25,6 +25,14 @@ namespace BLL.App.Mappers
             MapperConfigurationExpression.CreateMap<BLL.App.DTO.ModelMark, MarkDTO>();
             MapperConfigurationExpression.CreateMap<MarkDTO, BLL.App.DTO.ModelMark>();
 
+            MapperConfigurationExpression.CreateMap<DAL.App.DTO.Payment, BLL.App.DTO.Payment>();
+            MapperConfigurationExpression.CreateMap<BLL.App.DTO.Payment, DAL.App.DTO.Payment>();
+            
+            MapperConfigurationExpression.CreateMap<DAL.App.DTO.Check, BLL.App.DTO.Check>();
+            MapperConfigurationExpression.CreateMap<BLL.App.DTO.Check, DAL.App.DTO.Check>();
+            
+            MapperConfigurationExpression.CreateMap<DAL.App.DTO.Order, BLL.App.DTO.Order>();
+            MapperConfigurationExpression.CreateMap<BLL.App.DTO.Order, DAL.App.DTO.Order>();
 
             MapperConfigurationExpression.CreateMap<DAL.App.DTO.Identity.AppUser, BLL.App.DTO.Identity.AppUser>();
 

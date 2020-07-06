@@ -29,5 +29,8 @@ namespace PublicApi.DTO.v1
         public string? ExpYear { get; set; }
         
         public int? CVV { get; set; }
+        
+        public DateTime From { get; set; }
+        public DateTime To { get; set; }
     }
 }

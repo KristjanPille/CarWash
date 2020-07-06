@@ -96,9 +96,6 @@ namespace DAL.App.EF.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("AmountExcludeVat")
-                        .HasColumnType("float");
-
                     b.Property<Guid>("AppUserId")
                         .HasColumnType("uniqueidentifier");
 
@@ -122,11 +119,11 @@ namespace DAL.App.EF.Migrations
                     b.Property<DateTime>("DateTimeCheck")
                         .HasColumnType("datetime2");
 
+                    b.Property<double>("PaymentAmount")
+                        .HasColumnType("float");
+
                     b.Property<Guid>("ServiceId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<double>("Vat")
-                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -422,8 +419,14 @@ namespace DAL.App.EF.Migrations
                     b.Property<DateTime>("DateAndTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("From")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("ServiceId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("To")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -477,6 +480,9 @@ namespace DAL.App.EF.Migrations
                     b.Property<string>("ExpYear")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("From")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("PayPalEmail")
                         .HasColumnType("nvarchar(max)");
 
@@ -489,7 +495,10 @@ namespace DAL.App.EF.Migrations
                     b.Property<Guid>("ServiceId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("TimeOfPayment")
+                    b.Property<DateTime?>("TimeOfPayment")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("To")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");

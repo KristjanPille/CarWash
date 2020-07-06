@@ -1,34 +1,65 @@
 <template>
-    <h1>Your Cars</h1>
+    <body>
+    <require from="../../nissan.css"></require>
 
-    <p>
-        <a route-href="route: Cars-create; params.bind: {}">Add New Car</a>
-    </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Mark
-                </th>
-                <th>
-                    Model
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr repeat.for="car of _cars">
-                <td>
-                    ${car.mark}
-                </td>
-                <td>
-                    ${car.model}
-                </td>
-                <td>
-                    <a route-href="route: Cars-edit; params.bind: { id: car.id }">Edit</a> |
-                    <a route-href="route: Cars-delete; params.bind: { id: car.id }">Delete</a>
-                </td>
+    <div class="create">
+        <body>
+        <require from="./create.css"></require>
+        <div class="row">
+            <div class="col-75">
+                <div class="orderContainer">
+                    <h2>Your Cars</h2>
+                    <form submit.trigger="onSubmit($event)">
+                        <div class="row">
+                            <div class="col-50">
 
-            </tr>
-        </table>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            Mark
+                                        </th>
+                                        <th>
+                                            Model
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr repeat.for="car of _cars">
+                                        <td>
+                                            ${car.mark}
+                                        </td>
+                                        <td>
+                                            ${car.model}
+                                        </td>
+                                        <td>
+                                            <a route-href="route: Cars-edit; params.bind: { id: car.id }">Edit</a> |
+                                            <a route-href="route: Cars-delete; params.bind: { id: car.id }">Delete</a>
+                                        </td>
+
+                                    </tr>
+                                    <a style="color: black;float: right;font-size: larger;font-weight: bold;" route-href="route: Cars-create; params.bind: {}">Click here to add new Car</a>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </body>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    </body>
 </template>

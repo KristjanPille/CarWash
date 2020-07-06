@@ -17,5 +17,8 @@ namespace Domain.App
         public Guid CarId { get; set; } = default!;
         [JsonIgnore]
         public Car? Car { get; set; }
+        
+        public DateTime From { get; set; }
+        public DateTime To { get; set; }
     }
 }

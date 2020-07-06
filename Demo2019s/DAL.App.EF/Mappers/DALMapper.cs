@@ -22,7 +22,16 @@ using DAL.Base.Mappers;
             
             MapperConfigurationExpression.CreateMap<BLL.App.DTO.ModelMark, MarkDTO>();
             MapperConfigurationExpression.CreateMap<MarkDTO, BLL.App.DTO.ModelMark>();
+            
+            MapperConfigurationExpression.CreateMap<Domain.App.Payment, DAL.App.DTO.Payment>();
+            MapperConfigurationExpression.CreateMap<DAL.App.DTO.Payment, Domain.App.Payment>();
 
+            MapperConfigurationExpression.CreateMap<Domain.App.Check, DAL.App.DTO.Check>();
+            MapperConfigurationExpression.CreateMap<DAL.App.DTO.Check, Domain.App.Check>();
+            
+            MapperConfigurationExpression.CreateMap<Domain.App.Order, DAL.App.DTO.Order>();
+            MapperConfigurationExpression.CreateMap<DAL.App.DTO.Order, Domain.App.Order>();
+            
             Mapper = new Mapper(new MapperConfiguration(MapperConfigurationExpression));
         }
     }

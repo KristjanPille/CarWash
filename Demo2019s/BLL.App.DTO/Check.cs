@@ -23,7 +23,6 @@ namespace BLL.App.DTO
         
         public DateTime DateTimeCheck { get; set; }
         
-        public double AmountExcludeVat { get; set; }
-        public double Vat { get; set; }
+        public double PaymentAmount { get; set; }
     }
 }

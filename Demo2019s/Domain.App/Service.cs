@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using Domain.Base;
 
 namespace Domain.App
@@ -17,6 +18,7 @@ namespace Domain.App
         public int? Duration { get; set; }
 
         public Campaign? Campaign { get; set; }
+        [JsonIgnore]
         public Guid? CampaignId { get; set; }
     }
 }

@@ -4,4 +4,5 @@ export interface IServiceEdit {
     Description: string
     PriceOfService: number
     duration: number
+    campaignId: string
 }

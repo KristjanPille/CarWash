@@ -21,7 +21,7 @@ namespace BLL.App.Services
         {
         }
         
-        public async Task<Service> ApplyDiscount(Service service)
+        public async Task<Service> ApplyDiscount(Service service, double priceOfService)
         {
             var campaign = await UOW.Campaigns.FirstOrDefaultAsync(service.CampaignId);
             
@@ -30,7 +30,7 @@ namespace BLL.App.Services
                 return service;
             }
             
-            service.PriceOfService *= (1 - campaign.DiscountAmount);
+            service.PriceOfService = priceOfService * (1 - campaign.DiscountAmount);
             
             return service;
         }

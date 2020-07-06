@@ -1,4 +1,5 @@
 <template>
+    <body>
     <require from="./index.css"></require>
     <div id="parent">
     <div id="timeTable" class="table-responsive-sm">
@@ -6,8 +7,8 @@
         <caption></caption>
         <thead>
         <tr>
-            <th scope="col">
-                <p id="car">
+            <th id="car" scope="col">
+                <p>
                     <label>
                         Select Car:<br>
                         <select value.bind="selectedCar" change.delegate="bindCar(selectedCar)">
@@ -20,16 +21,16 @@
                     </label>
                 </p>
             </th>
-            <th scope="col">${weekdays[FirstDay.getDay() - 1]}  ${FirstDay.getDate()}/${FirstDay.getMonth() + 1}/${FirstDay.getFullYear()}</th>
-            <th scope="col">${weekdays[FirstDay.getDay()]} ${SecondDay.getDate()}/${SecondDay.getMonth() + 1}/${SecondDay.getFullYear()}</th>
-            <th scope="col">${weekdays[SecondDay.getDay()]} ${ThirdDay.getDate()}/${ThirdDay.getMonth() + 1}/${ThirdDay.getFullYear()}</th>
-            <th scope="col">${weekdays[FourthDay.getDay() - 1]} ${FourthDay.getDate()}/${FourthDay.getMonth() + 1}/${FourthDay.getFullYear()}</th>
-            <th scope="col">${weekdays[FifthDay.getDay() - 1]} ${FifthDay.getDate()}/${FifthDay.getMonth() + 1}/${FifthDay.getFullYear()}</th>
+            <th class="days" scope="col">${weekdays[FirstDay.getDay()]}  ${FirstDay.getDate()}/${FirstDay.getMonth() + 1}/${FirstDay.getFullYear()}</th>
+            <th class="days" scope="col">${weekdays[SecondDay.getDay()]} ${SecondDay.getDate()}/${SecondDay.getMonth() + 1}/${SecondDay.getFullYear()}</th>
+            <th class="days" scope="col">${weekdays[ThirdDay.getDay()]} ${ThirdDay.getDate()}/${ThirdDay.getMonth() + 1}/${ThirdDay.getFullYear()}</th>
+            <th class="days" scope="col">${weekdays[FourthDay.getDay()]} ${FourthDay.getDate()}/${FourthDay.getMonth() + 1}/${FourthDay.getFullYear()}</th>
+            <th class="days" scope="col">${weekdays[FifthDay.getDay()]} ${FifthDay.getDate()}/${FifthDay.getMonth() + 1}/${FifthDay.getFullYear()}</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <th scope="row">09:00</th>
+            <th class="times" scope="row">09:00</th>
             <td class="time" click.delegate="getServiceTime(FirstDay, 9, 0, 0)" id="0" ></td>
             <td class="time" click.delegate="getServiceTime(SecondDay, 9, 0, 1)" id="1" ></td>
             <td class="time" click.delegate="getServiceTime(ThirdDay, 9, 0, 2)" id="2" ></td>
@@ -37,7 +38,7 @@
             <td class="time" click.delegate="getServiceTime(FifthDay, 9, 0, 4)" id="4" ></td>
         </tr>
         <tr>
-            <th scope="row">09:30</th>
+            <th class="times" scope="row">09:30</th>
             <td class="time" click.delegate="getServiceTime(FirstDay, 9, 30, 5)" id="5" ></td>
             <td class="time" click.delegate="getServiceTime(SecondDay, 9, 30, 6)" id="6" ></td>
             <td class="time" click.delegate="getServiceTime(ThirdDay, 9, 30, 7)" id="7" ></td>
@@ -45,7 +46,7 @@
             <td class="time" click.delegate="getServiceTime(FifthDay, 9, 30, 9)" id="9" ></td>
         </tr>
         <tr>
-            <th scope="row">10:00</th>
+            <th class="times" scope="row">10:00</th>
             <td class="time" click.delegate="getServiceTime(FirstDay, 10, 0, 10)" id="10" ></td>
             <td class="time" click.delegate="getServiceTime(SecondDay, 10, 0, 11)" id="11" ></td>
             <td class="time" click.delegate="getServiceTime(ThirdDay, 10, 0, 12)" id="12" ></td>
@@ -53,7 +54,7 @@
             <td class="time" click.delegate="getServiceTime(FifthDay, 10, 0, 14)" id="14" ></td>
         </tr>
         <tr>
-            <th scope="row">10:30</th>
+            <th class="times" scope="row">10:30</th>
             <td class="time" click.delegate="getServiceTime(FirstDay, 10, 30, 15)" id="15" ></td>
             <td class="time" click.delegate="getServiceTime(SecondDay, 10, 30, 16)" id="16" ></td>
             <td class="time" click.delegate="getServiceTime(ThirdDay, 10, 30, 17)" id="17" ></td>
@@ -61,7 +62,7 @@
             <td class="time" click.delegate="getServiceTime(FifthDay, 10, 30, 19)" id="19" ></td>
         </tr>
         <tr>
-            <th scope="row">11:00</th>
+            <th class="times" scope="row">11:00</th>
             <td class="time" click.delegate="getServiceTime(FirstDay, 11, 0, 20)" id="20" ></td>
             <td class="time" click.delegate="getServiceTime(SecondDay, 11, 0, 21)" id="21" ></td>
             <td class="time" click.delegate="getServiceTime(ThirdDay, 11, 0, 22)" id="22" ></td>
@@ -69,7 +70,7 @@
             <td class="time" click.delegate="getServiceTime(FifthDay, 11, 0, 24)" id="24" ></td>
         </tr>
         <tr>
-            <th scope="row">11:30</th>
+            <th class="times" scope="row">11:30</th>
             <td class="time" click.delegate="getServiceTime(FirstDay, 11, 30, 25)" id="25" ></td>
             <td class="time" click.delegate="getServiceTime(SecondDay, 11, 30, 26)" id="26" ></td>
             <td class="time" click.delegate="getServiceTime(ThirdDay, 11, 30, 27)" id="27" ></td>
@@ -77,7 +78,7 @@
             <td class="time" click.delegate="getServiceTime(FifthDay, 11, 30, 29)" id="29" ></td>
         </tr>
         <tr>
-            <th scope="row">12:00</th>
+            <th class="times" scope="row">12:00</th>
             <td class="time" click.delegate="getServiceTime(FirstDay, 12, 0, 30)" id="30" ></td>
             <td class="time" click.delegate="getServiceTime(SecondDay, 12, 0, 31)" id="31" ></td>
             <td class="time" click.delegate="getServiceTime(ThirdDay, 12, 0, 32)" id="32" ></td>
@@ -85,7 +86,7 @@
             <td class="time" click.delegate="getServiceTime(FifthDay, 12, 0, 34)" id="34" ></td>
         </tr>
         <tr>
-            <th scope="row">12:30</th>
+            <th class="times" scope="row">12:30</th>
             <td class="time" click.delegate="getServiceTime(FirstDay, 12, 30, 35)" id="35" ></td>
             <td class="time" click.delegate="getServiceTime(SecondDay, 12, 30, 36)" id="36" ></td>
             <td class="time" click.delegate="getServiceTime(ThirdDay, 12, 30, 37)" id="37" ></td>
@@ -93,7 +94,7 @@
             <td class="time" click.delegate="getServiceTime(FifthDay, 12, 30, 39)" id="39" ></td>
         </tr>
         <tr>
-            <th scope="row">13:00</th>
+            <th class="times" scope="row">13:00</th>
             <td class="time" click.delegate="getServiceTime(FirstDay, 13, 0, 40)" id="40" ></td>
             <td class="time" click.delegate="getServiceTime(SecondDay, 13, 0, 41)" id="41" ></td>
             <td class="time" click.delegate="getServiceTime(ThirdDay, 13, 0, 42)" id="42" ></td>
@@ -101,7 +102,7 @@
             <td class="time" click.delegate="getServiceTime(FifthDay, 13, 0, 44)" id="44" ></td>
         </tr>
         <tr>
-            <th scope="row">13:30</th>
+            <th class="times" scope="row">13:30</th>
             <td class="time" click.delegate="getServiceTime(FirstDay, 13, 30, 45)" id="45" ></td>
             <td class="time" click.delegate="getServiceTime(SecondDay, 13, 30, 46)" id="46" ></td>
             <td class="time" click.delegate="getServiceTime(ThirdDay, 13, 30, 47)" id="47" ></td>
@@ -109,7 +110,7 @@
             <td class="time" click.delegate="getServiceTime(FifthDay, 13, 30, 49)" id="49" ></td>
         </tr>
         <tr>
-            <th scope="row">14:00</th>
+            <th class="times" scope="row">14:00</th>
             <td class="time" click.delegate="getServiceTime(FirstDay, 14, 0, 50)" id="50" ></td>
             <td class="time" click.delegate="getServiceTime(SecondDay, 14, 0, 51)" id="51" ></td>
             <td class="time" click.delegate="getServiceTime(ThirdDay, 14, 0, 52)" id="52" ></td>
@@ -117,7 +118,7 @@
             <td class="time" click.delegate="getServiceTime(FifthDay, 14, 0, 54)" id="54" ></td>
         </tr>
         <tr>
-            <th scope="row">14:30</th>
+            <th class="times" scope="row">14:30</th>
             <td class="time" click.delegate="getServiceTime(FirstDay, 14, 30, 55)" id="55" ></td>
             <td class="time" click.delegate="getServiceTime(SecondDay, 14, 30, 56)" id="56" ></td>
             <td class="time" click.delegate="getServiceTime(ThirdDay, 14, 30, 57)" id="57" ></td>
@@ -125,7 +126,7 @@
             <td class="time" click.delegate="getServiceTime(FifthDay, 14, 30, 59)" id="59" ></td>
         </tr>
         <tr>
-            <th scope="row">15:00</th>
+            <th class="times" scope="row">15:00</th>
             <td class="time" click.delegate="getServiceTime(FirstDay, 15, 0, 60)" id="60" ></td>
             <td class="time" click.delegate="getServiceTime(SecondDay, 15, 0, 61)" id="61" ></td>
             <td class="time" click.delegate="getServiceTime(ThirdDay, 15, 0, 62)" id="62" ></td>
@@ -133,7 +134,7 @@
             <td class="time" click.delegate="getServiceTime(FifthDay, 15, 0 , 64)" id="64" ></td>
         </tr>
         <tr>
-            <th scope="row">15:30</th>
+            <th class="times" scope="row">15:30</th>
             <td class="time" click.delegate="getServiceTime(FirstDay, 15, 30, 65)" id="65" ></td>
             <td class="time" click.delegate="getServiceTime(SecondDay, 15, 30, 66)" id="66" ></td>
             <td class="time" click.delegate="getServiceTime(ThirdDay, 15, 30, 67)" id="67" ></td>
@@ -141,7 +142,7 @@
             <td class="time" click.delegate="getServiceTime(FifthDay, 15, 30, 69)" id="69" ></td>
         </tr>
         <tr>
-            <th scope="row">16:00</th>
+            <th class="times" scope="row">16:00</th>
             <td class="time" click.delegate="getServiceTime(FirstDay, 16, 0, 70)" id="70" ></td>
             <td class="time" click.delegate="getServiceTime(SecondDay, 16, 0, 71)" id="71" ></td>
             <td class="time" click.delegate="getServiceTime(ThirdDay, 16, 0, 72)" id="72" ></td>
@@ -154,11 +155,11 @@
 
     <table id="services" class="table table-hover table-bordered" style="text-align:center;">
         <thead>
-        <tr>
+        <tr class="services">
             <th style="width: 90px">
                 Name
             </th>
-            <th style="width: 60px">
+            <th style="width: 90px">
                 Price
             </th>
             <th style="width: 90px">
@@ -167,20 +168,22 @@
         </tr>
         </thead>
         <tbody>
-        <tr mouseover.delegate="domouseover(service)" mouseout.delegate="domouseout()" click.delegate="colorChanger(service.id)" repeat.for="service of _services" id="${service.id}">
-            <td class="services">
+        <tr mouseover.delegate="domouseover(service)" mouseout.delegate="domouseout()" click.delegate="colorChanger(service.id, service.priceOfService)" repeat.for="service of _services" id="${service.id}" >
+            <td class="service">
                 ${service.nameOfService}
             </td>
-            <td class="services">
+            <td class="service">
                 ${service.priceOfService}€
+                <b> ${checkForCampaign(service.id)}
+                </b>
             </td>
-            <td class="services">
+            <td class="service">
                 ${service.duration}min
             </td>
-            <div id="popup" style="display: none">${test}</div>
         </tr>
+        </tbody>
     </table>
-
-
+        <div id="popup" style="display: none">${test}</div>
     </div>
+    </body>
 </template>

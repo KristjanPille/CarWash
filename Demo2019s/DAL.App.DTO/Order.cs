@@ -23,5 +23,8 @@ namespace DAL.App.DTO
         public Guid AppUserId { get; set; }
         [JsonIgnore]
         public AppUser? AppUser { get; set; }
+        
+        public DateTime From { get; set; }
+        public DateTime To { get; set; }
     }
 }

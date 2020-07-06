@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.Json.Serialization;
+using BLL.App.DTO.Identity;
 using Contracts.Domain;
 
 namespace BLL.App.DTO
@@ -9,6 +10,9 @@ namespace BLL.App.DTO
         public Guid Id { get; set; }
         
         public Guid AppUserId { get; set; }
+  
+        [JsonIgnore]
+        public AppUser? AppUser { get; set; }
         
         public Guid PaymentMethodId { get; set; }
         [JsonIgnore]
@@ -37,5 +41,8 @@ namespace BLL.App.DTO
         public string? ExpYear { get; set; }
         
         public int? CVV { get; set; }
+        
+        public DateTime From { get; set; }
+        public DateTime To { get; set; }
     }
 }

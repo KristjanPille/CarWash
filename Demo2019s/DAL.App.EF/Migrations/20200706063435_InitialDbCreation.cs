@@ -314,8 +314,7 @@ namespace DAL.App.EF.Migrations
                     ServiceId = table.Column<Guid>(nullable: false),
                     CarId = table.Column<Guid>(nullable: false),
                     DateTimeCheck = table.Column<DateTime>(nullable: false),
-                    AmountExcludeVat = table.Column<double>(nullable: false),
-                    Vat = table.Column<double>(nullable: false)
+                    PaymentAmount = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -383,7 +382,9 @@ namespace DAL.App.EF.Migrations
                     AppUserId = table.Column<Guid>(nullable: false),
                     DateAndTime = table.Column<DateTime>(nullable: false),
                     ServiceId = table.Column<Guid>(nullable: false),
-                    CarId = table.Column<Guid>(nullable: false)
+                    CarId = table.Column<Guid>(nullable: false),
+                    From = table.Column<DateTime>(nullable: false),
+                    To = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -423,12 +424,14 @@ namespace DAL.App.EF.Migrations
                     CarId = table.Column<Guid>(nullable: false),
                     ServiceId = table.Column<Guid>(nullable: false),
                     PaymentAmount = table.Column<double>(nullable: false),
-                    TimeOfPayment = table.Column<DateTime>(nullable: false),
+                    TimeOfPayment = table.Column<DateTime>(nullable: true),
                     PayPalEmail = table.Column<string>(nullable: true),
                     CreditCardNumber = table.Column<string>(nullable: true),
                     ExpMonth = table.Column<string>(nullable: true),
                     ExpYear = table.Column<string>(nullable: true),
-                    CVV = table.Column<int>(nullable: true)
+                    CVV = table.Column<int>(nullable: true),
+                    From = table.Column<DateTime>(nullable: false),
+                    To = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

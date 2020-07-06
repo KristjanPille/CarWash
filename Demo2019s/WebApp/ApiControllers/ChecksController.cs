@@ -44,7 +44,7 @@ namespace WebApp.ApiControllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<V1DTO.Check>))]
         public async Task<ActionResult<IEnumerable<V1DTO.Check>>> GetChecks()
         {
-            return Ok((await _bll.Checks.GetAllAsync()).Select(e => _mapper.Map(e)));
+            return Ok((await _bll.Checks.GetAllAsync()).Select(e => _mapper.Map(e)).Where(e => e.AppUserId == User.UserId()));
         }
 
         /// <summary>

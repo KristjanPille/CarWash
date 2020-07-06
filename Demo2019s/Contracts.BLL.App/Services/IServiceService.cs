@@ -10,7 +10,7 @@ namespace Contracts.BLL.App.Services
 {
     public interface IServiceService : IBaseEntityService<Service>, IServiceRepositoryCustom<Service>
     {
-        Task<Service> ApplyDiscount(Service id);
+        Task<Service> ApplyDiscount(Service id, double priceOfService);
         
         Task<double> GetServicePrice(Car car, Guid serviceId);
     }

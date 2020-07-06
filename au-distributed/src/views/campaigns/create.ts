@@ -29,7 +29,7 @@ export class CampaignsCreate {
     onSubmit(event: Event) {
         console.log(event);
         this.campaignService
-            .createCampaign({ NameOfCampaign: this._NameOfCampaign, Description: this._Description, DiscountAmount: this._DiscountAmount })
+            .createCampaign({ nameOfCampaign: this._NameOfCampaign, description: this._Description, discountAmount: this._DiscountAmount })
             .then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {

@@ -1,15 +1,17 @@
 <template>
+    <body>
+    <require from="./nissan.css"></require>
     <header>
         <require from="./app.css"></require>
-        <nav class="navbar navbar-expand-md navbar-light bg-light">
-            <a href="#" class="navbar-brand">Brand</a>
+        <nav class="navbar navbar-expand-md">
+            <a style="color: #7289da" href="#" class="navbar-brand">Car Wash</a>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Home</a>
+                        <a style="color: black" href="#" class="nav-link">Home</a>
                     </li>
 
                     <li class="nav-item">
@@ -23,7 +25,7 @@
                     </li>
 
                     <li if.bind="appState.jwt != null" class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Cars</a>
+                        <a style="color: black" href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Cars</a>
                         <div class="dropdown-menu">
                             <a route-href="route: Cars-index;" class="dropdown-item">Your Cars</a>
                             <div class="dropdown-divider"></div>
@@ -33,8 +35,10 @@
                 </ul>
                 <ul if.bind="appState.jwt != null" class="nav navbar-nav ml-auto">
                     <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Your Account</a>
+                        <a style="color: black" href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Your Account</a>
                         <div class="dropdown-menu dropdown-menu-right">
+                            <a route-href="route: Orders-Index; params.bind: { userId }" class="dropdown-item">Your Orders</a>
+                            <div class="dropdown-divider"></div>
                             <a route-href="route: account-index; params.bind: { userId }" class="dropdown-item">Settings</a>
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-item" click.delegate="logoutOnClick()">Logout</a>
@@ -61,9 +65,10 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
+    <footer id="footer" class="border-top footer text-muted">
+        <div class="carWash">
             &copy; 2020 - Car wash
         </div>
     </footer>
+    </body>
 </template>

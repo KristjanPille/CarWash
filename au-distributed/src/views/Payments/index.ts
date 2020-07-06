@@ -6,28 +6,56 @@ import {PaymentService} from "../../service/payment-service";
 import {ICar} from "../../domain/ICar";
 import {IPaymentMethod} from "../../domain/IPaymentMethod";
 import {IService} from "../../domain/IService";
+import {IIsInService} from "../../domain/IIsInService";
+import {ServiceService} from "../../service/service-service";
+import {CarService} from "../../service/car-service";
+import {CampaignService} from "../../service/campaign-service";
+import {IsInServiceService} from "../../service/isInService-service";
+import {ICampaign} from "../../domain/ICampaign";
 
 
 @autoinject
 export class PaymentsIndex {
+    payPalEmail = '';
+    cardNumber = '';
+    expMonth = '';
+    expYear = '';
+    cvv = 0;
     private _alert: IAlertData | null = null;
     private car?: ICar;
     private service?: IService;
-    private PaymentAmountWithVAT = 0;
-    private PaymentMethod: any
+    private isInService?: IIsInService;
+    private PaymentMethod?: IPaymentMethod;
     private _paymentMethods: IPaymentMethod[] = [];
+    private _campaigns: ICampaign[] = [];
 
-    constructor(private paymentService: PaymentService, private router: Router) {
+    constructor(private paymentService: PaymentService,private serviceService: ServiceService, private carService: CarService,  private campaignService: CampaignService, private isInServiceService: IsInServiceService, private router: Router) {
 
     }
 
     attached() {
+
         this.paymentService.getPaymentMethods().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;
                     this._paymentMethods = response.data!;
-                    console.log(response.data!)
+                } else {
+                    // show error message
+                    this._alert = {
+                        message: response.statusCode.toString() + ' - ' + response.errorMessage,
+                        type: AlertType.Danger,
+                        dismissable: true,
+                    }
+                }
+            }
+        )
+
+        this.campaignService.getCampaigns().then(
+            response => {
+                if (response.statusCode >= 200 && response.statusCode < 300) {
+                    this._alert = null;
+                    this._campaigns = response.data!;
                 } else {
                     // show error message
                     this._alert = {
@@ -43,10 +71,28 @@ export class PaymentsIndex {
     activate(params: any, routeConfig: RouteConfig, navigationInstruction: NavigationInstruction) {
         this.car = params.car;
         this.service = params.service;
-        this.PaymentAmountWithVAT = this.service!.priceOfService * 1.2
+        this.isInService = params.isInService;
+
+        this.checkForCampaign()
+    }
+
+    checkForCampaign(){
+        if(this.service != null){
+            console.log(this.service)
+            if(this.service.campaignId != '00000000-0000-0000-0000-000000000000'){
+                let campaign = this._campaigns.find(c => c.id == this.service!.campaignId)
+                if (campaign) {
+                    console.log(campaign)
+                    this.service.priceOfService = this.service.priceOfService * (1 - campaign.discountAmount)
+                }
+
+            }
+        }
     }
 
     paymentSelect(paymentMethod: string){
+        this.PaymentMethod = this._paymentMethods.find(object => object.paymentMethodName == paymentMethod);
+
        if (paymentMethod == 'PayPal'){
            // @ts-ignore
            document.getElementById('card').style.display = 'none';
@@ -61,8 +107,49 @@ export class PaymentsIndex {
        }
     }
 
-    // TODO Now payment entity is possible datetime is coming from backend, CHECK Enity also is made in backend
+    onSubmit(event: Event) {
+        let date = new Date();
+        let timeOfPayment = new Date(date!.getTime());
+        this.paymentService
+            .createPayment({ PaymentMethodId: this.PaymentMethod!.id, CarId: this.car!.id,
+                ServiceId: this.service!.id, PaymentAmount: this.service!.priceOfService, TimeOfPayment: timeOfPayment.toISOString(),
+                PayPalEmail: this.payPalEmail, CreditCardNumber: this.cardNumber, ExpMonth: this.expMonth, ExpYear: this.expYear,
+                CVV: this.cvv, from: this.isInService!.from, to: this.isInService!.to })
+            .then(
+                response => {
+                    if (response.statusCode >= 200 && response.statusCode < 300) {
+                        this._alert = null;
+                        this.router.navigateToRoute('Orders-Index', {});
+                    } else {
+                        // show error message
+                        this._alert = {
+                            message: response.statusCode.toString() + ' - ' + response.errorMessage,
+                            type: AlertType.Danger,
+                            dismissable: true,
+                        }
+                    }
+                }
+            );
+        this.serviceService
+            .createNewIsInService(this.isInService!)
+            .then(
+                response => {
+                    if (response.statusCode >= 200 && response.statusCode < 300) {
+                        this._alert = null;
+                        this.router.navigateToRoute('payments-index', {car: this.car, service: this.service, isInService: this.isInService});
+                    } else {
+                        // show error message
+                        this._alert = {
+                            message: response.statusCode.toString() + ' - ' + response.errorMessage,
+                            type: AlertType.Danger,
+                            dismissable: true,
+                        }
+                    }
+                }
+            );
 
+        event.preventDefault();
+    }
 
 
 }

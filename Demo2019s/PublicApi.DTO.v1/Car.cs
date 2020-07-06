@@ -7,7 +7,6 @@ using AppUser = Domain.App.Identity.AppUser;
 
 namespace PublicApi.DTO.v1
 {
-    //Car Size calculated in bll
     public class Car : IDomainEntityId
     { 
        public Guid Id { get; set; }

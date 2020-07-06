@@ -1,5 +1,5 @@
 export interface ICampaignCreate {
-    NameOfCampaign: string
-    Description: string
-    DiscountAmount: number
+    nameOfCampaign: string
+    description: string
+    discountAmount: number
 }

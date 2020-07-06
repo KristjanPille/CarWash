@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DAL.App.EF;
 using Domain.App;
+using Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using PublicApi.DTO.v1.Mappers;
+using Check = BLL.App.DTO.Check;
 using V1DTO=PublicApi.DTO.v1;
 
 namespace WebApp.ApiControllers
@@ -26,6 +28,8 @@ namespace WebApp.ApiControllers
     {
         private readonly IAppBLL _bll;
         private readonly PaymentMapper _mapper = new PaymentMapper();
+        private readonly CheckMapper _checkMapper = new CheckMapper();
+        private readonly OrderMapper _orderMapper = new OrderMapper();
         
         /// <summary>
         /// Constructor
@@ -41,7 +45,7 @@ namespace WebApp.ApiControllers
         [Produces("application/json")]
         public async Task<ActionResult<IEnumerable<Payment>>> GetPayments()
         {
-            return Ok((await _bll.Payments.GetAllAsync()).Select(e => _mapper.Map(e)));
+            return Ok((await _bll.Payments.GetAllAsync()).Select(e => _mapper.Map(e)).Where(e => e.AppUserId == User.UserId()));
         }
 
         // GET: api/Payments/5
@@ -85,13 +89,23 @@ namespace WebApp.ApiControllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [Produces("application/json")]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(V1DTO.Payment))]
         public async Task<ActionResult<Payment>> PostPayment(V1DTO.Payment payment)
         {
+            payment.AppUserId = User.UserId();
+            V1DTO.Check check = _bll.Checks.CreateCheck(payment);
+            V1DTO.Order order = _bll.Orders.CreateOrder(payment);
+            check.AppUserId = User.UserId();
+            order.AppUserId = User.UserId();
             var bllEntity = _mapper.Map(payment);
+            var bllCheck = _checkMapper.Map(check);
+            var bllOrder = _orderMapper.Map(order);
+            _bll.Checks.Add(bllCheck);
+            _bll.Orders.Add(bllOrder);
+            await _bll.SaveChangesAsync();
+            bllEntity.CheckId = bllCheck.Id;
             _bll.Payments.Add(bllEntity);
             await _bll.SaveChangesAsync();
             payment.Id = bllEntity.Id;

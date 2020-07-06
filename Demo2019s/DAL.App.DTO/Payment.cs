@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 using Contracts.Domain;
+using DAL.App.DTO.Identity;
 
 namespace DAL.App.DTO
 {
@@ -35,5 +36,12 @@ namespace DAL.App.DTO
         public string? ExpYear { get; set; }
         
         public int? CVV { get; set; }
+        
+        public Guid AppUserId { get; set; }
+        [JsonIgnore]
+        public AppUser? AppUser { get; set; }
+        public DateTime From { get; set; }
+        
+        public DateTime To { get; set; }
     }
 }

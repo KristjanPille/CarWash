@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Contracts.Domain;
+using DAL.App.DTO.Identity;
 
 namespace DAL.App.DTO
 {
@@ -19,8 +20,10 @@ namespace DAL.App.DTO
         
         public DateTime DateTimeCheck { get; set; }
         
-        public double AmountExcludeVat { get; set; }
+        public double PaymentAmount { get; set; }
         
-        public double Vat { get; set; }
+        public Guid AppUserId { get; set; }
+        [JsonIgnore]
+        public AppUser? AppUser { get; set; }
     }
 }

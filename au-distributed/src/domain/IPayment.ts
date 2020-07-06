@@ -1,7 +1,5 @@
 export interface IPayment {
-    id: string;
     PaymentMethodId: string;
-    CheckId: string;
     CarId: string;
     ServiceId: string;
     PaymentAmount: number;
@@ -11,4 +9,6 @@ export interface IPayment {
     ExpMonth: string;
     ExpYear: string;
     CVV: number;
+    from: string
+    to: string
 }

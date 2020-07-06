@@ -17,5 +17,7 @@ namespace PublicApi.DTO.v1
         public string? Description { get; set; }
         
         public int? Duration { get; set; }
+        
+        public Guid CampaignId { get; set; }
     }
 }

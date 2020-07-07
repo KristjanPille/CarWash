@@ -139,7 +139,7 @@ export class AccountRegister {
                     console.log(response);
                     if (response.statusCode == 200) {
                         this.appState.jwt = response.data!.token;
-                        this.router!.navigateToRoute('home');
+                        this.router!.navigateToRoute('Services');
                     } else {
                         this._errorMessage = response.statusCode.toString()
                             + ' '

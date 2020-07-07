@@ -46,8 +46,6 @@ export class App {
   config.title = 'Car Wash'; 
 
   config.map([
-    { route: ['', 'home', 'home/index'], name: 'home', moduleId:
-    PLATFORM.moduleName('views/home/index'), nav: true, title: 'Home' }, 
 
     { route: ['account/login'], name: 'account-login', moduleId: 
     PLATFORM.moduleName('views/account/login'), nav: false, title: 'Login' },
@@ -88,7 +86,7 @@ export class App {
     PLATFORM.moduleName('views/Orders/index'), nav: false, title: 'Orders' },
 
   ]);
-  config.mapUnknownRoutes('views/home/index');
+  config.mapUnknownRoutes('views/IsInServices/index');
   }
 
   logoutOnClick(){

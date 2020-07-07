@@ -8,7 +8,7 @@
                         <div class="col-50">
                             <h3>Upcoming services</h3>
                             <thead>
-                            <tr>
+                            <tr class="order">
                                 <th>
                                     From
                                 </th>
@@ -27,7 +27,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr repeat.for="payment of newPayments">
+                            <tr class="order" repeat.for="payment of newPayments">
                                 <td>
                                     ${payment.from}
                                 </td>
@@ -55,7 +55,7 @@
                     <div class="col-50">
                         <h3>Past services</h3>
                         <thead>
-                        <tr>
+                        <tr class="order">
                             <th>
                                 From
                             </th>
@@ -74,7 +74,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr repeat.for="payment of oldPayments">
+                        <tr class="order" repeat.for="payment of oldPayments">
                             <td>
                                 ${payment.from}
                             </td>

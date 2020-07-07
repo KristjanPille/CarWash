@@ -27,8 +27,8 @@ using Microsoft.EntityFrameworkCore;
             {
                 new Campaign()
                 {
-                    NameOfCampaign =  "Campaign for STANDARD EXTERIOR WASH",
-                    Description = "Discount for standard wash 25%",
+                    NameOfCampaign =  "STANDARD EXTERIOR WASH Campaign",
+                    Description = "Discount for standard exterior wash 25%",
                     DiscountAmount = 0.25,
                     Id = new Guid("00000000-0000-0000-0000-000000000001")
                     

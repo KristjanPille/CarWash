@@ -125,6 +125,7 @@ export class IsInServicesIndex{
     }
 
     makeActiveServicesRed(){
+        this.makePastServicesRed();
         for (let i = 0; i < this._isInServices.length; i++) {
             let hour = 0;
             let ID = 0;
@@ -166,6 +167,42 @@ export class IsInServicesIndex{
             }
         }
     }
+
+
+    makePastServicesRed(){
+        let fromDate = new Date()
+        fromDate.setDate(new Date().getDate());
+        fromDate.setHours(9,0,0,0)
+        let hour = 0;
+        let ID = 0;
+        let toDate = new Date()
+        toDate.setDate(new Date().getDate())
+        let difference = toDate.getTime() - fromDate.getTime();
+        let resultInMinutes = Math.round(difference / 60000);
+        //Now add to ID hours minutes
+        hour = fromDate.getHours() - 9
+        if (fromDate.getMinutes() == 30) {
+            ID += 5
+        }
+        ID += hour * 10;
+        if(document.getElementById(ID.toString())){
+            // @ts-ignore
+            document.getElementById(ID.toString()).style.backgroundColor = 'orangered';
+            // @ts-ignore
+            document.getElementById(ID.toString()).style.opacity = 0.6;
+        }
+        for (let i = 0; i < resultInMinutes / 30; i++) {
+            ID += 5;
+            if(document.getElementById(ID.toString())){
+                // @ts-ignore
+                document.getElementById(ID.toString()).style.backgroundColor = 'orangered';
+                // @ts-ignore
+                document.getElementById(ID.toString()).style.opacity = 0.6;
+            }
+        }
+
+    }
+
 
 
     getDates(){

@@ -10,7 +10,6 @@
     display: none;
     background: #ccc;
     border: 1px solid;
-
 }
 
 .days {
@@ -21,7 +20,11 @@
 }
 
 
-.table-bordered{
+#services{
+    max-width: 600px;
+    table-layout: fixed;
+}
+#services2{
     max-width: 600px;
     table-layout: fixed;
 }
@@ -50,7 +53,6 @@ tr.services{
     background-color:dimgrey;
     opacity: 0.9;
 }
-
 
 td.time:hover{
     background-color:orange;

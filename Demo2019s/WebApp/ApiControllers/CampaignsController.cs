@@ -38,6 +38,7 @@ namespace WebApp.ApiControllers
 
         // GET: api/campaigns
         [HttpGet]
+        [AllowAnonymous]
         [Produces("application/json")]
         public async Task<ActionResult<IEnumerable<PublicApi.DTO.v1.Campaign>>> Getcampaigns()
         {

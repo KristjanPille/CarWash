@@ -25,6 +25,7 @@ export class AccountRegister {
     private _model: string = "";
     private _mark: string = "";
     private confirmPassword: string = "";
+    private _errorMessage: string | null = null;
 
 
     constructor(
@@ -81,48 +82,48 @@ export class AccountRegister {
     
     submit(): void {
         if(this.password==null){
-            alert('1');
+            alert('Please enter the password');
             return
         }
         if(this._firstname==null){
-            alert('1');
+            alert('Please enter firstname');
             return
         }
         if(this._lastname==null){
-            alert('1');
+            alert('Please enter last name');
             return
         }
         if(this._phoneNr==null){
-            alert('1');
+            alert('Please enter phone number');
             return
         }
         if(this._model==null){
-            alert('1');
+            alert('Please select model');
             return
         }
         if(this._mark==null){
-            alert('1');
+            alert('Please select mark');
             return
         }
         if(this.confirmPassword==null){
-            alert('2');
+            alert('please confirm your password');
             return
         }
         if(this._email == null){
-            alert('3');
+            alert('you forgot to enter your email');
             return
         }
         if( this.password != this.confirmPassword){
-            alert('4');
+            alert('passwords do not match');
             return
         }
         if(this.password.length < 4){
             alert(this.confirmPassword)
-            alert('5');
+            alert('password must be 4 or more characters long');
             return
         }
         if(this._email.length == 0){
-            alert('6');
+            alert('you forgot to enter your email');
             return
         }
 
@@ -132,7 +133,21 @@ export class AccountRegister {
         console.log(response.token);
         if (response !== undefined) {
         this.appState.jwt = response.token;
-          this.router.navigateToRoute('home');
+
+            this.accountService.login(this._email, this.password).then(
+                response => {
+                    console.log(response);
+                    if (response.statusCode == 200) {
+                        this.appState.jwt = response.data!.token;
+                        this.router!.navigateToRoute('home');
+                    } else {
+                        this._errorMessage = response.statusCode.toString()
+                            + ' '
+                            + response.errorMessage!
+                    }
+                }
+            );
+
         }
       });
     }

@@ -27,23 +27,21 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr repeat.for="order of newOrders">
+                            <tr repeat.for="payment of newPayments">
                                 <td>
-                                    ${order.from}
+                                    ${payment.from}
                                 </td>
                                 <td>
-                                    ${order.to}
+                                    ${payment.to}
                                 </td>
                                 <td>
-                                    ${getCar(order.carId)}
-                                    ${mark} ${model}
+                                    ${getCar(payment.carId)}
                                 </td>
                                 <td>
-                                    ${getServiceName(order.serviceId)}
+                                    ${getServiceName(payment.serviceId)}
                                 </td>
                                 <td>
-                                    ${getServicePrice(order.serviceId, order.carId)}
-                                    ${price}€
+                                    ${payment.paymentAmount}
                                 </td>
                             </tr>
                             </tbody>
@@ -76,23 +74,21 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr repeat.for="order of oldOrders">
+                        <tr repeat.for="payment of oldPayments">
                             <td>
-                                ${order.from}
+                                ${payment.from}
                             </td>
                             <td>
-                                ${order.to}
+                                ${payment.to}
                             </td>
                             <td>
-                                ${getCar(order.carId)}
-                                ${mark} ${model}
+                                ${getCar(payment.carId)}
                             </td>
                             <td>
-                                ${getServiceName(order.serviceId)}
+                                ${getServiceName(payment.serviceId)}
                             </td>
                             <td>
-                                ${getServicePrice(order.serviceId, order.carId)}
-                                ${price}€
+                                ${payment.paymentAmount}
                             </td>
                         </tr>
                         </tbody>

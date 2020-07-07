@@ -41,6 +41,7 @@ namespace WebApp.ApiControllers
         /// <returns>Array of Services</returns>
         [HttpGet]
         [Produces("application/json")]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<V1DTO.Service>))]
         public async Task<ActionResult<IEnumerable<V1DTO.Service>>> GetServices()
         {
@@ -55,6 +56,7 @@ namespace WebApp.ApiControllers
         /// <returns>Service object</returns>
         [HttpGet("{serviceId}/{priceOfService}")]
         [Produces("application/json")]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(V1DTO.Service))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]
         public async Task<ActionResult<Service>> GetService(Guid serviceId, double priceOfService)
@@ -78,6 +80,7 @@ namespace WebApp.ApiControllers
         /// <returns>Services prices</returns>
         [Route("ServicePrice/{serviceId}")]
         [Produces("application/json")]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(V1DTO.Service))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]
         public async Task<ActionResult<double>> GetServicesPrices(Guid serviceId, V1DTO.Car car)

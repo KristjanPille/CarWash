@@ -12,6 +12,7 @@ import {CarService} from "../../service/car-service";
 import {CampaignService} from "../../service/campaign-service";
 import {IsInServiceService} from "../../service/isInService-service";
 import {ICampaign} from "../../domain/ICampaign";
+import {IPayment} from "../../domain/IPayment";
 
 
 @autoinject
@@ -21,6 +22,7 @@ export class PaymentsIndex {
     expMonth = '';
     expYear = '';
     cvv = 0;
+    Payment = 0;
     private _alert: IAlertData | null = null;
     private car?: ICar;
     private service?: IService;
@@ -28,6 +30,7 @@ export class PaymentsIndex {
     private PaymentMethod?: IPaymentMethod;
     private _paymentMethods: IPaymentMethod[] = [];
     private _campaigns: ICampaign[] = [];
+    private test?: IPayment;
 
     constructor(private paymentService: PaymentService,private serviceService: ServiceService, private carService: CarService,  private campaignService: CampaignService, private isInServiceService: IsInServiceService, private router: Router) {
 
@@ -110,16 +113,13 @@ export class PaymentsIndex {
     onSubmit(event: Event) {
         let date = new Date();
         let timeOfPayment = new Date(date!.getTime());
-        this.paymentService
-            .createPayment({ PaymentMethodId: this.PaymentMethod!.id, CarId: this.car!.id,
-                ServiceId: this.service!.id, PaymentAmount: this.service!.priceOfService, TimeOfPayment: timeOfPayment.toISOString(),
-                PayPalEmail: this.payPalEmail, CreditCardNumber: this.cardNumber, ExpMonth: this.expMonth, ExpYear: this.expYear,
-                CVV: this.cvv, from: this.isInService!.from, to: this.isInService!.to })
+
+        this.serviceService
+            .createNewIsInService(this.isInService!)
             .then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
-                        this.router.navigateToRoute('Orders-Index', {});
                     } else {
                         // show error message
                         this._alert = {
@@ -130,13 +130,40 @@ export class PaymentsIndex {
                     }
                 }
             );
-        this.serviceService
-            .createNewIsInService(this.isInService!)
+
+        console.log(this.PaymentMethod!.id)
+        console.log(this.car!.id)
+        console.log(this.service!.id)
+        console.log(this.service!.priceOfService)
+        console.log(timeOfPayment.toISOString())
+        console.log(this.payPalEmail)
+        console.log(this.cardNumber)
+        console.log(this.expMonth)
+        console.log(this.expYear)
+        console.log(this.cvv)
+        console.log(this.isInService!.from)
+        console.log(this.isInService!.to)
+
+        this.Payment = this.service!.priceOfService
+
+        this.test = { PaymentAmount: this.Payment,
+            PaymentMethodId: this.PaymentMethod!.id, CarId: this.car!.id,
+            ServiceId: this.service!.id, TimeOfPayment: timeOfPayment.toISOString(),
+            PayPalEmail: this.payPalEmail, CreditCardNumber: this.cardNumber, ExpMonth: this.expMonth, ExpYear: this.expYear,
+            CVV: this.cvv, from: this.isInService!.from, to: this.isInService!.to
+        }
+        console.log(this.test)
+
+        this.paymentService
+            .createPayment({ PaymentMethodId: this.PaymentMethod!.id, CarId: this.car!.id,
+                ServiceId: this.service!.id, PaymentAmount: Number(this.Payment), TimeOfPayment: timeOfPayment.toISOString(),
+                PayPalEmail: this.payPalEmail, CreditCardNumber: this.cardNumber, ExpMonth: this.expMonth, ExpYear: this.expYear,
+                CVV: this.cvv, from: this.isInService!.from, to: this.isInService!.to })
             .then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
-                        this.router.navigateToRoute('payments-index', {car: this.car, service: this.service, isInService: this.isInService});
+                        this.router.navigateToRoute('Orders-Index', {});
                     } else {
                         // show error message
                         this._alert = {

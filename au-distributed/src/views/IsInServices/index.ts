@@ -271,22 +271,28 @@ export class IsInServicesIndex{
                 }
                 if (this.canMakeReservation(date, hour, minute, clickedCell, clickedCellsID)) {
                     if (this._car) {
-                        if (confirm("Did you select correct date?")) {
-                            if (this._service) {
-                                // @ts-ignore
-                                document.getElementById(this.clickedCell).style.backgroundColor = 'orangered';
-                                // @ts-ignore
-                                document.getElementById(this.clickedCell).style.opacity = 0.6;
+                        if (this._service){
+                            if (confirm("Did you select correct date?")) {
+                                if (this._service) {
+                                    // @ts-ignore
+                                    document.getElementById(this.clickedCell).style.backgroundColor = 'orangered';
+                                    // @ts-ignore
+                                    document.getElementById(this.clickedCell).style.opacity = 0.6;
 
-                                this.createIsInService();
+                                    this.createIsInService();
+                                }
                             }
+                        }else {
+                            confirm("Please select service first")
                         }
+                    }else {
+                        confirm("Please select car first")
                     }
                 }else {
-                    confirm("Selected time Overlaps with another Service, or you haven´t selected car")
+                    confirm("Overlaps with another service")
                 }
             }else {
-                confirm("Select car first")
+                confirm("Overlaps with another service")
             }
     }
 

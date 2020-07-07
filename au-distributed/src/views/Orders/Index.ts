@@ -12,21 +12,23 @@ import {IsInServiceService} from "../../service/isInService-service";
 import {ServiceService} from "../../service/service-service";
 import {IService} from "../../domain/IService";
 import {ICar} from "../../domain/ICar";
+import {IPayment} from "../../domain/IPayment";
 
 @autoinject
 export class OrdersIndex {
     private _alert: IAlertData | null = null;
-    private _orders: IOrder[] = [];
+    private _payments: IPayment[] = [];
+    private _cars: ICar[] = [];
     private _isInServices: IIsInService[] = [];
-    private oldOrders: IOrder[] = [];
+    private oldPayments: IPayment[] = [];
     private _services: IService[] = [];
-    private newOrders: IOrder[] = [];
+    private newPayments: IPayment[] = [];
     private weekdays: any;
     private price = 0;
     private model = '';
     private mark = '';
 
-    constructor(private orderService: OrderService, private carService: CarService, private serviceService: ServiceService, private router: Router) {
+    constructor(private orderService: OrderService, private carService: CarService, private serviceService: ServiceService, private router: Router, private paymentService: PaymentService) {
         this.weekdays =new Array(7);
         this.weekdays[0]="Sunday";
         this.weekdays[1]="Monday";
@@ -42,11 +44,26 @@ export class OrdersIndex {
     }
 
     attached() {
-        this.orderService.getOrders().then(
+        this.carService.getCars().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;
-                    this._orders = response.data!;
+                    this._cars = response.data!;
+                } else {
+                    // show error message
+                    this._alert = {
+                        message: response.statusCode.toString() + ' - ' + response.errorMessage,
+                        type: AlertType.Danger,
+                        dismissable: true,
+                    }
+                }
+            }
+        )
+        this.paymentService.getPayments().then(
+            response => {
+                if (response.statusCode >= 200 && response.statusCode < 300) {
+                    this._alert = null;
+                    this._payments = response.data!;
                     this.separateOldOrders();
                 } else {
                     // show error message
@@ -74,23 +91,39 @@ export class OrdersIndex {
                 }
             }
         )
+        this.carService.getCars().then(
+            response => {
+                if (response.statusCode >= 200 && response.statusCode < 300) {
+                    this._alert = null;
+                    this._cars = response.data!;
+                    this.separateOldOrders();
+                } else {
+                    // show error message
+                    this._alert = {
+                        message: response.statusCode.toString() + ' - ' + response.errorMessage,
+                        type: AlertType.Danger,
+                        dismissable: true,
+                    }
+                }
+            }
+        )
     }
 
     separateOldOrders(){
         let currentDate = new Date();
         currentDate.setDate(new Date().getDate());
-        for (let i = 0; i < this._orders.length; i++) {
-            let date = Date.parse(this._orders[i].from)
+        for (let i = 0; i < this._payments.length; i++) {
+            let date = Date.parse(this._payments[i].from)
             let newDate = new Date(date);
             if (newDate < currentDate) {
-                this._orders[i].from = this.stringToDate(this._orders[i].from);
-                this._orders[i].to = this.stringToDate(this._orders[i].to);
-                this.oldOrders.push(this._orders[i])
+                this._payments[i].from = this.stringToDate(this._payments[i].from);
+                this._payments[i].to = this.stringToDate(this._payments[i].to);
+                this.oldPayments.push(this._payments[i])
             }
             else{
-                this._orders[i].from = this.stringToDate(this._orders[i].from);
-                this._orders[i].to = this.stringToDate(this._orders[i].to);
-                this.newOrders.push(this._orders[i])
+                this._payments[i].from = this.stringToDate(this._payments[i].from);
+                this._payments[i].to = this.stringToDate(this._payments[i].to);
+                this.newPayments.push(this._payments[i])
             }
         }
     }
@@ -114,58 +147,10 @@ export class OrdersIndex {
     }
 
     getCar(carId: string){
-        this.carService.getCar(carId).then(
-            response => {
-                if (response.statusCode >= 200 && response.statusCode < 300) {
-                    this._alert = null;
-                    this.mark = response.data!.mark;
-                    this.model = response.data!.model;
-                } else {
-                    // show error message
-                    this._alert = {
-                        message: response.statusCode.toString() + ' - ' + response.errorMessage,
-                        type: AlertType.Danger,
-                        dismissable: true,
-                    }
-                }
-            }
-        )
+        let car = this._cars.find(car => car.id == carId);
+        if(car){
+            return car.mark + car.model
+        }
     }
 
-
-    getServicePrice(serviceId: string, carId: string) {
-        let priceOfService = 0;
-        let service = this._services.find(service => service.id == serviceId)
-
-        this.carService.getCar(carId).then(
-            response => {
-                if (response.statusCode >= 200 && response.statusCode < 300) {
-                    this._alert = null;
-                    this.serviceService.getPriceOfService(response.data!, serviceId).then(
-                        response => {
-                            if (response.statusCode >= 200 && response.statusCode < 300) {
-                                this._alert = null;
-                                priceOfService = response.data!;
-                                this.price = response.data!;
-                            } else {
-                                // show error message
-                                this._alert = {
-                                    message: response.statusCode.toString() + ' - ' + response.errorMessage,
-                                    type: AlertType.Danger,
-                                    dismissable: true,
-                                }
-                            }
-                        }
-                    )
-                } else {
-                    // show error message
-                    this._alert = {
-                        message: response.statusCode.toString() + ' - ' + response.errorMessage,
-                        type: AlertType.Danger,
-                        dismissable: true,
-                    }
-                }
-            }
-        )
-    }
 }

@@ -1374,7 +1374,6 @@ C:\Users\kristjan\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\Contrac
 C:\Users\kristjan\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\Contracts.BLL.Base.dll
 C:\Users\kristjan\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\Contracts.DAL.App.dll
 C:\Users\kristjan\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\Contracts.DAL.Base.dll
-C:\Users\kristjan\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\Contracts.Domain.dll
 C:\Users\kristjan\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\DAL.App.DTO.dll
 C:\Users\kristjan\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\DAL.App.EF.dll
 C:\Users\kristjan\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\DAL.Base.dll
@@ -1394,7 +1393,6 @@ C:\Users\kristjan\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\BLL.Bas
 C:\Users\kristjan\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\Contracts.BLL.Base.pdb
 C:\Users\kristjan\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\Contracts.DAL.App.pdb
 C:\Users\kristjan\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\Contracts.DAL.Base.pdb
-C:\Users\kristjan\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\Contracts.Domain.pdb
 C:\Users\kristjan\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\DAL.App.DTO.pdb
 C:\Users\kristjan\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\DAL.Base.pdb
 C:\Users\kristjan\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\DAL.Base.EF.pdb
@@ -1586,3 +1584,4 @@ C:\Users\kristjan\icd0009-2019s\Demo2019s\WebApp\obj\Debug\netcoreapp3.1\staticw
 C:\Users\kristjan\icd0009-2019s\Demo2019s\WebApp\obj\Debug\netcoreapp3.1\WebApp.dll
 C:\Users\kristjan\icd0009-2019s\Demo2019s\WebApp\obj\Debug\netcoreapp3.1\WebApp.pdb
 C:\Users\kristjan\icd0009-2019s\Demo2019s\WebApp\obj\Debug\netcoreapp3.1\WebApp.genruntimeconfig.cache
+C:\Users\kristjan\icd0009-2019s\Demo2019s\WebApp\bin\Debug\netcoreapp3.1\carwash.kristjan.Contracts.Domain.dll

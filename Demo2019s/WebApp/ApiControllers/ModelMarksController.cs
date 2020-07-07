@@ -37,6 +37,10 @@ namespace WebApp.ApiControllers
         }
 
         // GET: api/ModelMarks
+        /// <summary>
+        /// Get all modelmarks
+        /// </summary>
+        /// <returns>returns model marks from db</returns>
         [HttpGet]
         [AllowAnonymous]
         [Produces("application/json")]
@@ -46,6 +50,10 @@ namespace WebApp.ApiControllers
         }
         
         // GET: api/Marks
+        /// <summary>
+        /// Returns all Marks
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("Marks")]
         [AllowAnonymous]
@@ -57,6 +65,11 @@ namespace WebApp.ApiControllers
         }
         
         // GET: api/Models/{mark}
+        /// <summary>
+        /// Finds Specific Model from given mark
+        /// </summary>
+        /// <param name="mark"></param>
+        /// <returns>returns Model</returns>
         [Route("Models/{mark}")]
         [AllowAnonymous]
         [Produces("application/json")]
@@ -70,6 +83,11 @@ namespace WebApp.ApiControllers
         
         // get first marks getMarks than from id get models
         // GET: api/ModelMarks/5
+        /// <summary>
+        /// Gets modelmark
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         [Produces("application/json")]
         public async Task<ActionResult<ModelMark>> GetModelMark(Guid id)
@@ -87,6 +105,12 @@ namespace WebApp.ApiControllers
         // PUT: api/ModelMarks/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Updates ModelMark
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="modelMark"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         [Produces("application/json")]
         [Consumes("application/json")]
@@ -110,6 +134,11 @@ namespace WebApp.ApiControllers
         // POST: api/ModelMarks
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Creates new ModelMark
+        /// </summary>
+        /// <param name="modelMark"></param>
+        /// <returns>Returns created</returns>
         [HttpPost]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [Produces("application/json")]
@@ -128,6 +157,11 @@ namespace WebApp.ApiControllers
         }
 
         // DELETE: api/ModelMarks/5
+        /// <summary>
+        /// Deletes ModelMark
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [HttpDelete("{id}")]
         [Produces("application/json")]

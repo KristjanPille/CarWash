@@ -405,11 +405,7 @@
         },
         "frameworks": {
           "netstandard2.1": {
-            "projectReferences": {
-              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj": {
-                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj"
-              }
-            }
+            "projectReferences": {}
           }
         },
         "warningProperties": {
@@ -424,6 +420,10 @@
             "Microsoft.Extensions.Identity.Stores": {
               "target": "Package",
               "version": "[3.1.3, )"
+            },
+            "carwash.kristjan.Contracts.Domain": {
+              "target": "Package",
+              "version": "[1.0.0, )"
             }
           },
           "imports": [
@@ -543,9 +543,6 @@
               },
               "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain.App\\Domain.App.csproj": {
                 "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain.App\\Domain.App.csproj"
-              },
-              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj": {
-                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj"
               },
               "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj": {
                 "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\PublicApi.DTO.v1\\PublicApi.DTO.v1.csproj"
@@ -683,9 +680,6 @@
             "projectReferences": {
               "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj": {
                 "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Contracts.DAL.Base\\Contracts.DAL.Base.csproj"
-              },
-              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj": {
-                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj"
               }
             }
           }
@@ -754,9 +748,6 @@
               "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj": {
                 "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\DAL.Base\\DAL.Base.csproj"
               },
-              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj": {
-                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj"
-              },
               "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Domain.Base\\Domain.Base.csproj": {
                 "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Domain.Base\\Domain.Base.csproj"
               },
@@ -803,14 +794,14 @@
         }
       }
     },
-    "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj": {
+    "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Domain.Base\\Domain.Base.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj",
-        "projectName": "Contracts.Domain",
-        "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Domain.Base\\Domain.Base.csproj",
+        "projectName": "Domain.Base",
+        "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Domain.Base\\Domain.Base.csproj",
         "packagesPath": "C:\\Users\\kristjan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\obj\\",
+        "outputPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Domain.Base\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -841,73 +832,14 @@
             "Microsoft.Extensions.Identity.Stores": {
               "target": "Package",
               "version": "[3.1.3, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "NETStandard.Library": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.202\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Domain.Base\\Domain.Base.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Domain.Base\\Domain.Base.csproj",
-        "projectName": "Domain.Base",
-        "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Domain.Base\\Domain.Base.csproj",
-        "packagesPath": "C:\\Users\\kristjan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Domain.Base\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\kristjan\\AppData\\Roaming\\NuGet\\NuGet.Config"
-        ],
-        "originalTargetFrameworks": [
-          "netstandard2.1"
-        ],
-        "sources": {
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "netstandard2.1": {
-            "projectReferences": {
-              "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj": {
-                "projectPath": "C:\\Users\\kristjan\\icd0009-2019s\\Demo2019s\\Domain\\Contracts.Domain\\Contracts.Domain.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "netstandard2.1": {
-          "dependencies": {
-            "Microsoft.Extensions.Identity.Stores": {
-              "target": "Package",
-              "version": "[3.1.3, )"
             },
             "System.Text.Json": {
               "target": "Package",
               "version": "[4.7.2, )"
+            },
+            "carwash.kristjan.Contracts.Domain": {
+              "target": "Package",
+              "version": "[1.0.0, )"
             }
           },
           "imports": [

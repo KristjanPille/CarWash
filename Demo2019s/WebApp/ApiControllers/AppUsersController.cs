@@ -25,13 +25,21 @@ namespace WebApp.ApiControllers
         private readonly UserManager<AppUser> _userManager;
         private readonly AppUserMapper _mapper = new AppUserMapper();
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="userManager"></param>
         public AppUsersController(AppDbContext context, UserManager<AppUser> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
-        // GET: api/AppUsers/appUser
+        
+        /// <summary>
+        /// GetAppuser
+        /// </summary>
         [HttpGet("appuser")]
         public async Task<ActionResult<PublicApi.DTO.v1.Identity.AppUser>> GetAppUser()
         {
@@ -48,6 +56,12 @@ namespace WebApp.ApiControllers
         // PUT: api/AppUsers/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// update AppUser
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="appUser"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAppUser(Guid id, PublicApi.DTO.v1.Identity.AppUser appUser)
         {
@@ -87,16 +101,26 @@ namespace WebApp.ApiControllers
         // POST: api/AppUsers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Create New User
+        /// </summary>
+        /// <param name="appUser"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<AppUser>> PostAppUser(AppUser appUser)
         {
-            _context.Users.Add(appUser);
+            await _context.Users.AddAsync(appUser);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetAppUser", new { id = appUser.Id }, appUser);
         }
 
         // DELETE: api/AppUsers/5
+        /// <summary>
+        /// Delete User
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult<AppUser>> DeleteAppUser(Guid id)
         {

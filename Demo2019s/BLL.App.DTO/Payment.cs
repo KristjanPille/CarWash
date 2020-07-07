@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 using BLL.App.DTO.Identity;
-using Contracts.Domain;
+using carwash.kristjan.Contracts.Domain;
 
 namespace BLL.App.DTO
 {

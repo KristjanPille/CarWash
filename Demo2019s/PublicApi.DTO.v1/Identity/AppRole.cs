@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using Contracts.DAL.Base;
-using Contracts.Domain;
+using carwash.kristjan.Contracts.Domain;
 
 namespace PublicApi.DTO.v1.Identity
 {

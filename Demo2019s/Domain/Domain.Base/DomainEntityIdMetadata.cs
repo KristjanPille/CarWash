@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using Contracts.Domain;
+using carwash.kristjan.Contracts.Domain;
 
 namespace Domain.Base
 {

@@ -254,8 +254,8 @@
           <e p="DALMapper.cs" t="Include" />
         </e>
         <e p="Migrations" t="Include">
-          <e p="20200707053944_InitialDbCreation.cs" t="Include" />
-          <e p="20200707053944_InitialDbCreation.Designer.cs" t="Include" />
+          <e p="20200707075014_InitialDbCreation.cs" t="Include" />
+          <e p="20200707075014_InitialDbCreation.Designer.cs" t="Include" />
           <e p="AppDbContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -313,20 +313,6 @@
       <e p="Directory.Build.props" t="Include" />
       <e p="DistributedHomeWork.sln" t="IncludeFlat" />
       <e p="Domain" t="Include">
-        <e p="Contracts.Domain" t="IncludeRecursive">
-          <e p="bin" t="ExcludeRecursive" />
-          <e p="Contracts.Domain.csproj" t="IncludeRecursive" />
-          <e p="IDomainEntityId.cs" t="Include" />
-          <e p="IDomainEntityMetaData.cs" t="Include" />
-          <e p="IDomainEntityUser.cs" t="Include" />
-          <e p="obj" t="ExcludeRecursive">
-            <e p="Debug" t="Include">
-              <e p="netstandard2.1" t="Include">
-                <e p="Contracts.Domain.AssemblyInfo.cs" t="Include" />
-              </e>
-            </e>
-          </e>
-        </e>
         <e p="Domain.Base" t="IncludeRecursive">
           <e p="bin" t="ExcludeRecursive" />
           <e p="Domain.Base.csproj" t="IncludeRecursive" />
@@ -667,18 +653,7 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="ConfigureSwaggerOptions.cs" t="Include" />
         <e p="Controllers" t="Include">
-          <e p="CampaignsController.cs" t="Include" />
-          <e p="CarsController.cs" t="Include" />
-          <e p="ChecksController.cs" t="Include" />
           <e p="HomeController.cs" t="Include" />
-          <e p="IsInServicesController.cs" t="Include" />
-          <e p="LangStrsController.cs" t="Include" />
-          <e p="LangStrTranslationsController.cs" t="Include" />
-          <e p="ModelMarksController.cs" t="Include" />
-          <e p="OrdersController.cs" t="Include" />
-          <e p="PaymentMethodsController.cs" t="Include" />
-          <e p="PaymentsController.cs" t="Include" />
-          <e p="ServicesController.cs" t="Include" />
         </e>
         <e p="Helpers" t="Include">
           <e p="UserNameProvider.cs" t="Include" />

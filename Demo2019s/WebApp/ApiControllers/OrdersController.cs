@@ -100,7 +100,7 @@ namespace WebApp.ApiControllers
         /// <summary>
         /// Post the new Order
         /// </summary>
-        /// <param name="Order"></param>
+        /// <param name="order"></param>
         /// <returns></returns>
         [HttpPost]
         [Produces("application/json")]
@@ -124,8 +124,8 @@ namespace WebApp.ApiControllers
         /// <summary>
         /// Delete the Order
         /// </summary>
-        /// <param name="id">Session Id to delete.</param>
-        /// <returns>GpSession just deleted</returns>
+        /// <param name="id">Order Id to delete.</param>
+        /// <returns>Order just deleted</returns>
         [HttpDelete("{id}")]
         [Produces("application/json")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]

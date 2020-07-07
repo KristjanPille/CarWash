@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading;
-using Contracts.Domain;
+using carwash.kristjan.Contracts.Domain;
 
 namespace DAL.App.DTO
 {

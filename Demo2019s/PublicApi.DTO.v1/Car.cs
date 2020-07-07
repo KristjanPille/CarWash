@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using BLL.App.DTO.Identity;
-using Contracts.Domain;
+using carwash.kristjan.Contracts.Domain;
 using Domain.Base;
 using AppUser = Domain.App.Identity.AppUser;
 

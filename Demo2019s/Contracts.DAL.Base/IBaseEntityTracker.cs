@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Contracts.Domain;
+using carwash.kristjan.Contracts.Domain;
 
 namespace Contracts.DAL.Base
 {

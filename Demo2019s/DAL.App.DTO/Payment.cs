@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text.Json.Serialization;
-using Contracts.Domain;
+using carwash.kristjan.Contracts.Domain;
 using DAL.App.DTO.Identity;
 
 namespace DAL.App.DTO

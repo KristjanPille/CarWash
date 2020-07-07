@@ -67,40 +67,9 @@ namespace WebApp.ApiControllers
 
             return Ok(_mapper.Map( check));
         }
-        
-        /// <summary>
-        /// Update the GpsSession
-        /// </summary>
-        /// <param name="id">Session Id</param>
-        /// <param name="check">check object</param>
-        /// <returns></returns>
-        [HttpPut("{id}")]
-        [Produces("application/json")]
-        [Consumes("application/json")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(V1DTO.MessageDTO))]
-        public async Task<IActionResult> Putcheck(Guid id, V1DTO.Check check)
-        {
-            if (id != check.Id)
-            {
-                return BadRequest(new V1DTO.MessageDTO("Id and check.id do not match"));
-            }
 
-            if (!await _bll.Checks.ExistsAsync(check.Id, User.UserId()))
-            {
-                return NotFound(new V1DTO.MessageDTO($"Current user does not have check with this id {id}"));
-            }
-
-            check.AppUserId = User.UserId();
-            await _bll.Checks.UpdateAsync(_mapper.Map(check));
-            await _bll.SaveChangesAsync();
-            
-            return NoContent();
-        }
-        
         /// <summary>
-        /// Post the new check
+        /// Post new check
         /// </summary>
         /// <param name="check"></param>
         /// <returns></returns>
@@ -109,7 +78,7 @@ namespace WebApp.ApiControllers
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(V1DTO.Check))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(V1DTO.MessageDTO))]
-        public async Task<ActionResult<Check>> Postcheck(V1DTO.Check check)
+        public async Task<ActionResult<Check>> PostCheck(V1DTO.Check check)
         {
             check.AppUserId = User.UserId();
             var bllEntity = _mapper.Map(check);
@@ -126,13 +95,13 @@ namespace WebApp.ApiControllers
         /// <summary>
         /// Delete the check
         /// </summary>
-        /// <param name="id">Session Id to delete.</param>
-        /// <returns>GpSession just deleted</returns>
+        /// <param name="id">Id to delete.</param>
+        /// <returns>Check just deleted</returns>
         [HttpDelete("{id}")]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(V1DTO.Check))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]
-        public async Task<ActionResult<Check>> Deletecheck(Guid id)
+        public async Task<ActionResult<Check>> DeleteCheck(Guid id)
         {
             var userIdTKey = User.IsInRole("admin") ? null : (Guid?) User.UserId();
 

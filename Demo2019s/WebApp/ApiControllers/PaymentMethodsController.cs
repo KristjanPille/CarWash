@@ -37,6 +37,10 @@ namespace WebApp.ApiControllers
         }
 
         // GET: api/PaymentMethods
+        /// <summary>
+        /// Gets all payment Methods
+        /// </summary>
+        /// <returns>Payment Methods</returns>
         [HttpGet]
         [Produces("application/json")]
         public async Task<ActionResult<IEnumerable<Payment>>> GetPaymentMethods()
@@ -45,6 +49,11 @@ namespace WebApp.ApiControllers
         }
 
         // GET: api/PaymentMethods/5
+        /// <summary>
+        /// Gets single payment method
+        /// </summary>
+        /// <param name="id">payment Method ID</param>
+        /// <returns>payment Method</returns>
         [HttpGet("{id}")]
         [Produces("application/json")]
         public async Task<ActionResult<Payment>> GetPaymentMethod(Guid id)
@@ -62,6 +71,12 @@ namespace WebApp.ApiControllers
         // PUT: api/PaymentMethods/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Updates payment method
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="paymentMethod"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         [Produces("application/json")]
         [Consumes("application/json")]
@@ -85,6 +100,11 @@ namespace WebApp.ApiControllers
         // POST: api/PaymentMethods
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Creates new Payment method, only admins
+        /// </summary>
+        /// <param name="paymentMethod"></param>
+        /// <returns></returns>
         [HttpPost]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [Produces("application/json")]
@@ -103,6 +123,11 @@ namespace WebApp.ApiControllers
         }
 
         // DELETE: api/PaymentMethods/5
+        /// <summary>
+        /// Deletes payment method
+        /// </summary>
+        /// <param name="id">ID for paymentmehtod to delete</param>
+        /// <returns>deleted method</returns>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [HttpDelete("{id}")]
         [Produces("application/json")]

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using Contracts.Domain;
+using carwash.kristjan.Contracts.Domain;
 
 namespace PublicApi.DTO.v1
 {

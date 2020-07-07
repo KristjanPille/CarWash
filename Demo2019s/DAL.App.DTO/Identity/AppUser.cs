@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Contracts.Domain;
+using carwash.kristjan.Contracts.Domain;
 
 namespace DAL.App.DTO.Identity
 {

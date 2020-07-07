@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Contracts.DAL.Base;
-using Contracts.Domain;
+using carwash.kristjan.Contracts.Domain;
 using Domain.App;
 using Domain.App.Identity;
 using Microsoft.EntityFrameworkCore;

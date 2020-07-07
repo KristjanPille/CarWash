@@ -28,8 +28,8 @@ using Microsoft.EntityFrameworkCore;
             {
                 new Campaign()
                 {
-                    NameOfCampaign =  "Kampaania välispesu",
-                    Description = "Auto välispesu 25% hinnast alla",
+                    NameOfCampaign =  "Campaign for STANDARD EXTERIOR WASH",
+                    Description = "Discount for standard wash 25%",
                     DiscountAmount = 0.25,
                     Id = new Guid("00000000-0000-0000-0000-000000000001")
                     
@@ -72,34 +72,34 @@ using Microsoft.EntityFrameworkCore;
             {
                 new Service()
                 {
-                    NameOfService =  "VäliPesu",
+                    NameOfService =  "STANDARD EXTERIOR WASH",
                     PriceOfService = 25,
-                    Description = "Leotus, käsipesu, porimattide puhastus",
+                    Description = "Snowfoam pre wash, Shampoo wash, Drying with microfiber cloth including door sills",
                     Duration = 30,
                     CampaignId = new Guid("00000000-0000-0000-0000-000000000001"),
                     Id = new Guid("00000000-0000-0000-0000-000000000123")
                 },
                 new Service()
                 {
-                    NameOfService =  "SisePesu",
+                    NameOfService =  "INTERIOR CLEANING",
                     PriceOfService = 20,
-                    Description = "Kuiv puhastus, aknaklaaside puhastus seest, porimattide puhastus",
+                    Description = "Vacuum cleaning of the interior and trunk, Wiping of all the interior and trunk surfaces, Cleaning front glasses from inside the car, Cleaning floor mats",
                     Duration = 60,
                     Id = new Guid("00000000-0000-0000-0000-000000000124")
                 },
                 new Service()
                 {
-                    NameOfService =  "Premium Välipesu",
-                    Description = "Põhjalik välipesu, Leotus, velgede, rataste ning rattakoobaste pesu, käsipesu, porimattide puhastus, ustevahede pesu ning kuivatamine",
+                    NameOfService =  "PREMIUM EXTERIOR WASH",
+                    Description = "Snowfoam pre wash, Shampoo wash, Liquid wax, Cleaning floor mats, Drying with pressured air, tire dressing",
                     PriceOfService = 40,
                     Duration = 60,
                     Id = new Guid("00000000-0000-0000-0000-000000000125")
                 },
                 new Service()
                 {
-                    NameOfService =  "Premium Sisepesu",
+                    NameOfService =  "PREMIUM INTERIOR CLEANING",
                     PriceOfService = 45,
-                    Description = "Kõikide salongi ja pagasiruumi pindade märgkoristus, Salongi ja pagasiruumi puhastamine tolmuimeja ja suruõhuga, Kõikide klaaside puhastamine seestpoolt, Põrandamattide puhastamine",
+                    Description = "Vacuum cleaning of the interior and the trunk, Wet wiping of all the interior and trunk surfaces, Cleaning of plastic elements of trunk and interior with Meguiars all purpose cleaner, Floor mats cleaning, Cleaning all the glasses from inside and outside the car",
                     Duration = 120,
                     Id = new Guid("00000000-0000-0000-0000-000000000126")
                 },
@@ -135,7 +135,7 @@ using Microsoft.EntityFrameworkCore;
                 {
                     Mark =  "Audi",
                     Model = "A3",
-                    ModelMarkSize = 1,
+                    ModelMarkSize = 2,
                     Id = new Guid("00000000-0000-0000-0000-000000000129"),
                 },
                 new ModelMark()
@@ -152,7 +152,6 @@ using Microsoft.EntityFrameworkCore;
                     ModelMarkSize = 2,
                     Id = new Guid("00000000-0000-0000-0000-000000000131"),
                 },
-                
                 new ModelMark()
                 {
                     Mark =  "Bmw",
@@ -170,23 +169,261 @@ using Microsoft.EntityFrameworkCore;
                 new ModelMark()
                 {
                     Mark =  "Bmw",
-                    Model = "3",
+                    Model = "1",
                     ModelMarkSize = 1,
                     Id = new Guid("00000000-0000-0000-0000-000000000134"),
                 },
                 new ModelMark()
                 {
                     Mark =  "Bmw",
-                    Model = "4",
-                    ModelMarkSize = 2,
+                    Model = "2",
+                    ModelMarkSize = 1,
+                    Id = new Guid("00000000-0000-0000-0000-000000000180"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Bmw",
+                    Model = "3",
+                    ModelMarkSize = 1,
                     Id = new Guid("00000000-0000-0000-0000-000000000135"),
                 },
                 new ModelMark()
                 {
                     Mark =  "Bmw",
-                    Model = "X5",
-                    ModelMarkSize = 3,
+                    Model = "4",
+                    ModelMarkSize = 2,
                     Id = new Guid("00000000-0000-0000-0000-000000000136"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Bmw",
+                    Model = "5",
+                    ModelMarkSize = 2,
+                    Id = new Guid("00000000-0000-0000-0000-000000000142"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Bmw",
+                    Model = "6",
+                    ModelMarkSize = 3,
+                    Id = new Guid("00000000-0000-0000-0000-000000000146"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Bmw",
+                    Model = "X5",
+                    ModelMarkSize = 4,
+                    Id = new Guid("00000000-0000-0000-0000-000000000137"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Bmw",
+                    Model = "X6",
+                    ModelMarkSize = 4,
+                    Id = new Guid("00000000-0000-0000-0000-000000000144"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Bmw",
+                    Model = "X7",
+                    ModelMarkSize = 5,
+                    Id = new Guid("00000000-0000-0000-0000-000000000143"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Mercedes",
+                    Model = "C",
+                    ModelMarkSize = 3,
+                    Id = new Guid("00000000-0000-0000-0000-000000000147"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Mercedes",
+                    Model = "E",
+                    ModelMarkSize = 3,
+                    Id = new Guid("00000000-0000-0000-0000-000000000148"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Mercedes",
+                    Model = "S",
+                    ModelMarkSize = 4,
+                    Id = new Guid("00000000-0000-0000-0000-000000000149"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Mercedes",
+                    Model = "G",
+                    ModelMarkSize = 3,
+                    Id = new Guid("00000000-0000-0000-0000-000000000150"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Mercedes",
+                    Model = "GLS",
+                    ModelMarkSize = 5,
+                    Id = new Guid("00000000-0000-0000-0000-000000000151"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Mercedes",
+                    Model = "GLE",
+                    ModelMarkSize = 4,
+                    Id = new Guid("00000000-0000-0000-0000-000000000152"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Mercedes",
+                    Model = "GLC",
+                    ModelMarkSize = 3,
+                    Id = new Guid("00000000-0000-0000-0000-000000000153"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Mercedes",
+                    Model = "GLE",
+                    ModelMarkSize = 4,
+                    Id = new Guid("00000000-0000-0000-0000-000000000154"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Mercedes",
+                    Model = "CLA",
+                    ModelMarkSize = 3,
+                    Id = new Guid("00000000-0000-0000-0000-000000000155"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Mercedes",
+                    Model = "V",
+                    ModelMarkSize = 5,
+                    Id = new Guid("00000000-0000-0000-0000-000000000156"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Volkswagen",
+                    Model = "Amarok",
+                    ModelMarkSize = 3,
+                    Id = new Guid("00000000-0000-0000-0000-000000000157"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Volkswagen",
+                    Model = "CC",
+                    ModelMarkSize = 3,
+                    Id = new Guid("00000000-0000-0000-0000-000000000158"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Volkswagen",
+                    Model = "Golf",
+                    ModelMarkSize = 2,
+                    Id = new Guid("00000000-0000-0000-0000-000000000159"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Volkswagen",
+                    Model = "Golf Sportsvan",
+                    ModelMarkSize = 3,
+                    Id = new Guid("00000000-0000-0000-0000-000000000160"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Volkswagen",
+                    Model = "Golf Plus",
+                    ModelMarkSize = 3,
+                    Id = new Guid("00000000-0000-0000-0000-000000000161"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Volkswagen",
+                    Model = "Jetta",
+                    ModelMarkSize = 3,
+                    Id = new Guid("00000000-0000-0000-0000-000000000162"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Volkswagen",
+                    Model = "Passat",
+                    ModelMarkSize = 3,
+                    Id = new Guid("00000000-0000-0000-0000-000000000163"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Volkswagen",
+                    Model = "Tiguan",
+                    ModelMarkSize = 4,
+                    Id = new Guid("00000000-0000-0000-0000-000000000164"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Volkswagen",
+                    Model = "Touareg",
+                    ModelMarkSize = 4,
+                    Id = new Guid("00000000-0000-0000-0000-000000000165"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Volkswagen",
+                    Model = "Transporter",
+                    ModelMarkSize = 5,
+                    Id = new Guid("00000000-0000-0000-0000-000000000166"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Audi",
+                    Model = "A6",
+                    ModelMarkSize = 3,
+                    Id = new Guid("00000000-0000-0000-0000-000000000167"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Audi",
+                    Model = "A7",
+                    ModelMarkSize = 3,
+                    Id = new Guid("00000000-0000-0000-0000-000000000168"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Audi",
+                    Model = "A8",
+                    ModelMarkSize = 4,
+                    Id = new Guid("00000000-0000-0000-0000-000000000169"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Audi",
+                    Model = "Q2",
+                    ModelMarkSize = 3,
+                    Id = new Guid("00000000-0000-0000-0000-000000000170"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Audi",
+                    Model = "Q3",
+                    ModelMarkSize = 3,
+                    Id = new Guid("00000000-0000-0000-0000-000000000171"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Audi",
+                    Model = "Q5",
+                    ModelMarkSize = 3,
+                    Id = new Guid("00000000-0000-0000-0000-000000000172"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Audi",
+                    Model = "Q7",
+                    ModelMarkSize = 4,
+                    Id = new Guid("00000000-0000-0000-0000-000000000173"),
+                },
+                new ModelMark()
+                {
+                    Mark =  "Audi",
+                    Model = "Q8",
+                    ModelMarkSize = 5,
+                    Id = new Guid("00000000-0000-0000-0000-000000000174"),
                 },
             };
             
@@ -204,7 +441,7 @@ using Microsoft.EntityFrameworkCore;
             {
                 new Car()
                 {
-                    Id = new Guid("00000000-0000-0000-0000-000000000137"),
+                    Id = new Guid("00000000-0000-0000-0000-000000000138"),
                     AppUserId = new Guid("00000000-0000-0000-0000-000000000139"),
                     ModelMarkId = modelMarks[0].Id
                 },

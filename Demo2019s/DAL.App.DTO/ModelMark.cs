@@ -1,5 +1,5 @@
 ﻿using System;
-using Contracts.Domain;
+using carwash.kristjan.Contracts.Domain;
 
 namespace DAL.App.DTO
 {

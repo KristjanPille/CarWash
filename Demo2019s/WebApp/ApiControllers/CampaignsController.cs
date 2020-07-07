@@ -37,18 +37,27 @@ namespace WebApp.ApiControllers
         }
 
         // GET: api/campaigns
+        /// <summary>
+        /// Get all campaigns
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
         [Produces("application/json")]
-        public async Task<ActionResult<IEnumerable<PublicApi.DTO.v1.Campaign>>> Getcampaigns()
+        public async Task<ActionResult<IEnumerable<PublicApi.DTO.v1.Campaign>>> GetCampaigns()
         {
             return Ok((await _bll.Campaigns.GetAllAsync()).Select(e => _mapper.Map(e)));
         }
 
         // GET: api/campaigns/5
+        /// <summary>
+        /// Get Specific Campaign
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         [Produces("application/json")]
-        public async Task<ActionResult<PublicApi.DTO.v1.Campaign>> Getcampaign(Guid id)
+        public async Task<ActionResult<PublicApi.DTO.v1.Campaign>> GetCampaign(Guid id)
         {
             var campaign= await _bll.Campaigns.FirstOrDefaultAsync(id);
 
@@ -63,6 +72,12 @@ namespace WebApp.ApiControllers
         // PUT: api/campaigns/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Update Camapign, only for admins
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="campaign"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         [Produces("application/json")]
         [Consumes("application/json")]
@@ -70,7 +85,7 @@ namespace WebApp.ApiControllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(V1DTO.MessageDTO))]
-        public async Task<IActionResult> Putcampaign(Guid id, V1DTO.Campaign campaign)
+        public async Task<IActionResult> PutCampaign(Guid id, V1DTO.Campaign campaign)
         {
             if (id != campaign.Id)
             {
@@ -86,12 +101,17 @@ namespace WebApp.ApiControllers
         // POST: api/campaigns
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Create new campaign. only for admins
+        /// </summary>
+        /// <param name="campaign"></param>
+        /// <returns></returns>
         [HttpPost]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [Produces("application/json")]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(V1DTO.Campaign))]
-        public async Task<ActionResult<Campaign>> Postcampaign(V1DTO.Campaign campaign)
+        public async Task<ActionResult<Campaign>> PostCampaign(V1DTO.Campaign campaign)
         {
             var bllEntity = _mapper.Map(campaign);
             _bll.Campaigns.Add(bllEntity);
@@ -104,10 +124,15 @@ namespace WebApp.ApiControllers
         }
 
         // DELETE: api/campaigns/5
+        /// <summary>
+        /// Delete Campaign, only for admins
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [HttpDelete("{id}")]
         [Produces("application/json")]
-        public async Task<ActionResult<Campaign>> Deletecampaign(Guid id)
+        public async Task<ActionResult<Campaign>> DeleteCampaign(Guid id)
         {
             var campaign= await _bll.Campaigns.FirstOrDefaultAsync(id);
             if (campaign== null)

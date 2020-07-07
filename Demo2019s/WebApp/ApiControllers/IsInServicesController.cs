@@ -40,7 +40,7 @@ namespace WebApp.ApiControllers
         /// <summary>
         /// Get all IsInServices
         /// </summary>
-        /// <returns>List of available GpsLocationTypes</returns>
+        /// <returns>Returns all isInServices</returns>
         [HttpGet]
         [AllowAnonymous]
         [Produces("application/json")]
@@ -101,7 +101,7 @@ namespace WebApp.ApiControllers
         }
 
         /// <summary>
-        /// Create a new GpsLocationType
+        /// Create a new isInService
         /// </summary>
         /// <param name="isInService">IsInService object</param>
         /// <returns>created IsInService object</returns>

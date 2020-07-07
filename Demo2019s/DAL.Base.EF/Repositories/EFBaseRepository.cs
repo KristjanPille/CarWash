@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Contracts.DAL.Base;
 using Contracts.DAL.Base.Mappers;
 using Contracts.DAL.Base.Repositories;
-using Contracts.Domain;
+using carwash.kristjan.Contracts.Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

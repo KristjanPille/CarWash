@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using Contracts.Domain;
+using carwash.kristjan.Contracts.Domain;
 
 namespace BLL.App.DTO
 {

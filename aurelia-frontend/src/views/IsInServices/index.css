@@ -1,0 +1,106 @@
+.table-hover {
+    table-layout: fixed;
+    background-color: #99aab5;
+}
+
+#popup  {
+    margin-left:600px;
+    position: absolute;
+    max-width: 290px;
+    display: none;
+    background: #ccc;
+    border: 1px solid;
+
+}
+
+.days {
+    background-color: #99aab5;
+}
+#car {
+    background-color: #99aab5;
+}
+
+
+.table-bordered{
+    max-width: 600px;
+    table-layout: fixed;
+}
+
+.btn {
+    border: 2px solid black;
+    background-color: green;
+    color: black;
+    padding: 14px 28px;
+    cursor: pointer;
+    width: 100%;
+}
+td.time{
+    background-color:lightgreen;
+}
+th.times{
+    background-color:dimgrey;
+    opacity: 0.9;
+}
+
+th.services{
+    background-color:dimgrey;
+    opacity: 0.9;
+}
+tr.services{
+    background-color:dimgrey;
+    opacity: 0.9;
+}
+
+
+td.time:hover{
+    background-color:orange;
+    transition: all 1s;
+    animation-timing-function: linear;
+    cursor:pointer;
+}
+
+#parent {
+    position: relative;
+}
+#parent > * {
+    position: absolute;
+}
+#timeTable {
+    position: relative;
+    width: 600px;
+}
+#services {
+    position: relative;
+    max-width: 300px;
+    min-width: 150px;
+    background-color: orange;
+}
+
+html {
+    min-width: 400px;
+    position: relative;
+}
+
+#car {
+    font-size: small;
+}
+
+.table-bordered{
+    border:1px solid black;
+    box-shadow: 0 -2px 2px rgba(34,34,34,0.6);
+}
+.table-bordered > thead > tr > th{
+    box-shadow: 0 -2px 2px rgba(34,34,34,0.6);
+    border:1px solid black;
+}
+.table-bordered > tbody > tr > td{
+    box-shadow: 0 -2px 2px rgba(34,34,34,0.6);
+    border:1px solid black;
+}
+body {
+    background-image: url("nissan.jpg");
+}
+#selectCar{
+    position: relative;
+    max-width: 80px;
+}

@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
-        <AssemblyName>carwash.kristjan.Contracts.Domain</AssemblyName>
-        <RootNamespace>carwash.kristjan.Contracts.Domain</RootNamespace>
+        <AssemblyName>ee.itcollege.carwash.kristjan.Contracts.Domain</AssemblyName>
+        <RootNamespace>ee.itcollege.carwash.kristjan.Contracts.Domain</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

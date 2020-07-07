@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace carwash.kristjan.Contracts.Domain
+namespace ee.itcollege.carwash.kristjan.Contracts.Domain
 {
     public interface IDomainEntityMetadata
     {

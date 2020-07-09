@@ -1,0 +1,39 @@
+<template>
+    <body>
+    <require from="./create.css"></require>
+    <require from="../../components/alert"></require>
+
+    <alert alert-data.bind="_alert"></alert>
+
+    <h1>Create</h1>
+    <h4>Campaign</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form submit.trigger="onSubmit($event)">
+                <div class="form-group">
+                    <label class="control-label" for="nameOfService">nameOfService</label>
+                    <input class="form-control" type="text" id="nameOfService" maxlength="64" value.bind="nameOfService" />
+
+                    <label class="control-label" for="nameOfService">description</label>
+                    <input class="form-control" type="text" id="description" value.bind="description" />
+
+                    <label class="control-label" for="priceOfService">priceOfService</label>
+                    <input class="form-control" type="text" id="priceOfService" maxlength="64" value.bind="priceOfService" />
+
+                    <label class="control-label" for="duration">duration</label>
+                    <input class="form-control" type="text" id="duration" maxlength="64" value.bind="duration" />
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a route-href="route: Admin-Section; params.bind: { }">Back to Admin panel</a>
+    </div>
+    </body>
+</template>

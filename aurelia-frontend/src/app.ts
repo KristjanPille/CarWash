@@ -8,6 +8,7 @@ import {ICar} from "./domain/ICar";
 import {IFetchResponse} from "./types/IFetchResponse";
 import {AlertType} from "./types/AlertType";
 import {IAlertData} from "./types/IAlertData";
+import {AdminSection} from "./views/AdminSection";
 
 @autoinject
 export class App {
@@ -15,11 +16,16 @@ export class App {
   router?: Router;
   private userId: string = "";
   private _account?: IAccount;
+    private isAdmin = false;
 
   constructor(private appState: AppState, private accountService: AccountService) {
   }
 
+    activate(){
+
+    }
     attached() {
+
         if (this.appState.jwt != null){
             this.accountService.getUser().then(
                 response => {
@@ -57,15 +63,6 @@ export class App {
 
     { route: ['campaigns', 'Campaigns/index'], name: 'campaigns-index', moduleId:
     PLATFORM.moduleName('views/campaigns/index'), nav: true, title: 'Campaigns' },
-    { route: ['campaigns/details/:id'], name: 'campaigns-details', moduleId:
-    PLATFORM.moduleName('views/campaigns/details'), nav: false, title: 'Campaign Details' }, 
-    { route: ['campaigns/create'], name: 'campaigns-create', moduleId: 
-    PLATFORM.moduleName('views/campaigns/create'), nav: false, title: 'Campaigns Create' },
-    { route: ['campaigns/delete/:id?'], name: 'campaigns-delete', moduleId:
-    PLATFORM.moduleName('views/campaigns/delete'), nav: false, title: 'Campaigns Delete' },
-    { route: ['campaigns/edit/:id?'], name: 'campaigns-edit', moduleId:
-    PLATFORM.moduleName('views/campaigns/edit'), nav: false, title: 'Campaigns Edit' },
-
 
     { route: ['Cars', 'Cars/index'], name: 'Cars-index', moduleId:
     PLATFORM.moduleName('views/Cars/index'), nav: true, title: 'Your Cars'},
@@ -85,11 +82,28 @@ export class App {
     { route: ['Orders', 'Orders/index'], name: 'Orders-Index', moduleId:
     PLATFORM.moduleName('views/Orders/index'), nav: false, title: 'Orders' },
 
+    { route: ['Admin-Orders', 'Orders/AdminIndex'], name: 'Admin-Index', moduleId:
+    PLATFORM.moduleName('views/Orders/AdminIndex'), nav: true, title: 'AdminOrders' },
+
+    { route: ['Admin-Section', 'AdminSection/index'], name: 'Admin-Section', moduleId:
+    PLATFORM.moduleName('views/AdminSection/index'), nav: true, title: 'AdminSection' },
+
+    { route: ['AdminSection/serviceEdit/:id?'], name: 'service-edit', moduleId:
+            PLATFORM.moduleName('views/AdminSection/serviceEdit'), nav: false, title: 'Services Edit' },
+    { route: ['AdminSection/serviceCreate'], name: 'service-create', moduleId:
+            PLATFORM.moduleName('views/AdminSection/serviceCreate'), nav: false, title: 'Services Create' },
+
+    { route: ['AdminSection/campaignEdit/:id?'], name: 'campaign-edit', moduleId:
+            PLATFORM.moduleName('views/AdminSection/campaignEdit'), nav: false, title: 'Campaigns Edit' },
+      { route: ['AdminSection/campaignCreate'], name: 'campaign-create', moduleId:
+              PLATFORM.moduleName('views/AdminSection/campaignCreate'), nav: false, title: 'Campaigns Create' },
+
   ]);
   config.mapUnknownRoutes('views/IsInServices/index');
   }
 
   logoutOnClick(){
+    this.isAdmin = false;
     this.appState.jwt = null;
     this.router!.navigateToRoute('account-login');
   }

@@ -42,7 +42,6 @@ namespace WebApp.ApiControllers
         /// <returns>Array of Cars</returns>
         [HttpGet]
         [Produces("application/json")]
-        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<V1DTO.Car>))]
         public async Task<ActionResult<IEnumerable<V1DTO.Car>>> GetCars()
         {
@@ -50,6 +49,20 @@ namespace WebApp.ApiControllers
             return Ok((await _bll.Cars.GetAllAsync()).Select(e => _mapper.Map(e)).Where(e => e.AppUserId == User.UserId()));
         }
 
+        /// <summary>
+        /// get all the Cars
+        /// </summary>
+        /// <returns>Array of Cars</returns>
+        [Route("AdminCars")]
+        [Produces("application/json")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<V1DTO.Car>))]
+        public async Task<ActionResult<IEnumerable<V1DTO.Car>>> GetCarsForAdmins()
+        {
+            //Gets User specific cars
+            return Ok((await _bll.Cars.GetAllAsync()).Select(e => _mapper.Map(e)));
+        }
+        
         /// <summary>
         /// Get a single Car
         /// </summary>

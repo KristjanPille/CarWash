@@ -35,6 +35,16 @@
                         <div class="dropdown-menu dropdown-menu-right">
                             <a route-href="route: Orders-Index; params.bind: { userId }" class="dropdown-item">Your Orders</a>
                             <div class="dropdown-divider"></div>
+                            <ul if.bind="appState.token" class="nav navbar-nav ml-auto" style="background-color: limegreen; opacity: 0.8">
+                                <a style="float: right" class="nav-link text-dark"
+                                   route-href="route: Admin-Index; params.bind: {}">Admin Orders Panel</a>
+                                <div class="dropdown-divider"></div>
+                            </ul>
+                            <ul if.bind="appState.token" class="nav navbar-nav ml-auto" style="background-color: limegreen; opacity: 0.8">
+                                <a style="float: right" class="nav-link text-dark"
+                                   route-href="route: Admin-Section; params.bind: {}">Admin Section</a>
+                                <div class="dropdown-divider"></div>
+                            </ul>
                             <a route-href="route: account-index; params.bind: { userId }" class="dropdown-item">Settings</a>
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-item" click.delegate="logoutOnClick()">Logout</a>

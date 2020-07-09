@@ -4,49 +4,36 @@ import { CampaignService } from 'service/campaign-service';
 import { ICampaign } from 'domain/ICampaign';
 import { IAlertData } from 'types/IAlertData';
 import { AlertType } from 'types/AlertType';
+import {ServiceService} from "../../service/service-service";
 
 @autoinject
-export class CampaignsEdit {
+export class ServicessCreate {
     private _alert: IAlertData | null = null;
+    private nameOfService = "";
+    private description = "";
+    private priceOfService = 0;
+    private duration = 0;
 
-    private _campaign?: ICampaign;
+    constructor(private serviceService: ServiceService, private router: Router) {
 
-    constructor(private campaignService: CampaignService, private router: Router) {
     }
 
     attached() {
+
     }
 
     activate(params: any, routeConfig: RouteConfig, navigationInstruction: NavigationInstruction) {
-        console.log(params);
-        if (params.id && typeof (params.id) == 'string') {
-            this.campaignService.getCampaign(params.id).then(
-                response => {
-                    if (response.statusCode >= 200 && response.statusCode < 300) {
-                        this._alert = null;
-                        this._campaign = response.data!;
-                    } else {
-                        // show error message
-                        this._alert = {
-                            message: response.statusCode.toString() + ' - ' + response.errorMessage,
-                            type: AlertType.Danger,
-                            dismissable: true,
-                        }
-                    }
-                }
-            );
-        }
+
     }
 
     onSubmit(event: Event) {
-        console.log(event);
-        this.campaignService
-            .updateCampaign(this._campaign!)
+        this.serviceService
+            .createService({ nameOfService: this.nameOfService, description: this.description, priceOfService: this.priceOfService, duration: this.duration })
             .then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
-                        this.router.navigateToRoute('campaigns-index', {});
+                        this.router.navigateToRoute('Admin-Section', {});
                     } else {
                         // show error message
                         this._alert = {
@@ -60,4 +47,5 @@ export class CampaignsEdit {
 
         event.preventDefault();
     }
+
 }

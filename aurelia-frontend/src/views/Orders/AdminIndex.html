@@ -1,0 +1,93 @@
+<template>
+    <body class="index">
+    <require from="./index.css"></require>
+    <div class="container p-3 my-3 bg-primary text-white" style="max-width: 1080px; max-height: 70px; opacity: 0.9;">
+        <h1>Admin Orders Panel</h1>
+    </div>
+    <div class="col-75">
+        <div class="active">
+            <table class="table table-bordered">
+                <div class="row">
+                    <div class="col-50">
+                        <h3>Upcoming services</h3>
+                        <thead>
+                        <tr class="order">
+                            <th>
+                                From
+                            </th>
+                            <th>
+                                To
+                            </th>
+                            <th>
+                                Car
+                            </th>
+                            <th>
+                                Service Name
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="order" repeat.for="order of newOrders">
+                            <td>
+                                ${order.from}
+                            </td>
+                            <td>
+                                ${order.to}
+                            </td>
+                            <td>
+                                ${getCar(order.carId)}
+                            </td>
+                            <td>
+                                ${getServiceName(order.serviceId)}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </div>
+                </div>
+            </table>
+        </div>
+        <div class="old">
+            <table class="table table-bordered">
+                <div class="row">
+                    <div class="col-50">
+                        <h3>Past services</h3>
+                        <thead>
+                        <tr class="order">
+                            <th>
+                                From
+                            </th>
+                            <th>
+                                To
+                            </th>
+                            <th>
+                                Car
+                            </th>
+                            <th>
+                                Service Name
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="order" repeat.for="order of oldOrders">
+                            <td>
+                                ${order.from}
+                            </td>
+                            <td>
+                                ${order.to}
+                            </td>
+                            <td>
+                                ${getCar(order.carId)}
+                            </td>
+                            <td>
+                                ${getServiceName(order.serviceId)}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </div>
+                </div>
+            </table>
+        </div>
+    </div>
+    </div>
+    </body>
+</template>

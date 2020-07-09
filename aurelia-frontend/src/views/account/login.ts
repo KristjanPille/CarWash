@@ -2,6 +2,7 @@ import { Router } from 'aurelia-router';
 import { AppState } from './../../state/app-state';
 import { autoinject } from 'aurelia-framework';
 import { AccountService } from 'service/account-service';
+import jwt_decode from 'jwt-decode';
 
 @autoinject
 export class AccountLogin {

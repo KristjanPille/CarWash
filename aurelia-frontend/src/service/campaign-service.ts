@@ -5,28 +5,28 @@ import { ICampaign } from 'domain/ICampaign';
 import { IFetchResponse } from 'types/IFetchResponse';
 import { ICampaignCreate } from 'domain/ICampaignCreate';
 import { AppState } from 'state/app-state';
+import {BaseService} from "./base-service";
 
 @autoinject
-export class CampaignService {
-    constructor(private appState: AppState, private httpClient: HttpClient) {
+export class CampaignService extends BaseService<ICampaign> {
+    constructor(private appState: AppState, protected httpClient: HttpClient) {
+        super('campaigns', httpClient);
         this.httpClient.baseUrl = this.appState.baseUrl;
     }
 
-    private readonly _baseUrl = 'Campaigns';
+    private readonly _baseUrl = 'campaigns';
 
 
-    async getCampaigns(): Promise<IFetchResponse<ICampaign[]>> {
+    async getAll(): Promise<IFetchResponse<ICampaign[]>> {
         try {
             const response = await this.httpClient
-                .fetch(this._baseUrl, {
-                    cache: "no-store",
-                    headers: {
-                        authorization: "Bearer " + this.appState.jwt
-                    }
+                .fetch(this.apiEndpointUrl, {
+                    cache: "no-store"
                 });
             // happy case
-            if (response.status >= 200 && response.status < 300) {
+            if (response.ok) {
                 const data = (await response.json()) as ICampaign[];
+                // console.log(data);
                 return {
                     statusCode: response.status,
                     data: data
@@ -80,6 +80,7 @@ export class CampaignService {
     }
 
     async updateCampaign(campaign: ICampaignEdit): Promise<IFetchResponse<string>> {
+        campaign.discountAmount = Number(campaign.discountAmount);
         try {
             const response = await this.httpClient
                 .put(this._baseUrl + '/' + campaign.id, JSON.stringify(campaign), {

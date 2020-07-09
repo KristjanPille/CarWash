@@ -2,33 +2,29 @@ import { autoinject } from 'aurelia-framework';
 import { RouteConfig, NavigationInstruction, Router } from 'aurelia-router';
 import { IAlertData } from 'types/IAlertData';
 import { AlertType } from 'types/AlertType';
-import {PaymentService} from "../../service/payment-service";
 import {OrderService} from "../../service/order-service";
-import {IModel} from "../../domain/IModel";
 import {IOrder} from "../../domain/IOrder";
 import {IIsInService} from "../../domain/IIsInService";
 import {CarService} from "../../service/car-service";
-import {IsInServiceService} from "../../service/isInService-service";
 import {ServiceService} from "../../service/service-service";
 import {IService} from "../../domain/IService";
 import {ICar} from "../../domain/ICar";
-import {IPayment} from "../../domain/IPayment";
 
 @autoinject
-export class OrdersIndex {
+export class AdminIndex {
     private _alert: IAlertData | null = null;
-    private _payments: IPayment[] = [];
+    private _orders: IOrder[] = [];
     private _cars: ICar[] = [];
     private _isInServices: IIsInService[] = [];
-    private oldPayments: IPayment[] = [];
+    private oldOrders: IOrder[] = [];
     private _services: IService[] = [];
-    private newPayments: IPayment[] = [];
+    private newOrders: IOrder[] = [];
     private weekdays: any;
     private price = 0;
     private model = '';
     private mark = '';
 
-    constructor(private orderService: OrderService, private carService: CarService, private serviceService: ServiceService, private router: Router, private paymentService: PaymentService) {
+    constructor(private orderService: OrderService, private carService: CarService, private serviceService: ServiceService, private router: Router) {
         this.weekdays =new Array(7);
         this.weekdays[0]="Sunday";
         this.weekdays[1]="Monday";
@@ -40,41 +36,6 @@ export class OrdersIndex {
     }
 
     activate(params: any, routeConfig: RouteConfig, navigationInstruction: NavigationInstruction) {
-
-    }
-
-    attached() {
-        this.carService.getCars().then(
-            response => {
-                if (response.statusCode >= 200 && response.statusCode < 300) {
-                    this._alert = null;
-                    this._cars = response.data!;
-                } else {
-                    // show error message
-                    this._alert = {
-                        message: response.statusCode.toString() + ' - ' + response.errorMessage,
-                        type: AlertType.Danger,
-                        dismissable: true,
-                    }
-                }
-            }
-        )
-        this.paymentService.getPayments().then(
-            response => {
-                if (response.statusCode >= 200 && response.statusCode < 300) {
-                    this._alert = null;
-                    this._payments = response.data!;
-                    this.separateOldOrders();
-                } else {
-                    // show error message
-                    this._alert = {
-                        message: response.statusCode.toString() + ' - ' + response.errorMessage,
-                        type: AlertType.Danger,
-                        dismissable: true,
-                    }
-                }
-            }
-        )
         this.serviceService.getAll().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
@@ -90,11 +51,30 @@ export class OrdersIndex {
                 }
             }
         )
-        this.carService.getCars().then(
+    }
+
+    attached() {
+        this.orderService.getOrders().then(
+            response => {
+                if (response.statusCode >= 200 && response.statusCode < 300) {
+                    this._alert = null;
+                    this._orders = response.data!;
+                } else {
+                    // show error message
+                    this._alert = {
+                        message: response.statusCode.toString() + ' - ' + response.errorMessage,
+                        type: AlertType.Danger,
+                        dismissable: true,
+                    }
+                }
+            }
+        )
+        this.carService.getAdminCars().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;
                     this._cars = response.data!;
+                    this.separateOldOrders();
                 } else {
                     // show error message
                     this._alert = {
@@ -110,18 +90,19 @@ export class OrdersIndex {
     separateOldOrders(){
         let currentDate = new Date();
         currentDate.setDate(new Date().getDate());
-        for (let i = 0; i < this._payments.length; i++) {
-            let date = Date.parse(this._payments[i].from)
+        for (let i = 0; i < this._orders.length; i++) {
+            let date = Date.parse(this._orders[i].from)
             let newDate = new Date(date);
             if (newDate < currentDate) {
-                this._payments[i].from = this.stringToDate(this._payments[i].from);
-                this._payments[i].to = this.stringToDate(this._payments[i].to);
-                this.oldPayments.push(this._payments[i])
+                this._orders[i].from = this.stringToDate(this._orders[i].from);
+                this._orders[i].to = this.stringToDate(this._orders[i].to);
+                this.oldOrders.push(this._orders[i])
             }
             else{
-                this._payments[i].from = this.stringToDate(this._payments[i].from);
-                this._payments[i].to = this.stringToDate(this._payments[i].to);
-                this.newPayments.push(this._payments[i])
+                console.log(this._orders[i].from)
+                this._orders[i].from = this.stringToDate(this._orders[i].from);
+                this._orders[i].to = this.stringToDate(this._orders[i].to);
+                this.newOrders.push(this._orders[i])
             }
         }
     }
@@ -134,6 +115,7 @@ export class OrdersIndex {
 
         let options = {hour: "numeric", minute: "numeric"};
         let test = Intl.DateTimeFormat("en-GB", options).format(newDate);
+        console.log(test)
 
         let time =  test + '/' + this.weekdays[newDate.getDay()] + ' ' + newDate.getDate() + '/' + month + '/' + newDate.getFullYear()
         return time;
@@ -145,6 +127,7 @@ export class OrdersIndex {
     }
 
     getCar(carId: string){
+        console.log(carId)
         let car = this._cars.find(car => car.id == carId);
         if(car){
             return car.mark + ' ' + car.model

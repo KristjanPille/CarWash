@@ -49,12 +49,11 @@ export class IsInServicesIndex{
     }
 
     activate(params: any, routeConfig: RouteConfig, navigationInstruction: NavigationInstruction) {
-        this.campaignService.getCampaigns().then(
+        this.campaignService.getAll().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;
                     this._campaigns = response.data!;
-                    this.makeActiveServicesRed();
                 } else {
                     // show error message
                     this._alert = {
@@ -69,7 +68,7 @@ export class IsInServicesIndex{
 
     attached() {
         this.getDates();
-        this.serviceService.getServices().then(
+        this.serviceService.getAll().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;
@@ -131,6 +130,8 @@ export class IsInServicesIndex{
             let ID = 0;
             let fromDate = new Date(this._isInServices[i].from)
             let toDate = new Date(this._isInServices[i].to)
+            console.log(fromDate)
+            console.log(toDate)
             let difference = toDate.getTime() - fromDate.getTime();
             let resultInMinutes = Math.round(difference / 60000);
             if (fromDate.getDay() == this.SecondDay.getDay()) {
@@ -306,7 +307,7 @@ export class IsInServicesIndex{
                     date.setHours(hour, 0, 0, 0);
                     this._selectedDate = date;
                 }
-                if (this.canMakeReservation(date, hour, minute, clickedCell, clickedCellsID)) {
+
                     if (this._car) {
                         if (this._service){
                             if (confirm("Did you select correct date?")) {
@@ -325,13 +326,12 @@ export class IsInServicesIndex{
                     }else {
                         confirm("Please select car first")
                     }
-                }else {
-                    confirm("Overlaps with another service")
-                }
+
             }else {
                 confirm("Overlaps with another service")
             }
     }
+
 
 
     getServicePrice(id: string, serviceIndex: number){
@@ -342,6 +342,7 @@ export class IsInServicesIndex{
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
                         this._services[serviceIndex].priceOfService = response.data!;
+                        this._services[serviceIndex].priceOfService = Math.round((this._services[serviceIndex].priceOfService) * 100) / 100;
                     } else {
                         // show error message
                         this._alert = {
@@ -380,7 +381,6 @@ export class IsInServicesIndex{
                 let campaign = this._campaigns.find(c => c.id == service!.campaignId)
                 let campaignService = this._services.find(s => s.id == service!.id)
                 if (campaign) {
-                    console.log(campaign)
                     service.priceOfService = service.priceOfService * (1 - campaign!.discountAmount)
                 }
 

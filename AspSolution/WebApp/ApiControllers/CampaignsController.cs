@@ -143,7 +143,7 @@ namespace WebApp.ApiControllers
             await _bll.Campaigns.RemoveAsync(campaign);
             await _bll.SaveChangesAsync();
 
-            return Ok(campaign);
+            return StatusCode(204);
         }
     }
 }

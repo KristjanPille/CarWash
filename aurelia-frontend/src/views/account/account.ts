@@ -56,7 +56,7 @@ export class AccountEdit {
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
-                        this.router.navigateToRoute('home', {});
+                        this.router.navigateToRoute('account-index', {});
                     } else {
                         // show error message
                         this._alert = {

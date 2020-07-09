@@ -8,46 +8,17 @@ import { IServiceCreate } from 'domain/IServiceCreate';
 import {ICar} from "../domain/ICar";
 import {IsInServiceService} from "./isInService-service";
 import {IIsInService} from "../domain/IIsInService";
+import {IServiceWTHCampaign} from "../domain/IServiceWTHCampaign";
+import {BaseService} from "./base-service";
 
 @autoinject
-export class ServiceService {
-    constructor(private appState: AppState, private httpClient: HttpClient) {
+export class ServiceService  extends BaseService<IService> {
+    constructor(private appState: AppState, protected httpClient: HttpClient) {
+        super('Services', httpClient);
         this.httpClient.baseUrl = this.appState.baseUrl;
     }
 
     private readonly _baseUrl = 'Services';
-
-    async getServices(): Promise<IFetchResponse<IService[]>> {
-        try {
-            const response = await this.httpClient
-                .fetch(this._baseUrl, {
-                    cache: "no-store",
-                    headers: {
-                        authorization: "Bearer " + this.appState.jwt
-                    }
-                });
-            // happy case
-            if (response.status >= 200 && response.status < 300) {
-                const data = (await response.json()) as IService[];
-                return {
-                    statusCode: response.status,
-                    data: data
-                }
-            }
-
-            // something went wrong
-            return {
-                statusCode: response.status,
-                errorMessage: response.statusText
-            }
-
-        } catch (reason) {
-            return {
-                statusCode: 0,
-                errorMessage: JSON.stringify(reason)
-            }
-        }
-    }
 
     async getService(serviceId: string, priceOfService: number): Promise<IFetchResponse<IService>> {
         try {
@@ -61,6 +32,37 @@ export class ServiceService {
 
             if (response.status >= 200 && response.status < 300) {
                 const data = (await response.json()) as IService;
+                return {
+                    statusCode: response.status,
+                    data: data
+                }
+            }
+
+            return {
+                statusCode: response.status,
+                errorMessage: response.statusText
+            }
+
+        } catch (reason) {
+            return {
+                statusCode: 0,
+                errorMessage: JSON.stringify(reason)
+            }
+        }
+    }
+
+    async getAdminService(serviceId: string): Promise<IFetchResponse<IServiceEdit>> {
+        try {
+            const response = await this.httpClient
+                .fetch(this._baseUrl + '/' + serviceId, {
+                    cache: "no-store",
+                    headers: {
+                        authorization: "Bearer " + this.appState.jwt
+                    }
+                });
+
+            if (response.status >= 200 && response.status < 300) {
+                const data = (await response.json()) as IServiceEdit;
                 return {
                     statusCode: response.status,
                     data: data
@@ -111,6 +113,35 @@ export class ServiceService {
     }
 
     async updateService(Service: IServiceEdit): Promise<IFetchResponse<string>> {
+        try {
+            const response = await this.httpClient
+                .put(this._baseUrl + '/' + Service.id, JSON.stringify(Service), {
+                    cache: 'no-store',
+                    headers: {
+                        authorization: "Bearer " + this.appState.jwt
+                    }
+                });
+
+            if (response.status >= 200 && response.status < 300) {
+                return {
+                    statusCode: response.status
+                    // no data
+                }
+            }
+            return {
+                statusCode: response.status,
+                errorMessage: response.statusText
+            }
+        }
+        catch (reason) {
+            return {
+                statusCode: 0,
+                errorMessage: JSON.stringify(reason)
+            }
+        }
+    }
+
+    async updateServiceWTHCampaign(Service: IServiceWTHCampaign): Promise<IFetchResponse<string>> {
         try {
             const response = await this.httpClient
                 .put(this._baseUrl + '/' + Service.id, JSON.stringify(Service), {

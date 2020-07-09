@@ -4,7 +4,7 @@
     <require from="../../components/alert"></require>
 
     <alert alert-data.bind="_alert"></alert>
-    
+
     <h1>Create</h1>
     <h4>Campaign</h4>
     <hr />
@@ -12,8 +12,14 @@
         <div class="col-md-4">
             <form submit.trigger="onSubmit($event)">
                 <div class="form-group">
-                    <label class="control-label" for="NameOfCampaign">NameOfCampaign</label>
+                    <label class="control-label" for="NameOfCampaign">Name Of Campaign</label>
                     <input class="form-control" type="text" id="NameOfCampaign" maxlength="64" value.bind="_NameOfCampaign" />
+
+                    <label class="control-label" for="Description">Description</label>
+                    <input class="form-control" type="text" id="Description" value.bind="_Description" />
+
+                    <label class="control-label" for="DiscountAmount">Discount Amount</label>
+                    <input class="form-control" type="text" id="DiscountAmount" maxlength="64" value.bind="_DiscountAmount" />
                 </div>
 
                 <div class="form-group">
@@ -24,7 +30,7 @@
     </div>
 
     <div>
-        <a route-href="route: campaigns-index; params.bind: { }">Back to List</a>
+        <a route-href="route: Admin-Section; params.bind: { }">Back to Admin panel</a>
     </div>
     </body>
 </template>

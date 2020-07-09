@@ -19,6 +19,6 @@ namespace DAL.App.DTO
         
         [JsonIgnore]
         public Campaign? Campaign { get; set; }
-        public Guid CampaignId { get; set; }
+        public Guid? CampaignId { get; set; }
     }
 }

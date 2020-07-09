@@ -47,6 +47,37 @@ export class CarService {
         }
     }
 
+    async getAdminCars(): Promise<IFetchResponse<ICar[]>> {
+        try {
+            const response = await this.httpClient
+                .fetch(this._baseUrl + '/AdminCars', {
+                    cache: "no-store",
+                    headers: {
+                        authorization: "Bearer " + this.appState.jwt
+                    }
+                });
+            // happy case
+            if (response.status >= 200 && response.status < 300) {
+                const data = (await response.json()) as ICar[];
+                return {
+                    statusCode: response.status,
+                    data: data
+                }
+            }
+
+            // something went wrong
+            return {
+                statusCode: response.status,
+                errorMessage: response.statusText
+            }
+
+        } catch (reason) {
+            return {
+                statusCode: 0,
+                errorMessage: JSON.stringify(reason)
+            }
+        }
+    }
 
     async getCar(id: string): Promise<IFetchResponse<ICar>> {
         try {

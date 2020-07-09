@@ -34,7 +34,7 @@ export class CampaignsCreate {
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
-                        this.router.navigateToRoute('campaigns-index', {});
+                        this.router.navigateToRoute('Admin-Section', {});
                     } else {
                         // show error message
                         this._alert = {
@@ -43,7 +43,7 @@ export class CampaignsCreate {
                             dismissable: true,
                         }
                     }
-                }   
+                }
             );
 
         event.preventDefault();

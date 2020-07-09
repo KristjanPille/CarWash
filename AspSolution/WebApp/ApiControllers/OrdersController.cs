@@ -38,11 +38,12 @@ namespace WebApp.ApiControllers
         /// </summary>
         /// <returns>Array of Orders</returns>
         [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<V1DTO.Order>))]
         public async Task<ActionResult<IEnumerable<V1DTO.Order>>> GetOrders()
         {
-            return Ok((await _bll.Orders.GetAllAsync()).Select(e => _mapper.Map(e)).Where(e => e.AppUserId == User.UserId()));
+            return Ok((await _bll.Orders.GetAllAsync()).Select(e => _mapper.Map(e)));
         }
 
         /// <summary>

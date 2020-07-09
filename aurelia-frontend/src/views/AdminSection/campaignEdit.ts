@@ -6,21 +6,18 @@ import { IAlertData } from 'types/IAlertData';
 import { AlertType } from 'types/AlertType';
 
 @autoinject
-export class CampaignsDelete {
+export class CampaignsEdit {
     private _alert: IAlertData | null = null;
 
     private _campaign?: ICampaign;
 
     constructor(private campaignService: CampaignService, private router: Router) {
-
     }
 
     attached() {
-
     }
 
     activate(params: any, routeConfig: RouteConfig, navigationInstruction: NavigationInstruction) {
-        console.log(params);
         if (params.id && typeof (params.id) == 'string') {
             this.campaignService.getCampaign(params.id).then(
                 response => {
@@ -33,8 +30,7 @@ export class CampaignsDelete {
                             message: response.statusCode.toString() + ' - ' + response.errorMessage,
                             type: AlertType.Danger,
                             dismissable: true,
-                        };
-                        this._campaign = undefined;
+                        }
                     }
                 }
             );
@@ -43,12 +39,12 @@ export class CampaignsDelete {
 
     onSubmit(event: Event) {
         this.campaignService
-            .deleteCampaign(this._campaign!.id)
+            .updateCampaign(this._campaign!)
             .then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
-                        this.router.navigateToRoute('campaigns-index', {});
+                        this.router.navigateToRoute('Admin-Section', {});
                     } else {
                         // show error message
                         this._alert = {
@@ -59,6 +55,7 @@ export class CampaignsDelete {
                     }
                 }
             );
+
         event.preventDefault();
     }
 }

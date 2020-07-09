@@ -18,7 +18,6 @@ export class AccountService {
 
     async updateAccount(account: IAccount): Promise<IFetchResponse<string>> {
         try {
-            console.log(this._baseUrl + '/' + account.id)
             const response = await this.httpClient
                 .put(this._baseUrl + '/' + account.id, JSON.stringify(account), {
                     cache: 'no-store',

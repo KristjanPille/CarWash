@@ -18,6 +18,6 @@ namespace PublicApi.DTO.v1
         
         public int? Duration { get; set; }
         
-        public Guid CampaignId { get; set; }
+        public Guid? CampaignId { get; set; }
     }
 }

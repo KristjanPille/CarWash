@@ -18,6 +18,6 @@ namespace BLL.App.DTO
         
         public Campaign? Campaign { get; set; }
         
-        public Guid CampaignId { get; set; }
+        public Guid? CampaignId { get; set; }
     }
 }

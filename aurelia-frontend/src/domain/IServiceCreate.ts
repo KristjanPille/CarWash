@@ -1,7 +1,6 @@
 export interface IServiceCreate {
-    NameOfService: string
+    nameOfService: string
     description: string
-    PriceOfService: number
+    priceOfService: number
     duration: number
-    campaignId: string
 }

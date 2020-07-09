@@ -23,8 +23,12 @@ namespace BLL.App.Services
         
         public async Task<Service> ApplyDiscount(Service service, double priceOfService)
         {
-            var campaign = await UOW.Campaigns.FirstOrDefaultAsync(service.CampaignId);
-            
+            Campaign? campaign = null;
+            if (service.CampaignId != null)
+            {
+                campaign = await UOW.Campaigns.FirstOrDefaultAsync((Guid) service.CampaignId);
+            }
+
             if (campaign == null)
             {
                 return service;

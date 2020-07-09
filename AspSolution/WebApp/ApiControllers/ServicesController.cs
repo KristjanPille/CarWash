@@ -73,6 +73,30 @@ namespace WebApp.ApiControllers
         }
         
         /// <summary>
+        /// Get a single Service
+        /// </summary>
+        /// <param name="serviceId">Service Id</param>
+        /// <param name="priceOfService">price of service</param>
+        /// <returns>Service object</returns>
+        [HttpGet("{serviceId}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
+        [Produces("application/json")]
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(V1DTO.Service))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]
+        public async Task<ActionResult<Service>> GetAdminService(Guid serviceId)
+        {
+            var service = await _bll.Services.FirstOrDefaultAsync(serviceId);
+
+            if (service == null)
+            {
+                return NotFound(new V1DTO.MessageDTO($"Service with id {serviceId} not found"));
+            }
+
+            return Ok(_mapper.Map(service));
+        }
+        
+        /// <summary>
         /// Get prices of services according to car size
         /// </summary>
         /// <param name="car">car</param>
@@ -154,6 +178,7 @@ namespace WebApp.ApiControllers
         [HttpDelete("{id}")]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(V1DTO.Service))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]
         public async Task<ActionResult<Service>> DeleteService(Guid id)
         {
@@ -170,7 +195,7 @@ namespace WebApp.ApiControllers
             await _bll.Services.RemoveAsync(service, userIdTKey);
             await _bll.SaveChangesAsync();
 
-            return Ok(service);
+            return StatusCode(204);
         }
     }
 }

@@ -1,14 +1,11 @@
-import { autoinject } from 'aurelia-framework';
-import { RouteConfig, NavigationInstruction, Router } from 'aurelia-router';
-import { IAlertData } from 'types/IAlertData';
-import { AlertType } from 'types/AlertType';
+import {autoinject} from 'aurelia-framework';
+import {NavigationInstruction, RouteConfig, Router} from 'aurelia-router';
+import {IAlertData} from 'types/IAlertData';
+import {AlertType} from 'types/AlertType';
 import {PaymentService} from "../../service/payment-service";
 import {OrderService} from "../../service/order-service";
-import {IModel} from "../../domain/IModel";
-import {IOrder} from "../../domain/IOrder";
 import {IIsInService} from "../../domain/IIsInService";
 import {CarService} from "../../service/car-service";
-import {IsInServiceService} from "../../service/isInService-service";
 import {ServiceService} from "../../service/service-service";
 import {IService} from "../../domain/IService";
 import {ICar} from "../../domain/ICar";

@@ -62,8 +62,7 @@ namespace WebApp
 
             services.AddControllersWithViews();
             services.AddRazorPages();
-
-            // makes httpContext injectable - needed to resolve username in dal layer
+            
             services.AddHttpContextAccessor();
 
             services.AddCors(options =>

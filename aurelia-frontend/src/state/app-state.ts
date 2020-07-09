@@ -8,7 +8,7 @@ export class AppState {
 
     }
 
-    public readonly baseUrl = 'https://localhost:5001/api/v1.0/';
+    public readonly baseUrl = 'https://aspnetcarwash.azurewebsites.net/api/v1.0/';
 
     // JavaScript Object Notation Web Token 
     // to keep track of logged in status

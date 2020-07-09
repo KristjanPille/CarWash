@@ -2,10 +2,9 @@ import {Aurelia} from 'aurelia-framework';
 import * as environment from '../config/environment.json';
 import {PLATFORM} from 'aurelia-pal';
 
-import 'jquery'; 
-import 'popper.js'; 
-import 'bootstrap'; 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'jquery';
+import 'bootstrap';
+import 'popper.js';
 //import 'font-awesome/css/font-awesome.min.css';
 import '../static/site.css';
 

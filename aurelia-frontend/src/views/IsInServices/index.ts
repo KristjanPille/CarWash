@@ -11,6 +11,7 @@ import {IsInServiceService} from "../../service/isInService-service";
 import {ICampaign} from "../../domain/ICampaign";
 import {CampaignService} from "../../service/campaign-service";
 import {ICampaignDummy} from "../../domain/ICampaignDummy";
+import {AppState} from "../../state/app-state";
 
 @autoinject
 export class IsInServicesIndex{
@@ -37,7 +38,7 @@ export class IsInServicesIndex{
     private selectedServiceIndex = 0;
     private campaignDiscount: any;
 
-    constructor(private serviceService: ServiceService, private carService: CarService,  private campaignService: CampaignService, private isInServiceService: IsInServiceService, private router: Router){
+    constructor(private serviceService: ServiceService, private carService: CarService,  private campaignService: CampaignService, private isInServiceService: IsInServiceService, private router: Router,  private appState: AppState){
         this.weekdays =new Array(7);
         this.weekdays[0]="Sunday";
         this.weekdays[1]="Monday";
@@ -83,21 +84,23 @@ export class IsInServicesIndex{
                 }
             }
         )
-        this.carService.getCars().then(
-            response => {
-                if (response.statusCode >= 200 && response.statusCode < 300) {
-                    this._alert = null;
-                    this._cars = response.data!;
-                } else {
-                    // show error message
-                    this._alert = {
-                        message: response.statusCode.toString() + ' - ' + response.errorMessage,
-                        type: AlertType.Danger,
-                        dismissable: true,
+        if(this.appState.jwt != null) {
+            this.carService.getCars().then(
+                response => {
+                    if (response.statusCode >= 200 && response.statusCode < 300) {
+                        this._alert = null;
+                        this._cars = response.data!;
+                    } else {
+                        // show error message
+                        this._alert = {
+                            message: response.statusCode.toString() + ' - ' + response.errorMessage,
+                            type: AlertType.Danger,
+                            dismissable: true,
+                        }
                     }
                 }
-            }
-        )
+            )
+        }
         this.isInServiceService.getIsInServices().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {

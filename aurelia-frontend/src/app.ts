@@ -79,7 +79,7 @@ export class App {
     { route: ['Payments', 'Payments/index/:carId/:serviceId/:PaymentAmount'], name: 'payments-index', moduleId:
     PLATFORM.moduleName('views/Payments/index'), nav: false, title: 'Payments' },
 
-    { route: ['Orders', 'Orders/index'], name: 'Orders-Index', moduleId:
+    { route: ['Orders', 'Orders/index'], name: 'Orders-index', moduleId:
     PLATFORM.moduleName('views/Orders/index'), nav: false, title: 'Orders' },
 
     { route: ['Admin-Orders', 'Orders/AdminIndex'], name: 'Admin-Index', moduleId:

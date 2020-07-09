@@ -163,7 +163,7 @@ export class PaymentsIndex {
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
-                        this.router.navigateToRoute('Orders-Index', {});
+                        this.router.navigateToRoute('Orders-index', {});
                     } else {
                         // show error message
                         this._alert = {

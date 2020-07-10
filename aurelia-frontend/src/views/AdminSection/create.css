@@ -38,10 +38,10 @@
 }
 
 .orderContainer {
-    background-color: #f2f2f2;
+    background-color: #4267B2;
     padding: 5px 10px 15px 20px;
     border: 1px solid lightgrey;
-    border-radius: 3px;
+    border-radius: 25px;
 }
 
 input[type=text] {
@@ -64,7 +64,7 @@ label {
 }
 
 .btn {
-    background-color: dimgrey;
+    background-color: #23355b;
     color: white;
     padding: 12px;
     margin: 10px 0;
@@ -76,10 +76,10 @@ label {
 }
 
 .btn:hover {
-    background-color: #4CAF50;
+    background-color: darkred;
 }
 .btn:focus {
-    background-color: #4CAF50;
+    background-color: darkred;
 }
 
 hr {

@@ -4,11 +4,10 @@ import { AppState } from 'state/app-state';
 
 import {AccountService} from "./service/account-service";
 import {IAccount} from "./domain/IAccount";
-import {ICar} from "./domain/ICar";
-import {IFetchResponse} from "./types/IFetchResponse";
 import {AlertType} from "./types/AlertType";
 import {IAlertData} from "./types/IAlertData";
 import {AdminSection} from "./views/AdminSection";
+import '../static/site.css';
 
 @autoinject
 export class App {
@@ -24,10 +23,9 @@ export class App {
     activate(){
 
     }
-    attached() {
-
+    async attached() {
         if (this.appState.jwt != null){
-            this.accountService.getUser().then(
+            await this.accountService.getUser().then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;

@@ -27,7 +27,6 @@ export class CampaignsCreate {
     }
 
     onSubmit(event: Event) {
-        console.log(event);
         this.campaignService
             .createCampaign({ nameOfCampaign: this._NameOfCampaign, description: this._Description, discountAmount: this._DiscountAmount })
             .then(

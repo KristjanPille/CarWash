@@ -37,7 +37,6 @@ export class BaseService<TEntity> {
             // happy case
             if (response.ok) {
                 const data = (await response.json()) as TEntity[];
-                // console.log(data);
                 return {
                     statusCode: response.status,
                     data: data
@@ -68,7 +67,6 @@ export class BaseService<TEntity> {
             // happy case
             if (response.ok) {
                 const data = (await response.json()) as TEntity;
-                // console.log(data);
                 return {
                     statusCode: response.status,
                     data: data

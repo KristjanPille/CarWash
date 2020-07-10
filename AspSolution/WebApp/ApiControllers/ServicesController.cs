@@ -76,7 +76,6 @@ namespace WebApp.ApiControllers
         /// Get a single Service
         /// </summary>
         /// <param name="serviceId">Service Id</param>
-        /// <param name="priceOfService">price of service</param>
         /// <returns>Service object</returns>
         [HttpGet("{serviceId}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]

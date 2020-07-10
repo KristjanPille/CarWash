@@ -130,13 +130,11 @@ export class AccountRegister {
 
       this.accountService.register(this._email, this.password, this._firstname, this._lastname, this._phoneNr, this._mark, this._model)
       .then(response => {
-        console.log(response.token);
         if (response !== undefined) {
         this.appState.jwt = response.token;
 
             this.accountService.login(this._email, this.password).then(
                 response => {
-                    console.log(response);
                     if (response.statusCode == 200) {
                         this.appState.jwt = response.data!.token;
                         this.router!.navigateToRoute('Services');

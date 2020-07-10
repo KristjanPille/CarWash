@@ -14,8 +14,8 @@ export class CarsIndex{
 
     }
 
-    attached() {
-        this.carService.getCars().then(
+    async attached() {
+       await this.carService.getCars().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;

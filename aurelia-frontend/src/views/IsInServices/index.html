@@ -3,14 +3,18 @@
     <require from="./index.css"></require>
     <div id="parent">
     <div id="timeTable" class="table-responsive-sm">
-    <table id="services2" class="table table-bordered" style="float: left">
-        <caption></caption>
+    <table id="services2" class="table table-bordered" style="float: left;">
+        <div if.bind="appState.jwt == null" id="overlay">
+            <span>You must be logged in to book a service<br><a route-href="route: account-login; params.bind: {}">Click Here to Login</a></span><br>
+            <br>
+            <span><a route-href="route: account-register; params.bind: {}">Or click Here to Register</a></span>
+        </div>
         <thead>
         <tr>
             <th id="car" scope="col">
-                    <label>
+                    <label if.bind="appState.jwt != null">
                         Select Car:<br>
-                        <select id="selectCar" value.bind="selectedCar" change.delegate="bindCar(selectedCar)">
+                        <select style="border-radius: 15px" id="selectCar" value.bind="selectedCar" change.delegate="bindCar(selectedCar)">
                             <option model.bind="null">Choose...</option>
                             <option repeat.for="car of _cars"
                                     model.bind="car">
@@ -166,17 +170,18 @@
         </tr>
         </thead>
         <tbody>
-        <tr mouseover.delegate="domouseover(service)" mouseout.delegate="domouseout()" click.delegate="colorChanger(service.id, service.priceOfService)" repeat.for="service of _services" id="${service.id}" >
-            <td class="service">
+        <tr style="background-color:  #8b9dc3; font-weight: 500;" mouseover.delegate="domouseover(service)" mouseout.delegate="domouseout()" click.delegate="colorChanger(service.id, service.priceOfService)" repeat.for="service of _services" id="${service.id}" >
+            <td class="service" style="font-weight: 500;font-family: 'Allerta Stencil';font-size: 15px;">
                 ${service.nameOfService}
             </td>
-            <td class="service">
+            <td class="service" style="font-weight: 500;font-family: 'Allerta Stencil';font-size: 20px;">
                 ${service.priceOfService}€
-                <b> ${checkForCampaign(service.id)}
+                <b style="text-decoration: underline"> ${checkForCampaign(service.id)}
                 </b>
             </td>
             <td class="service">
-                ${service.duration}min
+                <b style="font-weight: 500;font-family: 'Allerta Stencil';font-size: 22px;">${service.duration}</b>
+                <b style="font-weight: 500;font-family: 'Allerta Stencil';font-size: 14px;">min</b>
             </td>
         </tr>
         </tbody>

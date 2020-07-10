@@ -19,8 +19,8 @@ export class AdminSection{
 
     }
 
-    attached() {
-        this.serviceService.getAll().then(
+    async attached() {
+        await this.serviceService.getAll().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;
@@ -35,7 +35,7 @@ export class AdminSection{
                 }
             }
         );
-        this.campaignService.getAll().then(
+        await this.campaignService.getAll().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;
@@ -54,9 +54,8 @@ export class AdminSection{
     }
 
 
-    deleteCampaign(campaignId: string){
-        console.log(campaignId)
-        this.campaignService
+    async deleteCampaign(campaignId: string){
+        await this.campaignService
             .deleteCampaign(campaignId)
             .then(
                 response => {
@@ -81,8 +80,8 @@ export class AdminSection{
                 }
             );
     }
-    deleteService(serviceId: string){
-        this.serviceService
+    async deleteService(serviceId: string){
+        await this.serviceService
             .deleteService(serviceId)
             .then(
                 response => {

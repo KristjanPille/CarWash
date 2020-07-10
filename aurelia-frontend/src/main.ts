@@ -5,6 +5,7 @@ import {PLATFORM} from 'aurelia-pal';
 import 'jquery';
 import 'bootstrap';
 import 'popper.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
 //import 'font-awesome/css/font-awesome.min.css';
 import '../static/site.css';
 

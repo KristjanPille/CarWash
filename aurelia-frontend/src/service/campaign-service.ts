@@ -26,7 +26,6 @@ export class CampaignService extends BaseService<ICampaign> {
             // happy case
             if (response.ok) {
                 const data = (await response.json()) as ICampaign[];
-                // console.log(data);
                 return {
                     statusCode: response.status,
                     data: data

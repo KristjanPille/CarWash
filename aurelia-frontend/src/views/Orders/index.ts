@@ -40,8 +40,8 @@ export class OrdersIndex {
 
     }
 
-    attached() {
-        this.carService.getCars().then(
+    async attached() {
+        await this.carService.getCars().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;
@@ -56,7 +56,7 @@ export class OrdersIndex {
                 }
             }
         )
-        this.paymentService.getPayments().then(
+        await this.paymentService.getPayments().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;
@@ -72,7 +72,7 @@ export class OrdersIndex {
                 }
             }
         )
-        this.serviceService.getAll().then(
+        await this.serviceService.getAll().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;
@@ -87,7 +87,7 @@ export class OrdersIndex {
                 }
             }
         )
-        this.carService.getCars().then(
+        await this.carService.getCars().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;

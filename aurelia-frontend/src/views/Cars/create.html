@@ -1,6 +1,6 @@
 <template>
     <body>
-    <require from="../../nissan.css"></require>
+
     <require from="../../components/alert"></require>
     <alert alert-data.bind="_alert"></alert>
 
@@ -13,9 +13,9 @@
                 <form submit.trigger="onSubmit($event)">
                     <div class="row">
                         <div class="col-50">
-                            <h3>New Car</h3>
+                            <h3 style="text-decoration: underline">New Car</h3>
                             Select Mark:<br>
-                            <select class="custom-select" value.bind="selectedMark" change.delegate="getModels(selectedMark.mark)">
+                            <select style="border-radius: 15px" class="custom-select" value.bind="selectedMark" change.delegate="getModels(selectedMark.mark)">
                                 <option model.bind="null">Choose...</option>
                                 <option repeat.for="mark of _marks"
                                         model.bind="mark">
@@ -24,7 +24,7 @@
                             </select>
 
                             Select Model:<br>
-                            <select class="custom-select" value.bind="selectedModel" change.delegate="createModel(selectedModel.model)">
+                            <select style="border-radius: 15px" class="custom-select" value.bind="selectedModel" change.delegate="createModel(selectedModel.model)">
                                 <option model.bind="null">Choose...</option>
                                 <option repeat.for="model of _models"
                                         model.bind="model">
@@ -34,16 +34,16 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Create" class="btn" />
+                        <input style="background-color: #23355b; color: white" type="submit" value="Create" class="btn" />
+                    </div>
+                    <div>
+                        <a route-href="route: Cars-index; params.bind: { }" style="color: white">Back to List</a>
                     </div>
                 </form>
             </div>
         </div>
     </div>
     </body>
-    </div>
-    <div>
-        <a route-href="route: Cars-index; params.bind: { }">Back to List</a>
     </div>
     </body>
 </template>

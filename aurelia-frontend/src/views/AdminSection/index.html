@@ -1,15 +1,14 @@
 <template>
     <body>
-    <require from="../../nissan.css"></require>
     <require from="./create.css"></require>
 
     <div class="create">
         <div class="row">
             <div class="col-75">
                 <div class="orderContainer">
-                    <h2>Admin</h2>
-                    <table id="adminService" class="table table-hover table-bordered" style="text-align:center;">
-                        <a style="color: black;float: right;font-size: larger;font-weight: bold;" route-href="route: service-create; params.bind: {}">Click here to add new Service</a>
+                    <h2>Admin Panel</h2>
+                    <table id="adminService" class="table table-hover table-bordered" style="text-align:center;font-weight: 600">
+                        <a style="color: white;float: right;font-size: larger;font-weight: bold;" route-href="route: service-create; params.bind: {}">Click here to add new Service</a>
                         <thead>
                         <tr class="adminServices">
                             <th style="width: 90px">
@@ -31,7 +30,7 @@
                         <tbody>
                         <tr repeat.for="service of _services" >
                             <td class="service">
-                                <a route-href="route: service-edit; params.bind: { id: service.id }">${service.nameOfService}</a>
+                                <a style="color: white" route-href="route: service-edit; params.bind: { id: service.id }">${service.nameOfService}</a>
                             </td>
                             <td class="service">
                                 ${service.priceOfService}€
@@ -43,7 +42,7 @@
                                 ${service.description}
                             </td>
                             <td>
-                                <input class="btn btn-danger" type="button" click.delegate="deleteService(service.id)" value="Delete" />
+                                <input style="font-weight: 600" class="btn btn-danger" type="button" click.delegate="deleteService(service.id)" value="Delete" />
                             </td>
                         </tr>
                         </a>
@@ -51,9 +50,9 @@
                     </table>
                 </div>
                 <div class="orderContainer">
-                    <h2>Admin</h2>
+                    <h2>Admin Panel</h2>
                     <table id="campaigns" class="table table-hover table-bordered" style="text-align:center;">
-                        <a style="color: black;float: right;font-size: larger;font-weight: bold;" route-href="route: campaign-create; params.bind: {}">Click here to add new Campaign</a>
+                        <a style="color: white;float: right;font-size: larger;font-weight: bold;" route-href="route: campaign-create; params.bind: {}">Click here to add new Campaign</a>
                         <thead>
                         <tr class="adminServices">
                             <th style="width: 90px">
@@ -73,7 +72,7 @@
                         <tbody>
                         <tr repeat.for="campaign of _campaigns" >
                             <td class="campaign">
-                                <a route-href="route: campaign-edit; params.bind: { id: campaign.id }">${campaign.nameOfCampaign}</a>
+                                <a style="color: white" route-href="route: campaign-edit; params.bind: { id: campaign.id }">${campaign.nameOfCampaign}</a>
                             </td>
                             <td class="campaign">
                                 ${campaign.description}
@@ -82,7 +81,7 @@
                                 ${campaign.discountAmount}
                             </td>
                             <td>
-                                <input class="btn btn-danger" type="button" click.delegate="deleteCampaign(campaign.id)" value="Delete" />
+                                <input style="font-weight: 600" class="btn btn-danger" type="button" click.delegate="deleteCampaign(campaign.id)" value="Delete" />
                             </td>
                         </tr>
                         </a>

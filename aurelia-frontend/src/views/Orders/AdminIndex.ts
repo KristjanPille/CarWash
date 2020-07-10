@@ -36,7 +36,11 @@ export class AdminIndex {
     }
 
     activate(params: any, routeConfig: RouteConfig, navigationInstruction: NavigationInstruction) {
-        this.serviceService.getAll().then(
+
+    }
+
+    async attached() {
+        await this.serviceService.getAll().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;
@@ -51,10 +55,7 @@ export class AdminIndex {
                 }
             }
         )
-    }
-
-    attached() {
-        this.orderService.getOrders().then(
+        await this.orderService.getOrders().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;
@@ -69,7 +70,7 @@ export class AdminIndex {
                 }
             }
         )
-        this.carService.getAdminCars().then(
+        await this.carService.getAdminCars().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;
@@ -99,7 +100,6 @@ export class AdminIndex {
                 this.oldOrders.push(this._orders[i])
             }
             else{
-                console.log(this._orders[i].from)
                 this._orders[i].from = this.stringToDate(this._orders[i].from);
                 this._orders[i].to = this.stringToDate(this._orders[i].to);
                 this.newOrders.push(this._orders[i])
@@ -115,7 +115,6 @@ export class AdminIndex {
 
         let options = {hour: "numeric", minute: "numeric"};
         let test = Intl.DateTimeFormat("en-GB", options).format(newDate);
-        console.log(test)
 
         let time =  test + '/' + this.weekdays[newDate.getDay()] + ' ' + newDate.getDate() + '/' + month + '/' + newDate.getFullYear()
         return time;
@@ -127,7 +126,6 @@ export class AdminIndex {
     }
 
     getCar(carId: string){
-        console.log(carId)
         let car = this._cars.find(car => car.id == carId);
         if(car){
             return car.mark + ' ' + car.model

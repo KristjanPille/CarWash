@@ -1,28 +1,28 @@
 <template>
     <body>
-    <require from="../../nissan.css"></require>
+
     <require from="./create.css"></require>
 
     <div class="create">
         <div class="row">
             <div class="col-75">
                 <div class="orderContainer">
-                    <h2>Login</h2>
+                    <h2 style="font-weight: 600;">Login</h2>
                     <section>
                         <form id="account" method="post" submit.trigger="onSubmit($event)">
                             <h4 if.bind="_errorMessage != null" style="color:red;">${_errorMessage}</h4>
                             <hr />
                             <div class="form-group">
-                                <label for="Input_Email">Email</label>
+                                <label style="font-weight: 600;"  for="_email">Email</label>
                                 <input class="form-control" type="email" value.bind="_email" />
                             </div>
                             <div class="form-group">
-                                <label for="Input_Password">Password</label>
+                                <label style="font-weight: 600;" for="Input_Password">Password</label>
                                 <input class="form-control" type="password" value.bind="_password" />
                             </div>
 
                             <div class="form-group">
-                                <button id="submitbtn" type="submit" class="btn btn-primary">Log in</button>
+                                <button style="font-weight: 600;" id="submitbtn" type="submit" class="btn btn-primary">Log in</button>
                             </div>
                             <div class="form-group">
                                 <p>

@@ -10,7 +10,6 @@ import {NavigationInstruction, RouteConfig, Router} from "aurelia-router";
 import {IsInServiceService} from "../../service/isInService-service";
 import {ICampaign} from "../../domain/ICampaign";
 import {CampaignService} from "../../service/campaign-service";
-import {ICampaignDummy} from "../../domain/ICampaignDummy";
 import {AppState} from "../../state/app-state";
 
 @autoinject
@@ -50,7 +49,11 @@ export class IsInServicesIndex{
     }
 
     activate(params: any, routeConfig: RouteConfig, navigationInstruction: NavigationInstruction) {
-        this.campaignService.getAll().then(
+
+    }
+
+    async attached() {
+        await this.campaignService.getAll().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;
@@ -65,11 +68,9 @@ export class IsInServicesIndex{
                 }
             }
         )
-    }
 
-    attached() {
         this.getDates();
-        this.serviceService.getAll().then(
+        await this.serviceService.getAll().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;
@@ -85,7 +86,7 @@ export class IsInServicesIndex{
             }
         )
         if(this.appState.jwt != null) {
-            this.carService.getCars().then(
+            await this.carService.getCars().then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
@@ -101,7 +102,8 @@ export class IsInServicesIndex{
                 }
             )
         }
-        this.isInServiceService.getIsInServices().then(
+        if(this.appState.jwt != null){
+        await this.isInServiceService.getIsInServices().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;
@@ -117,6 +119,7 @@ export class IsInServicesIndex{
                 }
             }
         )
+        }
     }
 
     bindCar(car: ICar){
@@ -133,8 +136,6 @@ export class IsInServicesIndex{
             let ID = 0;
             let fromDate = new Date(this._isInServices[i].from)
             let toDate = new Date(this._isInServices[i].to)
-            console.log(fromDate)
-            console.log(toDate)
             let difference = toDate.getTime() - fromDate.getTime();
             let resultInMinutes = Math.round(difference / 60000);
             if (fromDate.getDay() == this.SecondDay.getDay()) {
@@ -207,8 +208,6 @@ export class IsInServicesIndex{
 
     }
 
-
-
     getDates(){
         this.FirstDay = new Date();
         this.SecondDay = new Date();
@@ -241,7 +240,6 @@ export class IsInServicesIndex{
             }
         }
     }
-
 
 
     canMakeReservation(date: Date, hour: number, minute: number, clickedCell: number, clickedCellsID: number[]){
@@ -293,46 +291,50 @@ export class IsInServicesIndex{
     }
 
     getServiceTime(date: Date, hour: number, minute: number, clickedCell: number){
-        let clickedCellsID = [];
-        for (let i = 0; i < 73; i++) {
-            // @ts-ignore
-            if(document.getElementById(i.toString()).style.backgroundColor == 'orangered'){
-                clickedCellsID.push(i)
-            }
-        }
-            if(!clickedCellsID.includes(clickedCell)){
-                this.clickedCell = clickedCell;
-                if(minute != 0){
-                    date.setHours(hour, minute,0,0 );
-                    this._selectedDate = date;
+        if(this.appState.jwt != null) {
+            let clickedCellsID = [];
+            for (let i = 0; i < 73; i++) {
+                // @ts-ignore
+                if (document.getElementById(i.toString()).style.backgroundColor == 'orangered') {
+                    clickedCellsID.push(i)
                 }
-                else {
+            }
+            if (!clickedCellsID.includes(clickedCell)) {
+                this.clickedCell = clickedCell;
+                if (minute != 0) {
+                    date.setHours(hour, minute, 0, 0);
+                    this._selectedDate = date;
+                } else {
                     date.setHours(hour, 0, 0, 0);
                     this._selectedDate = date;
                 }
 
-                    if (this._car) {
-                        if (this._service){
-                            if (confirm("Did you select correct date?")) {
-                                if (this._service) {
-                                    // @ts-ignore
-                                    document.getElementById(this.clickedCell).style.backgroundColor = 'orangered';
-                                    // @ts-ignore
-                                    document.getElementById(this.clickedCell).style.opacity = 0.6;
+                if (this._car) {
+                    if (this.canMakeReservation(date, hour, minute, clickedCell, clickedCellsID)) {
+                        if (confirm("Did you select correct date?")) {
+                            if (this._service) {
+                                // @ts-ignore
+                                document.getElementById(this.clickedCell).style.backgroundColor = 'orangered';
+                                // @ts-ignore
+                                document.getElementById(this.clickedCell).style.opacity = 0.6;
 
-                                    this.createIsInService();
-                                }
+                                this.createIsInService();
                             }
-                        }else {
-                            confirm("Please select service first")
                         }
-                    }else {
-                        confirm("Please select car first")
+                    } else {
+                        confirm("Select Service first")
                     }
+                } else {
+                    confirm("Please select car first")
+                }
 
-            }else {
+            } else {
                 confirm("Overlaps with another service")
             }
+        }
+        else {
+
+        }
     }
 
 
@@ -398,34 +400,35 @@ export class IsInServicesIndex{
 
 
     colorChanger(id: string, priceOfService: number){
-        if(this._car){
-            //Selects current service also
-            for (let i = 0; i < this._services.length; i++) {
+        if(this.appState.jwt != null) {
+            if (this._car) {
+                //Selects current service also
+                for (let i = 0; i < this._services.length; i++) {
+                    // @ts-ignore
+                    document.getElementById(this._services[i].id).style.backgroundColor = '#99aab5';
+                }
                 // @ts-ignore
-                document.getElementById(this._services[i].id).style.backgroundColor = 'orange';
-            }
-            // @ts-ignore
-            document.getElementById(id).style.backgroundColor = 'red';
-            // @ts-ignore
-            document.getElementById(id).style.transition = 'all 1s';
-            this.serviceService.getService(id, priceOfService).then(
-                response => {
-                    if (response.statusCode >= 200 && response.statusCode < 300) {
-                        this._alert = null;
-                        this._service = response.data!;
-                    } else {
-                        // show error message
-                        this._alert = {
-                            message: response.statusCode.toString() + ' - ' + response.errorMessage,
-                            type: AlertType.Danger,
-                            dismissable: true,
+                document.getElementById(id).style.backgroundColor = 'red';
+                // @ts-ignore
+                document.getElementById(id).style.transition = 'all 1s';
+                this.serviceService.getService(id, priceOfService).then(
+                    response => {
+                        if (response.statusCode >= 200 && response.statusCode < 300) {
+                            this._alert = null;
+                            this._service = response.data!;
+                        } else {
+                            // show error message
+                            this._alert = {
+                                message: response.statusCode.toString() + ' - ' + response.errorMessage,
+                                type: AlertType.Danger,
+                                dismissable: true,
+                            }
                         }
                     }
-                }
-            )
-        }
-        else{
-            confirm("Please Select Car First")
+                )
+            } else {
+                confirm("Please Select Car First")
+            }
         }
     }
 

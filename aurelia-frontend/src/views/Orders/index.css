@@ -40,9 +40,9 @@ body.index {
 .old {
     padding: 5px 10px 15px 20px;
     border: 1px solid lightgrey;
-    border-radius: 3px;
     background-color: dimgrey;
     opacity: 0.9;
+    border-radius: 25px;
 }
 
 .active {
@@ -50,9 +50,11 @@ body.index {
     margin-bottom: 30px;
     bottom: 20px;
     border: 1px solid lightgrey;
-    border-radius: 3px;
-    background-color: lightgreen;
-    opacity: 0.9;
+    background-color: #4267B2;
+    border-radius: 25px;
+}
+.order{
+    color: white;
 }
 
 label {

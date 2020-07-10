@@ -16,12 +16,10 @@ export class AccountLogin {
     }
 
     onSubmit(event: Event) {
-        console.log(this._email, this._password);
         event.preventDefault();
 
         this.accountService.login(this._email, this._password).then(
             response => {
-                console.log(response);
                 if (response.statusCode == 200) {
                     this.appState.jwt = response.data!.token;
                     this.router!.navigateToRoute('Services');

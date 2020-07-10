@@ -36,9 +36,8 @@ export class PaymentsIndex {
 
     }
 
-    attached() {
-
-        this.paymentService.getPaymentMethods().then(
+    async attached() {
+        await this.paymentService.getPaymentMethods().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;
@@ -54,7 +53,7 @@ export class PaymentsIndex {
             }
         )
 
-        this.campaignService.getAll().then(
+        await this.campaignService.getAll().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;
@@ -81,11 +80,9 @@ export class PaymentsIndex {
 
     checkForCampaign(){
         if(this.service != null){
-            console.log(this.service)
             if(this.service.campaignId != '00000000-0000-0000-0000-000000000000'){
                 let campaign = this._campaigns.find(c => c.id == this.service!.campaignId)
                 if (campaign) {
-                    console.log(campaign)
                     this.service.priceOfService = this.service.priceOfService * (1 - campaign.discountAmount)
                 }
 
@@ -131,19 +128,6 @@ export class PaymentsIndex {
                 }
             );
 
-        console.log(this.PaymentMethod!.id)
-        console.log(this.car!.id)
-        console.log(this.service!.id)
-        console.log(this.service!.priceOfService)
-        console.log(timeOfPayment.toISOString())
-        console.log(this.payPalEmail)
-        console.log(this.cardNumber)
-        console.log(this.expMonth)
-        console.log(this.expYear)
-        console.log(this.cvv)
-        console.log(this.isInService!.from)
-        console.log(this.isInService!.to)
-
         this.Payment = this.service!.priceOfService
 
         this.test = { PaymentAmount: this.Payment,
@@ -152,7 +136,6 @@ export class PaymentsIndex {
             PayPalEmail: this.payPalEmail, CreditCardNumber: this.cardNumber, ExpMonth: this.expMonth, ExpYear: this.expYear,
             CVV: this.cvv, from: this.isInService!.from, to: this.isInService!.to
         }
-        console.log(this.test)
 
         this.paymentService
             .createPayment({ PaymentMethodId: this.PaymentMethod!.id, CarId: this.car!.id,

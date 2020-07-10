@@ -15,8 +15,8 @@ export class CampaignsIndex{
 
     }
 
-    attached() {
-        this.campaignService.getAll().then(
+    async attached() {
+        await this.campaignService.getAll().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;

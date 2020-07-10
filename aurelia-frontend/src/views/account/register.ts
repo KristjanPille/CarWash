@@ -15,8 +15,6 @@ export class AccountRegister {
     private _alert: IAlertData | null = null;
     private _marks: IMark[] = [];
     private _models: IModel[] = [];
-    _Mark = "";
-    _Model = "";
     private _email: string = "";
     private password: string = "";
     private _firstname: string = "";
@@ -26,6 +24,14 @@ export class AccountRegister {
     private _mark: string = "";
     private confirmPassword: string = "";
     private _errorMessage: string | null = null;
+    private emailError = "";
+    private firstNameError = "";
+    private lastNameError = "";
+    private phoneNrError = "";
+    private markError = "";
+    private modelError = "";
+    private passwordError = "";
+    private passwordConfirmError = "";
 
 
     constructor(
@@ -56,7 +62,6 @@ export class AccountRegister {
     }
 
     getModels(mark: string){
-        this._Mark = mark;
         this._mark = mark;
         this.modelMarkService.getModels(mark).then(
             response => {
@@ -76,72 +81,88 @@ export class AccountRegister {
     }
 
     createModel(model: string){
-        this._Model = model;
         this._model = model;
     }
     
     submit(): void {
-        if(this.password==null){
-            alert('Please enter the password');
+        if(this._email == ""){
+            this.emailError = "Please enter email";
+            // @ts-ignore
+            document.getElementById('popupEmail').style.display = 'block';
             return
         }
-        if(this._firstname==null){
-            alert('Please enter firstname');
+        if(this._firstname == ""){
+            this.firstNameError = "Please enter first name";
+            // @ts-ignore
+            document.getElementById('popupFirstName').style.display = 'block';
             return
         }
-        if(this._lastname==null){
-            alert('Please enter last name');
+        if(this._lastname == ""){
+            this.lastNameError = "Please enter last name";
+            // @ts-ignore
+            document.getElementById('popupLastName').style.display = 'block';
+
             return
         }
-        if(this._phoneNr==null){
-            alert('Please enter phone number');
+        if(this._phoneNr==""){
+            this.phoneNrError = "Please enter phone number";
+            // @ts-ignore
+            document.getElementById('popupPhoneNr').style.display = 'block';
+
             return
         }
-        if(this._model==null){
-            alert('Please select model');
+        if(this._mark==""){
+            this.markError = "Please select mark";
+            // @ts-ignore
+            document.getElementById('popupMark').style.display = 'block';
+
             return
         }
-        if(this._mark==null){
-            alert('Please select mark');
+        if(this._model==""){
+            this.modelError = "Please select model";
+            // @ts-ignore
+            document.getElementById('popupModel').style.display = 'block';
+
             return
         }
-        if(this.confirmPassword==null){
-            alert('please confirm your password');
-            return
-        }
-        if(this._email == null){
-            alert('you forgot to enter your email');
+        if(this.confirmPassword==""){
+            this.passwordConfirmError = "Please confirm your password";
+            // @ts-ignore
+            document.getElementById('popupPasswordConfirm').style.display = 'block';
+
             return
         }
         if( this.password != this.confirmPassword){
-            alert('passwords do not match');
+            this.passwordError = "Passwords do not match";
+            // @ts-ignore
+            document.getElementById('popupPassword').style.display = 'block';
+
+            this.passwordConfirmError = "Passwords do not match";
+            // @ts-ignore
+            document.getElementById('popupPassword').style.display = 'block';
             return
         }
-        if(this.password.length < 4){
-            alert(this.confirmPassword)
-            alert('password must be 4 or more characters long');
-            return
-        }
-        if(this._email.length == 0){
-            alert('you forgot to enter your email');
+        if(this.password == ""){
+            this.passwordError = "Please enter password";
+            // @ts-ignore
+            document.getElementById('popupPassword').style.display = 'block';
+
             return
         }
 
 
       this.accountService.register(this._email, this.password, this._firstname, this._lastname, this._phoneNr, this._mark, this._model)
       .then(response => {
-        if (response !== undefined) {
+        if (response !== undefined && response.status >= 200 && response.status < 300) {
         this.appState.jwt = response.token;
-
             this.accountService.login(this._email, this.password).then(
                 response => {
                     if (response.statusCode == 200) {
+                        console.log("asdeasdas")
                         this.appState.jwt = response.data!.token;
                         this.router!.navigateToRoute('Services');
                     } else {
-                        this._errorMessage = response.statusCode.toString()
-                            + ' '
-                            + response.errorMessage!
+                        this._errorMessage = response.statusCode.toString() + ' ' + response.errorMessage!
                     }
                 }
             );

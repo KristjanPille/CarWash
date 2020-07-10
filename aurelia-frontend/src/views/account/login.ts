@@ -10,12 +10,29 @@ export class AccountLogin {
     private _email: string = "";
     private _password: string = "";
     private _errorMessage: string | null = null;
+    private emailError = "";
+    private passwordError = "";
 
     constructor(private accountService: AccountService, private appState: AppState, private router: Router) {
 
     }
 
     onSubmit(event: Event) {
+        if(this._email == ""){
+            this.emailError = "Please enter email";
+            // @ts-ignore
+            document.getElementById('popupEmail').style.display = 'block';
+            return
+        }
+        if(this._password == ""){
+            this.passwordError = "Please enter password";
+            // @ts-ignore
+            document.getElementById('popupPassword').style.display = 'block';
+
+            return
+        }
+
+
         event.preventDefault();
 
         this.accountService.login(this._email, this._password).then(

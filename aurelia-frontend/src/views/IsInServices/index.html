@@ -1,14 +1,10 @@
 <template>
     <body>
     <require from="./index.css"></require>
-    <div id="parent">
+    <div id="parent" class="table-responsive">
     <div id="timeTable" class="table-responsive-sm">
     <table id="services2" class="table table-bordered" style="float: left;">
-        <div if.bind="appState.jwt == null" id="overlay">
-            <span>You must be logged in to book a service<br><a route-href="route: account-login; params.bind: {}">Click Here to Login</a></span><br>
-            <br>
-            <span><a route-href="route: account-register; params.bind: {}">Or click Here to Register</a></span>
-        </div>
+
         <thead>
         <tr>
             <th id="car" scope="col">
@@ -155,38 +151,54 @@
     </table>
     </div>
 
-    <table id="services" class="table table-hover table-bordered" style="text-align:center;">
+    <table id="services" class="table table-hover table-bordered" style="text-align:center;float: left;">
         <thead>
         <tr class="services">
-            <th style="width: 90px">
+            <th >
                 Name
             </th>
-            <th style="width: 90px">
+            <th >
                 Price
             </th>
-            <th style="width: 90px">
+            <th >
                 Duration
+            </th>
+            <th>
+                Information
             </th>
         </tr>
         </thead>
         <tbody>
-        <tr style="background-color:  #8b9dc3; font-weight: 500;" mouseover.delegate="domouseover(service)" mouseout.delegate="domouseout()" click.delegate="colorChanger(service.id, service.priceOfService)" repeat.for="service of _services" id="${service.id}" >
-            <td class="service" style="font-weight: 500;font-family: 'Allerta Stencil';font-size: 15px;">
+        <tr style="background-color:  #8b9dc3; font-weight: 500;" repeat.for="service of _services" id="${service.id}" >
+            <td class="service" click.delegate="colorChanger(service.id, service.priceOfService)" style="font-weight: 500;font-family: 'Allerta Stencil';">
                 ${service.nameOfService}
             </td>
-            <td class="service" style="font-weight: 500;font-family: 'Allerta Stencil';font-size: 20px;">
+            <td class="service" click.delegate="colorChanger(service.id, service.priceOfService)" style="font-weight: 500;font-family: 'Allerta Stencil';">
                 ${service.priceOfService}€
                 <b style="text-decoration: underline"> ${checkForCampaign(service.id)}
                 </b>
             </td>
-            <td class="service">
-                <b style="font-weight: 500;font-family: 'Allerta Stencil';font-size: 22px;">${service.duration}</b>
-                <b style="font-weight: 500;font-family: 'Allerta Stencil';font-size: 14px;">min</b>
+            <td class="service" click.delegate="colorChanger(service.id, service.priceOfService)">
+                <b style="font-weight: 500;font-family: 'Allerta Stencil';">${service.duration}</b>
+                <b style="font-weight: 500;font-family: 'Allerta Stencil';">min</b>
+            </td>
+            <td class="service"  click.delegate="showInfo(service)">
+                Click here for more info
             </td>
         </tr>
         </tbody>
     </table>
-        <div id="popup" style="display: none">${test}</div>
+    </div>
+
+    <div id="overlayService" click.delegate="hideInfo()">
+        <div class="isInServiceContainer">${test}<br><span style="color: darkred;">Click anywhere to close</span></div>
+
+    </div>
+
+    <div if.bind="appState.jwt == null" id="overlay">
+        <span>You must be logged in to book a service<br><a route-href="route: account-login; params.bind: {}">Click Here to Login</a></span><br>
+        <br>
+        <span><a route-href="route: account-register; params.bind: {}">Or click Here to Register</a></span>
     </div>
     </body>
 </template>

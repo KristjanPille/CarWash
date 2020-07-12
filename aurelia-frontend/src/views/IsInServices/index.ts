@@ -53,6 +53,8 @@ export class IsInServicesIndex{
     }
 
     async attached() {
+        // @ts-ignore
+        document.getElementById('overlayService').style.display = 'none';
         await this.campaignService.getAll().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
@@ -432,18 +434,13 @@ export class IsInServicesIndex{
         }
     }
 
-    domouseover(service: IService) {
+    showInfo(service: IService) {
         this.test = service.description;
         // @ts-ignore
-        document.getElementById('popup').style.display = 'block';
+        document.getElementById('overlayService').style.display = 'block';
     }
-
-    domouseout() {
+    hideInfo() {
         // @ts-ignore
-        document.getElementById('popup').style.display = 'none';
-    }
-
-    modalCaller(){
-
+        document.getElementById('overlayService').style.display = 'none';
     }
 }

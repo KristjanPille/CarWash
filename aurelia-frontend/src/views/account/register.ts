@@ -104,8 +104,8 @@ export class AccountRegister {
 
             return
         }
-        if(this._phoneNr==""){
-            this.phoneNrError = "Please enter phone number";
+        if(this._phoneNr=="" || this._phoneNr.length > 20){
+            this.phoneNrError = "Please enter valid phone number";
             // @ts-ignore
             document.getElementById('popupPhoneNr').style.display = 'block';
 
@@ -158,7 +158,6 @@ export class AccountRegister {
             this.accountService.login(this._email, this.password).then(
                 response => {
                     if (response.statusCode == 200) {
-                        console.log("asdeasdas")
                         this.appState.jwt = response.data!.token;
                         this.router!.navigateToRoute('Services');
                     } else {

@@ -22,3 +22,6 @@ nav{
 .carWash {
   margin-left: 100px;
 }
+.navbar-toggler{
+    background-color:white;
+}

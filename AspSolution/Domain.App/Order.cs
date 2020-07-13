@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Domain.App.Identity;
 using ee.itcollege.carwash.kristjan.Domain.Base;
@@ -18,7 +19,10 @@ namespace Domain.App
         [JsonIgnore]
         public Car? Car { get; set; }
         
+        [DataType(DataType.DateTime)]
         public DateTime From { get; set; }
+        
+        [DataType(DataType.DateTime)]
         public DateTime To { get; set; }
     }
 }

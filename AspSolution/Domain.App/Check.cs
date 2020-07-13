@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Domain.App.Identity;
 using ee.itcollege.carwash.kristjan.Domain.Base;
@@ -15,6 +16,7 @@ namespace Domain.App
         [JsonIgnore]
         public Car? Car { get; set; }
         
+        [DataType(DataType.DateTime)]
         public DateTime DateTimeCheck { get; set; }
         
         public double PaymentAmount { get; set; }

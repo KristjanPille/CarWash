@@ -6,29 +6,98 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Update="Domain\Person.Designer.cs">
+    <Compile Update="BLL.App.DTO\Campaign.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Person.resx</DependentUpon>
+      <DependentUpon>Campaign.resx</DependentUpon>
+    </Compile>
+    <Compile Update="BLL.App.DTO\IsInService.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>IsInService.resx</DependentUpon>
+    </Compile>
+    <Compile Update="BLL.App.DTO\Service.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Service.resx</DependentUpon>
+    </Compile>
+    <Compile Update="BLL.App.DTO\Car.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Car.resx</DependentUpon>
+    </Compile>
+    <Compile Update="BLL.App.DTO\ModelMark.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ModelMark.resx</DependentUpon>
+    </Compile>
+    <Compile Update="BLL.App.DTO\Order.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Order.resx</DependentUpon>
+    </Compile>
+    <Compile Update="BLL.App.DTO\Payment.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Payment.resx</DependentUpon>
+    </Compile>
+    <Compile Update="BLL.App.DTO\PaymentMethod.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PaymentMethod.resx</DependentUpon>
     </Compile>
     <Compile Update="Views\Shared\_Layout.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>_Layout.resx</DependentUpon>
     </Compile>
+    <Compile Update="Common.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Common.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Domain\Person.resx">
+    <EmbeddedResource Update="BLL.App.DTO\Campaign.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Person.Designer.cs</LastGenOutput>
+      <LastGenOutput>Campaign.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Shared\_Layout.et.resx">
+    <EmbeddedResource Update="BLL.App.DTO\IsInService.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>IsInService.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="BLL.App.DTO\Service.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Service.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="BLL.App.DTO\Car.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Car.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="BLL.App.DTO\ModelMark.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ModelMark.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="BLL.App.DTO\Order.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Order.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="BLL.App.DTO\Payment.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Payment.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="BLL.App.DTO\PaymentMethod.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>PaymentMethod.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Shared\_Layout.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>_Layout.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Common.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Common.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

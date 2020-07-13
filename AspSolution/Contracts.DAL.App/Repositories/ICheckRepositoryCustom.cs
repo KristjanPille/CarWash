@@ -6,7 +6,7 @@ namespace Contracts.DAL.App.Repositories
     {
         
     }
-    public interface ICheckRepositoryCustom<TGpsSessionType>
+    public interface ICheckRepositoryCustom<TCheck>
     {
         
     }

@@ -11,7 +11,7 @@ namespace Contracts.BLL.App.Services
 {
     public interface IModelMarkService : IBaseEntityService<ModelMark>, IModelMarkRepositoryCustom<ModelMark>
     {
-        Task<Guid> GetModelMarkId(Car gpsLocation);
+        Task<Guid> GetModelMarkId(Car car);
         
         Task<IEnumerable<ModelMarkDTO>> GetMarkModels(string mark);
         

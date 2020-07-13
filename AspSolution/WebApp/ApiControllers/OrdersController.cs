@@ -68,7 +68,7 @@ namespace WebApp.ApiControllers
         }
         
         /// <summary>
-        /// Update the GpsSession
+        /// Update the Orders
         /// </summary>
         /// <param name="id">Session Id</param>
         /// <param name="order">Order object</param>

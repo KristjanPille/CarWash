@@ -16,7 +16,7 @@ using V1DTO = PublicApi.DTO.v1;
 namespace WebApp.ApiControllers
 {
     /// <summary>
-    /// GPS locations received from gps handheld-s
+    /// IsInService
     /// </summary>
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
@@ -91,7 +91,7 @@ namespace WebApp.ApiControllers
         {
             if (id != isInService.Id)
             {
-                return BadRequest(new V1DTO.MessageDTO("id and gpsLocationType.id do not match"));
+                return BadRequest(new V1DTO.MessageDTO("id and isInService.id do not match"));
             }
 
             await _bll.IsInServices.UpdateAsync(_mapper.Map(isInService));
@@ -137,7 +137,7 @@ namespace WebApp.ApiControllers
             var isInService = await _bll.IsInServices.FirstOrDefaultAsync(id);
             if (isInService == null)
             {
-                return NotFound(new V1DTO.MessageDTO("GpsLocationType not found"));
+                return NotFound(new V1DTO.MessageDTO("IsInService not found"));
             }
 
             await _bll.IsInServices.RemoveAsync(isInService);

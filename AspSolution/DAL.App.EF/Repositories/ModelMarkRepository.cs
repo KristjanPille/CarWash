@@ -21,10 +21,10 @@ using Microsoft.EntityFrameworkCore;
         {
         }
 
-        public virtual async Task<IEnumerable<DTO.ModelMark>> GetAllAsync(Guid gpsSessionId, Guid? userId = null, bool noTracking = true)
+        public virtual async Task<IEnumerable<DTO.ModelMark>> GetAllAsync(Guid modelMarkId, Guid? userId = null, bool noTracking = true)
         {
             var query = PrepareQuery(userId, noTracking);
-            query = query.Where(e => e.Id == gpsSessionId);
+            query = query.Where(e => e.Id == modelMarkId);
             var domainEntities = await query.ToListAsync();
             var result = domainEntities.Select(e => Mapper.Map(e));
             return result;

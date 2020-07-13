@@ -19,10 +19,10 @@ namespace DAL.App.EF.Repositories
         {
         }
 
-        public virtual async Task<IEnumerable<DTO.Service>> GetAllAsync(Guid gpsSessionId, Guid? userId = null, bool noTracking = true)
+        public virtual async Task<IEnumerable<DTO.Service>> GetAllAsync(Guid serviceId, Guid? userId = null, bool noTracking = true)
         {
             var query = PrepareQuery(userId, noTracking);
-            query = query.Where(e => e.Id == gpsSessionId)
+            query = query.Where(e => e.Id == serviceId)
                 .OrderBy(e => e.CreatedAt);
             var domainEntities = await query.ToListAsync();
             var result = domainEntities.Select(e => Mapper.Map(e));

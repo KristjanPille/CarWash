@@ -5,7 +5,7 @@ namespace WebApp.Views.Shared
     /// <summary>
     /// Language
     /// </summary>
-    public class LanguageSelection : PageModel
+    public class anguageSelection : PageModel
     {
         /// <summary>
         /// 

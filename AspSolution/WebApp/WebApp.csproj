@@ -251,6 +251,15 @@
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       </Content>
+      <Content Update="tsconfig.json">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+      <Content Update="wwwroot\js\jquery.validate.globalize.js">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>

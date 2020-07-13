@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using ee.itcollege.carwash.kristjan.Domain.Base;
 
@@ -14,7 +15,10 @@ namespace Domain.App
         [JsonIgnore]
         public Service? Service { get; set; }
         
+        [DataType(DataType.DateTime)]
         public DateTime From { get; set; }
+        
+        [DataType(DataType.DateTime)]
         public DateTime To { get; set; }
     }
 }

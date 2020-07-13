@@ -19,7 +19,7 @@ namespace Resources.Views.Shared {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class _Layout {
@@ -61,11 +61,83 @@ namespace Resources.Views.Shared {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Home.
+        ///   Looks up a localized string similar to Account.
         /// </summary>
-        public static string Home {
+        public static string Account {
             get {
-                return ResourceManager.GetString("Home", resourceCulture);
+                return ResourceManager.GetString("Account", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Admin.
+        /// </summary>
+        public static string Admin {
+            get {
+                return ResourceManager.GetString("Admin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Admin Panel.
+        /// </summary>
+        public static string AdminPanel {
+            get {
+                return ResourceManager.GetString("AdminPanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Admin Section.
+        /// </summary>
+        public static string AdminSection {
+            get {
+                return ResourceManager.GetString("AdminSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Campaigns.
+        /// </summary>
+        public static string Campaigns {
+            get {
+                return ResourceManager.GetString("Campaigns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cars.
+        /// </summary>
+        public static string Cars {
+            get {
+                return ResourceManager.GetString("Cars", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Car Wash.
+        /// </summary>
+        public static string CarWash {
+            get {
+                return ResourceManager.GetString("CarWash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logout.
+        /// </summary>
+        public static string Logout {
+            get {
+                return ResourceManager.GetString("Logout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your orders.
+        /// </summary>
+        public static string Orders {
+            get {
+                return ResourceManager.GetString("Orders", resourceCulture);
             }
         }
         
@@ -75,6 +147,24 @@ namespace Resources.Views.Shared {
         public static string Privacy {
             get {
                 return ResourceManager.GetString("Privacy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Services.
+        /// </summary>
+        public static string Services {
+            get {
+                return ResourceManager.GetString("Services", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
             }
         }
     }

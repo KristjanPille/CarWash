@@ -9,17 +9,22 @@ namespace BLL.App.DTO.Identity
     {
         public Guid Id { get; set; }
 
+        [MinLength(1, ErrorMessageResourceName = "ErrorMessage_MinLength", ErrorMessageResourceType = typeof(Resources.Common))]
+        [MaxLength(128, ErrorMessageResourceName = "ErrorMessage_MaxLength", ErrorMessageResourceType = typeof(Resources.Common))]
+        [Required(ErrorMessageResourceName = "ErrorMessage_Required", ErrorMessageResourceType = typeof(Resources.Common))]
         public string Email { get; set; } = default!;
         public string UserName { get; set; } = default!;
         
-        [MinLength(1)]
-        [MaxLength(128)]
-        [Required]
+        
+       
+        [MinLength(1, ErrorMessageResourceName = "ErrorMessage_MinLength", ErrorMessageResourceType = typeof(Resources.Common))]
+        [MaxLength(64, ErrorMessageResourceName = "ErrorMessage_MaxLength", ErrorMessageResourceType = typeof(Resources.Common))]
+        [Required(ErrorMessageResourceName = "ErrorMessage_Required", ErrorMessageResourceType = typeof(Resources.Common))]
         public string FirstName { get; set; } = default!;
 
-        [MinLength(1)]
-        [MaxLength(128)]
-        [Required]
+        [MinLength(1, ErrorMessageResourceName = "ErrorMessage_MinLength", ErrorMessageResourceType = typeof(Resources.Common))]
+        [MaxLength(64, ErrorMessageResourceName = "ErrorMessage_MaxLength", ErrorMessageResourceType = typeof(Resources.Common))]
+        [Required(ErrorMessageResourceName = "ErrorMessage_Required", ErrorMessageResourceType = typeof(Resources.Common))]
         public string LastName { get; set; } = default!;
 
         public string FirstLastName => FirstName + " " + LastName;

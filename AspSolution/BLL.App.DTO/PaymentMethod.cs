@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using ee.itcollege.carwash.kristjan.Contracts.Domain;
 
 namespace BLL.App.DTO
@@ -7,6 +8,7 @@ namespace BLL.App.DTO
     { 
         public Guid Id { get; set; }
 
+        [Display(Name = nameof(PaymentMethodName), ResourceType = typeof(Resources.BLL.App.DTO.PaymentMethod))]
         public string PaymentMethodName { get; set; } = default!;
     }
 }

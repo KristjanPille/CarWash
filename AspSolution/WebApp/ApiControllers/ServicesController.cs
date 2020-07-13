@@ -114,7 +114,7 @@ namespace WebApp.ApiControllers
         }
         
         /// <summary>
-        /// Update the GpsSession
+        /// Update the Service
         /// </summary>
         /// <param name="id">Session Id</param>
         /// <param name="service">Service object</param>
@@ -172,7 +172,7 @@ namespace WebApp.ApiControllers
         /// Delete the Service
         /// </summary>
         /// <param name="id">Session Id to delete.</param>
-        /// <returns>GpSession just deleted</returns>
+        /// <returns>Service just deleted</returns>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [HttpDelete("{id}")]
         [Produces("application/json")]

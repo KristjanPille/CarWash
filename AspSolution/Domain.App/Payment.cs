@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Domain.App.Identity;
 using ee.itcollege.carwash.kristjan.Domain.Base;
@@ -24,6 +25,8 @@ namespace Domain.App
         public Service? Service { get; set; }
         
         public double PaymentAmount { get; set; } = default!;
+        
+        [DataType(DataType.DateTime)]
         public DateTime? TimeOfPayment { get; set; }
 
         public string? PayPalEmail { get; set; }
@@ -35,7 +38,10 @@ namespace Domain.App
         
         public int? CVV { get; set; }
         
+        [DataType(DataType.DateTime)]
         public DateTime From { get; set; }
+        
+        [DataType(DataType.DateTime)]
         public DateTime To { get; set; }
     }
 }

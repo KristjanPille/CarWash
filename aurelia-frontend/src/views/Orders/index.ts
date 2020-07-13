@@ -37,7 +37,21 @@ export class OrdersIndex {
     }
 
     activate(params: any, routeConfig: RouteConfig, navigationInstruction: NavigationInstruction) {
-
+        this.serviceService.getAll().then(
+            response => {
+                if (response.statusCode >= 200 && response.statusCode < 300) {
+                    this._alert = null;
+                    this._services = response.data!;
+                } else {
+                    // show error message
+                    this._alert = {
+                        message: response.statusCode.toString() + ' - ' + response.errorMessage,
+                        type: AlertType.Danger,
+                        dismissable: true,
+                    }
+                }
+            }
+        )
     }
 
     async attached() {
@@ -62,21 +76,6 @@ export class OrdersIndex {
                     this._alert = null;
                     this._payments = response.data!;
                     this.separateOldOrders();
-                } else {
-                    // show error message
-                    this._alert = {
-                        message: response.statusCode.toString() + ' - ' + response.errorMessage,
-                        type: AlertType.Danger,
-                        dismissable: true,
-                    }
-                }
-            }
-        )
-        await this.serviceService.getAll().then(
-            response => {
-                if (response.statusCode >= 200 && response.statusCode < 300) {
-                    this._alert = null;
-                    this._services = response.data!;
                 } else {
                     // show error message
                     this._alert = {

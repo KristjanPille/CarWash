@@ -150,7 +150,7 @@ namespace WebApp.ApiControllers
         /// Delete the Car
         /// </summary>
         /// <param name="id">Session Id to delete.</param>
-        /// <returns>GpSession just deleted</returns>
+        /// <returns>Car deleted</returns>
         [HttpDelete("{id}")]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(V1DTO.Car))]

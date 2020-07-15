@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.App.EF.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200708124451_InitialDbCreation")]
+    [Migration("20200715112757_InitialDbCreation")]
     partial class InitialDbCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,18 +41,20 @@ namespace DAL.App.EF.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("DescriptionId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<double>("DiscountAmount")
                         .HasColumnType("float");
 
-                    b.Property<string>("NameOfCampaign")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("NameOfCampaignId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DescriptionId");
+
+                    b.HasIndex("NameOfCampaignId");
 
                     b.ToTable("Campaigns");
                 });
@@ -538,11 +540,12 @@ namespace DAL.App.EF.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<string>("PaymentMethodName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("PaymentMethodNameId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PaymentMethodNameId");
 
                     b.ToTable("PaymentMethods");
                 });
@@ -570,16 +573,14 @@ namespace DAL.App.EF.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("DescriptionId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("Duration")
                         .HasColumnType("int");
 
-                    b.Property<string>("NameOfService")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(64)")
-                        .HasMaxLength(64);
+                    b.Property<Guid>("NameOfServiceId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<double>("PriceOfService")
                         .HasColumnType("float");
@@ -587,6 +588,10 @@ namespace DAL.App.EF.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CampaignId");
+
+                    b.HasIndex("DescriptionId");
+
+                    b.HasIndex("NameOfServiceId");
 
                     b.ToTable("Services");
                 });
@@ -690,6 +695,21 @@ namespace DAL.App.EF.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Domain.App.Campaign", b =>
+                {
+                    b.HasOne("Domain.App.LangStr", "Description")
+                        .WithMany("CampaignDescriptions")
+                        .HasForeignKey("DescriptionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.App.LangStr", "NameOfCampaign")
+                        .WithMany("CampaignNames")
+                        .HasForeignKey("NameOfCampaignId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.App.Car", b =>
@@ -806,12 +826,33 @@ namespace DAL.App.EF.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Domain.App.PaymentMethod", b =>
+                {
+                    b.HasOne("Domain.App.LangStr", "PaymentMethodName")
+                        .WithMany("PaymentMethodNames")
+                        .HasForeignKey("PaymentMethodNameId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Domain.App.Service", b =>
                 {
                     b.HasOne("Domain.App.Campaign", "Campaign")
                         .WithMany()
                         .HasForeignKey("CampaignId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Domain.App.LangStr", "Description")
+                        .WithMany("ServiceDescriptions")
+                        .HasForeignKey("DescriptionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.App.LangStr", "NameOfService")
+                        .WithMany("ServiceNameOfServices")
+                        .HasForeignKey("NameOfServiceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

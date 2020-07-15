@@ -13,6 +13,21 @@ namespace Domain.App
         //public virtual ICollection<TLangStrTranslation>? Translations { get; set; }
 
         public ICollection<LangStrTranslation>? Translations { get; set; }
+        
+        [InverseProperty(nameof(Service.NameOfService))]
+        public ICollection<Service>? ServiceNameOfServices { get; set; }
+        
+        [InverseProperty(nameof(Service.Description))]
+        public ICollection<Service>? ServiceDescriptions { get; set; }
+        
+        [InverseProperty(nameof(Campaign.NameOfCampaign))]
+        public ICollection<Campaign>? CampaignNames { get; set; }
+        
+        [InverseProperty(nameof(Campaign.Description))]
+        public ICollection<Campaign>? CampaignDescriptions { get; set; }
+        
+        [InverseProperty(nameof(PaymentMethod.PaymentMethodName))]
+        public ICollection<PaymentMethod>? PaymentMethodNames { get; set; }
 
         #region Constructors
 

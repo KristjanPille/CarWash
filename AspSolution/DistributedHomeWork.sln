@@ -14,6 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		.gitignore = .gitignore
 		Dockerfile = Dockerfile
 		.dockerignore = .dockerignore
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts.DAL.App", "Contracts.DAL.App\Contracts.DAL.App.csproj", "{898054F7-6DEB-4AC3-895E-21513F29DD57}"

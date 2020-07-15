@@ -27,8 +27,8 @@ using Microsoft.EntityFrameworkCore;
             {
                 new Campaign()
                 {
-                    NameOfCampaign =  "STANDARD EXTERIOR WASH Campaign",
-                    Description = "Discount for standard exterior wash 25%",
+                    NameOfCampaign =  (LangStr)"STANDARD EXTERIOR WASH Campaign",
+                    Description = (LangStr)"Discount for standard exterior wash 25%",
                     DiscountAmount = 0.25,
                     Id = new Guid("00000000-0000-0000-0000-000000000001")
                     
@@ -48,12 +48,12 @@ using Microsoft.EntityFrameworkCore;
             {
                 new PaymentMethod()
                 {
-                    PaymentMethodName =  "PayPal",
+                    PaymentMethodName =  (LangStr)"PayPal",
                     Id = new Guid("00000000-0000-0000-0000-000000000140")
                 },
                 new PaymentMethod()
                 {
-                    PaymentMethodName =  "Credit Card",
+                    PaymentMethodName =  (LangStr)"Credit Card",
                     Id = new Guid("00000000-0000-0000-0000-000000000141")
                 },
             };
@@ -71,34 +71,34 @@ using Microsoft.EntityFrameworkCore;
             {
                 new Service()
                 {
-                    NameOfService =  "STANDARD EXTERIOR WASH",
+                    NameOfService = (LangStr)"STANDARD EXTERIOR WASH",
                     PriceOfService = 25,
-                    Description = "Snowfoam pre wash, Shampoo wash, Drying with microfiber cloth including door sills",
+                    Description = (LangStr)"Snowfoam pre wash, Shampoo wash, Drying with microfiber cloth including door sills",
                     Duration = 30,
                     CampaignId = new Guid("00000000-0000-0000-0000-000000000001"),
                     Id = new Guid("00000000-0000-0000-0000-000000000123")
                 },
                 new Service()
                 {
-                    NameOfService =  "INTERIOR CLEANING",
+                    NameOfService =  (LangStr)"INTERIOR CLEANING",
                     PriceOfService = 20,
-                    Description = "Vacuum cleaning of the interior and trunk, Wiping of all the interior and trunk surfaces, Cleaning front glasses from inside the car, Cleaning floor mats",
+                    Description = (LangStr)"Vacuum cleaning of the interior and trunk, Wiping of all the interior and trunk surfaces, Cleaning front glasses from inside the car, Cleaning floor mats",
                     Duration = 60,
                     Id = new Guid("00000000-0000-0000-0000-000000000124")
                 },
                 new Service()
                 {
-                    NameOfService =  "PREMIUM EXTERIOR WASH",
-                    Description = "Snowfoam pre wash, Shampoo wash, Liquid wax, Cleaning floor mats, Drying with pressured air, tire dressing",
+                    NameOfService =  (LangStr)"PREMIUM EXTERIOR WASH",
+                    Description = (LangStr)"Snowfoam pre wash, Shampoo wash, Liquid wax, Cleaning floor mats, Drying with pressured air, tire dressing",
                     PriceOfService = 40,
                     Duration = 60,
                     Id = new Guid("00000000-0000-0000-0000-000000000125")
                 },
                 new Service()
                 {
-                    NameOfService =  "PREMIUM INTERIOR CLEANING",
+                    NameOfService =  (LangStr)"PREMIUM INTERIOR CLEANING",
                     PriceOfService = 45,
-                    Description = "Vacuum cleaning of the interior and the trunk, Wet wiping of all the interior and trunk surfaces, Cleaning of plastic elements of trunk and interior with Meguiars all purpose cleaner, Floor mats cleaning, Cleaning all the glasses from inside and outside the car",
+                    Description = (LangStr)"Vacuum cleaning of the interior and the trunk, Wet wiping of all the interior and trunk surfaces, Cleaning of plastic elements of trunk and interior with Meguiars all purpose cleaner, Floor mats cleaning, Cleaning all the glasses from inside and outside the car",
                     Duration = 120,
                     Id = new Guid("00000000-0000-0000-0000-000000000126")
                 },

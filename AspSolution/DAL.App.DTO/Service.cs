@@ -11,8 +11,10 @@ namespace DAL.App.DTO
         
         public double PriceOfService { get; set; } = default!;
         
+        public Guid PaymentMethodNameId { get; set; }
         public string NameOfService { get; set; } = default!;
         
+        public Guid DescriptionId { get; set; }
         public string? Description { get; set; }
         
         public int? Duration { get; set; }

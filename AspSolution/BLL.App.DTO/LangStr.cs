@@ -13,6 +13,11 @@ namespace BLL.App.DTO
 
         [InverseProperty(nameof(Campaign.NameOfCampaign))]
         public ICollection<Campaign>? CampaignNames { get; set; }
-
+        
+        //lisa siia
+        [InverseProperty(nameof(Service.Description))]
+        public ICollection<Service>? ServiceDescriptions { get; set; }
+        [InverseProperty(nameof(Service.NameOfService))]
+        public ICollection<Service>? ServiceNameOfServices { get; set; }
     }
 }

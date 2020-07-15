@@ -5,7 +5,8 @@ namespace Domain.App
 {
     public class PaymentMethod : DomainEntityIdMetadata
     {
-        public string PaymentMethodName { get; set; } = default!;
+        public Guid PaymentMethodNameId { get; set; }
+        public LangStr PaymentMethodName { get; set; } = default!;
         
     }
 }

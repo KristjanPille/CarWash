@@ -50,24 +50,6 @@ namespace DAL.App.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Campaigns",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
-                    CreatedAt = table.Column<DateTime>(nullable: false),
-                    ChangedBy = table.Column<string>(maxLength: 256, nullable: true),
-                    ChangedAt = table.Column<DateTime>(nullable: false),
-                    NameOfCampaign = table.Column<string>(nullable: false),
-                    Description = table.Column<string>(nullable: false),
-                    DiscountAmount = table.Column<double>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Campaigns", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "LangStrs",
                 columns: table => new
                 {
@@ -98,22 +80,6 @@ namespace DAL.App.EF.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ModelMarks", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PaymentMethods",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
-                    CreatedAt = table.Column<DateTime>(nullable: false),
-                    ChangedBy = table.Column<string>(maxLength: 256, nullable: true),
-                    ChangedAt = table.Column<DateTime>(nullable: false),
-                    PaymentMethodName = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PaymentMethods", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -223,7 +189,7 @@ namespace DAL.App.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Services",
+                name: "Campaigns",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -231,19 +197,23 @@ namespace DAL.App.EF.Migrations
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     ChangedBy = table.Column<string>(maxLength: 256, nullable: true),
                     ChangedAt = table.Column<DateTime>(nullable: false),
-                    NameOfService = table.Column<string>(maxLength: 64, nullable: false),
-                    PriceOfService = table.Column<double>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
-                    Duration = table.Column<int>(nullable: true),
-                    CampaignId = table.Column<Guid>(nullable: true)
+                    NameOfCampaignId = table.Column<Guid>(nullable: false),
+                    DescriptionId = table.Column<Guid>(nullable: false),
+                    DiscountAmount = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Services", x => x.Id);
+                    table.PrimaryKey("PK_Campaigns", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Services_Campaigns_CampaignId",
-                        column: x => x.CampaignId,
-                        principalTable: "Campaigns",
+                        name: "FK_Campaigns_LangStrs_DescriptionId",
+                        column: x => x.DescriptionId,
+                        principalTable: "LangStrs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Campaigns_LangStrs_NameOfCampaignId",
+                        column: x => x.NameOfCampaignId,
+                        principalTable: "LangStrs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -273,6 +243,28 @@ namespace DAL.App.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PaymentMethods",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    ChangedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    ChangedAt = table.Column<DateTime>(nullable: false),
+                    PaymentMethodNameId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PaymentMethods", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PaymentMethods_LangStrs_PaymentMethodNameId",
+                        column: x => x.PaymentMethodNameId,
+                        principalTable: "LangStrs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Cars",
                 columns: table => new
                 {
@@ -297,6 +289,44 @@ namespace DAL.App.EF.Migrations
                         name: "FK_Cars_ModelMarks_ModelMarkId",
                         column: x => x.ModelMarkId,
                         principalTable: "ModelMarks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Services",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    ChangedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    ChangedAt = table.Column<DateTime>(nullable: false),
+                    NameOfServiceId = table.Column<Guid>(nullable: false),
+                    PriceOfService = table.Column<double>(nullable: false),
+                    DescriptionId = table.Column<Guid>(nullable: false),
+                    Duration = table.Column<int>(nullable: true),
+                    CampaignId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Services", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Services_Campaigns_CampaignId",
+                        column: x => x.CampaignId,
+                        principalTable: "Campaigns",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Services_LangStrs_DescriptionId",
+                        column: x => x.DescriptionId,
+                        principalTable: "LangStrs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Services_LangStrs_NameOfServiceId",
+                        column: x => x.NameOfServiceId,
+                        principalTable: "LangStrs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -508,6 +538,16 @@ namespace DAL.App.EF.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Campaigns_DescriptionId",
+                table: "Campaigns",
+                column: "DescriptionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Campaigns_NameOfCampaignId",
+                table: "Campaigns",
+                column: "NameOfCampaignId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Cars_AppUserId",
                 table: "Cars",
                 column: "AppUserId");
@@ -569,6 +609,11 @@ namespace DAL.App.EF.Migrations
                 column: "ServiceId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PaymentMethods_PaymentMethodNameId",
+                table: "PaymentMethods",
+                column: "PaymentMethodNameId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Payments_AppUserId",
                 table: "Payments",
                 column: "AppUserId");
@@ -597,6 +642,16 @@ namespace DAL.App.EF.Migrations
                 name: "IX_Services_CampaignId",
                 table: "Services",
                 column: "CampaignId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Services_DescriptionId",
+                table: "Services",
+                column: "DescriptionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Services_NameOfServiceId",
+                table: "Services",
+                column: "NameOfServiceId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -632,9 +687,6 @@ namespace DAL.App.EF.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "LangStrs");
-
-            migrationBuilder.DropTable(
                 name: "Checks");
 
             migrationBuilder.DropTable(
@@ -654,6 +706,9 @@ namespace DAL.App.EF.Migrations
 
             migrationBuilder.DropTable(
                 name: "Campaigns");
+
+            migrationBuilder.DropTable(
+                name: "LangStrs");
         }
     }
 }

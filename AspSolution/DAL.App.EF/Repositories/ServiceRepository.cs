@@ -7,8 +7,9 @@ using DAL.App.DTO;
 using DAL.App.EF.Mappers;
 using ee.itcollege.carwash.kristjan.DAL.Base.EF.Repositories;
 using Microsoft.EntityFrameworkCore;
+ using Service = BLL.App.DTO.Service;
 
-namespace DAL.App.EF.Repositories
+ namespace DAL.App.EF.Repositories
 {
     public class ServiceRepository :
         EFBaseRepository<AppDbContext, Domain.App.Identity.AppUser, Domain.App.Service, DAL.App.DTO.Service>,
@@ -19,11 +20,15 @@ namespace DAL.App.EF.Repositories
         {
         }
 
-        public virtual async Task<IEnumerable<DTO.Service>> GetAllAsync(Guid serviceId, Guid? userId = null, bool noTracking = true)
+        public override async Task<IEnumerable<DAL.App.DTO.Service>> GetAllAsync(object? userId = null, bool noTracking = true)
         {
             var query = PrepareQuery(userId, noTracking);
-            query = query.Where(e => e.Id == serviceId)
-                .OrderBy(e => e.CreatedAt);
+            query = query
+                .Include(l => l.NameOfService)
+                .ThenInclude(t => t!.Translations)
+                .Include(l => l.Description)
+                .ThenInclude(t => t!.Translations);
+            
             var domainEntities = await query.ToListAsync();
             var result = domainEntities.Select(e => Mapper.Map(e));
             return result;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using ee.itcollege.carwash.kristjan.Contracts.Domain;
 using Domain.App;
 
@@ -9,9 +10,13 @@ namespace BLL.App.DTO
     { 
         public Guid Id { get; set; }
 
-        public string NameOfService { get; set; } = default!;
+        public Guid NameOfServiceId { get; set; }
+        [Display(Name = nameof(NameOfService), ResourceType = typeof(Resources.BLL.App.DTO.Service))]
+        public virtual string NameOfService { get; set; } = default!;
         
-        public string? Description { get; set; }
+        public Guid DescriptionId { get; set; }
+        [Display(Name = nameof(Description), ResourceType = typeof(Resources.BLL.App.DTO.Service))]
+        public virtual string? Description { get; set; }
         public double PriceOfService { get; set; } = default!;
         
         public int? Duration { get; set; }

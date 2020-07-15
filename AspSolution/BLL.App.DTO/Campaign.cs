@@ -7,13 +7,14 @@ namespace BLL.App.DTO
     public class Campaign : IDomainEntityId
     { 
         public Guid Id { get; set; }
-
+        
+        public Guid NameOfCampaignId { get; set; }
         [Display(Name = nameof(NameOfCampaign), ResourceType = typeof(Resources.BLL.App.DTO.Campaign))]
         public virtual string NameOfCampaign { get; set; } = default!;
         
         [Display(Name = nameof(Description), ResourceType = typeof(Resources.BLL.App.DTO.Campaign))]
-        
         public virtual string Description { get; set; } = default!;
+        public Guid DescriptionId { get; set; }
         
         [Display(Name = nameof(DiscountAmount), ResourceType = typeof(Resources.BLL.App.DTO.Campaign))]
         

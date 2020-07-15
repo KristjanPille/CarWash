@@ -17,6 +17,17 @@ namespace DAL.App.DTO
         [InverseProperty(nameof(Campaign.NameOfCampaign))]
         [JsonIgnore]
         public ICollection<Campaign>? CampaignNames { get; set; }
+        
+        [InverseProperty(nameof(Service.Description))]
+        [JsonIgnore]
+        public ICollection<Service>? ServiceDescriptions { get; set; }
+        
+        [InverseProperty(nameof(Service.NameOfService))]
+        [JsonIgnore]
+        public ICollection<Service>? ServiceNameOfServices { get; set; }
 
+        [InverseProperty(nameof(PaymentMethod.PaymentMethodName))]
+        [JsonIgnore]
+        public ICollection<PaymentMethod>? PaymentMethodNames { get; set; }
     }
 }

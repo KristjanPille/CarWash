@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Contracts.BLL.App;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Domain.App;
 using Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using PublicApi.DTO.v1.Mappers;
-using ModelMark = BLL.App.DTO.ModelMark;
+using Car = Domain.App.Car;
 using V1DTO = PublicApi.DTO.v1;
 
-namespace WebApp.ApiControllers
+namespace WebApp.ApiControllers._1._0
 {
     /// <summary>
     /// Cars
@@ -54,6 +53,7 @@ namespace WebApp.ApiControllers
         /// </summary>
         /// <returns>Array of Cars</returns>
         [Route("AdminCars")]
+        [HttpGet]
         [Produces("application/json")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<V1DTO.Car>))]

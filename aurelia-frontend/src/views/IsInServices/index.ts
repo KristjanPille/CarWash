@@ -11,9 +11,17 @@ import {IsInServiceService} from "../../service/isInService-service";
 import {ICampaign} from "../../domain/ICampaign";
 import {CampaignService} from "../../service/campaign-service";
 import {AppState} from "../../state/app-state";
+import {connectTo, Store} from "aurelia-store";
+import {IState} from "../../state/state";
+import {CultureService} from "../../service/culture-service";
+import {IndexResources} from "../../lang/IndexResources";
+import {BindingEngine} from 'aurelia-binding';
+import {observable} from "aurelia-framework";
 
+@connectTo()
 @autoinject
 export class IsInServicesIndex{
+
     private _services: IService[] = [];
     private _cars: ICar[] = [];
     private _campaigns: ICampaign[] = [];
@@ -35,21 +43,34 @@ export class IsInServicesIndex{
     private weekdays: any;
     private clickedCell = 0;
     private selectedServiceIndex = 0;
-    private campaignDiscount: any;
+    private indexResources = IndexResources;
+    @observable
+    protected state!: IState;
 
-    constructor(private serviceService: ServiceService, private carService: CarService,  private campaignService: CampaignService, private isInServiceService: IsInServiceService, private router: Router,  private appState: AppState){
-        this.weekdays =new Array(7);
-        this.weekdays[0]="Sunday";
-        this.weekdays[1]="Monday";
-        this.weekdays[2]="Tuesday";
-        this.weekdays[3]="Wednesday";
-        this.weekdays[4]="Thursday";
-        this.weekdays[5]="Friday";
-        this.weekdays[6]="Saturday";
+
+    constructor(private store: Store<IState>, private cultureService: CultureService, private serviceService: ServiceService, private carService: CarService,  private campaignService: CampaignService, private isInServiceService: IsInServiceService, private router: Router,  private appState: AppState){
     }
 
     activate(params: any, routeConfig: RouteConfig, navigationInstruction: NavigationInstruction) {
 
+    }
+
+    private stateChanged(newValue: IState): void {
+        this.weekdays =new Array(7);
+        // @ts-ignore
+        this.weekdays[0]=this.indexResources[newValue.selectedCulture.code].Sunday;
+        // @ts-ignore
+        this.weekdays[1]=this.indexResources[newValue.selectedCulture.code].Monday;
+        // @ts-ignore
+        this.weekdays[2]=this.indexResources[newValue.selectedCulture.code].Tuesday;
+        // @ts-ignore
+        this.weekdays[3]=this.indexResources[newValue.selectedCulture.code].Wednesday;
+        // @ts-ignore
+        this.weekdays[4]=this.indexResources[newValue.selectedCulture.code].Thursday;
+        // @ts-ignore
+        this.weekdays[5]=this.indexResources[newValue.selectedCulture.code].Friday;
+        // @ts-ignore
+        this.weekdays[6]=this.indexResources[newValue.selectedCulture.code].Saturday;
     }
 
     async attached() {
@@ -122,7 +143,25 @@ export class IsInServicesIndex{
             }
         )
         }
+
+        this.weekdays =new Array(7);
+        // @ts-ignore
+        this.weekdays[0]=this.indexResources[this.state.selectedCulture.code].Sunday;
+        // @ts-ignore
+        this.weekdays[1]=this.indexResources[this.state.selectedCulture.code].Monday;
+        // @ts-ignore
+        this.weekdays[2]=this.indexResources[this.state.selectedCulture.code].Tuesday;
+        // @ts-ignore
+        this.weekdays[3]=this.indexResources[this.state.selectedCulture.code].Wednesday;
+        // @ts-ignore
+        this.weekdays[4]=this.indexResources[this.state.selectedCulture.code].Thursday;
+        // @ts-ignore
+        this.weekdays[5]=this.indexResources[this.state.selectedCulture.code].Friday;
+        // @ts-ignore
+        this.weekdays[6]=this.indexResources[this.state.selectedCulture.code].Saturday;
+
     }
+
 
     bindCar(car: ICar){
         this._car = car;
@@ -443,4 +482,5 @@ export class IsInServicesIndex{
         // @ts-ignore
         document.getElementById('overlayService').style.display = 'none';
     }
+
 }

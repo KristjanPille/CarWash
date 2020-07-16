@@ -1,29 +1,73 @@
 import { autoinject, PLATFORM } from 'aurelia-framework';
 import {NavigationInstruction, RouteConfig, Router, RouterConfiguration} from 'aurelia-router';
 import { AppState } from 'state/app-state';
-
-import {AccountService} from "./service/account-service";
+import {AccountService, log} from "./service/account-service";
 import {IAccount} from "./domain/IAccount";
 import {AlertType} from "./types/AlertType";
 import {IAlertData} from "./types/IAlertData";
 import {AdminSection} from "./views/AdminSection";
+import { LayoutResources } from 'lang/LayoutResources';
 import '../static/site.css';
+import {CultureService} from "./service/culture-service";
+import {IState} from "./state/state";
+import {ICulture} from "./domain/ICulture";
+import { Store, connectTo } from "aurelia-store";
+import * as environment from '../config/environment.json';
+import {HttpClient} from "aurelia-fetch-client";
+import {IndexResources} from "./lang/IndexResources";
 
+@connectTo()
 @autoinject
 export class App {
+  private swaggerUrl = environment.swaggerUrl;
   private _alert: IAlertData | null = null;
   router?: Router;
   private userId: string = "";
+  protected state!: IState;
   private _account?: IAccount;
-    private isAdmin = false;
+  private isAdmin = false;
+  private langResources = LayoutResources;
+  private indexResources = IndexResources;
 
-  constructor(private appState: AppState, private accountService: AccountService) {
+  constructor(private store: Store<IState>, private cultureService: CultureService, private appState: AppState, private accountService: AccountService, private httpClient: HttpClient) {
+      this.httpClient.configure(config => {
+          config
+              .withBaseUrl(environment.backendUrl)
+              .withDefaults({
+                  credentials: 'same-origin',
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'Accept': 'application/json',
+                      'X-Requested-With': 'Fetch'
+                  }
+              })
+              .withInterceptor({
+                  request(request) {
+                      console.log(`Requesting ${request.method} ${request.url}`);
+                      return request;
+                  },
+                  response(response) {
+                      console.log(`Received ${response.status} ${response.url}`);
+                      return response;
+                  }
+              });
+      });
+
+      this.store.registerAction('stateUpdateCultures', this.stateUpdateCultures);
+      this.store.registerAction('stateUpdateSelectedCulture', this.stateUpdateSelectedCulture);
+
   }
 
-    activate(){
+    async attached(): Promise<void> {
+        // get the languages from backend
+        const result = await this.cultureService.getAll();
+        if (result.statusCode >= 200 && result.statusCode < 300) {
+            log.debug('data', result.data);
+            if (result.data) {
+                this.store.dispatch(this.stateUpdateCultures, result.data);
+            }
+        }
 
-    }
-    async attached() {
         if (this.appState.jwt != null){
             await this.accountService.getUser().then(
                 response => {
@@ -42,6 +86,10 @@ export class App {
                 }
             )
         }
+    }
+
+    activate(){
+
     }
 
   configureRouter(config: RouterConfiguration, router: Router): void { 
@@ -99,6 +147,23 @@ export class App {
   ]);
   config.mapUnknownRoutes('views/IsInServices/index');
   }
+
+    setCulture(culture: ICulture): void {
+        this.store.dispatch(this.stateUpdateSelectedCulture, culture);
+    }
+
+    // take the old state, make shallow copy, update copy, return as new state
+    stateUpdateCultures(state: IState, cultures: ICulture[]): IState {
+        const newState = Object.assign({}, state);
+        newState.cultures = cultures;
+        return newState;
+    }
+
+    stateUpdateSelectedCulture(state: IState, culture: ICulture): IState {
+        const newState = Object.assign({}, state);
+        newState.selectedCulture = culture;
+        return newState;
+    }
 
   logoutOnClick(){
     this.isAdmin = false;

@@ -8,18 +8,20 @@ import 'popper.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 //import 'font-awesome/css/font-awesome.min.css';
 import '../static/site.css';
+import {initialState} from "./state/state";
 
 
-export function configure(aurelia: Aurelia) {
-  aurelia.use
-    .standardConfiguration()
-    .feature(PLATFORM.moduleName('resources/index'));
+export function configure(aurelia: Aurelia): void {
+    aurelia.use
+        .standardConfiguration()
+        .feature(PLATFORM.moduleName('resources/index'));
 
-  aurelia.use.developmentLogging(environment.debug ? 'debug' : 'warn');
+    if (environment.testing) {
+        aurelia.use.plugin(PLATFORM.moduleName('aurelia-testing'));
+    }
 
-  if (environment.testing) {
-    aurelia.use.plugin(PLATFORM.moduleName('aurelia-testing'));
-  }
+    aurelia.use.plugin(PLATFORM.moduleName('aurelia-store'), {initialState});
 
-  aurelia.start().then(() => aurelia.setRoot(PLATFORM.moduleName('app')));
+    aurelia.start().then(() => aurelia.setRoot(PLATFORM.moduleName('app')));
 }
+

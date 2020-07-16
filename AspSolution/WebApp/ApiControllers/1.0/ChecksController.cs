@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Contracts.BLL.App;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using DAL.App.EF;
-using Domain.App;
 using Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using PublicApi.DTO.v1.Mappers;
+using Check = Domain.App.Check;
 using V1DTO=PublicApi.DTO.v1;
 
-namespace WebApp.ApiControllers
+namespace WebApp.ApiControllers._1._0
 {    /// <summary>
     /// Checks
     /// </summary>

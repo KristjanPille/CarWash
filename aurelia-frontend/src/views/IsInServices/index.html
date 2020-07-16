@@ -10,7 +10,7 @@
             <th id="car" scope="col">
                     <label if.bind="appState.jwt != null">
                         Select Car:<br>
-                        <select style="border-radius: 15px" id="selectCar" value.bind="selectedCar" change.delegate="bindCar(selectedCar)">
+                        <select style="border-radius: 10px" id="selectCar" value.bind="selectedCar" change.delegate="bindCar(selectedCar)">
                             <option model.bind="null">Choose...</option>
                             <option repeat.for="car of _cars"
                                     model.bind="car">
@@ -155,13 +155,13 @@
         <thead>
         <tr class="services">
             <th >
-                Name
+                ${indexResources[state.selectedCulture.code].name}
             </th>
             <th >
                 Price
             </th>
             <th >
-                Duration
+                ${indexResources[state.selectedCulture.code].duration}
             </th>
             <th>
                 Information

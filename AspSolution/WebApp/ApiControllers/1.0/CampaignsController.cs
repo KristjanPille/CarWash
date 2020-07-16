@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Contracts.BLL.App;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Domain.App;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using PublicApi.DTO.v1.Mappers;
+using Campaign = Domain.App.Campaign;
 using V1DTO=PublicApi.DTO.v1;
 
-namespace WebApp.ApiControllers
+namespace WebApp.ApiControllers._1._0
 {    /// <summary>
     /// campaigns Api Controller
     /// </summary>

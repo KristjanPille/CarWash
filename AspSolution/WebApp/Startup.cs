@@ -97,14 +97,14 @@ namespace WebApp
                 });
 
 
+            var supportedCultures = Configuration
+                .GetSection("SupportedCultures")
+                .GetChildren()
+                .Select(x => new CultureInfo(x.Value))
+                .ToArray();
+            
             services.Configure<RequestLocalizationOptions>(options =>
             {
-                // TODO: Move to configuration
-                var supportedCultures = new[]
-                {
-                    new CultureInfo("en-GB"),
-                    new CultureInfo("et-EE"),
-                };
                 // datetime and currency support
                 options.SupportedCultures = supportedCultures;
                 // UI translated strings

@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Contracts.BLL.App;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Domain.App;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using PublicApi.DTO.v1.Mappers;
+using ModelMark = Domain.App.ModelMark;
 using V1DTO=PublicApi.DTO.v1;
 
-namespace WebApp.ApiControllers
+namespace WebApp.ApiControllers._1._0
 {    /// <summary>
     /// ModelMarks Api Controller
     /// </summary>
@@ -70,6 +70,7 @@ namespace WebApp.ApiControllers
         /// </summary>
         /// <param name="mark"></param>
         /// <returns>returns Model</returns>
+        [HttpGet]
         [Route("Models/{mark}")]
         [AllowAnonymous]
         [Produces("application/json")]

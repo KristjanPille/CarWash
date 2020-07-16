@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Contracts.BLL.App;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using DAL.App.EF;
-using Domain.App;
 using Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using PublicApi.DTO.v1.Mappers;
+using Service = Domain.App.Service;
 using V1DTO=PublicApi.DTO.v1;
 
-namespace WebApp.ApiControllers
+namespace WebApp.ApiControllers._1._0
 {    /// <summary>
     /// Services
     /// </summary>
@@ -101,8 +99,7 @@ namespace WebApp.ApiControllers
         /// <param name="car">car</param>
         /// <param name="serviceId">car</param>
         /// <returns>Services prices</returns>
-        [Route("ServicePrice/{serviceId}")]
-        [Produces("application/json")]
+        [HttpGet("ServicePrice/{serviceId}")]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(V1DTO.Service))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]

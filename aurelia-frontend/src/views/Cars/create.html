@@ -13,19 +13,19 @@
                 <form submit.trigger="onSubmit($event)">
                     <div class="row">
                         <div class="col-50">
-                            <h3 style="text-decoration: underline">New Car</h3>
-                            Select Mark:<br>
+                            <h3 style="text-decoration: underline">${langResources[state.selectedCulture.code].newCarV2}</h3>
+                            ${langResources[state.selectedCulture.code].selectMark}:<br>
                             <select style="border-radius: 15px" class="custom-select" value.bind="selectedMark" change.delegate="getModels(selectedMark.mark)">
-                                <option model.bind="null">Choose...</option>
+                                <option model.bind="null">${langResources[state.selectedCulture.code].choose}...</option>
                                 <option repeat.for="mark of _marks"
                                         model.bind="mark">
                                     ${mark.mark}
                                 </option>
                             </select>
 
-                            Select Model:<br>
+                            ${langResources[state.selectedCulture.code].selectModel}:<br>
                             <select style="border-radius: 15px" class="custom-select" value.bind="selectedModel" change.delegate="createModel(selectedModel.model)">
-                                <option model.bind="null">Choose...</option>
+                                <option model.bind="null">${langResources[state.selectedCulture.code].choose}...</option>
                                 <option repeat.for="model of _models"
                                         model.bind="model">
                                     ${model.model}
@@ -34,10 +34,10 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <input style="background-color: #23355b; color: white" type="submit" value="Create" class="btn" />
+                        <input style="background-color: #23355b; color: white" type="submit" value="${langResources[state.selectedCulture.code].addNew}" class="btn" />
                     </div>
                     <div>
-                        <a route-href="route: Cars-index; params.bind: { }" style="color: white">Back to List</a>
+                        <a route-href="route: Cars-index; params.bind: { }" style="color: white">${langResources[state.selectedCulture.code].backToList}</a>
                     </div>
                 </form>
             </div>

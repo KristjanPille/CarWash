@@ -17,6 +17,7 @@ interface ILangStrings {
     delete: string;
     backToList: string;
     duration: string;
+    nameOfCampaign: string;
 }
 
 interface ILangResources {
@@ -28,6 +29,7 @@ interface ILangResources {
 const LangResources: ILangResources = {
     'en-GB': {
         name: 'Name',
+        nameOfCampaign: 'Name',
         description: 'Description',
         language: 'Language',
         login: 'Login',
@@ -45,6 +47,7 @@ const LangResources: ILangResources = {
     },
     'et-EE': {
         name: 'Nimi',
+        nameOfCampaign: 'Nimi',
         description: 'Kirjeldus',
         language: 'Keel',
         login: 'Logi sisse',

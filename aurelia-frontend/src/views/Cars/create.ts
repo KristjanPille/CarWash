@@ -6,12 +6,18 @@ import { AlertType } from 'types/AlertType';
 import {ModelMarkservice} from "../../service/modelMark-service";
 import {IMark} from "../../domain/IMark";
 import {IModel} from "../../domain/IModel";
+import {connectTo} from "aurelia-store";
+import {LayoutResources} from "../../lang/LayoutResources";
+import {IndexResources} from "../../lang/IndexResources";
 
+@connectTo()
 @autoinject
 export class CarsCreate {
     private _alert: IAlertData | null = null;
     private _marks: IMark[] = [];
     private _models: IModel[] = [];
+    private langResources = LayoutResources;
+    private indexResources = IndexResources;
     _Mark = "";
     _Model = "";
 

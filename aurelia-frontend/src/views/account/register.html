@@ -8,33 +8,33 @@
             <div class="col-75">
                 <div class="orderContainer">
                     <form method="post" submit.trigger="submit()">
-                        <h4 style="font-weight: 600;">Create a new account</h4>
+                        <h4 style="font-weight: 600;">${langResources[state.selectedCulture.code].createNewAccount}</h4>
                         <hr />
                         <div class="form-group">
-                            <label style="font-weight: 600;" for="email">Email</label>
+                            <label style="font-weight: 600;" for="email">${langResources[state.selectedCulture.code].email}</label>
                             <input class="form-control" type="email" id="email" name="email" value.bind="_email" />
                             <span id="popupEmail" style="display: none; color: red">${emailError}</span>
                         </div>
                         <div  class="form-group">
-                            <label style="font-weight: 600;" for="firstname">First name</label>
+                            <label style="font-weight: 600;" for="firstname">${langResources[state.selectedCulture.code].firstName}</label>
                             <input class="form-control" type="firstname" id="firstname" name="firstname" value.bind="_firstname" />
                             <span id="popupFirstName" style="display: none; color: red">${firstNameError}</span>
                         </div>
                         <div class="form-group">
-                            <label style="font-weight: 600;" for="lastname">Last name</label>
+                            <label style="font-weight: 600;" for="lastname">${langResources[state.selectedCulture.code].lastName}</label>
                             <input class="form-control" type="lastname" id="lastname" name="lastname" value.bind="_lastname" />
                             <span id="popupLastName" style="display: none; color: red">${lastNameError}</span>
                         </div>
                         <div class="form-group">
-                            <label style="font-weight: 600;" for="phoneNr">Phone Number</label>
+                            <label style="font-weight: 600;" for="phoneNr">${langResources[state.selectedCulture.code].phone}</label>
                             <input class="form-control" type="lastname" id="phoneNr" name="phoneNr" value.bind="_phoneNr" />
                             <span id="popupPhoneNr" style="display: none; color: red">${phoneNrError}</span>
                         </div>
                         <p>
                             <label style="font-weight: 600;" >
-                                Select Mark:<br>
+                                ${langResources[state.selectedCulture.code].selectMark}:<br>
                                 <select style="border-radius: 25px;" value.bind="selectedMark" change.delegate="getModels(selectedMark.mark)">
-                                    <option model.bind="null">Choose...</option>
+                                    <option model.bind="null">${langResources[state.selectedCulture.code].choose}...</option>
                                     <option repeat.for="mark of _marks"
                                             model.bind="mark">
                                         ${mark.mark}
@@ -45,9 +45,9 @@
                         </p>
                         <p>
                             <label style="font-weight: 600;" >
-                                Select Model:<br>
+                                ${langResources[state.selectedCulture.code].selectModel}:<br>
                                 <select style="border-radius: 25px;" value.bind="selectedModel" change.delegate="createModel(selectedModel.model)">
-                                    <option model.bind="null">Choose...</option>
+                                    <option model.bind="null">${langResources[state.selectedCulture.code].choose}...</option>
                                     <option repeat.for="model of _models"
                                             model.bind="model">
                                         ${model.model}
@@ -58,19 +58,19 @@
                         </p>
 
                         <div class="form-group">
-                            <label style="font-weight: 600;" for="password">Password</label>
+                            <label style="font-weight: 600;" for="password">${langResources[state.selectedCulture.code].password}</label>
                             <input class="form-control" type="password" id="password"  name="password"
                                    value.bind="password" />
                             <span id="popupPassword" style="display: none; color: red">${passwordError}</span>
                         </div>
                         <div class="form-group">
-                            <label style="font-weight: 600;" for="confirmPassword">Confirm password</label>
+                            <label style="font-weight: 600;" for="confirmPassword">${langResources[state.selectedCulture.code].confirmPassword}</label>
                             <input class="form-control" type="password" id="confirmPassword" name="confirmPassword"
                                    value.bind="confirmPassword" />
                             <span id="popupPasswordConfirm" style="display: none; color: red">${passwordConfirmError}</span>
                         </div>
 
-                        <button style="font-weight: 600;" id="submitbtn" type="submit" class="btn btn-primary">Register</button>
+                        <button style="font-weight: 600;" id="submitbtn" type="submit" class="btn btn-primary">${langResources[state.selectedCulture.code].register}</button>
                     </form>
                 </div>
             </div>

@@ -7,13 +7,16 @@ import { AppState } from 'state/app-state';
 import {ServiceService} from "../../service/service-service";
 import {IService} from "../../domain/IService";
 import {Router} from "aurelia-router";
+import {connectTo} from "aurelia-store";
+import {LayoutResources} from "../../lang/LayoutResources";
 
+@connectTo()
 @autoinject
 export class AdminSection{
    private _alert: IAlertData | null = null;
    private _services: IService[] = [];
    private _campaigns: ICampaign[] = [];
-
+    private langResources = LayoutResources;
 
     constructor(private serviceService: ServiceService, private appState: AppState, private campaignService: CampaignService, private router: Router){
 

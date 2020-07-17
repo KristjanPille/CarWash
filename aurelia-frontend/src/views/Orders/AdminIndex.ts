@@ -9,7 +9,10 @@ import {CarService} from "../../service/car-service";
 import {ServiceService} from "../../service/service-service";
 import {IService} from "../../domain/IService";
 import {ICar} from "../../domain/ICar";
+import {connectTo} from "aurelia-store";
+import {LayoutResources} from "../../lang/LayoutResources";
 
+@connectTo()
 @autoinject
 export class AdminIndex {
     private _alert: IAlertData | null = null;
@@ -23,6 +26,7 @@ export class AdminIndex {
     private price = 0;
     private model = '';
     private mark = '';
+    private langResources = LayoutResources;
 
     constructor(private orderService: OrderService, private carService: CarService, private serviceService: ServiceService, private router: Router) {
         this.weekdays =new Array(7);

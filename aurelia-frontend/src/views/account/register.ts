@@ -8,8 +8,11 @@ import {AlertType} from "../../types/AlertType";
 import {IAlertData} from "../../types/IAlertData";
 import {IMark} from "../../domain/IMark";
 import {IModel} from "../../domain/IModel";
+import {connectTo} from "aurelia-store";
+import {LayoutResources} from "../../lang/LayoutResources";
 
 
+@connectTo()
 @autoinject
 export class AccountRegister {
     private _alert: IAlertData | null = null;
@@ -32,6 +35,7 @@ export class AccountRegister {
     private modelError = "";
     private passwordError = "";
     private passwordConfirmError = "";
+    private langResources = LayoutResources;
 
 
     constructor(

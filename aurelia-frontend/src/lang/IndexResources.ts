@@ -1,4 +1,5 @@
 export interface IIndexResourceStrings {
+    carWash: string;
     campaign: string;
     car: string;
     service: string;
@@ -19,6 +20,10 @@ export interface IIndexResourceStrings {
     Friday: string;
     Saturday: string;
     Sunday: string;
+    Discount: string;
+    edit: string;
+    save: string;
+    delete: string;
 }
 export interface IIndexResources {
     'en-GB': IIndexResourceStrings;
@@ -26,6 +31,7 @@ export interface IIndexResources {
 }
 export const IndexResources: IIndexResources = {
     'en-GB':{
+        carWash: 'Car Wash',
         campaign: 'Campaigns',
         service: 'Services',
         car: 'Cars',
@@ -46,8 +52,13 @@ export const IndexResources: IIndexResources = {
         Friday: 'Friday',
         Saturday: 'Saturday',
         Sunday: 'Sunday',
+        Discount: 'Discount',
+        edit: 'Edit',
+        save: 'Save',
+        delete: 'Delete',
     },
     'et-EE': {
+        carWash: 'Auto pesula',
         campaign: 'Kampaania',
         service: 'Teenused',
         car: 'Autod',
@@ -68,5 +79,9 @@ export const IndexResources: IIndexResources = {
         Friday: 'reede',
         Saturday: 'laupäev',
         Sunday: 'pühapäev',
+        Discount: 'Allahindlus',
+        edit: 'Muuda',
+        save: 'Salvesta',
+        delete: 'Kustuta',
     },
 }

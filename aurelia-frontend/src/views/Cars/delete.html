@@ -3,12 +3,12 @@
 
     <alert alert-data.bind="_alert"></alert>
 
-    <h3>Are you sure you want to delete this?</h3>
+    <h3>${langResources[state.selectedCulture.code].deleteConfirm}</h3>
     <div>
         <hr />
         <dl class="row">
             <dt class="col-sm-2">
-                Car
+                ${langResources[state.selectedCulture.code].selectedCar}
             </dt>
             <dd class="col-sm-5">
                 ${_car.mark} ${_car.model}
@@ -16,8 +16,8 @@
         </dl>
 
         <form submit.trigger="onSubmit($event)">
-            <input type="submit" value="Delete" class="btn btn-danger" /> |
-            <a route-href="route: Cars-index; params.bind: { }">Back to List</a>
+            <input type="submit" value="${langResources[state.selectedCulture.code].delete}" class="btn btn-danger"/> |
+            <a route-href="route: Cars-index; params.bind: { }">  ${langResources[state.selectedCulture.code].backToList}</a>
         </form>
 
     </div>

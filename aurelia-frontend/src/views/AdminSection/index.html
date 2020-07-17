@@ -6,22 +6,22 @@
         <div class="row">
             <div class="col-75">
                 <div class="orderContainer">
-                    <h2>Admin Panel</h2>
+                    <h2>${langResources[state.selectedCulture.code].adminOrderPanel}</h2>
                     <table id="adminService" class="table table-hover table-bordered" style="text-align:center;font-weight: 600">
-                        <a style="color: white;float: right;font-size: larger;font-weight: bold;" route-href="route: service-create; params.bind: {}">Click here to add new Service</a>
+                        <a style="color: white;float: right;font-size: larger;font-weight: bold;" route-href="route: service-create; params.bind: {}">${langResources[state.selectedCulture.code].clickNewService}</a>
                         <thead>
                         <tr class="adminServices">
                             <th style="width: 90px">
-                                Name
+                                ${langResources[state.selectedCulture.code].name}
                             </th>
                             <th style="width: 90px">
-                                Price
+                                ${langResources[state.selectedCulture.code].price}
                             </th>
                             <th style="width: 90px">
-                                Duration
+                                ${langResources[state.selectedCulture.code].duration}
                             </th>
                             <th>
-                                Description
+                                ${langResources[state.selectedCulture.code].description}
                             </th>
                             <th>
                             </th>
@@ -42,7 +42,7 @@
                                 ${service.description}
                             </td>
                             <td>
-                                <input style="font-weight: 600" class="btn btn-danger" type="button" click.delegate="deleteService(service.id)" value="Delete" />
+                                <input style="font-weight: 600" class="btn btn-danger" type="button" click.delegate="deleteService(service.id)" value="${langResources[state.selectedCulture.code].delete}" />
                             </td>
                         </tr>
                         </a>
@@ -50,19 +50,19 @@
                     </table>
                 </div>
                 <div class="orderContainer">
-                    <h2>Admin Panel</h2>
+                    <h2>${langResources[state.selectedCulture.code].adminOrderPanel}</h2>
                     <table id="campaigns" class="table table-hover table-bordered" style="text-align:center;">
-                        <a style="color: white;float: right;font-size: larger;font-weight: bold;" route-href="route: campaign-create; params.bind: {}">Click here to add new Campaign</a>
+                        <a style="color: white;float: right;font-size: larger;font-weight: bold;" route-href="route: campaign-create; params.bind: {}">${langResources[state.selectedCulture.code].clickNewCampaign}</a>
                         <thead>
                         <tr class="adminServices">
                             <th style="width: 90px">
-                                Name
+                                ${langResources[state.selectedCulture.code].name}
                             </th>
                             <th style="width: 90px">
-                                Description
+                                ${langResources[state.selectedCulture.code].description}
                             </th>
                             <th style="width: 90px">
-                                Discount
+                                ${langResources[state.selectedCulture.code].Discount}
                             </th>
                             <th style="width: 90px">
 
@@ -81,7 +81,7 @@
                                 ${campaign.discountAmount}
                             </td>
                             <td>
-                                <input style="font-weight: 600" class="btn btn-danger" type="button" click.delegate="deleteCampaign(campaign.id)" value="Delete" />
+                                <input style="font-weight: 600" class="btn btn-danger" type="button" click.delegate="deleteCampaign(campaign.id)" value="${langResources[state.selectedCulture.code].delete}" />
                             </td>
                         </tr>
                         </a>

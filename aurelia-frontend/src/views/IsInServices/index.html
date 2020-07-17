@@ -9,9 +9,9 @@
         <tr>
             <th id="car" scope="col">
                     <label if.bind="appState.jwt != null">
-                        Select Car:<br>
+                        ${langResources[state.selectedCulture.code].selectCar}:<br>
                         <select style="border-radius: 10px" id="selectCar" value.bind="selectedCar" change.delegate="bindCar(selectedCar)">
-                            <option model.bind="null">Choose...</option>
+                            <option model.bind="null">${langResources[state.selectedCulture.code].choose}...</option>
                             <option repeat.for="car of _cars"
                                     model.bind="car">
                                 ${car.mark} ${car.model}
@@ -154,17 +154,17 @@
     <table id="services" class="table table-hover table-bordered" style="text-align:center;float: left;">
         <thead>
         <tr class="services">
-            <th >
-                ${indexResources[state.selectedCulture.code].name}
+            <th>
+                ${langResources[state.selectedCulture.code].name}
             </th>
             <th >
-                Price
+                ${langResources[state.selectedCulture.code].price}
             </th>
             <th >
-                ${indexResources[state.selectedCulture.code].duration}
+                ${langResources[state.selectedCulture.code].duration}
             </th>
             <th>
-                Information
+                ${langResources[state.selectedCulture.code].information}
             </th>
         </tr>
         </thead>
@@ -175,7 +175,7 @@
             </td>
             <td class="service" click.delegate="colorChanger(service.id, service.priceOfService)" style="font-weight: 500;font-family: 'Allerta Stencil';">
                 ${service.priceOfService}€
-                <b style="text-decoration: underline"> ${checkForCampaign(service.id)}
+                <b style="text-decoration: underline; color: darkred"> ${checkForCampaign(service.id)}
                 </b>
             </td>
             <td class="service" click.delegate="colorChanger(service.id, service.priceOfService)">
@@ -183,7 +183,7 @@
                 <b style="font-weight: 500;font-family: 'Allerta Stencil';">min</b>
             </td>
             <td class="service"  click.delegate="showInfo(service)">
-                Click here for more info
+                ${langResources[state.selectedCulture.code].click}
             </td>
         </tr>
         </tbody>
@@ -191,14 +191,14 @@
     </div>
 
     <div id="overlayService" click.delegate="hideInfo()">
-        <div class="isInServiceContainer">${test}<br><span style="color: darkred;">Click anywhere to close</span></div>
+        <div class="isInServiceContainer">${test}<br><span style="color: darkred;">${langResources[state.selectedCulture.code].clickClose}</span></div>
 
     </div>
 
     <div if.bind="appState.jwt == null" id="overlay">
-        <span>You must be logged in to book a service<br><a route-href="route: account-login; params.bind: {}">Click Here to Login</a></span><br>
+        <span>${langResources[state.selectedCulture.code].bookService}<br><a route-href="route: account-login; params.bind: {}">${langResources[state.selectedCulture.code].clickLogin}</a></span><br>
         <br>
-        <span><a route-href="route: account-register; params.bind: {}">Or click Here to Register</a></span>
+        <span><a route-href="route: account-register; params.bind: {}">${langResources[state.selectedCulture.code].clickRegister}</a></span>
     </div>
     </body>
 </template>

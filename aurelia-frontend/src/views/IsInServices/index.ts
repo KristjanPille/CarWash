@@ -17,6 +17,8 @@ import {CultureService} from "../../service/culture-service";
 import {IndexResources} from "../../lang/IndexResources";
 import {BindingEngine} from 'aurelia-binding';
 import {observable} from "aurelia-framework";
+import {LayoutResources} from "../../lang/LayoutResources";
+import {ICulture} from "../../domain/ICulture";
 
 @connectTo()
 @autoinject
@@ -41,9 +43,11 @@ export class IsInServicesIndex{
     private FourthDay: any;
     private FifthDay: any;
     private weekdays: any;
+    private Discount =  "Discount: ";
     private clickedCell = 0;
     private selectedServiceIndex = 0;
     private indexResources = IndexResources;
+    private langResources = LayoutResources;
     @observable
     protected state!: IState;
 
@@ -71,6 +75,8 @@ export class IsInServicesIndex{
         this.weekdays[5]=this.indexResources[newValue.selectedCulture.code].Friday;
         // @ts-ignore
         this.weekdays[6]=this.indexResources[newValue.selectedCulture.code].Saturday;
+        // @ts-ignore
+        this.Discount = this.indexResources[newValue.selectedCulture.code].Discount;
     }
 
     async attached() {
@@ -275,7 +281,7 @@ export class IsInServicesIndex{
                 let campaign = this._campaigns.find(c => c.id == service!.campaignId)
                 let campaignService = this._services.find(s => s.id == service!.id)
                 if (campaign) {
-                    return 'Discount: ' + '-' + campaign!.discountAmount * 100 + '%';
+                    return '-' + campaign!.discountAmount * 100 + '%';
                 }
 
             }

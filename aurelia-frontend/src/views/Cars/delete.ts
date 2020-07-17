@@ -4,11 +4,16 @@ import { CarService } from 'service/car-service';
 import { ICar } from 'domain/ICar';
 import { IAlertData } from 'types/IAlertData';
 import { AlertType } from 'types/AlertType';
+import {connectTo} from "aurelia-store";
+import {LayoutResources} from "../../lang/LayoutResources";
+import {IndexResources} from "../../lang/IndexResources";
 
+@connectTo()
 @autoinject
 export class CarsDelete {
     private _alert: IAlertData | null = null;
-
+    private langResources = LayoutResources;
+    private indexResources = IndexResources;
     private _car?: ICar;
 
     constructor(private carService: CarService, private router: Router) {

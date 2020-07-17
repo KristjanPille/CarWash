@@ -3,7 +3,10 @@ import { AppState } from './../../state/app-state';
 import { autoinject } from 'aurelia-framework';
 import { AccountService } from 'service/account-service';
 import jwt_decode from 'jwt-decode';
+import {connectTo} from "aurelia-store";
+import {LayoutResources} from "../../lang/LayoutResources";
 
+@connectTo()
 @autoinject
 export class AccountLogin {
 
@@ -12,6 +15,7 @@ export class AccountLogin {
     private _errorMessage: string | null = null;
     private emailError = "";
     private passwordError = "";
+    private langResources = LayoutResources;
 
     constructor(private accountService: AccountService, private appState: AppState, private router: Router) {
 

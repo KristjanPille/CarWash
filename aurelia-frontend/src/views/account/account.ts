@@ -5,7 +5,10 @@ import { AlertType } from 'types/AlertType';
 import {IAccount} from "../../domain/IAccount";
 import {AccountService} from "../../service/account-service";
 import {AppState} from "../../state/app-state";
+import {connectTo} from "aurelia-store";
+import {LayoutResources} from "../../lang/LayoutResources";
 
+@connectTo()
 @autoinject
 export class AccountEdit {
     private _alert: IAlertData | null = null;
@@ -16,6 +19,7 @@ export class AccountEdit {
     _phoneNumber = "";
 
     private _account?: IAccount;
+    private langResources = LayoutResources;
 
     constructor(private accountService: AccountService, private router: Router, private appState: AppState) {
     }

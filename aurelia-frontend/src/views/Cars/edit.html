@@ -2,15 +2,13 @@
     <require from="../../components/alert"></require>
 
     <alert alert-data.bind="_alert"></alert>
-    
-    <h1>Edit</h1>
 
-    <h4>Car</h4>
+    <h4>${langResources[state.selectedCulture.code].editCar}</h4>
     <hr />
     <form submit.trigger="onSubmit($event)">
         <p>
             <label>
-                Select Mark:<br>
+                ${langResources[state.selectedCulture.code].selectMark}:<br>
                 <select value.bind="selectedMark" change.delegate="getModels(selectedMark.mark)">
                     <option model.bind="$_Mark">${_carMark}</option>
                     <option repeat.for="mark of _marks"
@@ -22,7 +20,7 @@
         </p>
         <p>
             <label>
-                Select Model:<br>
+                ${langResources[state.selectedCulture.code].selectModel}:<br>
                 <select value.bind="selectedModel" change.delegate="createModel(selectedModel.model)">
                     <option model.bind="null">${_carModel}</option>
                     <option repeat.for="model of _models"
@@ -33,7 +31,7 @@
             </label>
         </p>
         <div class="form-group">
-            <input type="submit" value="Create" class="btn btn-primary" />
+            <input type="submit" value="${langResources[state.selectedCulture.code].saveChanges}" class="btn btn-primary" />
         </div>
     </form>
 

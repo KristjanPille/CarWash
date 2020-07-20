@@ -1,4 +1,4 @@
-import { autoinject, LogManager } from 'aurelia-framework';
+import {autoinject, LogManager, observable} from 'aurelia-framework';
 import { AccountService } from 'service/account-service';
 import { AppState } from 'state/app-state';
 import { Router } from 'aurelia-router';
@@ -8,8 +8,9 @@ import {AlertType} from "../../types/AlertType";
 import {IAlertData} from "../../types/IAlertData";
 import {IMark} from "../../domain/IMark";
 import {IModel} from "../../domain/IModel";
-import {connectTo} from "aurelia-store";
+import {connectTo, Store} from "aurelia-store";
 import {LayoutResources} from "../../lang/LayoutResources";
+import {IState} from "../../state/state";
 
 
 @connectTo()
@@ -36,6 +37,9 @@ export class AccountRegister {
     private passwordError = "";
     private passwordConfirmError = "";
     private langResources = LayoutResources;
+    protected newState!: IState;
+    @observable
+    protected state!: IState;
 
 
     constructor(
@@ -43,7 +47,8 @@ export class AccountRegister {
         private carService: CarService,
         private modelMarkService: ModelMarkservice,
         private appState: AppState,
-        private router: Router
+        private router: Router,
+        private store: Store<IState>
       ) {
 
       }
@@ -63,6 +68,10 @@ export class AccountRegister {
                 }
             }
         )
+    }
+
+    private stateChanged(newValue: IState): void {
+        this.newState = newValue;
     }
 
     getModels(mark: string){
@@ -90,64 +99,109 @@ export class AccountRegister {
     
     submit(): void {
         if(this._email == ""){
-            this.emailError = "Please enter email";
+            if (this.newState.selectedCulture.code == "en-GB"){
+                this.emailError = "Palun sisestage email";
+            }
+            else{
+                this.emailError = "Please enter email";
+            }
             // @ts-ignore
             document.getElementById('popupEmail').style.display = 'block';
             return
         }
         if(this._firstname == ""){
-            this.firstNameError = "Please enter first name";
+            if (this.newState.selectedCulture.code == "en-GB"){
+                this.firstNameError = "Please enter first name";
+            }
+            else{
+                this.firstNameError = "Palun sisestage eesnimi";
+            }
             // @ts-ignore
             document.getElementById('popupFirstName').style.display = 'block';
             return
         }
         if(this._lastname == ""){
-            this.lastNameError = "Please enter last name";
+            if (this.newState.selectedCulture.code == "en-GB"){
+                this.lastNameError = "Please enter last name";
+            }
+            else{
+                this.lastNameError = "Palun sisestage perekonna nimi";
+            }
             // @ts-ignore
             document.getElementById('popupLastName').style.display = 'block';
 
             return
         }
-        if(this._phoneNr=="" || this._phoneNr.length > 20){
-            this.phoneNrError = "Please enter valid phone number";
+        if(this._phoneNr=="" || this._phoneNr.length > 20 || !/^\d+$/.test(this._phoneNr)){
+            if (this.newState.selectedCulture.code == "en-GB"){
+                this.phoneNrError = "Please enter valid phone number";
+            }
+            else{
+                this.phoneNrError = "Palun sisestage õige telefoni number";
+            }
             // @ts-ignore
             document.getElementById('popupPhoneNr').style.display = 'block';
 
             return
         }
         if(this._mark==""){
-            this.markError = "Please select mark";
+            if (this.newState.selectedCulture.code == "en-GB"){
+                this.markError = "Please select mark";
+            }
+            else{
+                this.markError = "Palun valige mark";
+            }
             // @ts-ignore
             document.getElementById('popupMark').style.display = 'block';
 
             return
         }
         if(this._model==""){
-            this.modelError = "Please select model";
+            if (this.newState.selectedCulture.code == "en-GB"){
+                this.modelError = "Please select model";
+            }
+            else{
+                this.modelError = "Palun valige mudel";
+            }
             // @ts-ignore
             document.getElementById('popupModel').style.display = 'block';
 
             return
         }
         if(this.confirmPassword==""){
-            this.passwordConfirmError = "Please confirm your password";
+            if (this.newState.selectedCulture.code == "en-GB"){
+                this.passwordConfirmError = "Please confirm your password";
+            }
+            else{
+                this.passwordConfirmError = "Palun kinnitage salasõna";
+            }
             // @ts-ignore
             document.getElementById('popupPasswordConfirm').style.display = 'block';
 
             return
         }
         if( this.password != this.confirmPassword){
-            this.passwordError = "Passwords do not match";
+            if (this.newState.selectedCulture.code == "en-GB"){
+                this.passwordError = "Passwords do not match";
+                this.passwordConfirmError = "Passwords do not match";
+            }
+            else{
+                this.passwordError = "Salasõnad ei ühildu";
+                this.passwordConfirmError = "Salasõnad ei ühildu";
+            }
             // @ts-ignore
-            document.getElementById('popupPassword').style.display = 'block';
-
-            this.passwordConfirmError = "Passwords do not match";
+            document.getElementById('popupPasswordConfirm').style.display = 'block';
             // @ts-ignore
             document.getElementById('popupPassword').style.display = 'block';
             return
         }
         if(this.password == ""){
-            this.passwordError = "Please enter password";
+            if (this.newState.selectedCulture.code == "en-GB"){
+                this.passwordError = "Please enter password";
+            }
+            else{
+                this.passwordError = "Palun sisestage salasõna";
+            }
             // @ts-ignore
             document.getElementById('popupPassword').style.display = 'block';
 

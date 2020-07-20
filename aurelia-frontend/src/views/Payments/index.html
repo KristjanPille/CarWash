@@ -5,12 +5,11 @@
         <div class="col-75">
             <div class="orderContainer">
                 <form submit.trigger="onSubmit($event)">
-
                     <div class="row">
                         <div class="col-50">
-                            <h3>Check out</h3>
+                            <h3>${langResources[state.selectedCulture.code].checkOut}</h3>
                             <select class="custom-select" value.bind="selectedPaymentMethod" change.delegate="paymentSelect(selectedPaymentMethod)">
-                                <option model.bind="null">Choose...</option>
+                                <option model.bind="null">${langResources[state.selectedCulture.code].choose}...</option>
                                 <option repeat.for="paymentMethod of _paymentMethods"
                                         model.bind="paymentMethod.paymentMethodName">
                                     ${paymentMethod.paymentMethodName}
@@ -18,27 +17,26 @@
                             </select>
                             <hr>
                             <div id="card">
-
-                            <label for="cardNumber">Card number</label>
+                            <label for="cardNumber">${langResources[state.selectedCulture.code].cardNumber}</label>
                             <input type="text" id="cardNumber" value.bind = "cardNumber" name="cardNumber" placeholder="1111-2222-3333-4444">
 
-                            <label for="expMonth">Expiry Month</label>
+                            <label for="expMonth">${langResources[state.selectedCulture.code].expMonth}</label>
                             <input type="text" id="expMonth" value.bind = "expMonth" name="expmonth" placeholder="September">
 
                             <div class="row">
                                 <div class="col-50">
-                                    <label for="expYear">Expiry Year</label>
+                                    <label for="expYear">${langResources[state.selectedCulture.code].expYear}</label>
                                     <input type="text" id="expYear" value.bind = "expYear" name="expyear" placeholder="2020">
                                 </div>
                                 <div class="col-50">
-                                    <label for="cvv">Security code</label>
+                                    <label for="cvv">${langResources[state.selectedCulture.code].CVV}</label>
                                     <input type="text" id="cvv" value.bind = "cvv" name="cvv" placeholder="123">
                                 </div>
                             </div>
                             </div>
 
                             <div id="paypal" style="display: none">
-                                <label for="payPalEmail">PayPal Email</label>
+                                <label for="payPalEmail">${langResources[state.selectedCulture.code].paypalEmail}</label>
                                 <input type="text" id="payPalEmail" value.bind = "payPalEmail" name="payPalEmail" placeholder="example.example@gmail.com">
                             </div>
                         </div>
@@ -51,11 +49,11 @@
         <div class="col-25">
             <div class="orderContainer">
                 <h4>${service.nameOfService}<span class="price" style="color:black"><i class="fa fa-shopping-cart"></i></span></h4>
-                <p>Price of Service:<span class="price" style="color:black"><b>${service.priceOfService}€</b></span></p>
-                <p>Duration:<span class="price" style="color:black"><b>${service.duration}min</b></span></p>
-                <p>Selected car:<span class="price" style="color:black"><b>${car.mark} ${car.model}</b></span></p>
+                <p>${langResources[state.selectedCulture.code].priceOfService}:<span class="price" style="color:black"><b>${service.priceOfService}€</b></span></p>
+                <p>${langResources[state.selectedCulture.code].duration}:<span class="price" style="color:black"><b>${service.duration}min</b></span></p>
+                <p>${langResources[state.selectedCulture.code].selectedCar}:<span class="price" style="color:black"><b>${car.mark} ${car.model}</b></span></p>
                 <hr>
-                <p>Total<span class="price" style="color:black"><b>${service.priceOfService}€</b></span></p>
+                <p>${langResources[state.selectedCulture.code].total}:<span class="price" style="color:black"><b>${service.priceOfService}€</b></span></p>
             </div>
         </div>
     </div>

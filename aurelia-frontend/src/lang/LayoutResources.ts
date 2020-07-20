@@ -53,6 +53,13 @@ export interface ILayoutResourceStrings {
     clickRegister: string;
     clickClose: string;
     bookService: string;
+    checkOut: string;
+    cardNumber: string;
+    expMonth: string;
+    expYear: string;
+    CVV: string;
+    paypalEmail: string;
+    total: string;
 }
 export interface ILayoutResources {
     'en-GB': ILayoutResourceStrings;
@@ -114,6 +121,14 @@ export const LayoutResources: ILayoutResources = {
         clickRegister: 'or click here to register',
         clickClose: 'click anywhere to close',
         bookService: 'You must be logged in to book a service',
+        checkOut: 'Check out',
+        cardNumber: 'Card number',
+        expMonth: 'Expiry month',
+        expYear: 'Expiry year',
+        CVV: 'Security code',
+        paypalEmail: 'Paypal Email',
+        total: 'Total',
+
     },
     'et-EE': {
         name: 'Nimi',
@@ -170,5 +185,12 @@ export const LayoutResources: ILayoutResources = {
         clickRegister: 'või kliki siia, et teha uus kasutaja',
         clickClose: 'Kliki, et vaade sulgeda',
         bookService: 'Teenuse broneerimiseks peate olema sisselogitud',
+        checkOut: 'Maksmine',
+        cardNumber: 'Kaardi number',
+        expMonth: 'Kehtivuse kuu',
+        expYear: 'Kehtivuse aasta',
+        CVV: 'CVV',
+        paypalEmail: 'Paypal mail',
+        total: 'Kokku',
     },
 }

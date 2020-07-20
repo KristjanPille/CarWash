@@ -13,6 +13,7 @@ import {CampaignService} from "../../service/campaign-service";
 import {IsInServiceService} from "../../service/isInService-service";
 import {ICampaign} from "../../domain/ICampaign";
 import {IPayment} from "../../domain/IPayment";
+import {LayoutResources} from "../../lang/LayoutResources";
 
 
 @autoinject
@@ -31,6 +32,7 @@ export class PaymentsIndex {
     private _paymentMethods: IPaymentMethod[] = [];
     private _campaigns: ICampaign[] = [];
     private test?: IPayment;
+    private langResources = LayoutResources;
 
     constructor(private paymentService: PaymentService,private serviceService: ServiceService, private carService: CarService,  private campaignService: CampaignService, private isInServiceService: IsInServiceService, private router: Router) {
 

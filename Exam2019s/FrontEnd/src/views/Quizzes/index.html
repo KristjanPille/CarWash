@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-75">
                 <div class="orderContainer">
-                    <h2 style="font-weight: 600;" >Campaigns</h2>
+                    <h2 style="font-weight: 600;" >Quizzes</h2>
                     <form submit.trigger="onSubmit($event)">
                         <div class="row">
                             <div class="col-50">
@@ -14,31 +14,30 @@
                                     <thead>
                                     <tr>
                                         <th>
-                                            ${campaign}
+                                            Quiz
                                         </th>
                                         <th>
-                                            ${description}
+                                            Average Score
                                         </th>
                                         <th>
-                                            ${discountAmount}
+                                          Start Quiz
                                         </th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr repeat.for="campaign of _campaigns">
+                                    <tr repeat.for="quiz of _quizzesDummy">
                                         <td>
-                                            ${campaign.nameOfCampaign}
+                                            ${quiz.nameOfQuiz}
+                                        </td>
+                                        <td if.bind="quiz.score == 0">
+                                            No score yet
+                                        </td>
+                                        <td if.bind="quiz.score != 0">
+                                          ${quiz.score}/${quiz.maxScore}
                                         </td>
                                         <td>
-                                            ${campaign.description}
+                                          <a style="color: white;float: right;font-size: larger;font-weight: bold;" class="button" type="button" route-href="route: quizzes-quiz; params.bind: { id: quiz.id }">Start</a>
                                         </td>
-                                        <td>
-                                            ${campaign.discountAmount * 100}%
-                                        </td>
-                                      <td>
-                                        <a route-href="route: campaigns-edit; params.bind: { id: campaign.id }" style="color: white">Edit</a> |
-                                        <a route-href="route: campaigns-delete; params.bind: { id: campaign.id }" style="color: white">Delete</a>
-                                      </td>
                                     </tr>
                                     </tbody>
                                 </table>

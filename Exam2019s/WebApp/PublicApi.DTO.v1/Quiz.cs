@@ -9,11 +9,7 @@ namespace PublicApi.DTO.v1
     {
         [Required]
         public string NameOfQuiz { get; set; } = default!;
-        
-        public ICollection<Question>? Questions { get; set; }
-        
-        public double? Score { get; set; }
-        
+
         public Guid Id { get; set; }
     }
 }

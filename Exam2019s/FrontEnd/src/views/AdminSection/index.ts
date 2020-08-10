@@ -4,24 +4,25 @@ import { AlertType } from 'types/AlertType';
 import { AppState } from 'state/app-state';
 import {Router} from "aurelia-router";
 import {connectTo} from "aurelia-store";
+import {IQuiz} from "../../domain/IQuiz";
+import {QuizService} from "../../service/quiz-service";
 
 @connectTo()
 @autoinject
 export class AdminIndex{
    private _alert: IAlertData | null = null;
-   private _services: IService[] = [];
-   private _campaigns: ICampaign[] = [];
+   private _quizzes: IQuiz[] = [];
 
-    constructor(private serviceService: ServiceService, private appState: AppState, private campaignService: CampaignService, private router: Router){
+    constructor(private appState: AppState, private quizService: QuizService, private router: Router){
 
     }
 
     async attached() {
-        await this.serviceService.getAll().then(
+        await this.quizService.getAll().then(
             response => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     this._alert = null;
-                    this._services = response.data!;
+                    this._quizzes = response.data!;
                 } else {
                     // show error message
                     this._alert = {
@@ -32,36 +33,20 @@ export class AdminIndex{
                 }
             }
         );
-        await this.campaignService.getAll().then(
-            response => {
-                if (response.statusCode >= 200 && response.statusCode < 300) {
-                    this._alert = null;
-                    this._campaigns = response.data!;
-                } else {
-                    // show error message
-                    this._alert = {
-                        message: response.statusCode.toString() + ' - ' + response.errorMessage,
-                        type: AlertType.Danger,
-                        dismissable: true,
-                    }
-                }
-            }
-        );
-
     }
 
 
-    async deleteCampaign(campaignId: string){
-        await this.campaignService
-            .deleteCampaign(campaignId)
+    async deleteQuiz(quizId: string){
+        await this.quizService
+            .deleteQuiz(quizId)
             .then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
-                        this.router.navigateToRoute('Admin-Section', {});
+                        this.router.navigateToRoute('Admin-Index', {});
                     }if (response.statusCode == 500){
                         this._alert = {
-                            message: response.statusCode.toString() + ' - ' + "There are active services dependant on this campaign, first remove campaign from services that are using it",
+                            message: response.statusCode.toString() + ' - ' + "There are active services dependant on this Quiz, first remove campaign from services that are using it",
                             type: AlertType.Danger,
                             dismissable: true,
                         }
@@ -77,25 +62,4 @@ export class AdminIndex{
                 }
             );
     }
-    async deleteService(serviceId: string){
-        await this.serviceService
-            .deleteService(serviceId)
-            .then(
-                response => {
-                    if (response.statusCode >= 200 && response.statusCode < 300) {
-                        this._alert = null;
-                        this.router.navigateToRoute('Admin-Section', {});
-                    }
-                    else {
-                        // show error message
-                        this._alert = {
-                            message: response.statusCode.toString() + ' - ' + response.errorMessage,
-                            type: AlertType.Danger,
-                            dismissable: true,
-                        }
-                    }
-                }
-            );
-    }
-
 }

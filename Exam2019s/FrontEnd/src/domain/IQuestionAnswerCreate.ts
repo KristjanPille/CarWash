@@ -1,3 +1,4 @@
 export interface IQuestionAnswerCreate {
-  Answer: string;
+  answer: string;
+  questionId: string;
 }

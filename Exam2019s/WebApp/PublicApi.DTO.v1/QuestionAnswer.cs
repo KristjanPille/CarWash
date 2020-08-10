@@ -11,6 +11,8 @@ namespace PublicApi.DTO.v1
         [Required]
         public string Answer { get; set; } = default!;
 
+        public Guid? QuestionId { get; set; }
+        
         public Guid Id { get; set; }
     }
 }

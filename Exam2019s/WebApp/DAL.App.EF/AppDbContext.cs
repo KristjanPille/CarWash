@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Question = Domain.App.Question;
 using QuestionAnswer = Domain.App.QuestionAnswer;
 using Quiz = Domain.App.Quiz;
+using Score = DAL.App.DTO.Score;
 
 namespace DAL.App.EF
 {
@@ -26,6 +27,8 @@ namespace DAL.App.EF
         public DbSet<Question> Questions { get; set; } = default!;
         
         public DbSet<QuestionAnswer> QuestionAnswers { get; set; } = default!;
+        
+        public DbSet<Domain.App.Score> Scores { get; set; } = default!;
 
         private readonly Dictionary<IDomainEntityId<Guid>, IDomainEntityId<Guid>> _entityTracker =
             new Dictionary<IDomainEntityId<Guid>, IDomainEntityId<Guid>>();

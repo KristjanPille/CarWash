@@ -1,20 +1,16 @@
 import { autoinject } from 'aurelia-framework';
 import { RouteConfig, NavigationInstruction, Router } from 'aurelia-router';
-import { CampaignService } from 'service/question-service';
-import { ICampaign } from 'domain/ICampaign';
 import { IAlertData } from 'types/IAlertData';
 import { AlertType } from 'types/AlertType';
+import {QuizService} from "../../service/quiz-service";
 
 @autoinject
-export class CampaignsCreate {
+export class QuizzesCreate {
     private _alert: IAlertData | null = null;
 
+    _NameOfQuiz = "";
 
-    _NameOfCampaign = "";
-    _Description = "";
-    _DiscountAmount = 0;
-
-    constructor(private campaignService: CampaignService, private router: Router) {
+    constructor(private quizService: QuizService, private router: Router) {
 
     }
 
@@ -27,13 +23,13 @@ export class CampaignsCreate {
     }
 
     onSubmit(event: Event) {
-        this.campaignService
-            .createCampaign({ nameOfCampaign: this._NameOfCampaign, description: this._Description, discountAmount: this._DiscountAmount })
+        this.quizService
+            .createQuiz({ nameOfQuiz: this._NameOfQuiz })
             .then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
-                        this.router.navigateToRoute('Admin-Section', {});
+                        this.router.navigateToRoute('Admin-Index', {}, { replace: true, trigger: true });
                     } else {
                         // show error message
                         this._alert = {

@@ -9,5 +9,7 @@
         IQuizService Quizzes { get; }
         IQuestionService Questions { get; }
         IQuestionAnswerService QuestionAnswers { get; }
+        
+        IScoreService Scores { get; }
     }
 }

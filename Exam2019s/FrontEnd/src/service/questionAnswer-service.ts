@@ -5,6 +5,7 @@ import { AppState } from 'state/app-state';
 import {BaseService} from "./base-service";
 import {IQuestionAnswer} from "../domain/IQuestionAnswer";
 import {IQuestionAnswerCreate} from "../domain/IQuestionAnswerCreate";
+import {IQuestion} from "../domain/IQuestion";
 
 @autoinject
 export class QuestionAnswerService extends BaseService<IQuestionAnswer> {
@@ -77,6 +78,35 @@ export class QuestionAnswerService extends BaseService<IQuestionAnswer> {
     }
   }
 
+  async getQuestionSpecificAnswers(questionId: string): Promise<IFetchResponse<IQuestionAnswer[]>> {
+    try {
+      const response = await this.httpClient
+        .fetch(this.apiEndpointUrl + '/question/' + questionId, {
+          cache: "no-store"
+        });
+      // happy case
+      if (response.ok) {
+        const data = (await response.json()) as IQuestionAnswer[];
+        return {
+          statusCode: response.status,
+          data: data
+        }
+      }
+
+      // something went wrong
+      return {
+        statusCode: response.status,
+        errorMessage: response.statusText
+      }
+
+    } catch (reason) {
+      return {
+        statusCode: 0,
+        errorMessage: JSON.stringify(reason)
+      }
+    }
+  }
+
   async updateQuestionAnswer(questionAnswer: IQuestionAnswer): Promise<IFetchResponse<string>> {
     try {
       const response = await this.httpClient
@@ -118,9 +148,10 @@ export class QuestionAnswerService extends BaseService<IQuestionAnswer> {
         })
 
       if (response.status >= 200 && response.status < 300) {
+        const data = (await response.json()) as string;
         return {
-          statusCode: response.status
-          // no data
+          statusCode: response.status,
+          data: data
         }
       }
 

@@ -32,9 +32,9 @@ namespace WebApp.ApiControllers._1._0
             _bll = bll;
         }
 
-        // GET: api/Questions
+        // GET: api/QuestionAnswers
         /// <summary>
-        /// Get all Questions
+        /// Get all QuestionAnswers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -45,6 +45,22 @@ namespace WebApp.ApiControllers._1._0
             return Ok((await _bll.QuestionAnswers.GetAllAsync()).Select(e => _mapper.Map(e)));
         }
 
+        // GET: api/QuestionAnswers/5
+        /// <summary>
+        /// Get Specific QuestionAnswers
+        /// </summary>
+        /// <param name="questionId"></param>
+        /// <returns></returns>
+        [HttpGet("question/{questionId}")]
+        [AllowAnonymous]
+        [Produces("application/json")]
+        public async Task<ActionResult<IEnumerable<PublicApi.DTO.v1.QuestionAnswer>>> GetQuestionSpecificAnswers(Guid questionId)
+        {
+            var questionAnswers = await _bll.QuestionAnswers.GetQuestionAnswers(questionId);
+            
+            return Ok(questionAnswers);
+        }
+        
         // GET: api/QuestionAnswer/5
         /// <summary>
         /// Get Specific Question
@@ -53,7 +69,7 @@ namespace WebApp.ApiControllers._1._0
         /// <returns></returns>
         [HttpGet("{id}")]
         [Produces("application/json")]
-        public async Task<ActionResult<PublicApi.DTO.v1.Question>> GetQuestionAnswer(Guid id)
+        public async Task<ActionResult<PublicApi.DTO.v1.QuestionAnswer>> GetQuestionAnswer(Guid id)
         {
             var questionAnswer = await _bll.QuestionAnswers.FirstOrDefaultAsync(id);
 
@@ -77,6 +93,7 @@ namespace WebApp.ApiControllers._1._0
         [HttpPut("{id}")]
         [Produces("application/json")]
         [Consumes("application/json")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(V1DTO.MessageDTO))]
@@ -104,17 +121,15 @@ namespace WebApp.ApiControllers._1._0
         [HttpPost]
         [Produces("application/json")]
         [Consumes("application/json")]
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(V1DTO.QuestionAnswer))]
-        public async Task<ActionResult<QuestionAnswer>> PostQuestionAnswer(V1DTO.QuestionAnswer questionAnswer)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
+        public async Task<Guid> PostQuestionAnswer(V1DTO.QuestionAnswer questionAnswer)
         {
             var bllEntity = _mapper.Map(questionAnswer);
             _bll.QuestionAnswers.Add(bllEntity);
             await _bll.SaveChangesAsync();
             questionAnswer.Id = bllEntity.Id;
 
-            return CreatedAtAction("GetQuestionAnswers",
-                new {id = questionAnswer.Id, version = HttpContext.GetRequestedApiVersion()?.ToString() ?? "0"},
-                questionAnswer);
+            return questionAnswer.Id;
         }
 
         // DELETE: api/QuestionAnswer/5,
@@ -125,6 +140,7 @@ namespace WebApp.ApiControllers._1._0
         /// <returns></returns>
         [HttpDelete("{id}")]
         [Produces("application/json")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         public async Task<ActionResult<QuestionAnswer>> DeleteQuestionAnswer(Guid id)
         {
             var questionAnswer= await _bll.QuestionAnswers.FirstOrDefaultAsync(id);

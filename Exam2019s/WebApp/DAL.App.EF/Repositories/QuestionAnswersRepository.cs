@@ -1,4 +1,9 @@
-﻿using Contracts.DAL.App.Repositories;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Contracts.DAL.App.Repositories;
+using DAL.App.DTO;
 using DAL.App.EF.Mappers;
 using ee.itcollege.carwash.kristjan.DAL.Base.EF.Repositories;
 
@@ -14,6 +19,17 @@ namespace DAL.App.EF.Repositories
             new DALMapper<Domain.App.QuestionAnswer, DTO.QuestionAnswer>())
         {
         }
-        
+
+        public async Task<IEnumerable<QuestionAnswer>> FindQuestionAnswers(Guid questionId)
+        {
+            var query = PrepareQuery();
+
+            query = query.Where(e => e.QuestionId == questionId);
+            var domainEntities = await query.ToListAsync();
+
+            var result = domainEntities.Select(e => Mapper.Map(e));
+            
+            return result;
+        }
     }
 }

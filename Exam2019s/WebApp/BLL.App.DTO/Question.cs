@@ -12,11 +12,10 @@ namespace BLL.App.DTO
         [Required]
         public string NameOfQuestion { get; set; } = default!;
         
-        [Required]
-        public virtual ICollection<QuestionAnswer>? QuestionAnswers { get; set; }
-        
-        public QuestionAnswer? CorrectAnswer { get; set; }
+        public Guid? CorrectAnswerId { get; set; }
 
+        public Quiz? Quiz { get; set; }
+        public Guid? QuizId { get; set; }
         public Guid Id { get; set; }
     }
 }

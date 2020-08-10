@@ -9,10 +9,8 @@ namespace BLL.App.DTO
     { 
         [Required]
         public string NameOfQuiz { get; set; } = default!;
-        
-        public ICollection<Question>? Questions { get; set; }
-        
-        public double? Score { get; set; }
+
+        public ICollection<Score>? AverageScore { get; set; }
         
         public Guid Id { get; set; }
     }

@@ -19,6 +19,17 @@ namespace DAL.App.EF.Repositories
             new DALMapper<Domain.App.Question, DTO.Question>())
         {
         }
-        
+
+        public async Task<IEnumerable<Question>> FindQuestions(Guid quizId)
+        {
+            var query = PrepareQuery();
+
+            query = query.Where(e => e.QuizId == quizId);
+            var domainEntities = await query.ToListAsync();
+
+            var result = domainEntities.Select(e => Mapper.Map(e));
+            
+            return result;
+        }
     }
 }

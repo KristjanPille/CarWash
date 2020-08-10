@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using ee.itcollege.carwash.kristjan.Domain.Base;
 
@@ -10,11 +11,10 @@ namespace Domain.App
         [MaxLength(256)]
         [Required]
         public string NameOfQuestion { get; set; } = default!;
-
-        [Required] 
-        public virtual ICollection<QuestionAnswer>? QuestionAnswers { get; set; }
-
-       
-        public QuestionAnswer? CorrectAnswer { get; set; }
+        
+        public Guid? CorrectAnswerId { get; set; }
+        
+        public Quiz? Quiz { get; set; }
+        public Guid? QuizId { get; set; }
     }
 }

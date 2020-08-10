@@ -1,17 +1,17 @@
 import { autoinject } from 'aurelia-framework';
 import { RouteConfig, NavigationInstruction, Router } from 'aurelia-router';
-import { CampaignService } from 'service/question-service';
-import { ICampaign } from 'domain/ICampaign';
 import { IAlertData } from 'types/IAlertData';
 import { AlertType } from 'types/AlertType';
+import {IQuiz} from "../../domain/IQuiz";
+import {QuizService} from "../../service/quiz-service";
+import {IQuestion} from "../../domain/IQuestion";
 
 @autoinject
-export class CampaignsEdit {
+export class QuizzesEdit {
     private _alert: IAlertData | null = null;
+    private _quiz?: IQuiz;
 
-    private _campaign?: ICampaign;
-
-    constructor(private campaignService: CampaignService, private router: Router) {
+    constructor(private quizService: QuizService, private router: Router) {
     }
 
     attached() {
@@ -19,11 +19,11 @@ export class CampaignsEdit {
 
     activate(params: any, routeConfig: RouteConfig, navigationInstruction: NavigationInstruction) {
         if (params.id && typeof (params.id) == 'string') {
-            this.campaignService.getCampaign(params.id).then(
+            this.quizService.getQuiz(params.id).then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
-                        this._campaign = response.data!;
+                        this._quiz = response.data!;
                     } else {
                         // show error message
                         this._alert = {
@@ -38,13 +38,13 @@ export class CampaignsEdit {
     }
 
     onSubmit(event: Event) {
-        this.campaignService
-            .updateCampaign(this._campaign!)
+        this.quizService
+            .updateQuiz(this._quiz!)
             .then(
                 response => {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
-                        this.router.navigateToRoute('Admin-Section', {});
+                        this.router.navigateToRoute('Admin-Index', {});
                     } else {
                         // show error message
                         this._alert = {

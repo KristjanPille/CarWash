@@ -1,5 +1,6 @@
 export interface IQuestion {
   id: string;
   nameOfQuestion: string;
-  correctAnswer: string;
+  correctAnswerId: string;
+  quizId: string;
 }

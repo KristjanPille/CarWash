@@ -45,6 +45,35 @@ export class QuestionService extends BaseService<IQuestion> {
         }
     }
 
+  async getQuizSpecificQuestions(quizId: string): Promise<IFetchResponse<IQuestion[]>> {
+    try {
+      const response = await this.httpClient
+        .fetch(this.apiEndpointUrl + '/quiz/' + quizId, {
+          cache: "no-store"
+        });
+      // happy case
+      if (response.ok) {
+        const data = (await response.json()) as IQuestion[];
+        return {
+          statusCode: response.status,
+          data: data
+        }
+      }
+
+      // something went wrong
+      return {
+        statusCode: response.status,
+        errorMessage: response.statusText
+      }
+
+    } catch (reason) {
+      return {
+        statusCode: 0,
+        errorMessage: JSON.stringify(reason)
+      }
+    }
+  }
+
 
     async getQuestion(id: string): Promise<IFetchResponse<IQuestion>> {
         try {
@@ -78,6 +107,7 @@ export class QuestionService extends BaseService<IQuestion> {
     }
 
     async updateQuestion(question: IQuestion): Promise<IFetchResponse<string>> {
+      console.log(question)
         try {
             const response = await this.httpClient
                 .put(this._baseUrl + '/' + question.id, JSON.stringify(question), {
@@ -118,9 +148,10 @@ export class QuestionService extends BaseService<IQuestion> {
                 })
 
             if (response.status >= 200 && response.status < 300) {
+              const data = (await response.json()) as string;
                 return {
-                    statusCode: response.status
-                    // no data
+                    statusCode: response.status,
+                    data: data
                 }
             }
 

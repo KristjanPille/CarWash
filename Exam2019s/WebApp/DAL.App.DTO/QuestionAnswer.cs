@@ -12,5 +12,9 @@ namespace DAL.App.DTO
         public string Answer { get; set; } = default!;
 
         public Guid Id { get; set; }
+        
+        public Question? Question { get; set; }
+        
+        public Guid? QuestionId { get; set; }
     }
 }

@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <PackageReference Include="ee.itcollege.carwash.kristjan.Contracts.Domain" Version="1.0.1" />
+      <PackageReference Include="ee.itcollege.carwash.kristjan.Domain.Base" Version="1.0.1" />
     </ItemGroup>
 
 </Project>

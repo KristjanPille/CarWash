@@ -20,5 +20,8 @@ namespace BLL.App
         
         public IQuestionAnswerService QuestionAnswers =>
             GetService<IQuestionAnswerService>(() => new QuestionAnswerService(UOW));
+        
+        public IScoreService Scores =>
+            GetService<IScoreService>(() => new ScoreService(UOW));
     }
 }

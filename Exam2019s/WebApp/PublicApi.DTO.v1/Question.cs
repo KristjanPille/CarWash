@@ -11,12 +11,10 @@ namespace PublicApi.DTO.v1
         [MaxLength(256)]
         [Required]
         public string NameOfQuestion { get; set; } = default!;
-        
-        [Required]
-        public virtual ICollection<QuestionAnswer>? QuestionAnswers { get; set; }
-        
-        [Required]
-        public QuestionAnswer? CorrectAnswer { get; set; }
+
+        public Guid? CorrectAnswerId { get; set; }
+
+        public Guid QuizId { get; set; } = default;
 
         public Guid Id { get; set; }
     }

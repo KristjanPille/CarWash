@@ -10,7 +10,10 @@ namespace BLL.App.DTO
         [MaxLength(256)]
         [Required]
         public string Answer { get; set; } = default!;
-
+        
+        public Question? Question { get; set; }
+        
+        public Guid? QuestionId { get; set; }
         public Guid Id { get; set; }
     }
 }

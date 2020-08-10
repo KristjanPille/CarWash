@@ -88,38 +88,26 @@ export class App {
       { route: ['account/register'], name: 'account-register', moduleId:
           PLATFORM.moduleName('views/account/register'), nav: false, title: 'Register' },
 
-      { route: ['Quizzes', 'Campaigns/index'], name: 'Quizzes-index', moduleId:
-          PLATFORM.moduleName('views/Quizzes/index'), nav: true, title: 'Campaigns' },
+      { route: ['Quizzes', 'Quizzes/index'], name: 'quizzes-index', moduleId:
+          PLATFORM.moduleName('views/Quizzes/index'), nav: true, title: 'Quizzes' },
 
-      { route: ['Quizzes/edit/:id?'], name: 'Quizzes-edit', moduleId:
-          PLATFORM.moduleName('views/Quizzes/edit'), nav: false, title: 'Campaigns Edit' },
+      { route: ['Quiz', 'Quizzes/quiz/:id?'], name: 'quizzes-quiz', moduleId:
+          PLATFORM.moduleName('views/Quizzes/quiz'), nav: true, title: 'Quiz' },
 
-      { route: ['Quizzes/create'], name: 'Quizzes-create', moduleId:
-          PLATFORM.moduleName('views/Quizzes/create'), nav: false, title: 'Campaigns Create' },
-
-      { route: ['Quizzes/delete'], name: 'Quizzes-delete', moduleId:
-          PLATFORM.moduleName('views/Quizzes/delete'), nav: false, title: 'Campaigns Delete' },
-
-
-      { route: ['subjectReviews', 'SubjectReviews/index'], name: 'subjectReviews-index', moduleId:
-          PLATFORM.moduleName('views/subjectReviews/index'), nav: true, title: 'SubjectReviews' },
-
-      { route: ['subjectReviews/edit/:id?'], name: 'subjectReviews-edit', moduleId:
-          PLATFORM.moduleName('views/subjectReviews/edit'), nav: false, title: 'SubjectReviews Edit' },
-
-      { route: ['subjectReviews/create'], name: 'subjectReviews-create', moduleId:
-          PLATFORM.moduleName('views/subjectReviews/create'), nav: false, title: 'SubjectReviews Create' },
-
-      { route: ['subjectReviews/delete'], name: 'subjectReviews-delete', moduleId:
-          PLATFORM.moduleName('views/subjectReviews/delete'), nav: false, title: 'SubjectReviews Delete' },
-
-
+      { route: ['finalPage', 'Quizzes/finalPage'], name: 'quizzes-finalPage', moduleId:
+          PLATFORM.moduleName('views/Quizzes/finalPage'), nav: false, title: 'finalPage' },
 
       { route: ['Admin-Index', 'AdminSection/index'], name: 'Admin-Index', moduleId:
           PLATFORM.moduleName('views/AdminSection/index'), nav: true, title: 'Admin Index' },
 
+      { route: ['AdminSection/quizEdit/:id?'], name: 'quiz-edit', moduleId:
+          PLATFORM.moduleName('views/AdminSection/quizEdit'), nav: false, title: 'Quizzes Edit' },
 
+      { route: ['AdminSection/quizCreate'], name: 'quiz-create', moduleId:
+          PLATFORM.moduleName('views/AdminSection/quizCreate'), nav: false, title: 'Quizzes Create' },
 
+      { route: ['AdminSection/questionCreate'], name: 'question-create', moduleId:
+          PLATFORM.moduleName('views/AdminSection/questionCreate'), nav: false, title: 'Questions Create' },
 
 
     ]);

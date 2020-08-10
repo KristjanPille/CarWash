@@ -11,9 +11,5 @@ namespace Domain.App
     {
         [Required]
         public string NameOfQuiz { get; set; } = default!;
-        
-        public ICollection<Question>? Questions { get; set; }
-        
-        public double? AverageScore { get; set; }
     }
 }

@@ -77,6 +77,7 @@ namespace WebApp.ApiControllers._1._0
         [HttpPut("{id}")]
         [Produces("application/json")]
         [Consumes("application/json")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(V1DTO.MessageDTO))]
@@ -104,6 +105,7 @@ namespace WebApp.ApiControllers._1._0
         [HttpPost]
         [Produces("application/json")]
         [Consumes("application/json")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(V1DTO.Quiz))]
         public async Task<ActionResult<Quiz>> PostQuiz(V1DTO.Quiz Quiz)
         {
@@ -125,6 +127,7 @@ namespace WebApp.ApiControllers._1._0
         /// <returns></returns>
         [HttpDelete("{id}")]
         [Produces("application/json")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         public async Task<ActionResult<Quiz>> DeleteQuiz(Guid id)
         {
             var Quiz= await _bll.Quizzes.FirstOrDefaultAsync(id);

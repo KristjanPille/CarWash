@@ -44,6 +44,23 @@ namespace WebApp.ApiControllers._1._0
         {
             return Ok((await _bll.Questions.GetAllAsync()).Select(e => _mapper.Map(e)));
         }
+        
+        
+        // GET: api/Question/5
+        /// <summary>
+        /// Get Specific Question
+        /// </summary>
+        /// <param name="quizId"></param>
+        /// <returns></returns>
+        [HttpGet("quiz/{quizId}")]
+        [AllowAnonymous]
+        [Produces("application/json")]
+        public async Task<ActionResult<IEnumerable<PublicApi.DTO.v1.Question>>> GetQuizSpecificQuestions(Guid quizId)
+        {
+            var questions = await _bll.Questions.GetQuizQuestions(quizId);
+            
+            return Ok(questions);
+        }
 
         // GET: api/Question/5
         /// <summary>
@@ -72,22 +89,23 @@ namespace WebApp.ApiControllers._1._0
         /// Update Camapign, only for admins
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="Question"></param>
+        /// <param name="question"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
         [Produces("application/json")]
         [Consumes("application/json")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(V1DTO.MessageDTO))]
-        public async Task<IActionResult> PutQuestion(Guid id, V1DTO.Question Question)
+        public async Task<IActionResult> PutQuestion(Guid id, V1DTO.Question question)
         {
-            if (id != Question.Id)
+            if (id != question.Id)
             {
                 return BadRequest(new V1DTO.MessageDTO("id and Question.id do not match"));
             }
 
-            await _bll.Questions.UpdateAsync(_mapper.Map(Question));
+            await _bll.Questions.UpdateAsync(_mapper.Map(question));
             await _bll.SaveChangesAsync();
 
             return NoContent();
@@ -99,22 +117,20 @@ namespace WebApp.ApiControllers._1._0
         /// <summary>
         /// Create new Question. only for admins
         /// </summary>
-        /// <param name="Question"></param>
+        /// <param name="question"></param>
         /// <returns></returns>
         [HttpPost]
         [Produces("application/json")]
         [Consumes("application/json")]
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(V1DTO.Question))]
-        public async Task<ActionResult<Question>> PostQuestion(V1DTO.Question question)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
+        public async Task<Guid> PostQuestion(V1DTO.Question question)
         {
             var bllEntity = _mapper.Map(question);
             _bll.Questions.Add(bllEntity);
             await _bll.SaveChangesAsync();
             question.Id = bllEntity.Id;
 
-            return CreatedAtAction("GetQuestions",
-                new {id = question.Id, version = HttpContext.GetRequestedApiVersion()?.ToString() ?? "0"},
-                question);
+            return question.Id;
         }
 
         // DELETE: api/Questions/5m,
@@ -125,6 +141,7 @@ namespace WebApp.ApiControllers._1._0
         /// <returns></returns>
         [HttpDelete("{id}")]
         [Produces("application/json")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         public async Task<ActionResult<Question>> DeleteQuestion(Guid id)
         {
             var Question= await _bll.Questions.FirstOrDefaultAsync(id);

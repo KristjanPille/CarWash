@@ -21,5 +21,8 @@ using System.Collections.Generic;
         
         public IQuestionAnswerRepository QuestionAnswers =>
             GetRepository<IQuestionAnswerRepository>(() => new QuestionAnswersRepository(UOWDbContext));
+        
+        public IScoreRepository Scores =>
+            GetRepository<IScoreRepository>(() => new ScoreRepository(UOWDbContext));
     }
 }

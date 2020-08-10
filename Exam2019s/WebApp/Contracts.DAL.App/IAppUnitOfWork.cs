@@ -9,5 +9,7 @@ namespace Contracts.DAL.App
         IQuestionRepository Questions { get; }
         
         IQuestionAnswerRepository QuestionAnswers{ get; }
+        
+        IScoreRepository Scores{ get; }
     }
 }

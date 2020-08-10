@@ -1,4 +1,4 @@
 export interface IQuestionCreate {
   nameOfQuestion: string;
-  correctAnswer: string;
+  quizId: string;
 }

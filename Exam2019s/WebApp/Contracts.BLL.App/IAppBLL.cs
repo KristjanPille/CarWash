@@ -6,7 +6,8 @@
 {
     public interface IAppBLL : IBaseBLL
     {
-        ICampaignService Campaigns { get; }
-        ISubjectReviewService SubjectReviews { get; }
+        IQuizService Quizzes { get; }
+        IQuestionService Questions { get; }
+        IQuestionAnswerService QuestionAnswers { get; }
     }
 }

@@ -31,4 +31,16 @@
       <ProjectReference Include="..\PublicApi.DTO.v1\PublicApi.DTO.v1.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Quizzses\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Quizzses\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Quizzses\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Quizzses\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Quizzses\Index.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Controllers\QuizzesControllert.cs" />
+    </ItemGroup>
+
 </Project>

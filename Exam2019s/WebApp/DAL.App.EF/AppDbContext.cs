@@ -4,13 +4,15 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using DAL.App.DTO;
+using Domain.App;
 using ee.itcollege.carwash.kristjan.Contracts.DAL.Base;
 using ee.itcollege.carwash.kristjan.Contracts.Domain;
 using Domain.App.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Campaign = Domain.App.Campaign;
-using SubjectReview = Domain.App.SubjectReview;
+using Question = Domain.App.Question;
+using QuestionAnswer = Domain.App.QuestionAnswer;
+using Quiz = Domain.App.Quiz;
 
 namespace DAL.App.EF
 {
@@ -19,8 +21,11 @@ namespace DAL.App.EF
     {
         private readonly IUserNameProvider _userNameProvider;
 
-        public DbSet<Campaign> Campaigns { get; set; } = default!;
-        public DbSet<SubjectReview> SubjectReviews { get; set; } = default!;
+        public DbSet<Quiz> Quizzes { get; set; } = default!;
+        
+        public DbSet<Question> Questions { get; set; } = default!;
+        
+        public DbSet<QuestionAnswer> QuestionAnswers { get; set; } = default!;
 
         private readonly Dictionary<IDomainEntityId<Guid>, IDomainEntityId<Guid>> _entityTracker =
             new Dictionary<IDomainEntityId<Guid>, IDomainEntityId<Guid>>();

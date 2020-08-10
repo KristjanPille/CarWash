@@ -5,7 +5,9 @@ namespace Contracts.DAL.App
 {
     public interface IAppUnitOfWork : IBaseUnitOfWork, IBaseEntityTracker
     {
-        ICampaignRepository Campaigns { get; }
-        ISubjectReviewRepository SubjectReviews { get; }
+        IQuizRepository Quizzes { get; }
+        IQuestionRepository Questions { get; }
+        
+        IQuestionAnswerRepository QuestionAnswers{ get; }
     }
 }

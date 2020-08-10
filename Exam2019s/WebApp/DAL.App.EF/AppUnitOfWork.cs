@@ -13,10 +13,13 @@ using System.Collections.Generic;
         public AppUnitOfOfWork(AppDbContext uowDbContext) : base(uowDbContext)
         {
         }
-        public ICampaignRepository Campaigns =>
-            GetRepository<ICampaignRepository>(() => new CampaignRepository(UOWDbContext));
+        public IQuizRepository Quizzes =>
+            GetRepository<IQuizRepository>(() => new QuizRepository(UOWDbContext));
+
+        public IQuestionRepository Questions =>
+            GetRepository<IQuestionRepository>(() => new QuestionRepository(UOWDbContext));
         
-        public ISubjectReviewRepository SubjectReviews =>
-            GetRepository<ISubjectReviewRepository>(() => new SubjectReviewRepository(UOWDbContext));
+        public IQuestionAnswerRepository QuestionAnswers =>
+            GetRepository<IQuestionAnswerRepository>(() => new QuestionAnswersRepository(UOWDbContext));
     }
 }

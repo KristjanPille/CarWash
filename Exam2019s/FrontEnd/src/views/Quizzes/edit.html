@@ -1,0 +1,32 @@
+<template>
+    <require from="../../components/alert"></require>
+
+    <alert alert-data.bind="_alert"></alert>
+
+    <h4>Edit Campaign</h4>
+    <hr />
+    <form submit.trigger="onSubmit($event)">
+      <div class="form-group">
+        <label class="control-label" for="Name">NameOfCampaign</label>
+        <input style="border-radius: 5px" class="form-control" type="text" id="Name" maxlength="64" value.bind="_nameOfCampaign"/>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label" for="description">Description</label>
+        <input style="border-radius: 5px" class="form-control" type="text" id="description" maxlength="64" value.bind="_description"/>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label" for="discountAmount">DiscountAmount</label>
+        <input style="border-radius: 5px" class="form-control" type="text" id="discountAmount" maxlength="64" value.bind="_discountAmount"/>
+      </div>
+        <div class="form-group">
+            <input type="submit" value="Save Changes" class="btn btn-primary" />
+        </div>
+    </form>
+
+    <div>
+        <a route-href="route: campaigns-index; params.bind: { }">Back to List</a>
+    </div>
+
+</template>

@@ -1,0 +1,95 @@
+<template>
+    <body>
+    <require from="./create.css"></require>
+
+    <div class="create">
+        <div class="row">
+            <div class="col-75">
+                <div class="orderContainer">
+                    <h2>${langResources[state.selectedCulture.code].adminOrderPanel}</h2>
+                    <table id="adminService" class="table table-hover table-bordered" style="text-align:center;font-weight: 600">
+                        <a style="color: white;float: right;font-size: larger;font-weight: bold;" route-href="route: service-create; params.bind: {}">${langResources[state.selectedCulture.code].clickNewService}</a>
+                        <thead>
+                        <tr class="adminServices">
+                            <th style="width: 90px">
+                                ${langResources[state.selectedCulture.code].name}
+                            </th>
+                            <th style="width: 90px">
+                                ${langResources[state.selectedCulture.code].price}
+                            </th>
+                            <th style="width: 90px">
+                                ${langResources[state.selectedCulture.code].duration}
+                            </th>
+                            <th>
+                                ${langResources[state.selectedCulture.code].description}
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr repeat.for="service of _services" >
+                            <td class="service">
+                                <a style="color: white" route-href="route: service-edit; params.bind: { id: service.id }">${service.nameOfService}</a>
+                            </td>
+                            <td class="service">
+                                ${service.priceOfService}€
+                            </td>
+                            <td class="service">
+                                ${service.duration}min
+                            </td>
+                            <td class="service">
+                                ${service.description}
+                            </td>
+                            <td>
+                                <input style="font-weight: 600" class="btn btn-danger" type="button" click.delegate="deleteService(service.id)" value="${langResources[state.selectedCulture.code].delete}" />
+                            </td>
+                        </tr>
+                        </a>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="orderContainer">
+                    <h2>${langResources[state.selectedCulture.code].adminOrderPanel}</h2>
+                    <table id="campaigns" class="table table-hover table-bordered" style="text-align:center;">
+                        <a style="color: white;float: right;font-size: larger;font-weight: bold;" route-href="route: campaign-create; params.bind: {}">${langResources[state.selectedCulture.code].clickNewCampaign}</a>
+                        <thead>
+                        <tr class="adminServices">
+                            <th style="width: 90px">
+                                ${langResources[state.selectedCulture.code].name}
+                            </th>
+                            <th style="width: 90px">
+                                ${langResources[state.selectedCulture.code].description}
+                            </th>
+                            <th style="width: 90px">
+                                ${langResources[state.selectedCulture.code].Discount}
+                            </th>
+                            <th style="width: 90px">
+
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr repeat.for="campaign of _campaigns" >
+                            <td class="campaign">
+                                <a style="color: white" route-href="route: campaign-edit; params.bind: { id: campaign.id }">${campaign.nameOfCampaign}</a>
+                            </td>
+                            <td class="campaign">
+                                ${campaign.description}
+                            </td>
+                            <td class="campaign">
+                                ${campaign.discountAmount}
+                            </td>
+                            <td>
+                                <input style="font-weight: 600" class="btn btn-danger" type="button" click.delegate="deleteCampaign(campaign.id)" value="${langResources[state.selectedCulture.code].delete}" />
+                            </td>
+                        </tr>
+                        </a>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+</template>

@@ -12,7 +12,7 @@
         { 
             // add more mappings
             MapperConfigurationExpression.CreateMap<Domain.App.Identity.AppUser, DAL.App.DTO.Identity.AppUser>();
-            MapperConfigurationExpression.CreateMap<Domain.App.Campaign, DAL.App.DTO.Campaign>();
+            MapperConfigurationExpression.CreateMap<Domain.App.Quiz, DAL.App.DTO.Quiz>();
             
             Mapper = new Mapper(new MapperConfiguration(MapperConfigurationExpression));
         }

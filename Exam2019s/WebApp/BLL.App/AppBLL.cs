@@ -12,10 +12,13 @@ namespace BLL.App
         public AppBLL(IAppUnitOfWork uow) : base(uow)
         {
         }
-        public ICampaignService Campaigns =>
-            GetService<ICampaignService>(() => new CampaignService(UOW));
+        public IQuizService Quizzes =>
+            GetService<IQuizService>(() => new QuizService(UOW));
         
-        public ISubjectReviewService SubjectReviews =>
-            GetService<ISubjectReviewService>(() => new SubjectReviewService(UOW));
+        public IQuestionService Questions =>
+            GetService<IQuestionService>(() => new QuestionService(UOW));
+        
+        public IQuestionAnswerService QuestionAnswers =>
+            GetService<IQuestionAnswerService>(() => new QuestionAnswerService(UOW));
     }
 }

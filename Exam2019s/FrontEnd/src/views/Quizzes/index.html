@@ -1,0 +1,53 @@
+<template>
+    <body>
+    <require from="./create.css"></require>
+
+    <div class="create">
+        <div class="row">
+            <div class="col-75">
+                <div class="orderContainer">
+                    <h2 style="font-weight: 600;" >Campaigns</h2>
+                    <form submit.trigger="onSubmit($event)">
+                        <div class="row">
+                            <div class="col-50">
+                                <table class="table table-bordered" style="box-shadow: 0 -2px 2px rgba(34,34,34,0.6);font-weight: 600;">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            ${campaign}
+                                        </th>
+                                        <th>
+                                            ${description}
+                                        </th>
+                                        <th>
+                                            ${discountAmount}
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr repeat.for="campaign of _campaigns">
+                                        <td>
+                                            ${campaign.nameOfCampaign}
+                                        </td>
+                                        <td>
+                                            ${campaign.description}
+                                        </td>
+                                        <td>
+                                            ${campaign.discountAmount * 100}%
+                                        </td>
+                                      <td>
+                                        <a route-href="route: campaigns-edit; params.bind: { id: campaign.id }" style="color: white">Edit</a> |
+                                        <a route-href="route: campaigns-delete; params.bind: { id: campaign.id }" style="color: white">Delete</a>
+                                      </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+</template>

@@ -1,4 +1,4 @@
-﻿using Contracts.BLL.App.Services;
+﻿﻿using Contracts.BLL.App.Services;
 using ee.itcollege.carwash.kristjan.Contracts.BLL.Base;
 
 namespace Contracts.BLL.App

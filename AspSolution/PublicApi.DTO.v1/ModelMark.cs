@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using ee.itcollege.carwash.kristjan.Contracts.Domain;
 
 namespace PublicApi.DTO.v1

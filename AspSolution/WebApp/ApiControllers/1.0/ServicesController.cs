@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PublicApi.DTO.v1.Mappers;
-using Service = Domain.App.Service;
+using Service = PublicApi.DTO.v1.Service;
 using V1DTO=PublicApi.DTO.v1;
 
 namespace WebApp.ApiControllers._1._0
@@ -57,7 +57,7 @@ namespace WebApp.ApiControllers._1._0
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(V1DTO.Service))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]
-        public async Task<ActionResult<Service>> GetService(Guid serviceId, double priceOfService)
+        public async Task<ActionResult<V1DTO.Service>> GetService(Guid serviceId, double priceOfService)
         {
             var service = await _bll.Services.FirstOrDefaultAsync(serviceId);
 
@@ -78,10 +78,9 @@ namespace WebApp.ApiControllers._1._0
         [HttpGet("{serviceId}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [Produces("application/json")]
-        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(V1DTO.Service))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]
-        public async Task<ActionResult<Service>> GetAdminService(Guid serviceId)
+        public async Task<ActionResult<PublicApi.DTO.v1.Service>> GetAdminService(Guid serviceId)
         {
             var service = await _bll.Services.FirstOrDefaultAsync(serviceId);
 
@@ -90,6 +89,7 @@ namespace WebApp.ApiControllers._1._0
                 return NotFound(new V1DTO.MessageDTO($"Service with id {serviceId} not found"));
             }
 
+            Console.WriteLine(service.NameOfService);
             return Ok(_mapper.Map(service));
         }
         

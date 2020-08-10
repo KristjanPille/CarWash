@@ -1,4 +1,4 @@
-﻿using ee.itcollege.carwash.kristjan.Contracts.BLL.Base.Services;
+﻿﻿using ee.itcollege.carwash.kristjan.Contracts.BLL.Base.Services;
 using Contracts.DAL.App.Repositories;
 using PublicApi.DTO.v1;
 using Check = BLL.App.DTO.Check;

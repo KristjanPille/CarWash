@@ -1,6 +1,6 @@
 {
   "debug": false,
   "testing": false,
-  "backendUrl" : "https://localhost:5001/api/v1.0/",
-  "swaggerUrl" : "https://localhost:5001/swagger/index.html"
+  "backendUrl" : "https://aspnetcarwash.azurewebsites.net/api/v1.0/",
+  "swaggerUrl" : "https://aspnetcarwash.azurewebsites.net/swagger/index.html"
 }

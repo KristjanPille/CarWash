@@ -32,6 +32,7 @@ export class CampaignsEdit {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
                         this._service = response.data!;
+                        console.log(response.data!)
                     } else {
                         // show error message
                         this._alert = {

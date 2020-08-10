@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PublicApi.DTO.v1.Mappers;
-using Car = Domain.App.Car;
 using V1DTO = PublicApi.DTO.v1;
 
 namespace WebApp.ApiControllers._1._0
@@ -126,7 +125,7 @@ namespace WebApp.ApiControllers._1._0
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(V1DTO.Car))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(V1DTO.MessageDTO))]
-        public async Task<ActionResult<Car>> PostCar(V1DTO.Car car)
+        public async Task<ActionResult<V1DTO.Car>> PostCar(V1DTO.Car car)
         {
             car.AppUserId = User.UserId();
             var bllEntity = _mapper.Map(car);
@@ -155,7 +154,7 @@ namespace WebApp.ApiControllers._1._0
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(V1DTO.Car))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(V1DTO.MessageDTO))]
-        public async Task<ActionResult<Car>> DeleteCar(Guid id)
+        public async Task<ActionResult<V1DTO.Car>> DeleteCar(Guid id)
         {
             var car =
                 await _bll.Cars.FirstOrDefaultAsync(id);

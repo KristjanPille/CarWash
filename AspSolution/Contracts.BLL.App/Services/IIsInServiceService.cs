@@ -1,4 +1,4 @@
-﻿using ee.itcollege.carwash.kristjan.Contracts.BLL.Base.Services;
+﻿﻿using ee.itcollege.carwash.kristjan.Contracts.BLL.Base.Services;
 using Contracts.DAL.App.Repositories;
 using IsInService = BLL.App.DTO.IsInService;
 

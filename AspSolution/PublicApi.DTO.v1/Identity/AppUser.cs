@@ -26,5 +26,7 @@ namespace PublicApi.DTO.v1.Identity
         [MaxLength(20)]
         [Required]
         public string PhoneNumber { get; set; } = default!;
+        
+        public PublicApi.DTO.v1.Car[] Cars { get; set; }
     }
 }

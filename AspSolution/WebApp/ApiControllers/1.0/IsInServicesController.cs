@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PublicApi.DTO.v1.Mappers;
-using IsInService = Domain.App.IsInService;
+using IsInService = PublicApi.DTO.v1.IsInService;
 using V1DTO = PublicApi.DTO.v1;
 
 namespace WebApp.ApiControllers._1._0

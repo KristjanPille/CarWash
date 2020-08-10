@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PublicApi.DTO.v1.Mappers;
-using Campaign = Domain.App.Campaign;
+using Campaign = PublicApi.DTO.v1.Campaign;
 using V1DTO=PublicApi.DTO.v1;
 
 namespace WebApp.ApiControllers._1._0

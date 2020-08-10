@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using PublicApi.DTO.v1;
-using Campaign = BLL.App.DTO.Campaign;
+
 
 namespace WebApp.ApiControllers._1._0
 {

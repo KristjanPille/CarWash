@@ -138,8 +138,7 @@ namespace WebApp
             }
 
             app.UseRequestLocalization(options: app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>().Value);
-
-            //app.UseHttpsRedirection();
+            
             app.UseStaticFiles();
 
             app.UseCors("CorsAllowAll");

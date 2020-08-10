@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PublicApi.DTO.v1.Mappers;
-using ModelMark = Domain.App.ModelMark;
 using V1DTO=PublicApi.DTO.v1;
 
 namespace WebApp.ApiControllers._1._0
@@ -44,7 +43,7 @@ namespace WebApp.ApiControllers._1._0
         [HttpGet]
         [AllowAnonymous]
         [Produces("application/json")]
-        public async Task<ActionResult<IEnumerable<ModelMark>>> GetModelMarks()
+        public async Task<ActionResult<IEnumerable<V1DTO.ModelMark>>> GetModelMarks()
         {
             return Ok((await _bll.ModelMarks.GetAllAsync()).Select(e => _mapper.Map(e)));
         }
@@ -91,7 +90,7 @@ namespace WebApp.ApiControllers._1._0
         /// <returns></returns>
         [HttpGet("{id}")]
         [Produces("application/json")]
-        public async Task<ActionResult<ModelMark>> GetModelMark(Guid id)
+        public async Task<ActionResult<V1DTO.ModelMark>> GetModelMark(Guid id)
         {
             var modelMark= await _bll.ModelMarks.FirstOrDefaultAsync(id);
 
@@ -145,7 +144,7 @@ namespace WebApp.ApiControllers._1._0
         [Produces("application/json")]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(V1DTO.ModelMark))]
-        public async Task<ActionResult<ModelMark>> PostModelMark(V1DTO.ModelMark modelMark)
+        public async Task<ActionResult<V1DTO.ModelMark>> PostModelMark(V1DTO.ModelMark modelMark)
         {
             var bllEntity = _mapper.Map(modelMark);
             _bll.ModelMarks.Add(bllEntity);
@@ -166,7 +165,7 @@ namespace WebApp.ApiControllers._1._0
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [HttpDelete("{id}")]
         [Produces("application/json")]
-        public async Task<ActionResult<ModelMark>> DeleteModelMark(Guid id)
+        public async Task<ActionResult<V1DTO.ModelMark>> DeleteModelMark(Guid id)
         {
             var modelMark= await _bll.ModelMarks.FirstOrDefaultAsync(id);
             if (modelMark== null)

@@ -33,5 +33,18 @@ using Microsoft.EntityFrameworkCore;
             var result = domainEntities.Select(e => Mapper.Map(e));
             return result;
         }
+        public override async Task<DAL.App.DTO.Service> FirstOrDefaultAsync(Guid id, object? userId = null, bool noTracking = true)
+        {
+            var query = PrepareQuery(userId, noTracking);
+            var domainEntity = await query
+                .Include(l => l.NameOfService)
+                .ThenInclude(t => t!.Translations)
+                .Include(l => l.Description)
+                .ThenInclude(t => t!.Translations)
+                .FirstOrDefaultAsync();
+            
+            var result = Mapper.Map(domainEntity);
+            return result;
+        }
     }
 }

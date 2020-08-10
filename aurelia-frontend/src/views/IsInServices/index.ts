@@ -367,9 +367,12 @@ export class IsInServicesIndex{
 
                                 this.createIsInService();
                             }
+                            else{
+                                confirm("Please select service")
+                            }
                         }
                     } else {
-                        confirm("Select Service first")
+                        confirm("Selected time overlaps with another")
                     }
                 } else {
                     confirm("Please select car first")

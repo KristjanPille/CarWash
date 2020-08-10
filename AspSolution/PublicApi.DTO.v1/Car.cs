@@ -1,9 +1,6 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using BLL.App.DTO.Identity;
 using ee.itcollege.carwash.kristjan.Contracts.Domain;
-using ee.itcollege.carwash.kristjan.Domain.Base;
-using AppUser = Domain.App.Identity.AppUser;
+
 
 namespace PublicApi.DTO.v1
 {
@@ -15,6 +12,7 @@ namespace PublicApi.DTO.v1
        public string Mark { get; set; } = default!;
        public string Model { get; set; } = default!;
        
+       public Guid ModelMarkId { get; set; } = default!;
        public Guid AppUserId { get; set; }
     }
 }

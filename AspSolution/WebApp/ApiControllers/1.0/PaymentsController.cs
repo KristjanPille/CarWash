@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PublicApi.DTO.v1.Mappers;
-using Payment = Domain.App.Payment;
+using Payment = PublicApi.DTO.v1.Payment;
 using V1DTO=PublicApi.DTO.v1;
 
 namespace WebApp.ApiControllers._1._0
@@ -44,7 +44,7 @@ namespace WebApp.ApiControllers._1._0
         /// <returns></returns>
         [HttpGet]
         [Produces("application/json")]
-        public async Task<ActionResult<IEnumerable<Payment>>> GetPayments()
+        public async Task<ActionResult<IEnumerable<V1DTO.Payment>>> GetPayments()
         {
             return Ok((await _bll.Payments.GetAllAsync()).Select(e => _mapper.Map(e)).Where(e => e.AppUserId == User.UserId()));
         }
@@ -57,7 +57,7 @@ namespace WebApp.ApiControllers._1._0
         /// <returns>requested payment</returns>
         [HttpGet("{id}")]
         [Produces("application/json")]
-        public async Task<ActionResult<Payment>> GetPayment(Guid id)
+        public async Task<ActionResult<V1DTO.Payment>> GetPayment(Guid id)
         {
             var payment = await _bll.Payments.FirstOrDefaultAsync(id);
 

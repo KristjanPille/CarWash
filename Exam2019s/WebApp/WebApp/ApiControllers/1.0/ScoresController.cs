@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Contracts.BLL.App;
 using Microsoft.AspNetCore.Http;
@@ -27,6 +28,7 @@ namespace WebApp.ApiControllers._1._0
     {
         private readonly IAppBLL _bll;
         private readonly ScoreMapper _mapper = new ScoreMapper();
+        private readonly ScoreV2Mapper _scoreV2mapper = new ScoreV2Mapper();
 
         public ScoresController(AppDbContext context, IAppBLL bll)
         {
@@ -82,7 +84,25 @@ namespace WebApp.ApiControllers._1._0
             
             return score;
         }
-
+        
+        
+        // GET: api/Score/5
+        /// <summary>
+        /// Get Specific Score
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("AverageUser")]
+        [AllowAnonymous]
+        [Produces("application/json")]
+        public async Task<IEnumerable<V1DTO.Score>> GetUserSpecificScore()
+        {
+           
+            var score = await _bll.Scores.GetAverageScorePerUser(User.UserId());
+            
+            return score.Select(e => _scoreV2mapper.Map(e));
+        }
+        
+        
         // PUT: api/Scores/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.

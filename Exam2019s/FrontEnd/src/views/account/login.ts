@@ -42,6 +42,7 @@ export class AccountLogin {
                     this.appState.email = this._email;
                     this.appState.jwt = response.data!.token;
                     this.router!.navigateToRoute('Home');
+                    console.log(this.appState.jwt)
                 } else {
                     this._errorMessage = response.statusCode.toString()
                         + ' '

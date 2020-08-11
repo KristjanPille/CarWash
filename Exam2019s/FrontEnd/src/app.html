@@ -14,14 +14,6 @@
                route-href="route: quizzes-index; params.bind: {}">Quizzes</a>
           </li>
         </ul>
-        <ul if.bind="appState.jwt != null" class="nav navbar-nav ml-auto">
-          <li class="nav-item dropdown">
-            <a style="color: black;font-weight: 500;" href="#" class="nav-link dropdown-toggle text-white" data-toggle="dropdown">${appState.email}</a>
-            <div class="dropdown-menu dropdown-menu-right">
-              <a style="font-weight: 500;" href="#" class="dropdown-item" click.delegate="logoutOnClick()">logout</a>
-            </div>
-          </li>
-        </ul>
         <ul if.bind="appState.jwt == null" class="navbar-nav">
           <li class="nav-item">
             <a style="font-weight: 600;" class="nav-link text-white"
@@ -32,12 +24,19 @@
                route-href="route: account-login; params.bind: {}">Login</a>
           </li>
         </ul>
-        <ul if.bind="appState.token" class="nav navbar-nav ml-auto" style="background-color: limegreen; opacity: 0.8">
-          <a style="float: right; font-weight: 500;" class="nav-link text-dark"
+        <ul if.bind="appState.token" class="nav navbar-nav mr-auto" style="background-color: limegreen; opacity: 0.8">
+          <a style="font-weight: 500;" class="nav-link text-dark"
              route-href="route: Admin-Index; params.bind: {}">Admin Section</a>
           <div class="dropdown-divider"></div>
         </ul>
-
+        <ul if.bind="appState.jwt != null" class="nav navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a style="color: black;font-weight: 500;" href="#" class="nav-link dropdown-toggle text-white" data-toggle="dropdown">${appState.email}</a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a style="font-weight: 500;" href="#" class="dropdown-item" click.delegate="logoutOnClick()">logout</a>
+            </div>
+          </li>
+        </ul>
       </div>
     </nav>
   </header>

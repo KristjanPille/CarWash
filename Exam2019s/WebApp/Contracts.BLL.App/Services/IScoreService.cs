@@ -12,5 +12,7 @@ namespace Contracts.BLL.App.Services
     {
         
         Task<double> GetAverageScore(Guid quizId);
+        
+        Task<IEnumerable<ScoreT>> GetAverageScorePerUser(Guid userId);
     }
 }

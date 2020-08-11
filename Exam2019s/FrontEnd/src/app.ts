@@ -85,6 +85,9 @@ export class App {
       { route: ['account/login'], name: 'account-login', moduleId:
           PLATFORM.moduleName('views/account/login'), nav: false, title: 'Login' },
 
+      { route: ['account/index'], name: 'account-index', moduleId:
+          PLATFORM.moduleName('views/account/index'), nav: false, title: 'index' },
+
       { route: ['account/register'], name: 'account-register', moduleId:
           PLATFORM.moduleName('views/account/register'), nav: false, title: 'Register' },
 
@@ -109,6 +112,9 @@ export class App {
       { route: ['AdminSection/questionCreate'], name: 'question-create', moduleId:
           PLATFORM.moduleName('views/AdminSection/questionCreate'), nav: false, title: 'Questions Create' },
 
+
+      { route: ['AdminSection/questionEdit/:id?'], name: 'question-edit', moduleId:
+          PLATFORM.moduleName('views/AdminSection/questionEdit'), nav: false, title: 'Questiont Edit' },
 
     ]);
     config.mapUnknownRoutes('views/Home/index');

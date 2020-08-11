@@ -25,7 +25,7 @@ namespace PublicApi.DTO.v1.Identity
         [MinLength(1)]
         [MaxLength(20)]
         [Required]
-        public string PhoneNumber { get; set; } = default!;
+        public string? PhoneNumber { get; set; }
 
     }
 }

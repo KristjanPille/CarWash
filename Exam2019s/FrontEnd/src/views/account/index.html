@@ -14,25 +14,17 @@
                             <th style="width: 90px">
                                Name of Quiz
                             </th>
-                            <th style="width: 90px"></th>
-                            <th style="width: 90px"></th>
-                            <th style="width: 90px"></th>
+                            <th style="width: 90px">Score</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr repeat.for="quiz of _quizzes" >
-                            <td class="quiz">
-                                <a style="color: white" route-href="route: quiz-edit; params.bind: { id: quiz.id }">${quiz.nameOfQuiz}</a>
+                        <tr repeat.for="score of _scores" >
+                            <td class="score">
+                                ${score.quizScore}
                             </td>
                             <td>
-                                <input style="font-weight: 600" class="btn btn-danger" type="button" click.delegate="deleteQuiz(quiz.id)" value="Delete" />
+                              ${score.quizId}
                             </td>
-                          <td>
-                            <a style="color: white;float: right;font-size: larger;font-weight: bold;" class="button" type="button" route-href="route: quiz-edit; params.bind: { id: quiz.id }">Edit</a>
-                          </td>
-                          <td>
-                            <a style="color: white;float: right;font-size: larger;font-weight: bold;" route-href="route: question-create; params.bind: { id: quiz.id }">Add Questions</a>
-                          </td>
                         </tr>
                         </a>
                         </tbody>

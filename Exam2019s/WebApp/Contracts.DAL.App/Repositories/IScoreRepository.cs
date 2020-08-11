@@ -9,6 +9,8 @@ namespace Contracts.DAL.App.Repositories
     public interface IScoreRepository : IBaseRepository<Score>, IScoreRepositoryCustom
     {
         Task<double> GetAverage(Guid quizId);
+        
+        Task<IEnumerable<Score>> GetAveragePerPerson(Guid userId);
     }
     
 }

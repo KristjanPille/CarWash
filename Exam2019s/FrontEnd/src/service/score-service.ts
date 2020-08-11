@@ -46,6 +46,36 @@ export class ScoreService extends BaseService<IScore> {
   }
 
 
+  async getAllUserScore(): Promise<IFetchResponse<IScore[]>> {
+    try {
+      const response = await this.httpClient
+        .fetch(this.apiEndpointUrl + '/AverageUser', {
+          cache: "no-store"
+        });
+      // happy case
+      if (response.ok) {
+        const data = (await response.json()) as IScore[];
+        return {
+          statusCode: response.status,
+          data: data
+        }
+      }
+
+      // something went wrong
+      return {
+        statusCode: response.status,
+        errorMessage: response.statusText
+      }
+
+    } catch (reason) {
+      return {
+        statusCode: 0,
+        errorMessage: JSON.stringify(reason)
+      }
+    }
+  }
+
+
   async getScore(id: string): Promise<IFetchResponse<IScore>> {
     try {
       const response = await this.httpClient

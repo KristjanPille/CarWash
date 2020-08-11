@@ -49,5 +49,17 @@ namespace DAL.App.EF.Repositories
 
             return averageScore;
         }
+
+        public async Task<IEnumerable<Score>> GetAveragePerPerson(Guid userId)
+        {
+            var query = PrepareQuery();
+
+            query = query.Where(e => e.AppUserId == userId);
+            var domainEntities = await query.ToListAsync();
+            
+            var result = domainEntities.Select(e => Mapper.Map(e)); ;
+            
+            return result;
+        }
     }
 }

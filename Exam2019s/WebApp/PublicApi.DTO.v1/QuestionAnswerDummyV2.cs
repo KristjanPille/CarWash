@@ -32,5 +32,7 @@ namespace PublicApi.DTO.v1
         public Question? Question { get; set; }
         
         public Guid Id { get; set; }
+        
+        public List<DAL.App.DTO.QuestionAnswer>? ListOfAnswers { get; set; }
     }
 }

@@ -1,61 +1,69 @@
-@model PublicApi.DTO.v1.QuestionAnswerDummyV2
+@using System.Collections
+@model IEnumerable<PublicApi.DTO.v1.QuestionAnswerDummyV2>
 
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Index";
 }
 
-<h1>Edit</h1>
+<h1>Index</h1>
 
-<h4>Question</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Question.NameOfQuestion" class="control-label"></label>
-                <input asp-for="Question.NameOfQuestion" class="form-control" />
-                <span asp-validation-for="Question.NameOfQuestion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Answer1.Answer" class="control-label"></label>
-                <input asp-for="Answer1.Answer" class="form-control" />
-                <span asp-validation-for="Answer1.Answer" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Answer2.Answer" class="control-label"></label>
-                <input asp-for="Answer2.Answer" class="form-control" />
-                <span asp-validation-for="Answer2.Answer" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Answer3.Answer" class="control-label"></label>
-                <input asp-for="Answer3.Answer" class="form-control" />
-                <span asp-validation-for="Answer3.Answer" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Answer4.Answer" class="control-label"></label>
-                <input asp-for="Answer4.Answer" class="form-control" />
-                <span asp-validation-for="Answer4.Answer" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Answer5.Answer" class="control-label"></label>
-                <input asp-for="Answer5.Answer" class="form-control" />
-                <span asp-validation-for="Answer5.Answer" class="text-danger"></span>
-            </div>
-            
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Question.NameOfQuestion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Answer1)
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @{
+        var i = 0;
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Question.NameOfQuestion)
+            </td>
+            @if (ViewData["questionAnswerDummy1"] != null && i == 0)
+            {
+                <td>
+                    @Html.DropDownList("SelectedEmployee", new SelectList((IEnumerable) ViewData["questionAnswerDummy1"]), "Id", "Answer")
+                </td>
+            }
+            @if (ViewData["questionAnswerDummy2"] != null && i == 1)
+            {
+                <td>
+                    @Html.DropDownList("SelectedEmployee", new SelectList((IEnumerable) ViewData["questionAnswerDummy2"]), "Id", "Answer")
+                </td>
+            }
+            @if (ViewData["questionAnswerDummy3"] != null && i == 2)
+            {
+                <td>
+                    @Html.DropDownList("SelectedEmployee", new SelectList((IEnumerable) ViewData["questionAnswerDummy3"]), "Id", "Answer")
+                </td>
+            }
+            @if (ViewData["questionAnswerDummy4"] != null && i == 3)
+            {
+                <td>
+                    @Html.DropDownList("SelectedEmployee", new SelectList((IEnumerable) ViewData["questionAnswerDummy4"]), "Id", "Answer")
+                </td>
+            }
+            @if (ViewData["questionAnswerDummy5"] != null && i == 4)
+            {
+                <td>
+                    @Html.DropDownList("SelectedEmployee", new SelectList((IEnumerable) ViewData["questionAnswerDummy5"]), "Id", "Answer")
+                </td>
+            }
+        </tr>
+        i+=1;
+    }
+    }
+    </tbody>
+</table>

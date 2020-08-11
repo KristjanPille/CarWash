@@ -1,0 +1,67 @@
+﻿@model PublicApi.DTO.v1.QuestionAnswerDummy
+@{
+    ViewData["Title"] = "Answers";
+}
+
+<h1>Create</h1>
+
+<h4>Answers</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateAnswer">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                
+                 <label asp-for="QuestionId" class="control-label"></label>
+                <input type="hidden" asp-for="QuestionId" class="form-control" />
+                <span asp-validation-for="QuestionId" class="text-danger"></span>
+                
+                <label asp-for="Answer1" class="control-label"></label>
+                <input asp-for="Answer1" class="form-control"/>
+                <span asp-validation-for="Answer1" class="text-danger"></span>
+
+                @Html.RadioButtonFor(model => model.Answer1Checked, true) Right answer
+                @Html.RadioButtonFor(model => model.Answer1Checked, false) Wrong Anser
+                
+                <label asp-for="Answer2" class="control-label"></label>
+                <input asp-for="Answer2" class="form-control"/>
+                <span asp-validation-for="Answer2" class="text-danger"></span>
+                
+                   @Html.RadioButtonFor(model => model.Answer2Checked, true) Right answer
+                                @Html.RadioButtonFor(model => model.Answer2Checked, false) Wrong Anser
+                
+                <label asp-for="Answer3" class="control-label"></label>
+                <input asp-for="Answer3" class="form-control"/>
+                <span asp-validation-for="Answer3" class="text-danger"></span>
+                @Html.RadioButtonFor(model => model.Answer3Checked, true) Right answer
+                @Html.RadioButtonFor(model => model.Answer3Checked, false) Wrong Anser
+           
+                <label asp-for="Answer4" class="control-label"></label>
+                <input asp-for="Answer4" class="form-control"/>
+                <span asp-validation-for="Answer4" class="text-danger"></span>
+            
+                   @Html.RadioButtonFor(model => model.Answer4Checked, true) Right answer
+                @Html.RadioButtonFor(model => model.Answer4Checked, false) Wrong Anser
+                
+                <label asp-for="Answer5" class="control-label"></label>
+                <input asp-for="Answer5" class="form-control"/>
+                <span asp-validation-for="Answer5" class="text-danger"></span>
+
+                   @Html.RadioButtonFor(model => model.Answer5Checked, true) Right answer
+                                @Html.RadioButtonFor(model => model.Answer5Checked, false) Wrong Anser
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

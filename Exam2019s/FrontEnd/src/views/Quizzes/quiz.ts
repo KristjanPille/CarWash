@@ -47,7 +47,7 @@ export class QuizIndex {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                   this._alert = null;
                   this._questions = response.data!;
-                  this.currentQuestion = this._questions[this.index];
+                  this.currentQuestion = this._questions[0];
                   this.maxScore = this._questions.length;
 
                   this.questionAnswerService.getQuestionSpecificAnswers(this.currentQuestion.id).then(
@@ -55,7 +55,6 @@ export class QuizIndex {
                       if (response.statusCode >= 200 && response.statusCode < 300) {
                         this._alert = null;
                         this._answers = response.data!;
-                        console.log(this._answers)
                       } else {
                         // show error message
                         this._alert = {
@@ -92,14 +91,13 @@ export class QuizIndex {
   }
 
   moveToNextQuestion(){
-    if(this.selectedAnswer.id == this.currentQuestion.correctAnswerId){
+    if (this.selectedAnswer.id == this._questions[this.index].correctAnswerId) {
       this.score += 1;
     }
-
-    if( this._questions.length != this.index && this._questions.length > 1){
-      this.currentQuestion = this._questions[this.index + 1];
-
-      this.questionAnswerService.getQuestionSpecificAnswers(this.currentQuestion.id).then(
+    if(this._questions[this.index + 1] != null || this._questions[this.index + 1] != undefined) {
+      this.index += 1;
+      this.currentQuestion = this._questions[this.index];
+      this.questionAnswerService.getQuestionSpecificAnswers( this._questions[this.index].id).then(
         response => {
           if (response.statusCode >= 200 && response.statusCode < 300) {
             this._alert = null;

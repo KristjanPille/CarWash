@@ -13,7 +13,7 @@ namespace Domain.App
         public string NameOfQuestion { get; set; } = default!;
         
         public Guid? CorrectAnswerId { get; set; }
-        
+
         public Quiz? Quiz { get; set; }
         public Guid? QuizId { get; set; }
     }

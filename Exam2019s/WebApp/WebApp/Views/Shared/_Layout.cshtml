@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - WebApp</title>
     
-    @*
+    
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
-    *@
+    
     
     <link rel="stylesheet" href="~/dist/site.css"/>
     <link rel="stylesheet" href="~/css/site.css"/>
@@ -29,9 +29,18 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <a class="dropdown-item text-dark" asp-area="" asp-controller="Quizzes" asp-action="Index">Quizzes</a>
                     </li>
-                   
+
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="Quizzes" asp-action="Index">Admin Quizzes Panel</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="Question" asp-action="Index">Questions</a>
+                        </li>
+                    }
 
                 </ul>
             </div>
@@ -49,15 +58,16 @@
         &copy; 2020 - WebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
     </div>
 </footer>
-@*
+
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-*@
+
 
 
 <script src="~/dist/site.js" asp-append-version="true"></script>
 <script src="~/dist/jquery.validate.globalize.js" asp-append-version="true"></script>
 
 @RenderSection("Scripts", required: false)
+
 </body>
 </html>

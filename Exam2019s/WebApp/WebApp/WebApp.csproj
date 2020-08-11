@@ -37,10 +37,34 @@
       <_ContentIncludedByDefault Remove="Views\Quizzses\Details.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Quizzses\Edit.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Quizzses\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Quizzes\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Quizzes\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Quizzes\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Quizzes\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Quizzes\Index.cshtml" />
     </ItemGroup>
 
     <ItemGroup>
       <Compile Remove="Controllers\QuizzesControllert.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Update="Areas\Admin\Views\_ViewImports.cshtml">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+      <Content Update="Areas\Admin\Views\_ViewStart.cshtml">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+      <Content Update="wwwroot\js\jquery.validate.globalize.js">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+      <Content Update="Areas\Admin\Views\Question\Answers.cshtml">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>

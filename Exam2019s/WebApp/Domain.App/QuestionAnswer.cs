@@ -12,7 +12,6 @@ namespace Domain.App
         public string Answer { get; set; } = default!;
         
         public Question? Question { get; set; }
-        
         public Guid? QuestionId { get; set; }
     }
 }

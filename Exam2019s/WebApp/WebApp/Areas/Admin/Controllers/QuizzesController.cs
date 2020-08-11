@@ -1,55 +1,32 @@
-#pragma warning disable 1591
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Contracts.BLL.App;
 using DAL.App.EF;
 using Domain.App;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-namespace WebApp.Controllers
+namespace WebApp.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Area("Admin")]
+    [Authorize(Roles = "admin")]
     public class QuizzesController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly IAppBLL _bll;
 
-        public QuizzesController(AppDbContext context, IAppBLL bll)
+        public QuizzesController(AppDbContext context)
         {
             _context = context;
-            _bll = bll;
         }
 
-        // GET: Quizs
-        [AllowAnonymous]
+        // GET: Quizzes
         public async Task<IActionResult> Index()
         {
-            var result = await _bll.Quizzes.GetAllAsync();
-            return View(result);
+            return View(await _context.Quizzes.ToListAsync());
         }
 
-
-        public async Task<IActionResult> UpdateStatistics(Guid? id)
-        {
-            if (id != null)
-            {
-                var Quiz = await _bll.Quizzes.FirstOrDefaultAsync(id.Value);
-                if (Quiz != null)
-                {
-                    await _bll.Quizzes.UpdateAsync(Quiz);
-                }
-            }
-
-            return RedirectToAction(nameof(Index));
-        }
-
-
-        [AllowAnonymous]
-        // GET: Quizs/Details/5
+        // GET: Quizzes/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -57,44 +34,40 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var Quiz = await _context.Quizzes
+            var quiz = await _context.Quizzes
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (Quiz == null)
+            if (quiz == null)
             {
                 return NotFound();
             }
 
-            return View(Quiz);
+            return View(quiz);
         }
-        
-        // GET: Quizs/Create
+
+        // GET: Quizzes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Quizs/Create
+        // POST: Quizzes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(
-            [Bind(
-                "NameOfQuiz,Description,DiscountAmount")]
-            Quiz Quiz)
+        public async Task<IActionResult> Create([Bind("NameOfQuiz,Id")] Quiz quiz)
         {
             if (ModelState.IsValid)
             {
-                Quiz.Id = Guid.NewGuid();
-                _context.Add(Quiz);
+                quiz.Id = Guid.NewGuid();
+                _context.Add(quiz);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(Quiz);
+            return View(quiz);
         }
 
-        // GET: Quizs/Edit/5
+        // GET: Quizzes/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -102,25 +75,22 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var Quiz = await _context.Quizzes.FindAsync(id);
-            if (Quiz == null)
+            var quiz = await _context.Quizzes.FindAsync(id);
+            if (quiz == null)
             {
                 return NotFound();
             }
-            return View(Quiz);
+            return View(quiz);
         }
 
-        // POST: Quizs/Edit/5
+        // POST: Quizzes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id,
-            [Bind(
-                "Name,Description,RecordedAt,Duration,Speed,Distance,Climb,Descent,PaceMin,PaceMax,QuizTypeId,AppUserId,CreatedBy,CreatedAt,ChangedBy,ChangedAt,Id")]
-            Quiz Quiz)
+        public async Task<IActionResult> Edit(Guid id, [Bind("NameOfQuiz,CreatedBy,CreatedAt,ChangedBy,ChangedAt,Id")] Quiz quiz)
         {
-            if (id != Quiz.Id)
+            if (id != quiz.Id)
             {
                 return NotFound();
             }
@@ -129,12 +99,12 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _context.Update(Quiz);
+                    _context.Update(quiz);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!QuizExists(Quiz.Id))
+                    if (!QuizExists(quiz.Id))
                     {
                         return NotFound();
                     }
@@ -143,13 +113,12 @@ namespace WebApp.Controllers
                         throw;
                     }
                 }
-
                 return RedirectToAction(nameof(Index));
             }
-            return View(Quiz);
+            return View(quiz);
         }
 
-        // GET: Quizs/Delete/5
+        // GET: Quizzes/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -157,23 +126,23 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var Quiz = await _context.Quizzes
+            var quiz = await _context.Quizzes
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (Quiz == null)
+            if (quiz == null)
             {
                 return NotFound();
             }
 
-            return View(Quiz);
+            return View(quiz);
         }
 
-        // POST: Quizs/Delete/5
+        // POST: Quizzes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var Quiz = await _context.Quizzes.FindAsync(id);
-            _context.Quizzes.Remove(Quiz);
+            var quiz = await _context.Quizzes.FindAsync(id);
+            _context.Quizzes.Remove(quiz);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

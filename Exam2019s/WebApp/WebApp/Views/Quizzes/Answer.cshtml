@@ -8,9 +8,17 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="CreateAnswer">
             <div asp-validation-summary="All" class="text-danger"></div>
-            <dt class = "col-sm-2">
+            
+             <input type="hidden" asp-for="index" class="form-control" />
+             <span asp-validation-for="index" class="text-danger"></span>
+             
+             <input type="hidden" asp-for="QuizId" class="form-control" />
+             <span asp-validation-for="QuizId" class="text-danger"></span>
+             
+             
+             <dt class = "col-sm-2">
                 @Html.DisplayNameFor(model => model.Question.NameOfQuestion)
             </dt>
             <dd class = "col-sm-10">

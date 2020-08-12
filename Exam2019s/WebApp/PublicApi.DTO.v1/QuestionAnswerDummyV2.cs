@@ -7,13 +7,15 @@ namespace PublicApi.DTO.v1
 {
     public class QuestionAnswerDummyV2 : IDomainEntityId
     {
-        
         public Guid? CorrectAnswerId { get; set; }
         
         public Guid? QuestionId { get; set; }
         public DAL.App.DTO.Question? Question { get; set; }
         
         public string? QuizName { get; set; }
+        public Guid? QuizId { get; set; }
+        public int index { get; set; }
+        public int score { get; set; }
 
         public Guid Id { get; set; }
     }

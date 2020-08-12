@@ -68,8 +68,17 @@ namespace WebApp.Controllers
         
         
         // GET: Quizzes/Answer/5
-        public async Task<IActionResult> Answer(Guid? id)
+        public async Task<IActionResult> Answer(Guid? id, int? index, int? score)
         {
+            if (index == null)
+            {
+                index = 0;
+            }
+            if (score == null)
+            {
+                score = 0;
+            }
+            ViewData["index"] = index;
             DAL.App.DTO.QuestionAnswer answerForQuestion = new DAL.App.DTO.QuestionAnswer();
 
             var dummy =  new PublicApi.DTO.v1.QuestionAnswerDummyV2();
@@ -84,34 +93,46 @@ namespace WebApp.Controllers
                 return NotFound();
             }
             // Find quiz specific Questions
-            IEnumerable<DAL.App.DTO.Question> questions = await _bll.Questions.GetQuizQuestions(quiz.Id);
+            IEnumerable<DAL.App.DTO.Question> IEnumerableQuestions = await _bll.Questions.GetQuizQuestions(quiz.Id);
+            List<DAL.App.DTO.Question> questions = new List<DAL.App.DTO.Question>();
+            foreach (var question in IEnumerableQuestions)
+            {
+                questions.Add(question);
+            }
 
-            dummy.Question = questions.First();
+            dummy.Question = questions[(int) index];
+            dummy.score = (int) score;
             dummy.QuizName = quiz.NameOfQuiz;
+            dummy.QuizId = quiz.Id;
             // Find Answers to question
-            IEnumerable<DAL.App.DTO.QuestionAnswer> questionAnswers = await _bll.QuestionAnswers.GetQuestionAnswers(questions.First().Id);
+            IEnumerable<DAL.App.DTO.QuestionAnswer> questionAnswers = await _bll.QuestionAnswers.GetQuestionAnswers(questions[(int)index].Id);
             
             
             ViewData["CorrectAnswerId"] = new SelectList(questionAnswers, "Id", "Answer");
             return View(dummy);
         }
 
-        // POST: Quizzes/Answer/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Answer(Guid id, [Bind("NameOfQuestion, Id, QuestionId, CorrectAnswerId")] PublicApi.DTO.v1.QuestionAnswerDummyV2 questionAnswerDummy)
+        public async Task<RedirectToActionResult> CreateAnswer(Guid quizId, [Bind("NameOfQuestion, Id, QuestionId, CorrectAnswerId, index, QuizId")] PublicApi.DTO.v1.QuestionAnswerDummyV2 questionAnswerDummy)
         {
-            if (ModelState.IsValid)
+            var quiz = _bll.Quizzes.FirstOrDefaultAsync(quizId).Result;
+            var questions = _bll.Questions.GetQuizQuestions(quiz.Id).Result;
+            if (questionAnswerDummy.index >= questions.Count())
             {
-
                 return RedirectToAction(nameof(Index));
             }
-            return View(questionAnswerDummy);
+
+            var temp = questions.Count() - questionAnswerDummy.index;
+            if (ModelState.IsValid && questionAnswerDummy.index < questions.Count() && temp > 1)
+            {
+                questionAnswerDummy.index += 1;
+                return RedirectToAction(nameof(Answer), new { id = questionAnswerDummy.QuizId, index = questionAnswerDummy.index });
+            }
+
+            return RedirectToAction(nameof(Index));
         }
-        
-        
         
         
         

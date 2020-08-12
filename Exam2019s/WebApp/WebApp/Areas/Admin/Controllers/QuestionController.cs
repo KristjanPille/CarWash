@@ -79,7 +79,6 @@ namespace WebApp.Areas.Admin.Controllers
         }
         
         
-        // GET: Question/Create
         public IActionResult Answers(Guid QuestionId)
         {
             ViewData["QuestionId"] = QuestionId;

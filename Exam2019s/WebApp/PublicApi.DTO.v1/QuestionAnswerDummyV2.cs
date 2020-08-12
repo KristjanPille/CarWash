@@ -15,7 +15,7 @@ namespace PublicApi.DTO.v1
         public string? QuizName { get; set; }
         public Guid? QuizId { get; set; }
         public int index { get; set; }
-        public int score { get; set; }
+        public double score { get; set; }
 
         public Guid Id { get; set; }
     }

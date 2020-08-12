@@ -17,6 +17,15 @@
              <input type="hidden" asp-for="QuizId" class="form-control" />
              <span asp-validation-for="QuizId" class="text-danger"></span>
              
+             <input type="hidden" asp-for="score" class="form-control" />
+             <span asp-validation-for="score" class="text-danger"></span>
+             
+             <dd class = "col-sm-10">
+                  @Html.DisplayFor(model => model.score)
+             </dd>
+             
+             <input type="hidden" asp-for="QuestionId" class="form-control" />
+             <span asp-validation-for="QuestionId" class="text-danger"></span>
              
              <dt class = "col-sm-2">
                 @Html.DisplayNameFor(model => model.Question.NameOfQuestion)

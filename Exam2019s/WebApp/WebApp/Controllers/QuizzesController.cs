@@ -74,6 +74,14 @@ namespace WebApp.Controllers
             PublicApi.DTO.v1.QuestionAnswerDummyV2 questionAnswerDummy3 = new PublicApi.DTO.v1.QuestionAnswerDummyV2();
             PublicApi.DTO.v1.QuestionAnswerDummyV2 questionAnswerDummy4 = new PublicApi.DTO.v1.QuestionAnswerDummyV2();
             PublicApi.DTO.v1.QuestionAnswerDummyV2 questionAnswerDummy5 = new PublicApi.DTO.v1.QuestionAnswerDummyV2();
+            
+            
+            DAL.App.DTO.QuestionAnswer answerForQuestion1 = new DAL.App.DTO.QuestionAnswer();
+            DAL.App.DTO.QuestionAnswer answerForQuestion2 = new DAL.App.DTO.QuestionAnswer();
+            DAL.App.DTO.QuestionAnswer answerForQuestion3 = new DAL.App.DTO.QuestionAnswer();
+            DAL.App.DTO.QuestionAnswer answerForQuestion4 = new DAL.App.DTO.QuestionAnswer();
+            DAL.App.DTO.QuestionAnswer answerForQuestion5 = new DAL.App.DTO.QuestionAnswer();
+
             var index = 0;
             
             var dummyList = new List<PublicApi.DTO.v1.QuestionAnswerDummyV2>();
@@ -155,11 +163,27 @@ namespace WebApp.Controllers
                 }
                 index += 1;
             }
-            ViewData["questionAnswerDummy1"] = questionAnswerDummy1.ListOfAnswers;
-            ViewData["questionAnswerDummy2"] = questionAnswerDummy2.ListOfAnswers;
-            ViewData["questionAnswerDummy3"] = questionAnswerDummy3.ListOfAnswers;
-            ViewData["questionAnswerDummy4"] = questionAnswerDummy4.ListOfAnswers;
-            ViewData["questionAnswerDummy5"] = questionAnswerDummy5.ListOfAnswers;
+            ViewData["questionAnswerDummy1"] = new SelectList(questionAnswerDummy1.ListOfAnswers);
+            
+            // Bind selected value from selectelist to here
+            ViewData["answerForQuestion1"] = null;
+            
+            if (questionAnswerDummy2.ListOfAnswers != null)
+            {
+                ViewData["questionAnswerDummy2"] = new SelectList(questionAnswerDummy2.ListOfAnswers);
+            }
+            if (questionAnswerDummy3.ListOfAnswers != null)
+            {
+                ViewData["questionAnswerDummy3"] = new SelectList(questionAnswerDummy3.ListOfAnswers);
+            }
+            if (questionAnswerDummy4.ListOfAnswers != null)
+            {
+                ViewData["questionAnswerDummy4"] = new SelectList(questionAnswerDummy4.ListOfAnswers);
+            }
+            if (questionAnswerDummy5.ListOfAnswers != null)
+            {
+                ViewData["questionAnswerDummy5"] = new SelectList(questionAnswerDummy5.ListOfAnswers);
+            }
             return View(dummyList);
         }
 
@@ -168,7 +192,7 @@ namespace WebApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("NameOfQuestion, Id, QuestionId")] IEnumerable<PublicApi.DTO.v1.QuestionAnswerDummyV2> questionAnswerDummy)
+        public async Task<IActionResult> Edit(Guid id, [Bind("NameOfQuestion, Id, QuestionId, answerForQuestion1")] IEnumerable<PublicApi.DTO.v1.QuestionAnswerDummyV2> questionAnswerDummy)
         {
             if (ModelState.IsValid)
             {
@@ -178,6 +202,56 @@ namespace WebApp.Controllers
             return View(questionAnswerDummy);
         }
 
+        
+        
+        
+        
+        // GET: Quizzes/Answer/5
+        public async Task<IActionResult> Answer(Guid? id)
+        {
+            DAL.App.DTO.QuestionAnswer answerForQuestion = new DAL.App.DTO.QuestionAnswer();
+
+            var dummy= new PublicApi.DTO.v1.QuestionAnswer();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var quiz = await _context.Quizzes.FindAsync(id);
+            if (quiz == null)
+            {
+                return NotFound();
+            }
+            // Find quiz specific Questions
+            IEnumerable<DAL.App.DTO.Question> questions = await _bll.Questions.GetQuizQuestions(quiz.Id);
+            
+            // Find Answers to question
+            IEnumerable<DAL.App.DTO.QuestionAnswer> questionAnswer = await _bll.QuestionAnswers.GetQuestionAnswers(questions.First().Id);
+
+            
+            return View(dummy);
+        }
+
+        // POST: Quizzes/Answer/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Answer(Guid id, [Bind("NameOfQuestion, Id, QuestionId, answerForQuestion1")] PublicApi.DTO.v1.QuestionAnswer questionAnswerDummy)
+        {
+            if (ModelState.IsValid)
+            {
+
+                return RedirectToAction(nameof(Index));
+            }
+            return View(questionAnswerDummy);
+        }
+        
+        
+        
+        
+        
+        
         // POST: Quizzes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

@@ -1,4 +1,5 @@
 @using System.Collections
+@using System.Linq
 @model IEnumerable<PublicApi.DTO.v1.QuestionAnswerDummyV2>
 
 
@@ -34,31 +35,31 @@
             @if (ViewData["questionAnswerDummy1"] != null && i == 0)
             {
                 <td>
-                    @Html.DropDownList("SelectedEmployee", new SelectList((IEnumerable) ViewData["questionAnswerDummy1"]), "Id", "Answer")
+                    <select class="form-control" asp-items="ViewBag.questionAnswerDummy1"></select>
                 </td>
             }
             @if (ViewData["questionAnswerDummy2"] != null && i == 1)
             {
                 <td>
-                    @Html.DropDownList("SelectedEmployee", new SelectList((IEnumerable) ViewData["questionAnswerDummy2"]), "Id", "Answer")
+                      <select class="form-control" asp-items="ViewBag.questionAnswerDummy2"></select>
                 </td>
             }
             @if (ViewData["questionAnswerDummy3"] != null && i == 2)
             {
                 <td>
-                    @Html.DropDownList("SelectedEmployee", new SelectList((IEnumerable) ViewData["questionAnswerDummy3"]), "Id", "Answer")
+                     <select class="form-control" asp-items="ViewBag.questionAnswerDummy3"></select>
                 </td>
             }
             @if (ViewData["questionAnswerDummy4"] != null && i == 3)
             {
                 <td>
-                    @Html.DropDownList("SelectedEmployee", new SelectList((IEnumerable) ViewData["questionAnswerDummy4"]), "Id", "Answer")
+                  <select class="form-control" asp-items="ViewBag.questionAnswerDummy4"></select>
                 </td>
             }
             @if (ViewData["questionAnswerDummy5"] != null && i == 4)
             {
                 <td>
-                    @Html.DropDownList("SelectedEmployee", new SelectList((IEnumerable) ViewData["questionAnswerDummy5"]), "Id", "Answer")
+              <select class="form-control" asp-items="ViewBag.questionAnswerDummy5"></select>
                 </td>
             }
         </tr>
